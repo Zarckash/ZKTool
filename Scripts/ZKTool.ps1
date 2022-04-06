@@ -720,6 +720,17 @@ $MTB9.BackColor                  = $ButtonColor
 $MTPanel.Controls.Add($MTB9)
 $Position += 37
 
+# VisualFX Fix
+$MTB10                           = New-Object System.Windows.Forms.Button
+$MTB10.Text                      = "VisualFX Fix"
+$MTB10.Width                     = 215
+$MTB10.Height                    = 35
+$MTB10.Location                  = New-Object System.Drawing.Point(10,$Position)
+$MTB10.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$MTB10.BackColor                 = $ButtonColor
+$MTPanel.Controls.Add($MTB10)
+$Position += 37
+
 
             ##################################
             ########## PICTURE  BOX ##########
@@ -1327,6 +1338,16 @@ $MTB9.Add_Click({
     }else {
         $MTB9.BackColor = $ButtonColor
         $MTB9.ForeColor = $FormTextColor
+    }
+})
+
+$MTB10.Add_Click({
+    if ($MTB10.BackColor -eq $ButtonColor) {
+        $MTB10.BackColor = $TextColor
+        $MTB10.ForeColor = $BackGroundColor
+    }else {
+        $MTB10.BackColor = $ButtonColor
+        $MTB10.ForeColor = $FormTextColor
     }
 })
 
@@ -2002,7 +2023,16 @@ $StartScript.Add_Click({
             $Download.DownloadFile($FromPath+"/Apps/Autoruns.exe", $ToPath+"\Apps\Autoruns.exe")
             Start-Process ($ToPath+"\Apps\Autoruns.exe")
             $MTB9.BackColor = $TextColor
-        }    
+        }  
+        if ($MTB10.BackColor -eq $TextColor) { # VisualFX Fix
+            $statusbox.text = "|Ajustando Animaciones De Windows...`r`n" + $statusbox.text
+            $MTB10.BackColor = $ProcessingColor
+            $download.DownloadFile($frompath+"/Configs/VisualFX.png", $topath+"\Configs\VisualFX.png")
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 2
+            Start-Process $env:windir\system32\systempropertiesperformance.exe
+            Start-Process ($topath+"\CONF\VisualFX.png")
+            $MTB10.BackColor = $TextColor
+        }   
     }  
 
     $StartScript.BackColor = $ButtonColor
