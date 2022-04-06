@@ -5,8 +5,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 $ErrorActionPreference = 'SilentlyContinue'
 
-$file = "https://github.com/Zarckash/FORMATEO/releases/download/W10/PrimeVideo.appx"
-$filepath = "$env:userprofile\AppData\Local\Temp\FORMATEO\PROGRAMAS\PrimeVideo.appx"
+$file = "https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PrimeVideo.appx"
+$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\PROGRAMAS\PrimeVideo.appx"
 
 Write-Host "Descargando Amazon Prime Video..."
 

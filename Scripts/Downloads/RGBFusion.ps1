@@ -5,8 +5,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 $ErrorActionPreference = 'SilentlyContinue'
 
-$file = "https://github.com/Zarckash/FORMATEO/releases/download/W10/RGBFusion.exe"
-$filepath = "$env:userprofile\AppData\Local\Temp\FORMATEO\PROGRAMAS\RGBFusion.exe"
+$file = "https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/RGBFusion.exe"
+$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\PROGRAMAS\RGBFusion.exe"
 
 Write-Host "Descargando RGB Fusion..."
 

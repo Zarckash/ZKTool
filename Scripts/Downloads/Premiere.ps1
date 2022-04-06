@@ -5,8 +5,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 $ErrorActionPreference = 'SilentlyContinue'
 
-$file = "https://github.com/Zarckash/FORMATEO/releases/download/W10/PremierePortable.zip"
-$filepath = "$env:userprofile\AppData\Local\Temp\FORMATEO\PROGRAMAS\PremierePortable.zip"
+$file = "https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PremierePortable.zip"
+$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\PROGRAMAS\PremierePortable.zip"
 
 Write-Host "Descargando Premiere Portable..."
 
