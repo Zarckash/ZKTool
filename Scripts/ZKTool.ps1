@@ -1538,7 +1538,7 @@ $StartScript.Add_Click({
     if ($LB4.BackColor -eq $TextColor) { # Battle.Net
         $StatusBox.Text = "|Instalando Battle.Net...`r`n" + $StatusBox.Text
         $LB4.BackColor = $ProcessingColor
-        $tempfile = "https://www.battle.net/download/getInstallerForGame?os=win&gameProgram=BATTLENET_APP&version=Live&id=undefined"
+        $tempfile = "https://www.battle.net/D$Download/getInstallerForGame?os=win&gameProgram=BATTLENET_APP&version=Live&id=undefined"
         $Download.DownloadFile($tempfile, $ToPath+"\Apps\BattleNet.exe")
         Start-Process ($ToPath+"\Apps\BattleNet.exe")
         $LB4.BackColor = $TextColor
@@ -2025,12 +2025,12 @@ $StartScript.Add_Click({
             $MTB9.BackColor = $TextColor
         }  
         if ($MTB10.BackColor -eq $TextColor) { # VisualFX Fix
-            $statusbox.text = "|Ajustando Animaciones De Windows...`r`n" + $statusbox.text
+            $StatusBox.text = "|Ajustando Animaciones De Windows...`r`n" + $StatusBox.text
             $MTB10.BackColor = $ProcessingColor
-            $download.DownloadFile($frompath+"/Configs/VisualFX.png", $topath+"\Configs\VisualFX.png")
+            $Download.DownloadFile($FromPath+"/Configs/VisualFX.png", $ToPath+"\Configs\VisualFX.png")
             Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 2
             Start-Process $env:windir\system32\systempropertiesperformance.exe
-            Start-Process ($topath+"\CONF\VisualFX.png")
+            Start-Process ($ToPath+"\CONF\VisualFX.png")
             $MTB10.BackColor = $TextColor
         }   
     }  
