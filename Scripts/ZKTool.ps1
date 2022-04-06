@@ -2030,7 +2030,7 @@ $StartScript.Add_Click({
             $Download.DownloadFile($FromPath+"/Configs/VisualFX.png", $ToPath+"\Configs\VisualFX.png")
             Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 2
             Start-Process $env:windir\system32\systempropertiesperformance.exe
-            Start-Process ($ToPath+"\CONF\VisualFX.png")
+            Start-Process ($ToPath+"\Configs\VisualFX.png")
             $MTB10.BackColor = $TextColor
         }   
     }  
