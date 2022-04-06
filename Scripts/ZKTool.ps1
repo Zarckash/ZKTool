@@ -1446,7 +1446,7 @@ $StartScript.Add_Click({
             $StatusBox.Text = "|Instalando Netflix...`r`n" + $StatusBox.Text
             $MSB5.BackColor = $ProcessingColor
             $Download.DownloadFile($FromPath+"/Apps/Netflix.appx", $ToPath+"\Apps\Netflix.appx")
-            Add-AppxPackage ($ToPath+"\Apps\Netflix.appx")  
+            &{ $ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\Netflix.appx") }
             $MSB5.BackColor = $TextColor
         }
         if ($MSB6.BackColor -eq $TextColor) { # Prime Video
@@ -1545,7 +1545,7 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Instalando Xbox App...`r`n" + $StatusBox.Text
         $LB8.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Apps/XboxApp.appx", $ToPath+"\Apps\XboxApp.appx")
-        Add-AppxPackage ($ToPath+"\Apps\XboxApp.appx") 
+        &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\XboxApp.appx")} 
         $LB8.BackColor = $TextColor
     }
     if ($TB1.BackColor -eq $TextColor) { # Essential Tweaks
@@ -1705,6 +1705,7 @@ $StartScript.Add_Click({
     
         # Uninstall Microsoft Bloatware
         $StatusBox.Text = "|Desinstalando Microsoft Bloatware...`r`n" + $StatusBox.Text
+        &{ $ProgressPreference = 'SilentlyContinue'
         Get-AppxPackage -All "Microsoft.3DBuilder" | Remove-AppxPackage -AllUsers
         Get-AppxPackage -All "Microsoft.AppConnector" | Remove-AppxPackage -AllUsers
         Get-AppxPackage -All "Microsoft.BingFinance" | Remove-AppxPackage -AllUsers
@@ -1738,6 +1739,7 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "Microsoft.YourPhone" | Remove-AppxPackage -AllUsers
         Get-AppxPackage -All "MicrosoftWindows.Client.WebExperience" | Remove-AppxPackage -AllUsers
         Get-AppxPackage -All "MicrosoftTeams" | Remove-AppxPackage -AllUsers
+        }
         $TB1.BackColor = $TextColor
     }
     if ($TB2.BackColor -eq $TextColor) { # Extra Tweaks
@@ -1889,7 +1891,7 @@ $StartScript.Add_Click({
         }
         Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
         Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
-        Get-AppxPackage Microsoft.OneDriveSync | Remove-AppxPackage
+        &{ $ProgressPreference = 'SilentlyContinue'; Get-AppxPackage Microsoft.OneDriveSync | Remove-AppxPackage }
         $TB8.BackColor = $TextColor
     } 
     if ($TB9.BackColor -eq $TextColor) { # Uninstall Xbox Game Bar
@@ -1952,8 +1954,7 @@ $StartScript.Add_Click({
             $MTB4.BackColor = $ProcessingColor
             $Download.DownloadFile($FromPath+"/Apps/HEVC.appx", $ToPath+"\Apps\HEVC.appx")
             $Download.DownloadFile($FromPath+"/Apps/HEIF.appx", $ToPath+"\Apps\HEIF.appx")
-            Add-AppxPackage ($ToPath+"\Apps\HEVC.appx")
-            Add-AppxPackage ($ToPath+"\Apps\HEIF.appx")
+            &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\HEVC.appx"); Add-AppxPackage ($ToPath+"\Apps\HEIF.appx")}
             $MTB4.BackColor = $TextColor
         }  
         if ($MTB5.BackColor -eq $TextColor) { # Windows Terminal Fix
@@ -2019,6 +2020,10 @@ $StartScript.Add_Click({
     }
 
     $StatusBox.Text = "|Ready`r`n|Script Finalizado`r`n" + $StatusBox.Text
+})
+
+$Form.Add_Closing({
+    Remove-Item -Path "$env:userprofile\AppData\Local\Temp\ZKTool" -Recurse
 })
 
 [void]$Form.ShowDialog()
