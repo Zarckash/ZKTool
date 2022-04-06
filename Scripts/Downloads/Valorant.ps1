@@ -6,7 +6,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 $ErrorActionPreference = 'SilentlyContinue'
 
 $file = "https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/Valorant.exe"
-$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\PROGRAMAS\Valorant.exe"
+$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\Valorant.exe"
 
 Write-Host "Descargando Valorant..."
 

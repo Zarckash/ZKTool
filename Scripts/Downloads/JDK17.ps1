@@ -6,7 +6,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 $ErrorActionPreference = 'SilentlyContinue'
 
 $file = "https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/JDK17.exe"
-$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\PROGRAMAS\JDK17.exe"
+$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\JDK17.exe"
 
 Write-Host "Descargando JDK 17..."
 

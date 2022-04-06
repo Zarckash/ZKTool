@@ -6,7 +6,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 $ErrorActionPreference = 'SilentlyContinue'
 
 $file = "https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PhotoshopPortable.zip"
-$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\PROGRAMAS\PhotoshopPortable.zip"
+$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\PhotoshopPortable.zip"
 
 Write-Host "Descargando Photoshop Portable..."
 

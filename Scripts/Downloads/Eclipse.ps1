@@ -6,7 +6,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 $ErrorActionPreference = 'SilentlyContinue'
 
 $file = "https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/Eclipse.exe"
-$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\PROGRAMAS\Eclipse.exe"
+$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\Eclipse.exe"
 
 Write-Host "Descargando Eclipse IDE..."
 

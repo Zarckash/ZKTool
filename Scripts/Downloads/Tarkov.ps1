@@ -6,7 +6,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 $ErrorActionPreference = 'SilentlyContinue'
 
 $file = "https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/TarkovLauncher.exe"
-$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\PROGRAMAS\TarkovLauncher.exe"
+$filepath = "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\TarkovLauncher.exe"
 
 Write-Host "Descargando Escape From Tarkov..."
 
