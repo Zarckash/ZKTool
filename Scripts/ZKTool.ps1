@@ -770,6 +770,12 @@ $StartScript.BackColor           = $ButtonColor
 $StartScript.ForeColor           = $TextColor
 $SSPanel.Controls.Add($StartScript)
 
+
+            ##################################
+            ######### STATUS TEXTBOX #########
+            ##################################
+
+
 # Status TextBox
 $StatusBox                       = New-Object System.Windows.Forms.TextBox
 $StatusBox.multiline             = $true
@@ -782,6 +788,129 @@ $StatusBox.ForeColor             = $TextColor
 $StatusBox.ReadOnly              = $true
 $StatusBox.Text                  = "|Ready"
 $Form.Controls.Add($StatusBox)
+
+
+            ##################################
+            ########## HIDDEN PANEL ##########
+            ##################################
+
+
+# Hidden Panel
+$HPanel                          = New-Object System.Windows.Forms.Panel
+$HPanel.Height                   = 131
+$HPanel.Width                    = 699
+$HPanel.Location                 = New-Object System.Drawing.Point(($Location*0),500)
+
+# Hidden Panel Separator
+$HBP                             = New-Object System.Windows.Forms.Button
+$HBP.Width                       = 679
+$HBP.Height                      = 10
+$HBP.Location                    = New-Object System.Drawing.Point(10,5)
+$HBP.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HBP.BackColor                   = $TextColor
+$HBP.Enabled                     = $False
+$HPanel.Controls.Add($HBP)
+
+$Position = 20
+
+# Rufus
+$HB1                             = New-Object System.Windows.Forms.Button
+$HB1.Text                        = "Rufus"
+$HB1.Width                       = 215
+$HB1.Height                      = 35
+$HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
+$HB1.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB1.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB1)
+
+# MSI Afterburner Config
+$HB2                             = New-Object System.Windows.Forms.Button
+$HB2.Text                        = "Msi Afterburner Config"
+$HB2.Width                       = 215
+$HB2.Height                      = 35
+$HB2.Location                    = New-Object System.Drawing.Point(243,$Position)
+$HB2.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB2.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB2)
+
+# Discord Second Screen
+$HB3                             = New-Object System.Windows.Forms.Button
+$HB3.Text                        = "Discord Second Screen"
+$HB3.Width                       = 215
+$HB3.Height                      = 35
+$HB3.Location                    = New-Object System.Drawing.Point(476,$Position)
+$HB3.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB3.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB3)
+
+$Position += 37
+
+# Software RL
+$HB4                             = New-Object System.Windows.Forms.Button
+$HB4.Text                        = "Software RL"
+$HB4.Width                       = 215
+$HB4.Height                      = 35
+$HB4.Location                    = New-Object System.Drawing.Point(10,$Position)
+$HB4.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB4.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB4)
+
+# RGB Fusion
+$HB5                             = New-Object System.Windows.Forms.Button
+$HB5.Text                        = "RGB Fusion"
+$HB5.Width                       = 215
+$HB5.Height                      = 35
+$HB5.Location                    = New-Object System.Drawing.Point(243,$Position)
+$HB5.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB5.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB5)
+
+# JDK 17
+$HB6                             = New-Object System.Windows.Forms.Button
+$HB6.Text                        = "JDK 17"
+$HB6.Width                       = 215
+$HB6.Height                      = 35
+$HB6.Location                    = New-Object System.Drawing.Point(476,$Position)
+$HB6.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB6.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB6)
+
+$Position += 37
+
+# Eclipse IDE
+$HB7                             = New-Object System.Windows.Forms.Button
+$HB7.Text                        = "Eclipse IDE"
+$HB7.Width                       = 215
+$HB7.Height                      = 35
+$HB7.Location                    = New-Object System.Drawing.Point(10,$Position)
+$HB7.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB7.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB7)
+
+# Visual Studio Code
+$HB8                             = New-Object System.Windows.Forms.Button
+$HB8.Text                        = "Visual Studio Code"
+$HB8.Width                       = 215
+$HB8.Height                      = 35
+$HB8.Location                    = New-Object System.Drawing.Point(243,$Position)
+$HB8.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB8.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB8)
+
+# Game Settings
+$HB9                             = New-Object System.Windows.Forms.Button
+$HB9.Text                        = "Game Settings"
+$HB9.Width                       = 215
+$HB9.Height                      = 35
+$HB9.Location                    = New-Object System.Drawing.Point(476,$Position)
+$HB9.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HB9.BackColor                   = $ButtonColor
+$HPanel.Controls.Add($HB9)
+
+
+            ##################################
+            ######### PADDING BOTTOM #########
+            ##################################
 
 # Padding Bottom Panel
 $PaddingPanel                    = New-Object System.Windows.Forms.Panel
@@ -905,6 +1034,7 @@ $MoreS.Add_Click({
             $MoreS.BackColor = $TextColor
             $MoreS.ForeColor = $BackGroundColor
             $Form.Controls.Add($MSPanel)
+            $MSPanel.Width = 233
             $Form.Location                   = New-Object System.Drawing.Point(367, 190)
             $SLabel.Location                 = New-Object System.Drawing.Point((25+$Location/2),13)
             $SPanel.Location                 = New-Object System.Drawing.Point(($Location),44)
@@ -913,10 +1043,11 @@ $MoreS.Add_Click({
             $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location),13)
             $TPanel.Location                 = New-Object System.Drawing.Point(($Location*3),44)
             $LogoBox.Location                = New-Object System.Drawing.Point(($Location*2),354)
+            $HPanel.Location                 = New-Object System.Drawing.Point(($Location),500)
             $SSPanel.Width                  += $Location
             $StartScript.Width              += $Location
             $StatusBox.Width                += $Location
-        }  
+        }
 
         if ($MoreT.BackColor -eq $TextColor) {
             $MTPanel.Location                = New-Object System.Drawing.Point(($Location*4),44)
@@ -1352,7 +1483,100 @@ $MTB10.Add_Click({
 })
 
 $LogoBox.Add_Click({
-    iex ((New-Object System.Net.WebClient).DownloadString(("https://github.com/Zarckash/ZKTool/raw/main/Scripts/Hidden.ps1")))
+    $Form.Controls.Add($HPanel)
+    $SSPanel.Location                = New-Object System.Drawing.Point(($Location*0),(500+131))
+    $StatusBox.Location              = New-Object System.Drawing.Point(($Location*0+11),(549+131))
+    $PaddingPanel.Location           = New-Object System.Drawing.Point(($Location*0),(594+131))
+})
+
+$HB1.Add_Click({
+    if ($HB1.BackColor -eq $ButtonColor) {
+        $HB1.BackColor = $TextColor
+        $HB1.ForeColor = $BackGroundColor
+    }else {
+        $HB1.BackColor = $ButtonColor
+        $HB1.ForeColor = $FormTextColor
+    }
+})
+
+$HB2.Add_Click({
+    if ($HB2.BackColor -eq $ButtonColor) {
+        $HB2.BackColor = $TextColor
+        $HB2.ForeColor = $BackGroundColor
+    }else {
+        $HB2.BackColor = $ButtonColor
+        $HB2.ForeColor = $FormTextColor
+    }
+})
+
+$HB3.Add_Click({
+    if ($HB3.BackColor -eq $ButtonColor) {
+        $HB3.BackColor = $TextColor
+        $HB3.ForeColor = $BackGroundColor
+    }else {
+        $HB3.BackColor = $ButtonColor
+        $HB3.ForeColor = $FormTextColor
+    }
+})
+
+$HB4.Add_Click({
+    if ($HB4.BackColor -eq $ButtonColor) {
+        $HB4.BackColor = $TextColor
+        $HB4.ForeColor = $BackGroundColor
+    }else {
+        $HB4.BackColor = $ButtonColor
+        $HB4.ForeColor = $FormTextColor
+    }
+})
+
+$HB5.Add_Click({
+    if ($HB5.BackColor -eq $ButtonColor) {
+        $HB5.BackColor = $TextColor
+        $HB5.ForeColor = $BackGroundColor
+    }else {
+        $HB5.BackColor = $ButtonColor
+        $HB5.ForeColor = $FormTextColor
+    }
+})
+
+$HB6.Add_Click({
+    if ($HB6.BackColor -eq $ButtonColor) {
+        $HB6.BackColor = $TextColor
+        $HB6.ForeColor = $BackGroundColor
+    }else {
+        $HB6.BackColor = $ButtonColor
+        $HB6.ForeColor = $FormTextColor
+    }
+})
+
+$HB7.Add_Click({
+    if ($HB7.BackColor -eq $ButtonColor) {
+        $HB7.BackColor = $TextColor
+        $HB7.ForeColor = $BackGroundColor
+    }else {
+        $HB7.BackColor = $ButtonColor
+        $HB7.ForeColor = $FormTextColor
+    }
+})
+
+$HB8.Add_Click({
+    if ($HB8.BackColor -eq $ButtonColor) {
+        $HB8.BackColor = $TextColor
+        $HB8.ForeColor = $BackGroundColor
+    }else {
+        $HB8.BackColor = $ButtonColor
+        $HB8.ForeColor = $FormTextColor
+    }
+})
+
+$HB9.Add_Click({
+    if ($HB9.BackColor -eq $ButtonColor) {
+        $HB9.BackColor = $TextColor
+        $HB9.ForeColor = $BackGroundColor
+    }else {
+        $HB9.BackColor = $ButtonColor
+        $HB9.ForeColor = $FormTextColor
+    }
 })
 
 $StartScript.Add_Click({
@@ -1362,7 +1586,7 @@ $StartScript.Add_Click({
     $StartScript.ForeColor = $BackGroundColor
 
     $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
-    $ToPath = "$env:userprofile\AppData\Local\Temp\ZKTool"    # Folder Structure Path
+    $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path
     $Download = New-Object net.webclient
 
     if ($SB1.BackColor -eq $TextColor) { # Google Chrome
@@ -2033,14 +2257,74 @@ $StartScript.Add_Click({
             Start-Process ($ToPath+"\Configs\VisualFX.png")
             $MTB10.BackColor = $TextColor
         }   
-    }  
+    }
+    if ($HB1.BackColor -eq $TextColor) { # Rufus
+        $StatusBox.text = "|Iniciando Rufus...`r`n" + $StatusBox.text
+        $HB1.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Apps/Rufus.exe", $ToPath+"\Apps\Rufus.exe")
+        Start-Process ($ToPath+"\Apps\Rufus.exe")
+        $HB1.BackColor = $TextColor
+    } 
+    if ($HB2.BackColor -eq $TextColor) { # MSI Afterburner Config
+        $StatusBox.text = "|Configurando MSI Afterburner...`r`n" + $StatusBox.text
+        $HB2.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Configs/Profiles.zip", $ToPath+"\Configs\Profiles.zip")
+        Expand-Archive -Path ($ToPath+"\Configs\Profiles.zip") -DestinationPath 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
+        $HB2.BackColor = $TextColor
+    }   
+    if ($HB3.BackColor -eq $TextColor) { # Discord Second Screen
+        $StatusBox.text = "|Configurando Discord En El Monitor Derecho...`r`n" + $StatusBox.text
+        $HB3.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Configs/settings.json", $ToPath+"\Configs\settings.json")
+        Copy-Item -Path ($ToPath+"\Configs\settings.json") -DestinationPath "$env:userprofile\AppData\Roaming\discord" -Force
+        $HB3.BackColor = $TextColor
+    }   
+    if ($HB4.BackColor -eq $TextColor) { # Software RL
+        $StatusBox.text = "|Instalando Software RL...`r`n" + $StatusBox.text
+        $HB4.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Apps/RLSoftware.exe", $ToPath+"\Apps\RLSoftware.exe")
+        Start-Process ($ToPath+"\Apps\RLSoftware.exe")
+        $HB4.BackColor = $TextColor
+    }   
+    if ($HB5.BackColor -eq $TextColor) { # RGB Fusion
+        $StatusBox.text = "|Instalando RGB Fusion...`r`n" + $StatusBox.text
+        $HB5.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Scripts/Downloads/RGBFusion.ps1", $ToPath+"\Scripts\Downloads\RGBFusion.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\FORMATEO\Scripts\Downloads\RGBFusion.ps1 ; exit"
+        $HB5.BackColor = $TextColor
+    }   
+    if ($HB6.BackColor -eq $TextColor) { # JDK 17
+        $StatusBox.text = "|Instalando JDK 17...`r`n" + $StatusBox.text
+        $HB6.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Scripts/Downloads/JDK17.ps1", $ToPath+"\Scripts\Downloads\JDK17.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\FORMATEO\Scripts\Downloads\JDK17.ps1 ; exit"
+        $HB6.BackColor = $TextColor
+    }   
+    if ($HB7.BackColor -eq $TextColor) { # Eclipse IDE
+        $StatusBox.text = "|Instalando Eclipse IDE...`r`n" + $StatusBox.text
+        $HB7.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Scripts/Downloads/Eclipse.ps1", $ToPath+"\Scripts\Downloads\Eclipse.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\FORMATEO\Scripts\Downloads\Eclipse.ps1 ; exit"
+        $HB7.BackColor = $TextColor
+    }   
+    if ($HB8.BackColor -eq $TextColor) { # Visual Studio Code
+        $StatusBox.text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.text
+        $HB8.BackColor = $ProcessingColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-Null
+        $HB8.BackColor = $TextColor
+    }   
+    if ($HB9.BackColor -eq $TextColor) { # Game Settings
+        $StatusBox.text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.text
+        $HB9.BackColor = $ProcessingColor
+        $HB9.BackColor = $TextColor
+    }   
 
     $StartScript.BackColor = $ButtonColor
     $StartScript.ForeColor = $TextColor
 
     $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
                 $LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
-                $MTB7,$MTB8,$MTB9,$MTB10,$MTB11)
+                $MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
     
     foreach ($Button in $Buttons) {
         if ($Button.BackColor -eq $TextColor) {
