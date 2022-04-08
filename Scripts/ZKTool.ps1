@@ -34,7 +34,7 @@ $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "ZKTool"
 $Form.StartPosition              = "Manual"
-$Form.Location                   = New-Object System.Drawing.Point(610, 190)
+$Form.Location                   = New-Object System.Drawing.Point(605, 190)
 $Form.TopMost                    = $false
 $Form.BackColor                  = $BackGroundColor
 $Form.AutoScaleDimensions        = '192, 192'
@@ -1035,7 +1035,7 @@ $MoreS.Add_Click({
             $MoreS.ForeColor = $BackGroundColor
             $Form.Controls.Add($MSPanel)
             $MSPanel.Width = 233
-            $Form.Location                   = New-Object System.Drawing.Point(377, 190)
+            $Form.Location                   = New-Object System.Drawing.Point(372, 190)
             $SLabel.Location                 = New-Object System.Drawing.Point((25+$Location/2),13)
             $SPanel.Location                 = New-Object System.Drawing.Point(($Location),44)
             $LLabel.Location                 = New-Object System.Drawing.Point((252+$Location),13)
