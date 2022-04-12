@@ -1995,6 +1995,12 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Apps/PowerRun.exe", $ToPath+"\Apps\PowerRun.exe")
         $Download.DownloadFile($FromPath+"/Apps/RamCleaner.reg", $ToPath+"\Apps\RamCleaner.reg")
         Start-Process ($ToPath+"\Apps\PowerRun.exe") "%%PowerRunDir%%\RamCleaner.reg"
+
+        # Reduce svchost Process Amount
+        $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1kb
+        if ($RamCapacity -ige 16777216) {
+            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value $RamCapacity
+        }
     
         # Hide TaskBar View Button
         $StatusBox.Text = "|Ocultando Boton Vista De Tareas...`r`n" + $StatusBox.Text
