@@ -169,6 +169,8 @@ $ok.Add_Click({
     Remove-NetRoute -InterfaceAlias $interface
     New-NetIPAddress -InterfaceAlias $interface -AddressFamily IPv4 $ip -PrefixLength 24 -DefaultGateway $gateway | Out-Null
     Set-DnsClientServerAddress -InterfaceAlias $interface -ServerAddresses 8.8.8.8, $gateway
+    Disable-NetAdapter -Name $interface -Confirm:$false
+    Enable-NetAdapter -Name $interface -Confirm:$false
     Start-Sleep 5
     $Form.Close()
 })
