@@ -740,10 +740,10 @@ $Position += 37
 # PictureBox
 $LogoBox                         = New-Object System.Windows.Forms.PictureBox
 $LogoBox.Width                   = 233
-$LogoBox.Height                  = 145
-$LogoBox.Location                = New-Object System.Drawing.Point($Location,354)
+$LogoBox.Height                  = 125
+$LogoBox.Location                = New-Object System.Drawing.Point($Location,364)
 $LogoBox.imageLocation           = "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/ZKLogo.png"
-$LogoBox.SizeMode                = [System.Windows.Forms.PictureBoxSizeMode]::zoom
+$LogoBox.SizeMode                = "Zoom"
 $Form.Controls.Add($LogoBox)
 
 
@@ -1042,7 +1042,7 @@ $MoreS.Add_Click({
             $LPanel.Location                 = New-Object System.Drawing.Point(($Location*2),44)
             $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location),13)
             $TPanel.Location                 = New-Object System.Drawing.Point(($Location*3),44)
-            $LogoBox.Location                = New-Object System.Drawing.Point(($Location*2),354)
+            $LogoBox.Location                = New-Object System.Drawing.Point(($Location*2),364)
             $HPanel.Location                 = New-Object System.Drawing.Point(($Location),500)
             $SSPanel.Width                  += $Location
             $StartScript.Width              += $Location
