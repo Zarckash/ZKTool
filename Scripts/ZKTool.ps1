@@ -2327,7 +2327,7 @@ $StartScript.Add_Click({
     foreach ($Button in $Buttons) {
         if ($Button.BackColor -eq $TextColor) {
                 $Button.BackColor = $ButtonColor
-                $Button.ForeColor = $TextColor
+                $Button.ForeColor = $ProcessingColor
         }
     }
 
