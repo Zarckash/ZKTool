@@ -10,20 +10,11 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
-# Dark Or Light Theme
-if ((Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name AppsUseLightTheme | Select-Object -exp AppsUseLightTheme) -eq 0) {
-    $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#E9E9E9")
-    $BackGroundColor = [System.Drawing.ColorTranslator]::FromHtml("#363636")
-    $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFF0")
-    $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#464646")
-    $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#A85EE9")
-} else {
-    $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
-    $BackGroundColor = [System.Drawing.ColorTranslator]::FromHtml("#F3F3F3")
-    $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#A85EE9")
-    $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
-    $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFF0")
-}
+$FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
+$BackGroundColor = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
+$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
+$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
+$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
