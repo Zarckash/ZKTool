@@ -13,10 +13,10 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-Null
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-Null
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads -ItemType Directory | Out-Null
-Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Configs/ZKLogo.ico" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico" | Out-Null
+Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/ZKLogo.ico" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico" | Out-Null
 
 # Dark Or Light Theme
-if ((Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -name AppsUseLightTheme | select -exp AppsUseLightTheme) -eq 0) {
+if ((Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name AppsUseLightTheme | Select-Object -exp AppsUseLightTheme) -eq 0) {
     $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#E9E9E9")
     $BackGroundColor = [System.Drawing.ColorTranslator]::FromHtml("#363636")
     $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFF0")
@@ -2322,6 +2322,7 @@ $StartScript.Add_Click({
     if ($HB9.BackColor -eq $TextColor) { # Game Settings
         $StatusBox.text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.text
         $HB9.BackColor = $ProcessingColor
+        Iex (Iwr ($FromPath+"/Scripts/GameSettings.ps1"))
         $HB9.BackColor = $TextColor
     }   
 
