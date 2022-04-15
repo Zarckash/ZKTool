@@ -14,7 +14,6 @@ $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
 $BackGroundColor = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
-$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
