@@ -152,23 +152,36 @@ $B8.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B8)
 $Position += 172
 
+$FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
+$ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path
+$Download = New-Object net.webclient
+
+# Player Unknown Battlegrounds
 $B1.Add_Click({
     $B1.BackColor = $ProcessingColor
     $B1.ForeColor = $FormTextColor
+    $Download.DownloadFile($FromPath+"/Configs/Pubg.zip", $ToPath+"\Configs\Pubg.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\Pubg.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
     $B1.ForeColor = $ProcessingColor
     $B1.BackColor = $ButtonColor
 })
 
+# The Cycle: Frontier
 $B2.Add_Click({
     $B2.BackColor = $ProcessingColor
     $B2.ForeColor = $FormTextColor
+    $Download.DownloadFile($FromPath+"/Configs/TheCycleFrontier.zip", $ToPath+"\Configs\TheCycleFrontier.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\TheCycleFrontier.zip") -DestinationPath "$env:userprofile\AppData\Local\Prospect\Saved\Config\WindowsNoEditor" -Force
     $B2.ForeColor = $ProcessingColor
     $B2.BackColor = $ButtonColor
 })
 
+# World War 3
 $B3.Add_Click({
     $B3.BackColor = $ProcessingColor
     $B3.ForeColor = $FormTextColor
+    $Download.DownloadFile($FromPath+"/Configs/WorldWar3.zip", $ToPath+"\Configs\WorldWar3.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\WorldWar3.zip") -DestinationPath "$env:userprofile\AppData\Local\WW3\Saved\Config\WindowsClient" -Force
     $B3.ForeColor = $ProcessingColor
     $B3.BackColor = $ButtonColor
 })
