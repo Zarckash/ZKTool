@@ -775,7 +775,7 @@ $StatusBox.Height                = 45
 $StatusBox.Location              = New-Object System.Drawing.Point(($Location*0+11),549)
 $StatusBox.Font                  = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $StatusBox.BackColor             = $ButtonColor
-$StatusBox.ForeColor             = $TextColor
+$StatusBox.ForeColor             = $FormTextColor
 $StatusBox.ReadOnly              = $true
 $StatusBox.Text                  = "|Ready"
 $Form.Controls.Add($StatusBox)
@@ -2327,7 +2327,7 @@ $StartScript.Add_Click({
     foreach ($Button in $Buttons) {
         if ($Button.BackColor -eq $TextColor) {
                 $Button.BackColor = $ButtonColor
-                $Button.ForeColor = $ProcessingColor
+                $Button.ForeColor = $TextColor
         }
     }
 
