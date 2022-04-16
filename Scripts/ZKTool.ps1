@@ -310,37 +310,37 @@ $MSB9.BackColor                  = $ButtonColor
 $MSPanel.Controls.Add($MSB9)
 $Position += 37
 
-# Valorant
+# Void
 $MSB10                           = New-Object System.Windows.Forms.Button
-$MSB10.Text                      = "Valorant"
+$MSB10.Text                      = "Void"
 $MSB10.Width                     = 215
 $MSB10.Height                    = 35
 $MSB10.Location                  = New-Object System.Drawing.Point(10,$Position)
 $MSB10.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $MSB10.BackColor                 = $ButtonColor
-$MSPanel.Controls.Add($MSB10)
+#$MSPanel.Controls.Add($MSB10)
 $Position += 37
 
-# League of Legends
+# Void
 $MSB11                           = New-Object System.Windows.Forms.Button
-$MSB11.Text                      = "League of Legends"
+$MSB11.Text                      = "Void"
 $MSB11.Width                     = 215
 $MSB11.Height                    = 35
 $MSB11.Location                  = New-Object System.Drawing.Point(10,$Position)
 $MSB11.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $MSB11.BackColor                 = $ButtonColor
-$MSPanel.Controls.Add($MSB11)
+#$MSPanel.Controls.Add($MSB11)
 $Position += 37
 
-# Escape From Tarkov
+# Void
 $MSB12                           = New-Object System.Windows.Forms.Button
-$MSB12.Text                      = "Escape From Tarkov"
+$MSB12.Text                      = "Void"
 $MSB12.Width                     = 215
 $MSB12.Height                    = 35
 $MSB12.Location                  = New-Object System.Drawing.Point(10,$Position)
 $MSB12.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $MSB12.BackColor                 = $ButtonColor
-$MSPanel.Controls.Add($MSB12)
+#$MSPanel.Controls.Add($MSB12)
 $Position = 10
 
 
@@ -722,6 +722,16 @@ $MTB10.BackColor                 = $ButtonColor
 $MTPanel.Controls.Add($MTB10)
 $Position += 37
 
+# Void
+$MTB11                           = New-Object System.Windows.Forms.Button
+$MTB11.Text                      = "Void"
+$MTB11.Width                     = 215
+$MTB11.Height                    = 35
+$MTB11.Location                  = New-Object System.Drawing.Point(10,$Position)
+$MTB11.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$MTB11.BackColor                 = $ButtonColor
+#$MTPanel.Controls.Add($MTB11)
+
 
             ##################################
             ########## PICTURE  BOX ##########
@@ -782,6 +792,62 @@ $Form.Controls.Add($StatusBox)
 
 
             ##################################
+            ######## HIDDEN  SOFTWARE ########
+            ##################################
+
+
+# Hidden Software Panel
+$HSPanel                         = New-Object System.Windows.Forms.Panel
+$HSPanel.Height                  = 131
+$HSPanel.Width                   = 233
+$HSPanel.Location                = New-Object System.Drawing.Point(($Location*0),500)
+
+# Hidden Software Separator
+$HSS                             = New-Object System.Windows.Forms.Button
+$HSS.Width                       = 216
+$HSS.Height                      = 11
+$HSS.Location                    = New-Object System.Drawing.Point(10,3)
+$HSS.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HSS.BackColor                   = $TextColor
+$HSS.Enabled                     = $False
+$HSPanel.Controls.Add($HSS)
+
+$Position = 20
+
+# Valorant
+$HSB1                            = New-Object System.Windows.Forms.Button
+$HSB1.Text                       = "Valorant"
+$HSB1.Width                      = 215
+$HSB1.Height                     = 35
+$HSB1.Location                   = New-Object System.Drawing.Point(10,$Position)
+$HSB1.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HSB1.BackColor                  = $ButtonColor
+$HSPanel.Controls.Add($HSB1)
+$Position += 37
+
+# League of Legends
+$HSB2                            = New-Object System.Windows.Forms.Button
+$HSB2.Text                       = "League of Legends"
+$HSB2.Width                      = 215
+$HSB2.Height                     = 35
+$HSB2.Location                   = New-Object System.Drawing.Point(10,$Position)
+$HSB2.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HSB2.BackColor                  = $ButtonColor
+$HSPanel.Controls.Add($HSB2)
+$Position += 37
+
+# Escape From Tarkov
+$HSB3                            = New-Object System.Windows.Forms.Button
+$HSB3.Text                       = "Escape From Tarkov"
+$HSB3.Width                      = 215
+$HSB3.Height                     = 35
+$HSB3.Location                   = New-Object System.Drawing.Point(10,$Position)
+$HSB3.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HSB3.BackColor                  = $ButtonColor
+$HSPanel.Controls.Add($HSB3)
+
+
+            ##################################
             ########## HIDDEN PANEL ##########
             ##################################
 
@@ -793,14 +859,14 @@ $HPanel.Width                    = 699
 $HPanel.Location                 = New-Object System.Drawing.Point(($Location*0),500)
 
 # Hidden Panel Separator
-$HBP                             = New-Object System.Windows.Forms.Button
-$HBP.Width                       = 681
-$HBP.Height                      = 10
-$HBP.Location                    = New-Object System.Drawing.Point(10,5)
-$HBP.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HBP.BackColor                   = $TextColor
-$HBP.Enabled                     = $False
-$HPanel.Controls.Add($HBP)
+$HPS                             = New-Object System.Windows.Forms.Button
+$HPS.Width                       = 681
+$HPS.Height                      = 11
+$HPS.Location                    = New-Object System.Drawing.Point(10,3)
+$HPS.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HPS.BackColor                   = $ProcessingColor
+$HPS.Enabled                     = $False
+$HPanel.Controls.Add($HPS)
 
 $Position = 20
 
@@ -899,9 +965,67 @@ $HB9.BackColor                   = $ButtonColor
 $HPanel.Controls.Add($HB9)
 
 
+
+            ##################################
+            ######### HIDDEN  TWEAKS #########
+            ##################################
+
+
+# Hidden Tweaks Panel
+$HTPanel                         = New-Object System.Windows.Forms.Panel
+$HTPanel.Height                  = 131
+$HTPanel.Width                   = 233
+$HTPanel.Location                = New-Object System.Drawing.Point(($Location*3),500)
+
+# Hidden Tweaks Separator
+$HTS                             = New-Object System.Windows.Forms.Button
+$HTS.Width                       = 216
+$HTS.Height                      = 11
+$HTS.Location                    = New-Object System.Drawing.Point(10,3)
+$HTS.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HTS.BackColor                   = $TextColor
+$HTS.Enabled                     = $False
+$HTPanel.Controls.Add($HTS)
+
+$Position = 20
+
+# Void
+$HTB1                            = New-Object System.Windows.Forms.Button
+$HTB1.Text                       = "Void"
+$HTB1.Width                      = 215
+$HTB1.Height                     = 35
+$HTB1.Location                   = New-Object System.Drawing.Point(10,$Position)
+$HTB1.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HTB1.BackColor                  = $ButtonColor
+#$HTPanel.Controls.Add($HTB1)
+$Position += 37
+
+# Void
+$HTB2                            = New-Object System.Windows.Forms.Button
+$HTB2.Text                       = "Void"
+$HTB2.Width                      = 215
+$HTB2.Height                     = 35
+$HTB2.Location                   = New-Object System.Drawing.Point(10,$Position)
+$HTB2.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HTB2.BackColor                  = $ButtonColor
+#$HTPanel.Controls.Add($HTB2)
+$Position += 37
+
+# Void
+$HTB2                            = New-Object System.Windows.Forms.Button
+$HTB2.Text                       = "Void"
+$HTB2.Width                      = 215
+$HTB2.Height                     = 35
+$HTB2.Location                   = New-Object System.Drawing.Point(10,$Position)
+$HTB2.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$HTB2.BackColor                  = $ButtonColor
+#$HTPanel.Controls.Add($HTB2)
+
+
             ##################################
             ######### PADDING BOTTOM #########
             ##################################
+
 
 # Padding Bottom Panel
 $PaddingPanel                    = New-Object System.Windows.Forms.Panel
@@ -1035,6 +1159,7 @@ $MoreS.Add_Click({
             $TPanel.Location                 = New-Object System.Drawing.Point(($Location*3),44)
             $LogoBox.Location                = New-Object System.Drawing.Point(($Location*2),364)
             $HPanel.Location                 = New-Object System.Drawing.Point(($Location),500)
+            $HTPanel.Location                = New-Object System.Drawing.Point(($Location*4),500)
             $SSPanel.Width                  += $Location
             $StartScript.Width              += $Location
             $StatusBox.Width                += $Location
@@ -1043,6 +1168,10 @@ $MoreS.Add_Click({
         if ($MoreT.BackColor -eq $TextColor) {
             $MTPanel.Location                = New-Object System.Drawing.Point(($Location*4),44)
             $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location+($Location/2)),13)
+        }
+
+        if ($HPS.BackColor -eq $TextColor) {
+            $Form.Controls.Add($HSPanel)
         }
 })
 
@@ -1371,6 +1500,10 @@ $MoreT.Add_Click({
         $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location+($Location/2)),13)
         $MTPanel.Location                = New-Object System.Drawing.Point(($Location*4),44)
     }
+
+    if ($HPS.BackColor -eq $TextColor) {
+        $Form.Controls.Add($HTPanel)
+    }
 })
 
 $MTB1.Add_Click({
@@ -1478,6 +1611,45 @@ $LogoBox.Add_Click({
     $SSPanel.Location                = New-Object System.Drawing.Point(($Location*0),(500+131))
     $StatusBox.Location              = New-Object System.Drawing.Point(($Location*0+11),(549+131))
     $PaddingPanel.Location           = New-Object System.Drawing.Point(($Location*0),(594+131))
+    $HPS.BackColor                   = $TextColor
+
+    if ($MoreS.BackColor -eq $TextColor) {
+        $Form.Controls.Add($HSPanel)
+    }
+
+    if ($MoreT.BackColor -eq $TextColor) {
+        $Form.Controls.Add($HTPanel)
+    }
+})
+
+$HSB1.Add_Click({
+    if ($HSB1.BackColor -eq $ButtonColor) {
+        $HSB1.BackColor = $TextColor
+        $HSB1.ForeColor = $SelectedTextColor
+    }else {
+        $HSB1.BackColor = $ButtonColor
+        $HSB1.ForeColor = $FormTextColor
+    }
+})
+
+$HSB2.Add_Click({
+    if ($HSB2.BackColor -eq $ButtonColor) {
+        $HSB2.BackColor = $TextColor
+        $HSB2.ForeColor = $SelectedTextColor
+    }else {
+        $HSB2.BackColor = $ButtonColor
+        $HSB2.ForeColor = $FormTextColor
+    }
+})
+
+$HSB3.Add_Click({
+    if ($HSB3.BackColor -eq $ButtonColor) {
+        $HSB3.BackColor = $TextColor
+        $HSB3.ForeColor = $SelectedTextColor
+    }else {
+        $HSB3.BackColor = $ButtonColor
+        $HSB3.ForeColor = $FormTextColor
+    }
 })
 
 $HB1.Add_Click({
@@ -1711,24 +1883,19 @@ $StartScript.Add_Click({
             winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-Null
             $MSB9.BackColor = $TextColor
         }
-        if ($MSB10.BackColor -eq $TextColor) { # Valorant
-            $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
+        if ($MSB10.BackColor -eq $TextColor) { # Void
+            $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
             $MSB10.BackColor = $ProcessingColor
-            $Download.DownloadFile($FromPath+"/Scripts/Downloads/Valorant.ps1", $ToPath+"\Scripts\Downloads\Valorant.ps1")
-            Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads\Valorant.ps1 ; exit" 
             $MSB10.BackColor = $TextColor
         }
-        if ($MSB11.BackColor -eq $TextColor) { # League of Legends
-            $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
+        if ($MSB11.BackColor -eq $TextColor) { # Void
+            $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
             $MSB11.BackColor = $ProcessingColor
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-Null
             $MSB11.BackColor = $TextColor
         }
-        if ($MSB12.BackColor -eq $TextColor) { # Escape From Tarkov
-            $StatusBox.Text = "|Instalando Escape From Tarkov Launcher...`r`n" + $StatusBox.Text
+        if ($MSB12.BackColor -eq $TextColor) { # Void
+            $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
             $MSB12.BackColor = $ProcessingColor
-            $Download.DownloadFile($FromPath+"/Scripts/Downloads/Tarkov.ps1", $ToPath+"\Scripts\Downloads\Tarkov.ps1")
-            Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads\Tarkov.ps1 ; exit"
             $MSB12.BackColor = $TextColor
         }
     }
@@ -2254,6 +2421,31 @@ $StartScript.Add_Click({
             Start-Process ($ToPath+"\Configs\VisualFX.png")
             $MTB10.BackColor = $TextColor
         }   
+        if ($MTB11.BackColor -eq $TextColor) { # Void
+            $StatusBox.text = "|Void...`r`n" + $StatusBox.text
+            $MTB11.BackColor = $ProcessingColor
+            $MTB11.BackColor = $TextColor
+        } 
+    }
+    if ($HSB1.BackColor -eq $TextColor) {
+        $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
+        $HSB1.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Scripts/Downloads/Valorant.ps1", $ToPath+"\Scripts\Downloads\Valorant.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads\Valorant.ps1 ; exit" 
+        $HSB1.BackColor = $TextColor
+    }
+    if ($HSB2.BackColor -eq $TextColor) {
+        $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
+        $HSB2.BackColor = $ProcessingColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-Null
+        $HSB2.BackColor = $TextColor
+    }
+    if ($HSB3.BackColor -eq $TextColor) {
+        $StatusBox.Text = "|Instalando Escape From Tarkov...`r`n" + $StatusBox.Text
+        $HSB3.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Scripts/Downloads/Tarkov.ps1", $ToPath+"\Scripts\Downloads\Tarkov.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads\Tarkov.ps1 ; exit"
+        $HSB3.BackColor = $TextColor
     }
     if ($HB1.BackColor -eq $TextColor) { # Rufus
         $StatusBox.text = "|Iniciando Rufus...`r`n" + $StatusBox.text
@@ -2315,14 +2507,30 @@ $StartScript.Add_Click({
         $HB9.BackColor = $ProcessingColor
         Iex (Iwr ($FromPath+"/Scripts/GameSettings.ps1"))
         $HB9.BackColor = $TextColor
-    }   
+    }
+    if ($HTB1.BackColor -eq $TextColor) {
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $HTB1.BackColor = $ProcessingColor
+        $HTB1.BackColor = $TextColor
+    }
+    if ($HTB2.BackColor -eq $TextColor) {
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $HTB2.BackColor = $ProcessingColor
+        $HTB2.BackColor = $TextColor
+    }
+    if ($HTB3.BackColor -eq $TextColor) {
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $HTB3.BackColor = $ProcessingColor
+        $HTB3.BackColor = $TextColor
+    }
+       
 
     $StartScript.BackColor = $ButtonColor
     $StartScript.ForeColor = $TextColor
 
     $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
                 $LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
-                $MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
+                $MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HSB1,$HSB2,$HSB3,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9,$HTB1,$HTB2,$HTB3)
     
     foreach ($Button in $Buttons) {
         if ($Button.BackColor -eq $TextColor) {
