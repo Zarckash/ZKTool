@@ -11,9 +11,10 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 }
 
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
-$BackGroundColor = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
+$SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
+$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
@@ -21,7 +22,7 @@ $Form.Text                       = "Game Settings"
 $Form.StartPosition              = "Manual"
 $Form.Location                   = New-Object System.Drawing.Point(605, 190)
 $Form.TopMost                    = $false
-$Form.BackColor                  = $BackGroundColor
+$Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $Form.AutoScaleDimensions        = '192, 192'
 $Form.AutoScaleMode              = "Dpi"
 $Form.AutoSize                   = $True
@@ -55,14 +56,14 @@ $Position                        = 10
 
 # Software Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
-$Panel.Height                    = 120
+$Panel.Height                    = 60
 $Panel.Width                     = 699
 $Panel.Location                  = New-Object System.Drawing.Point(($Location*0),55)
 $Form.Controls.Add($Panel)
 
-# Google Chrome
+# Player Unknown Battlegrounds
 $B1                              = New-Object System.Windows.Forms.Button
-$B1.Text                         = "Juego"
+$B1.Text                         = "Player Unknown Battlegrounds"
 $B1.Width                        = 165
 $B1.Height                       = 50
 $B1.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -71,9 +72,9 @@ $B1.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B1)
 $Position += 172
 
-# Google Chrome
+# The Cycle: Frontier
 $B2                              = New-Object System.Windows.Forms.Button
-$B2.Text                         = "Juego"
+$B2.Text                         = "The Cycle: Frontier"
 $B2.Width                        = 165
 $B2.Height                       = 50
 $B2.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -82,9 +83,9 @@ $B2.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B2)
 $Position += 172
 
-# Google Chrome
+# World War 3
 $B3                              = New-Object System.Windows.Forms.Button
-$B3.Text                         = "Juego"
+$B3.Text                         = "World War 3"
 $B3.Width                        = 165
 $B3.Height                       = 50
 $B3.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -93,9 +94,9 @@ $B3.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B3)
 $Position += 172
 
-# Google Chrome
+# 
 $B4                              = New-Object System.Windows.Forms.Button
-$B4.Text                         = "Juego"
+$B4.Text                         = ""
 $B4.Width                        = 165
 $B4.Height                       = 50
 $B4.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -151,4 +152,59 @@ $B8.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B8)
 $Position += 172
 
+$B1.Add_Click({
+    $B1.BackColor = $ProcessingColor
+    $B1.ForeColor = $FormTextColor
+    $B1.ForeColor = $ProcessingColor
+    $B1.BackColor = $ButtonColor
+})
+
+$B2.Add_Click({
+    $B2.BackColor = $ProcessingColor
+    $B2.ForeColor = $FormTextColor
+    $B2.ForeColor = $ProcessingColor
+    $B2.BackColor = $ButtonColor
+})
+
+$B3.Add_Click({
+    $B3.BackColor = $ProcessingColor
+    $B3.ForeColor = $FormTextColor
+    $B3.ForeColor = $ProcessingColor
+    $B3.BackColor = $ButtonColor
+})
+
+$B4.Add_Click({
+    $B4.BackColor = $ProcessingColor
+    $B4.ForeColor = $FormTextColor
+    $B4.ForeColor = $ProcessingColor
+    $B4.BackColor = $ButtonColor
+})
+
+$B5.Add_Click({
+    $B5.BackColor = $ProcessingColor
+    $B5.ForeColor = $FormTextColor
+    $B5.ForeColor = $ProcessingColor
+    $B5.BackColor = $ButtonColor
+})
+
+$B6.Add_Click({
+    $B6.BackColor = $ProcessingColor
+    $B6.ForeColor = $FormTextColor
+    $B6.ForeColor = $ProcessingColor
+    $B6.BackColor = $ButtonColor
+})
+
+$B7.Add_Click({
+    $B7.BackColor = $ProcessingColor
+    $B7.ForeColor = $FormTextColor
+    $B7.ForeColor = $ProcessingColor
+    $B7.BackColor = $ButtonColor
+})
+
+$B8.Add_Click({
+    $B8.BackColor = $ProcessingColor
+    $B8.ForeColor = $FormTextColor
+    $B8.ForeColor = $ProcessingColor
+    $B8.BackColor = $ButtonColor
+})
 [void]$Form.ShowDialog()

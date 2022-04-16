@@ -16,7 +16,7 @@ New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads -ItemType 
 Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/ZKLogo.ico" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico" | Out-Null
 
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
-$BackGroundColor = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
+$SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
@@ -27,7 +27,7 @@ $Form.Text                       = "ZKTool"
 $Form.StartPosition              = "Manual"
 $Form.Location                   = New-Object System.Drawing.Point(605, 190)
 $Form.TopMost                    = $false
-$Form.BackColor                  = $BackGroundColor
+$Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $Form.AutoScaleDimensions        = '192, 192'
 $Form.AutoScaleMode              = "Dpi"
 $Form.AutoSize                   = $True
@@ -794,7 +794,7 @@ $HPanel.Location                 = New-Object System.Drawing.Point(($Location*0)
 
 # Hidden Panel Separator
 $HBP                             = New-Object System.Windows.Forms.Button
-$HBP.Width                       = 679
+$HBP.Width                       = 681
 $HBP.Height                      = 10
 $HBP.Location                    = New-Object System.Drawing.Point(10,5)
 $HBP.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
@@ -913,7 +913,7 @@ $Form.Controls.Add($PaddingPanel)
 $SB1.Add_Click({
     if ($SB1.BackColor -eq $ButtonColor) {
         $SB1.BackColor = $TextColor
-        $SB1.ForeColor = $BackGroundColor
+        $SB1.ForeColor = $SelectedTextColor
     }else {
         $SB1.BackColor = $ButtonColor
         $SB1.ForeColor = $FormTextColor
@@ -923,7 +923,7 @@ $SB1.Add_Click({
 $SB2.Add_Click({
     if ($SB2.BackColor -eq $ButtonColor) {
         $SB2.BackColor = $TextColor
-        $SB2.ForeColor = $BackGroundColor
+        $SB2.ForeColor = $SelectedTextColor
     }else {
         $SB2.BackColor = $ButtonColor
         $SB2.ForeColor = $FormTextColor
@@ -933,7 +933,7 @@ $SB2.Add_Click({
 $SB3.Add_Click({
     if ($SB3.BackColor -eq $ButtonColor) {
         $SB3.BackColor = $TextColor
-        $SB3.ForeColor = $BackGroundColor
+        $SB3.ForeColor = $SelectedTextColor
     }else {
         $SB3.BackColor = $ButtonColor
         $SB3.ForeColor = $FormTextColor
@@ -943,7 +943,7 @@ $SB3.Add_Click({
 $SB4.Add_Click({
     if ($SB4.BackColor -eq $ButtonColor) {
         $SB4.BackColor = $TextColor
-        $SB4.ForeColor = $BackGroundColor
+        $SB4.ForeColor = $SelectedTextColor
     }else {
         $SB4.BackColor = $ButtonColor
         $SB4.ForeColor = $FormTextColor
@@ -953,7 +953,7 @@ $SB4.Add_Click({
 $SB5.Add_Click({
     if ($SB5.BackColor -eq $ButtonColor) {
         $SB5.BackColor = $TextColor
-        $SB5.ForeColor = $BackGroundColor
+        $SB5.ForeColor = $SelectedTextColor
     }else {
         $SB5.BackColor = $ButtonColor
         $SB5.ForeColor = $FormTextColor
@@ -963,7 +963,7 @@ $SB5.Add_Click({
 $SB6.Add_Click({
     if ($SB6.BackColor -eq $ButtonColor) {
         $SB6.BackColor = $TextColor
-        $SB6.ForeColor = $BackGroundColor
+        $SB6.ForeColor = $SelectedTextColor
     }else {
         $SB6.BackColor = $ButtonColor
         $SB6.ForeColor = $FormTextColor
@@ -973,7 +973,7 @@ $SB6.Add_Click({
 $SB7.Add_Click({
     if ($SB7.BackColor -eq $ButtonColor) {
         $SB7.BackColor = $TextColor
-        $SB7.ForeColor = $BackGroundColor
+        $SB7.ForeColor = $SelectedTextColor
     }else {
         $SB7.BackColor = $ButtonColor
         $SB7.ForeColor = $FormTextColor
@@ -983,7 +983,7 @@ $SB7.Add_Click({
 $SB8.Add_Click({
     if ($SB8.BackColor -eq $ButtonColor) {
         $SB8.BackColor = $TextColor
-        $SB8.ForeColor = $BackGroundColor
+        $SB8.ForeColor = $SelectedTextColor
     }else {
         $SB8.BackColor = $ButtonColor
         $SB8.ForeColor = $FormTextColor
@@ -993,7 +993,7 @@ $SB8.Add_Click({
 $SB9.Add_Click({
     if ($SB9.BackColor -eq $ButtonColor) {
         $SB9.BackColor = $TextColor
-        $SB9.ForeColor = $BackGroundColor
+        $SB9.ForeColor = $SelectedTextColor
     }else {
         $SB9.BackColor = $ButtonColor
         $SB9.ForeColor = $FormTextColor
@@ -1003,7 +1003,7 @@ $SB9.Add_Click({
 $SB10.Add_Click({
     if ($SB10.BackColor -eq $ButtonColor) {
         $SB10.BackColor = $TextColor
-        $SB10.ForeColor = $BackGroundColor
+        $SB10.ForeColor = $SelectedTextColor
     }else {
         $SB10.BackColor = $ButtonColor
         $SB10.ForeColor = $FormTextColor
@@ -1013,7 +1013,7 @@ $SB10.Add_Click({
 $SB11.Add_Click({
     if ($SB11.BackColor -eq $ButtonColor) {
         $SB11.BackColor = $TextColor
-        $SB11.ForeColor = $BackGroundColor
+        $SB11.ForeColor = $SelectedTextColor
     }else {
         $SB11.BackColor = $ButtonColor
         $SB11.ForeColor = $FormTextColor
@@ -1023,7 +1023,7 @@ $SB11.Add_Click({
 $MoreS.Add_Click({
         if ($MoreS.BackColor -eq $ButtonColor) {
             $MoreS.BackColor = $TextColor
-            $MoreS.ForeColor = $BackGroundColor
+            $MoreS.ForeColor = $SelectedTextColor
             $Form.Controls.Add($MSPanel)
             $MSPanel.Width = 233
             $Form.Location                   = New-Object System.Drawing.Point(372, 190)
@@ -1049,7 +1049,7 @@ $MoreS.Add_Click({
 $MSB1.Add_Click({
     if ($MSB1.BackColor -eq $ButtonColor) {
         $MSB1.BackColor = $TextColor
-        $MSB1.ForeColor = $BackGroundColor
+        $MSB1.ForeColor = $SelectedTextColor
     }else {
         $MSB1.BackColor = $ButtonColor
         $MSB1.ForeColor = $FormTextColor
@@ -1059,7 +1059,7 @@ $MSB1.Add_Click({
 $MSB2.Add_Click({
     if ($MSB2.BackColor -eq $ButtonColor) {
         $MSB2.BackColor = $TextColor
-        $MSB2.ForeColor = $BackGroundColor
+        $MSB2.ForeColor = $SelectedTextColor
     }else {
         $MSB2.BackColor = $ButtonColor
         $MSB2.ForeColor = $FormTextColor
@@ -1069,7 +1069,7 @@ $MSB2.Add_Click({
 $MSB3.Add_Click({
     if ($MSB3.BackColor -eq $ButtonColor) {
         $MSB3.BackColor = $TextColor
-        $MSB3.ForeColor = $BackGroundColor
+        $MSB3.ForeColor = $SelectedTextColor
     }else {
         $MSB3.BackColor = $ButtonColor
         $MSB3.ForeColor = $FormTextColor
@@ -1079,7 +1079,7 @@ $MSB3.Add_Click({
 $MSB4.Add_Click({
     if ($MSB4.BackColor -eq $ButtonColor) {
         $MSB4.BackColor = $TextColor
-        $MSB4.ForeColor = $BackGroundColor
+        $MSB4.ForeColor = $SelectedTextColor
     }else {
         $MSB4.BackColor = $ButtonColor
         $MSB4.ForeColor = $FormTextColor
@@ -1089,7 +1089,7 @@ $MSB4.Add_Click({
 $MSB5.Add_Click({
     if ($MSB5.BackColor -eq $ButtonColor) {
         $MSB5.BackColor = $TextColor
-        $MSB5.ForeColor = $BackGroundColor
+        $MSB5.ForeColor = $SelectedTextColor
     }else {
         $MSB5.BackColor = $ButtonColor
         $MSB5.ForeColor = $FormTextColor
@@ -1099,7 +1099,7 @@ $MSB5.Add_Click({
 $MSB6.Add_Click({
     if ($MSB6.BackColor -eq $ButtonColor) {
         $MSB6.BackColor = $TextColor
-        $MSB6.ForeColor = $BackGroundColor
+        $MSB6.ForeColor = $SelectedTextColor
     }else {
         $MSB6.BackColor = $ButtonColor
         $MSB6.ForeColor = $FormTextColor
@@ -1109,7 +1109,7 @@ $MSB6.Add_Click({
 $MSB7.Add_Click({
     if ($MSB7.BackColor -eq $ButtonColor) {
         $MSB7.BackColor = $TextColor
-        $MSB7.ForeColor = $BackGroundColor
+        $MSB7.ForeColor = $SelectedTextColor
     }else {
         $MSB7.BackColor = $ButtonColor
         $MSB7.ForeColor = $FormTextColor
@@ -1119,7 +1119,7 @@ $MSB7.Add_Click({
 $MSB8.Add_Click({
     if ($MSB8.BackColor -eq $ButtonColor) {
         $MSB8.BackColor = $TextColor
-        $MSB8.ForeColor = $BackGroundColor
+        $MSB8.ForeColor = $SelectedTextColor
     }else {
         $MSB8.BackColor = $ButtonColor
         $MSB8.ForeColor = $FormTextColor
@@ -1129,7 +1129,7 @@ $MSB8.Add_Click({
 $MSB9.Add_Click({
     if ($MSB9.BackColor -eq $ButtonColor) {
         $MSB9.BackColor = $TextColor
-        $MSB9.ForeColor = $BackGroundColor
+        $MSB9.ForeColor = $SelectedTextColor
     }else {
         $MSB9.BackColor = $ButtonColor
         $MSB9.ForeColor = $FormTextColor
@@ -1139,7 +1139,7 @@ $MSB9.Add_Click({
 $MSB10.Add_Click({
     if ($MSB10.BackColor -eq $ButtonColor) {
         $MSB10.BackColor = $TextColor
-        $MSB10.ForeColor = $BackGroundColor
+        $MSB10.ForeColor = $SelectedTextColor
     }else {
         $MSB10.BackColor = $ButtonColor
         $MSB10.ForeColor = $FormTextColor
@@ -1149,7 +1149,7 @@ $MSB10.Add_Click({
 $MSB11.Add_Click({
     if ($MSB11.BackColor -eq $ButtonColor) {
         $MSB11.BackColor = $TextColor
-        $MSB11.ForeColor = $BackGroundColor
+        $MSB11.ForeColor = $SelectedTextColor
     }else {
         $MSB11.BackColor = $ButtonColor
         $MSB11.ForeColor = $FormTextColor
@@ -1159,7 +1159,7 @@ $MSB11.Add_Click({
 $MSB12.Add_Click({
     if ($MSB12.BackColor -eq $ButtonColor) {
         $MSB12.BackColor = $TextColor
-        $MSB12.ForeColor = $BackGroundColor
+        $MSB12.ForeColor = $SelectedTextColor
     }else {
         $MSB12.BackColor = $ButtonColor
         $MSB12.ForeColor = $FormTextColor
@@ -1169,7 +1169,7 @@ $MSB12.Add_Click({
 $LB1.Add_Click({
     if ($LB1.BackColor -eq $ButtonColor) {
         $LB1.BackColor = $TextColor
-        $LB1.ForeColor = $BackGroundColor
+        $LB1.ForeColor = $SelectedTextColor
     }else {
         $LB1.BackColor = $ButtonColor
         $LB1.ForeColor = $FormTextColor
@@ -1179,7 +1179,7 @@ $LB1.Add_Click({
 $LB2.Add_Click({
     if ($LB2.BackColor -eq $ButtonColor) {
         $LB2.BackColor = $TextColor
-        $LB2.ForeColor = $BackGroundColor
+        $LB2.ForeColor = $SelectedTextColor
     }else {
         $LB2.BackColor = $ButtonColor
         $LB2.ForeColor = $FormTextColor
@@ -1189,7 +1189,7 @@ $LB2.Add_Click({
 $LB3.Add_Click({
     if ($LB3.BackColor -eq $ButtonColor) {
         $LB3.BackColor = $TextColor
-        $LB3.ForeColor = $BackGroundColor
+        $LB3.ForeColor = $SelectedTextColor
     }else {
         $LB3.BackColor = $ButtonColor
         $LB3.ForeColor = $FormTextColor
@@ -1199,7 +1199,7 @@ $LB3.Add_Click({
 $LB4.Add_Click({
     if ($LB4.BackColor -eq $ButtonColor) {
         $LB4.BackColor = $TextColor
-        $LB4.ForeColor = $BackGroundColor
+        $LB4.ForeColor = $SelectedTextColor
     }else {
         $LB4.BackColor = $ButtonColor
         $LB4.ForeColor = $FormTextColor
@@ -1209,7 +1209,7 @@ $LB4.Add_Click({
 $LB5.Add_Click({
     if ($LB5.BackColor -eq $ButtonColor) {
         $LB5.BackColor = $TextColor
-        $LB5.ForeColor = $BackGroundColor
+        $LB5.ForeColor = $SelectedTextColor
     }else {
         $LB5.BackColor = $ButtonColor
         $LB5.ForeColor = $FormTextColor
@@ -1219,7 +1219,7 @@ $LB5.Add_Click({
 $LB6.Add_Click({
     if ($LB6.BackColor -eq $ButtonColor) {
         $LB6.BackColor = $TextColor
-        $LB6.ForeColor = $BackGroundColor
+        $LB6.ForeColor = $SelectedTextColor
     }else {
         $LB6.BackColor = $ButtonColor
         $LB6.ForeColor = $FormTextColor
@@ -1229,7 +1229,7 @@ $LB6.Add_Click({
 $LB7.Add_Click({
     if ($LB7.BackColor -eq $ButtonColor) {
         $LB7.BackColor = $TextColor
-        $LB7.ForeColor = $BackGroundColor
+        $LB7.ForeColor = $SelectedTextColor
     }else {
         $LB7.BackColor = $ButtonColor
         $LB7.ForeColor = $FormTextColor
@@ -1239,7 +1239,7 @@ $LB7.Add_Click({
 $LB8.Add_Click({
     if ($LB8.BackColor -eq $ButtonColor) {
         $LB8.BackColor = $TextColor
-        $LB8.ForeColor = $BackGroundColor
+        $LB8.ForeColor = $SelectedTextColor
     }else {
         $LB8.BackColor = $ButtonColor
         $LB8.ForeColor = $FormTextColor
@@ -1249,7 +1249,7 @@ $LB8.Add_Click({
 $TB1.Add_Click({
     if ($TB1.BackColor -eq $ButtonColor) {
         $TB1.BackColor = $TextColor
-        $TB1.ForeColor = $BackGroundColor
+        $TB1.ForeColor = $SelectedTextColor
     }else {
         $TB1.BackColor = $ButtonColor
         $TB1.ForeColor = $FormTextColor
@@ -1259,7 +1259,7 @@ $TB1.Add_Click({
 $TB2.Add_Click({
     if ($TB2.BackColor -eq $ButtonColor) {
         $TB2.BackColor = $TextColor
-        $TB2.ForeColor = $BackGroundColor
+        $TB2.ForeColor = $SelectedTextColor
     }else {
         $TB2.BackColor = $ButtonColor
         $TB2.ForeColor = $FormTextColor
@@ -1269,7 +1269,7 @@ $TB2.Add_Click({
 $TB3.Add_Click({
     if ($TB3.BackColor -eq $ButtonColor) {
         $TB3.BackColor = $TextColor
-        $TB3.ForeColor = $BackGroundColor
+        $TB3.ForeColor = $SelectedTextColor
     }else {
         $TB3.BackColor = $ButtonColor
         $TB3.ForeColor = $FormTextColor
@@ -1279,7 +1279,7 @@ $TB3.Add_Click({
 $TB4.Add_Click({
     if ($TB4.BackColor -eq $ButtonColor) {
         $TB4.BackColor = $TextColor
-        $TB4.ForeColor = $BackGroundColor
+        $TB4.ForeColor = $SelectedTextColor
     }else {
         $TB4.BackColor = $ButtonColor
         $TB4.ForeColor = $FormTextColor
@@ -1289,7 +1289,7 @@ $TB4.Add_Click({
 $TB5.Add_Click({
     if ($TB5.BackColor -eq $ButtonColor) {
         $TB5.BackColor = $TextColor
-        $TB5.ForeColor = $BackGroundColor
+        $TB5.ForeColor = $SelectedTextColor
     }else {
         $TB5.BackColor = $ButtonColor
         $TB5.ForeColor = $FormTextColor
@@ -1299,7 +1299,7 @@ $TB5.Add_Click({
 $TB6.Add_Click({
     if ($TB6.BackColor -eq $ButtonColor) {
         $TB6.BackColor = $TextColor
-        $TB6.ForeColor = $BackGroundColor
+        $TB6.ForeColor = $SelectedTextColor
     }else {
         $TB6.BackColor = $ButtonColor
         $TB6.ForeColor = $FormTextColor
@@ -1309,7 +1309,7 @@ $TB6.Add_Click({
 $TB7.Add_Click({
     if ($TB7.BackColor -eq $ButtonColor) {
         $TB7.BackColor = $TextColor
-        $TB7.ForeColor = $BackGroundColor
+        $TB7.ForeColor = $SelectedTextColor
     }else {
         $TB7.BackColor = $ButtonColor
         $TB7.ForeColor = $FormTextColor
@@ -1319,7 +1319,7 @@ $TB7.Add_Click({
 $TB8.Add_Click({
     if ($TB8.BackColor -eq $ButtonColor) {
         $TB8.BackColor = $TextColor
-        $TB8.ForeColor = $BackGroundColor
+        $TB8.ForeColor = $SelectedTextColor
     }else {
         $TB8.BackColor = $ButtonColor
         $TB8.ForeColor = $FormTextColor
@@ -1329,7 +1329,7 @@ $TB8.Add_Click({
 $TB9.Add_Click({
     if ($TB9.BackColor -eq $ButtonColor) {
         $TB9.BackColor = $TextColor
-        $TB9.ForeColor = $BackGroundColor
+        $TB9.ForeColor = $SelectedTextColor
     }else {
         $TB9.BackColor = $ButtonColor
         $TB9.ForeColor = $FormTextColor
@@ -1339,7 +1339,7 @@ $TB9.Add_Click({
 $TB10.Add_Click({
     if ($TB10.BackColor -eq $ButtonColor) {
         $TB10.BackColor = $TextColor
-        $TB10.ForeColor = $BackGroundColor
+        $TB10.ForeColor = $SelectedTextColor
     }else {
         $TB10.BackColor = $ButtonColor
         $TB10.ForeColor = $FormTextColor
@@ -1349,7 +1349,7 @@ $TB10.Add_Click({
 $TB11.Add_Click({
     if ($TB11.BackColor -eq $ButtonColor) {
         $TB11.BackColor = $TextColor
-        $TB11.ForeColor = $BackGroundColor
+        $TB11.ForeColor = $SelectedTextColor
     }else {
         $TB11.BackColor = $ButtonColor
         $TB11.ForeColor = $FormTextColor
@@ -1359,7 +1359,7 @@ $TB11.Add_Click({
 $MoreT.Add_Click({
     if ($MoreT.BackColor -eq $ButtonColor) {
     $MoreT.BackColor = $TextColor
-    $MoreT.ForeColor = $BackGroundColor
+    $MoreT.ForeColor = $SelectedTextColor
     $Form.Controls.Add($MTPanel)
     $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location/2),13)
     $SSPanel.Width                  += $Location
@@ -1376,7 +1376,7 @@ $MoreT.Add_Click({
 $MTB1.Add_Click({
     if ($MTB1.BackColor -eq $ButtonColor) {
         $MTB1.BackColor = $TextColor
-        $MTB1.ForeColor = $BackGroundColor
+        $MTB1.ForeColor = $SelectedTextColor
     }else {
         $MTB1.BackColor = $ButtonColor
         $MTB1.ForeColor = $FormTextColor
@@ -1386,7 +1386,7 @@ $MTB1.Add_Click({
 $MTB2.Add_Click({
     if ($MTB2.BackColor -eq $ButtonColor) {
         $MTB2.BackColor = $TextColor
-        $MTB2.ForeColor = $BackGroundColor
+        $MTB2.ForeColor = $SelectedTextColor
     }else {
         $MTB2.BackColor = $ButtonColor
         $MTB2.ForeColor = $FormTextColor
@@ -1396,7 +1396,7 @@ $MTB2.Add_Click({
 $MTB3.Add_Click({
     if ($MTB3.BackColor -eq $ButtonColor) {
         $MTB3.BackColor = $TextColor
-        $MTB3.ForeColor = $BackGroundColor
+        $MTB3.ForeColor = $SelectedTextColor
     }else {
         $MTB3.BackColor = $ButtonColor
         $MTB3.ForeColor = $FormTextColor
@@ -1406,7 +1406,7 @@ $MTB3.Add_Click({
 $MTB4.Add_Click({
     if ($MTB4.BackColor -eq $ButtonColor) {
         $MTB4.BackColor = $TextColor
-        $MTB4.ForeColor = $BackGroundColor
+        $MTB4.ForeColor = $SelectedTextColor
     }else {
         $MTB4.BackColor = $ButtonColor
         $MTB4.ForeColor = $FormTextColor
@@ -1416,7 +1416,7 @@ $MTB4.Add_Click({
 $MTB5.Add_Click({
     if ($MTB5.BackColor -eq $ButtonColor) {
         $MTB5.BackColor = $TextColor
-        $MTB5.ForeColor = $BackGroundColor
+        $MTB5.ForeColor = $SelectedTextColor
     }else {
         $MTB5.BackColor = $ButtonColor
         $MTB5.ForeColor = $FormTextColor
@@ -1426,7 +1426,7 @@ $MTB5.Add_Click({
 $MTB6.Add_Click({
     if ($MTB6.BackColor -eq $ButtonColor) {
         $MTB6.BackColor = $TextColor
-        $MTB6.ForeColor = $BackGroundColor
+        $MTB6.ForeColor = $SelectedTextColor
     }else {
         $MTB6.BackColor = $ButtonColor
         $MTB6.ForeColor = $FormTextColor
@@ -1436,7 +1436,7 @@ $MTB6.Add_Click({
 $MTB7.Add_Click({
     if ($MTB7.BackColor -eq $ButtonColor) {
         $MTB7.BackColor = $TextColor
-        $MTB7.ForeColor = $BackGroundColor
+        $MTB7.ForeColor = $SelectedTextColor
     }else {
         $MTB7.BackColor = $ButtonColor
         $MTB7.ForeColor = $FormTextColor
@@ -1446,7 +1446,7 @@ $MTB7.Add_Click({
 $MTB8.Add_Click({
     if ($MTB8.BackColor -eq $ButtonColor) {
         $MTB8.BackColor = $TextColor
-        $MTB8.ForeColor = $BackGroundColor
+        $MTB8.ForeColor = $SelectedTextColor
     }else {
         $MTB8.BackColor = $ButtonColor
         $MTB8.ForeColor = $FormTextColor
@@ -1456,7 +1456,7 @@ $MTB8.Add_Click({
 $MTB9.Add_Click({
     if ($MTB9.BackColor -eq $ButtonColor) {
         $MTB9.BackColor = $TextColor
-        $MTB9.ForeColor = $BackGroundColor
+        $MTB9.ForeColor = $SelectedTextColor
     }else {
         $MTB9.BackColor = $ButtonColor
         $MTB9.ForeColor = $FormTextColor
@@ -1466,7 +1466,7 @@ $MTB9.Add_Click({
 $MTB10.Add_Click({
     if ($MTB10.BackColor -eq $ButtonColor) {
         $MTB10.BackColor = $TextColor
-        $MTB10.ForeColor = $BackGroundColor
+        $MTB10.ForeColor = $SelectedTextColor
     }else {
         $MTB10.BackColor = $ButtonColor
         $MTB10.ForeColor = $FormTextColor
@@ -1483,7 +1483,7 @@ $LogoBox.Add_Click({
 $HB1.Add_Click({
     if ($HB1.BackColor -eq $ButtonColor) {
         $HB1.BackColor = $TextColor
-        $HB1.ForeColor = $BackGroundColor
+        $HB1.ForeColor = $SelectedTextColor
     }else {
         $HB1.BackColor = $ButtonColor
         $HB1.ForeColor = $FormTextColor
@@ -1493,7 +1493,7 @@ $HB1.Add_Click({
 $HB2.Add_Click({
     if ($HB2.BackColor -eq $ButtonColor) {
         $HB2.BackColor = $TextColor
-        $HB2.ForeColor = $BackGroundColor
+        $HB2.ForeColor = $SelectedTextColor
     }else {
         $HB2.BackColor = $ButtonColor
         $HB2.ForeColor = $FormTextColor
@@ -1503,7 +1503,7 @@ $HB2.Add_Click({
 $HB3.Add_Click({
     if ($HB3.BackColor -eq $ButtonColor) {
         $HB3.BackColor = $TextColor
-        $HB3.ForeColor = $BackGroundColor
+        $HB3.ForeColor = $SelectedTextColor
     }else {
         $HB3.BackColor = $ButtonColor
         $HB3.ForeColor = $FormTextColor
@@ -1513,7 +1513,7 @@ $HB3.Add_Click({
 $HB4.Add_Click({
     if ($HB4.BackColor -eq $ButtonColor) {
         $HB4.BackColor = $TextColor
-        $HB4.ForeColor = $BackGroundColor
+        $HB4.ForeColor = $SelectedTextColor
     }else {
         $HB4.BackColor = $ButtonColor
         $HB4.ForeColor = $FormTextColor
@@ -1523,7 +1523,7 @@ $HB4.Add_Click({
 $HB5.Add_Click({
     if ($HB5.BackColor -eq $ButtonColor) {
         $HB5.BackColor = $TextColor
-        $HB5.ForeColor = $BackGroundColor
+        $HB5.ForeColor = $SelectedTextColor
     }else {
         $HB5.BackColor = $ButtonColor
         $HB5.ForeColor = $FormTextColor
@@ -1533,7 +1533,7 @@ $HB5.Add_Click({
 $HB6.Add_Click({
     if ($HB6.BackColor -eq $ButtonColor) {
         $HB6.BackColor = $TextColor
-        $HB6.ForeColor = $BackGroundColor
+        $HB6.ForeColor = $SelectedTextColor
     }else {
         $HB6.BackColor = $ButtonColor
         $HB6.ForeColor = $FormTextColor
@@ -1543,7 +1543,7 @@ $HB6.Add_Click({
 $HB7.Add_Click({
     if ($HB7.BackColor -eq $ButtonColor) {
         $HB7.BackColor = $TextColor
-        $HB7.ForeColor = $BackGroundColor
+        $HB7.ForeColor = $SelectedTextColor
     }else {
         $HB7.BackColor = $ButtonColor
         $HB7.ForeColor = $FormTextColor
@@ -1553,7 +1553,7 @@ $HB7.Add_Click({
 $HB8.Add_Click({
     if ($HB8.BackColor -eq $ButtonColor) {
         $HB8.BackColor = $TextColor
-        $HB8.ForeColor = $BackGroundColor
+        $HB8.ForeColor = $SelectedTextColor
     }else {
         $HB8.BackColor = $ButtonColor
         $HB8.ForeColor = $FormTextColor
@@ -1563,7 +1563,7 @@ $HB8.Add_Click({
 $HB9.Add_Click({
     if ($HB9.BackColor -eq $ButtonColor) {
         $HB9.BackColor = $TextColor
-        $HB9.ForeColor = $BackGroundColor
+        $HB9.ForeColor = $SelectedTextColor
     }else {
         $HB9.BackColor = $ButtonColor
         $HB9.ForeColor = $FormTextColor
@@ -1574,7 +1574,7 @@ $StartScript.Add_Click({
     $StatusBox.Text = "|Iniciando Script...`r`n" + $StatusBox.Text
 
     $StartScript.BackColor = $TextColor
-    $StartScript.ForeColor = $BackGroundColor
+    $StartScript.ForeColor = $SelectedTextColor
 
     $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
     $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path

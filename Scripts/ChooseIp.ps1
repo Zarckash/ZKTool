@@ -11,16 +11,17 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 }
 
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
-$BackGroundColor = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
+$SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
+$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "Seleccionar IP"
 $Form.StartPosition              = "CenterScreen"
-$Form.TopMost                    = $false
-$Form.BackColor                  = $BackGroundColor
+$Form.TopMost                    = $False
+$Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $Form.AutoScaleDimensions        = '192, 192'
 $Form.AutoScaleMode              = "Dpi"
 $Form.AutoSize                   = $True
@@ -32,130 +33,133 @@ $Form.ForeColor                  = $FormTextColor
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico")
 
 # Search IPs Panel
-$Panel1                          = New-Object system.Windows.Forms.Panel
-$Panel1.height                   = 37 # Button Draw Size + Padding Bottom
-$Panel1.width                    = 258
-$Panel1.location                 = New-Object System.Drawing.Point(0,10)
-$Form.Controls.Add($Panel1)
+$Panel                           = New-Object System.Windows.Forms.Panel
+$Panel.height                    = 37 # Button Draw Size + Padding Bottom
+$Panel.width                     = 258
+$Panel.location                  = New-Object System.Drawing.Point(0,10)
+$Form.Controls.Add($Panel)
 
 # Search IPs Button
-$searchip                        = New-Object system.Windows.Forms.Button
-$searchip.text                   = "Buscar IPs"
-$searchip.width                  = 240
-$searchip.height                 = 35
-$searchip.location               = New-Object System.Drawing.Point(10,0)
-$searchip.Font                   = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$searchip.BackColor              = $buttoncolor
-$Panel1.Controls.Add($searchip)
+$SearchIP                        = New-Object System.Windows.Forms.Button
+$SearchIP.text                   = "Buscar IPs"
+$SearchIP.width                  = 240
+$SearchIP.height                 = 35
+$SearchIP.location               = New-Object System.Drawing.Point(10,0)
+$SearchIP.Font                   = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$SearchIP.BackColor              = $ButtonColor
+$Panel.Controls.Add($SearchIP)
 
 # Avaible IPs Label
-$Label1                          = New-Object system.Windows.Forms.Label
-$Label1.text                     = "IPs Disponibles:"
-$Label1.AutoSize                 = $true
-$Label1.width                    = 230
-$Label1.height                   = 35
-$Label1.location                 = New-Object System.Drawing.Point(8,55)
-$Label1.Font                     = New-Object System.Drawing.Font('Ubuntu Mono',14)
-$Label1.ForeColor                = $textcolor
-$Form.Controls.Add($Label1)
+$AvaibleIPsLabel                 = New-Object System.Windows.Forms.Label
+$AvaibleIPsLabel.text            = "IPs Disponibles:"
+$AvaibleIPsLabel.AutoSize        = $True
+$AvaibleIPsLabel.width           = 230
+$AvaibleIPsLabel.height          = 35
+$AvaibleIPsLabel.location        = New-Object System.Drawing.Point(8,55)
+$AvaibleIPsLabel.Font            = New-Object System.Drawing.Font('Ubuntu Mono',14)
+$AvaibleIPsLabel.ForeColor       = $TextColor
+$Form.Controls.Add($AvaibleIPsLabel)
 
 # Avaible IPs
-$avaibleips                      = New-Object system.Windows.Forms.Label
-$avaibleips.width                = 245
-$avaibleips.height               = 45
-$avaibleips.location             = New-Object System.Drawing.Point(8,80)
-$avaibleips.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$avaibleips.ForeColor            = $formtextcolor
-$Form.Controls.Add($avaibleips)
+$AvaibleIPs                      = New-Object System.Windows.Forms.Label
+$AvaibleIPs.width                = 245
+$AvaibleIPs.height               = 45
+$AvaibleIPs.location             = New-Object System.Drawing.Point(8,80)
+$AvaibleIPs.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$AvaibleIPs.ForeColor            = $FormTextColor
+$Form.Controls.Add($AvaibleIPs)
 
-# Avaible IPs Label
-$Label2                          = New-Object system.Windows.Forms.Label
-$Label2.text                     = "Seleccionar IP:"
-$Label2.AutoSize                 = $true
-$Label2.width                    = 230
-$Label2.height                   = 25
-$Label2.location                 = New-Object System.Drawing.Point(8,145)
-$Label2.Font                     = New-Object System.Drawing.Font('Ubuntu Mono',14)
-$Label2.ForeColor                = $textcolor
-$Form.Controls.Add($Label2)
+# Choose IP Label
+$ChooseIPLabel                   = New-Object System.Windows.Forms.Label
+$ChooseIPLabel.text              = "Seleccionar IP:"
+$ChooseIPLabel.AutoSize          = $True
+$ChooseIPLabel.width             = 230
+$ChooseIPLabel.height            = 25
+$ChooseIPLabel.location          = New-Object System.Drawing.Point(8,145)
+$ChooseIPLabel.Font              = New-Object System.Drawing.Font('Ubuntu Mono',14)
+$ChooseIPLabel.ForeColor         = $TextColor
+$Form.Controls.Add($ChooseIPLabel)
 
 # Input TextBox
-$inputbox                        = New-Object system.Windows.Forms.TextBox
-$inputbox.width                  = 238
-$inputbox.height                 = 35
-$inputbox.location               = New-Object System.Drawing.Point(11,170)
-$inputbox.Font                   = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$inputbox.AcceptsReturn          = $true
-$inputbox.Text                   = (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10)
-$inputbox.BackColor              = $buttoncolor
-$inputbox.ForeColor              = $textcolor
-$Form.Controls.Add($inputbox)
+$InputBox                        = New-Object System.Windows.Forms.TextBox
+$InputBox.width                  = 238
+$InputBox.height                 = 35
+$InputBox.location               = New-Object System.Drawing.Point(11,170)
+$InputBox.Font                   = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$InputBox.AcceptsReturn          = $True
+$InputBox.Text                   = (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10)
+$InputBox.BackColor              = $ButtonColor
+$InputBox.ForeColor              = $FormTextColor
+$Form.Controls.Add($InputBox)
 
 # Choose IP Panel
-$Panel2                          = New-Object system.Windows.Forms.Panel
+$Panel2                          = New-Object System.Windows.Forms.Panel
 $Panel2.height                   = 37+18 # Button Draw Size + Padding Bottom
 $Panel2.width                    = 258
 $Panel2.location                 = New-Object System.Drawing.Point(0,195)
 $Form.Controls.Add($Panel2)
 
 # Cancel Button
-$cancel                          = New-Object system.Windows.Forms.Button
-$cancel.text                     = "Cancelar"
-$cancel.width                    = 117
-$cancel.height                   = 35
-$cancel.location                 = New-Object System.Drawing.Point(10,10)
-$cancel.Font                     = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$cancel.BackColor                = $buttoncolor
-$Panel2.Controls.Add($cancel)
+$Cancel                          = New-Object System.Windows.Forms.Button
+$Cancel.text                     = "Cancelar"
+$Cancel.width                    = 117
+$Cancel.height                   = 35
+$Cancel.location                 = New-Object System.Drawing.Point(10,10)
+$Cancel.Font                     = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$Cancel.BackColor                = $ButtonColor
+$Panel2.Controls.Add($Cancel)
 
 # Accept Button
-$ok                              = New-Object system.Windows.Forms.Button
-$ok.text                         = "Aceptar"
-$ok.width                        = 117
-$ok.height                       = 35
-$ok.location                     = New-Object System.Drawing.Point(133,10)
-$ok.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$ok.BackColor                    = $buttoncolor
-$ok.ForeColor                    = $textcolor
-$Panel2.Controls.Add($ok)
+$Accept                          = New-Object System.Windows.Forms.Button
+$Accept.text                     = "Aceptar"
+$Accept.width                    = 117
+$Accept.height                   = 35
+$Accept.location                 = New-Object System.Drawing.Point(133,10)
+$Accept.Font                     = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$Accept.BackColor                = $ButtonColor
+$Accept.ForeColor                = $TextColor
+$Panel2.Controls.Add($Accept)
 
-$gateway = Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
+$Gateway = Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
 
 # Search IPs Button
-$searchip.Add_Click({
-    $condition = $false
+$SearchIP.Add_Click({
+    $SearchIP.BackColor = $ProcessingColor
+    $Condition = $False
 
-    while (!($condition)) {
+    while (!($Condition)) {
 
-        $found=0
-        for ($hop = 24; $found -lt 6 -and $hop -lt 100; $hop++) {
-            $testip = $gateway.Substring(0,10) + $hop
-            if (!(Test-Connection $testip -Count 1 -Quiet)) {
-                $avaibleips.Text += "$testip    "
-                $found++
+        $Found=0
+        for ($Hop = 24; $Found -lt 6 -and $Hop -lt 100; $Hop++) {
+            $TestIP = $Gateway.Substring(0,10) + $Hop
+            if (!(Test-Connection $TestIP -Count 1 -Quiet)) {
+                $AvaibleIPs.Text += "$TestIP    "
+                $Found++
             }
         }
-        $condition = $true
+        $Condition = $True
     }
+    $SearchIP.BackColor = $ButtonColor
 })
 
 # Cancel Button
-$cancel.Add_Click({
+$Cancel.Add_Click({
     $Form.Close()
 })
 
 # Accept Button
-$ok.Add_Click({
-    $ip = ($inputbox.Lines).Substring(0,12)
-    $statusbox.text = "|Estableciendo IP Estatica A $ip...`r`n" + $statusbox.text
+$Accept.Add_Click({
+    $Accept.BackColor = $ProcessingColor
+    $IP = ($InputBox.Lines).Substring(0,12)
+    $StatusBox.text = "|Estableciendo IP Estatica A $IP...`r`n" + $StatusBox.text
 
-    $interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
-    Remove-NetIPAddress -InterfaceAlias $interface
-    Remove-NetRoute -InterfaceAlias $interface
-    New-NetIPAddress -InterfaceAlias $interface -AddressFamily IPv4 $ip -PrefixLength 24 -DefaultGateway $gateway | Out-Null
-    Set-DnsClientServerAddress -InterfaceAlias $interface -ServerAddresses 8.8.8.8, $gateway
-    Disable-NetAdapter -Name $interface -Confirm:$false
-    Enable-NetAdapter -Name $interface -Confirm:$false
+    $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
+    Remove-NetIPAddress -InterfaceAlias $Interface
+    Remove-NetRoute -InterfaceAlias $Interface
+    New-NetIPAddress -InterfaceAlias $Interface -AddressFamily IPv4 $IP -PrefixLength 24 -DefaultGateway $Gateway | Out-Null
+    Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses 8.8.8.8, $Gateway
+    Disable-NetAdapter -Name $Interface -Confirm:$False
+    Enable-NetAdapter -Name $Interface -Confirm:$False
     Start-Sleep 5
     $Form.Close()
 })
