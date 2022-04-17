@@ -1608,9 +1608,9 @@ $MTB10.Add_Click({
 
 $LogoBox.Add_Click({
     $Form.Controls.Add($HPanel)
-    $SSPanel.Location                = New-Object System.Drawing.Point(($Location*0),(500+131))
-    $StatusBox.Location              = New-Object System.Drawing.Point(($Location*0+11),(549+131))
-    $PaddingPanel.Location           = New-Object System.Drawing.Point(($Location*0),(594+131))
+    $SSPanel.Location                = New-Object System.Drawing.Point(($Location*0),(500+135))
+    $StatusBox.Location              = New-Object System.Drawing.Point(($Location*0+11),(549+135))
+    $PaddingPanel.Location           = New-Object System.Drawing.Point(($Location*0),(594+135))
     $HPS.BackColor                   = $TextColor
 
     if ($MoreS.BackColor -eq $TextColor) {
