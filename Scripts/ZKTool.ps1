@@ -2159,6 +2159,9 @@ $StartScript.Add_Click({
         if ($RamCapacity -ige 16777216) {
             Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value $RamCapacity
         }
+
+        # Keep Windows From Creating DumpStack.log File
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
     
         # Hide TaskBar View Button
         $StatusBox.Text = "|Ocultando Boton Vista De Tareas...`r`n" + $StatusBox.Text
@@ -2427,20 +2430,20 @@ $StartScript.Add_Click({
             $MTB11.BackColor = $TextColor
         } 
     }
-    if ($HSB1.BackColor -eq $TextColor) {
+    if ($HSB1.BackColor -eq $TextColor) { # Valorant
         $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
         $HSB1.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Scripts/Downloads/Valorant.ps1", $ToPath+"\Scripts\Downloads\Valorant.ps1")
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads\Valorant.ps1 ; exit" 
         $HSB1.BackColor = $TextColor
     }
-    if ($HSB2.BackColor -eq $TextColor) {
+    if ($HSB2.BackColor -eq $TextColor) { # League of Legends
         $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
         $HSB2.BackColor = $ProcessingColor
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-Null
         $HSB2.BackColor = $TextColor
     }
-    if ($HSB3.BackColor -eq $TextColor) {
+    if ($HSB3.BackColor -eq $TextColor) { # Escape From Tarkov
         $StatusBox.Text = "|Instalando Escape From Tarkov...`r`n" + $StatusBox.Text
         $HSB3.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Scripts/Downloads/Tarkov.ps1", $ToPath+"\Scripts\Downloads\Tarkov.ps1")
@@ -2524,7 +2527,6 @@ $StartScript.Add_Click({
         $HTB3.BackColor = $TextColor
     }
        
-
     $StartScript.BackColor = $ButtonColor
     $StartScript.ForeColor = $TextColor
 
