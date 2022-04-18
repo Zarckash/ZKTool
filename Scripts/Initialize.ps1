@@ -22,9 +22,9 @@ if (!(Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe)) {
 }  
 
 if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\UbuntuMono*)) {
-	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/FontUbuntuMono.zip" -OutFile $env:userprofile\AppData\Local\Temp\ZKTool\Configs\FontUbuntuMono.zip
-    Expand-Archive $env:userprofile\AppData\Local\Temp\ZKTool\Configs\FontUbuntuMono.zip $env:userprofile\AppData\Local\Temp\ZKTool\Configs\FontUbuntuMono -Force
-    Start-Process $env:userprofile\AppData\Local\Temp\ZKTool\Configs\UbuntuMonoFont\Install.exe
+	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/FontUbuntuMono.zip" -OutFile $env:userprofile\AppData\Local\Temp\FontUbuntuMono.zip
+    Expand-Archive $env:userprofile\AppData\Local\Temp\FontUbuntuMono.zip $env:userprofile\AppData\Local\Temp\FontUbuntuMono -Force
+    Start-Process $env:userprofile\AppData\Local\Temp\UbuntuMonoFont\Install.exe
     Start-Sleep 10
 }
 
