@@ -2114,39 +2114,39 @@ $StartScript.Add_Click({
         # Uninstall Microsoft Bloatware
         $StatusBox.Text = "|Desinstalando Microsoft Bloatware...`r`n" + $StatusBox.Text
         &{ $ProgressPreference = 'SilentlyContinue'
-        Get-AppxPackage -All "Microsoft.3DBuilder" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.AppConnector" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.BingFinance" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.BingNews" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.BingSports" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.BingTranslator" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.BingWeather" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.CommsPhone" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.ConnectivityStore" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.GetHelp" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.Getstarted" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.Messaging" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.Microsoft3DViewer" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.MicrosoftPowerBIForWindows" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.MicrosoftStickyNotes" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.NetworkSpeedTest" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.Office.OneNote" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.Office.Sway" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.OneConnect" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.People" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.Print3D" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.Wallet" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.WindowsAlarms" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.WindowsCamera" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "microsoft.windowscommunicationsapps" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.WindowsFeedbackHub" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.WindowsMaps" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.WindowsPhone" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.WindowsSoundRecorder" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "Microsoft.YourPhone" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "MicrosoftWindows.Client.WebExperience" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage -All "MicrosoftTeams" | Remove-AppxPackage -AllUsers
+        Get-AppxPackage -All "Microsoft.3DBuilder" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.AppConnector" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.BingFinance" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.BingNews" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.BingSports" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.BingTranslator" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.BingWeather" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.CommsPhone" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.ConnectivityStore" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.GetHelp" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.Getstarted" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.Messaging" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.Microsoft3DViewer" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.MicrosoftPowerBIForWindows" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.MicrosoftStickyNotes" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.NetworkSpeedTest" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.Office.OneNote" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.Office.Sway" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.OneConnect" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.People" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.Print3D" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.Wallet" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.WindowsAlarms" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.WindowsCamera" | Remove-AppxPackage 
+        Get-AppxPackage -All "microsoft.windowscommunicationsapps" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.WindowsFeedbackHub" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.WindowsMaps" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.WindowsPhone" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.WindowsSoundRecorder" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.YourPhone" | Remove-AppxPackage 
+        Get-AppxPackage -All "MicrosoftWindows.Client.WebExperience" | Remove-AppxPackage 
+        Get-AppxPackage -All "MicrosoftTeams" | Remove-AppxPackage 
         }
         $TB1.BackColor = $TextColor
     }
@@ -2310,10 +2310,10 @@ $StartScript.Add_Click({
     if ($TB9.BackColor -eq $TextColor) { # Uninstall Xbox Game Bar
         $StatusBox.Text = "|Desinstalando Xbox Game Bar...`r`n" + $StatusBox.Text
         $TB9.BackColor = $ProcessingColor
-        Get-AppxPackage "Microsoft.XboxGamingOverlay" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage -AllUsers
-        Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage -AllUsers
+        Get-AppxPackage "Microsoft.XboxGamingOverlay" | Remove-AppxPackage 
+        Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage 
+        Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage 
+        Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage 
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
         $TB9.BackColor = $TextColor
