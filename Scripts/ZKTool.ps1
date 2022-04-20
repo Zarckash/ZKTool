@@ -1375,6 +1375,11 @@ $LB8.Add_Click({
     }
 })
 
+$TLabel.Add_Click({
+    Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Info.txt" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
+    Start-Process "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
+})
+
 $TB1.Add_Click({
     if ($TB1.BackColor -eq $ButtonColor) {
         $TB1.BackColor = $TextColor
@@ -2189,10 +2194,6 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
     
-        # Disable Transparency Effects
-        $StatusBox.Text = "|Desactivando Efectos De Transparencia...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "EnableTransparency" -Type DWord -Value 0
-    
         # Clipboard History
         $StatusBox.Text = "|Activando El Historial Del Portapapeles...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
@@ -2241,7 +2242,7 @@ $StartScript.Add_Click({
         $TB4.BackColor = $TextColor
     } 
     if ($TB5.BackColor -eq $TextColor) { # Hide Shortcut Arrows
-        $StatusBox.Text = "|Ocultando Flechas De Acceso Rapido...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "|Ocultando Flechas De Acceso Directo...`r`n" + $StatusBox.Text
         $TB5.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Configs/Blank.ico", $ToPath+"\Configs\Blank.ico")
         Unblock-File ($ToPath+"\Configs\Blank.ico")
