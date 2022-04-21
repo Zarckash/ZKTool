@@ -19,8 +19,8 @@ $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 $Location = 233 # Sets Each Panel Location
 $XRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentHorizontalResolution" # Resolucion Horizontal
 $YRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentVerticalResolution" # Resolucion Vertical
-$FormXLocation = ($XRes / 2) - (258 / 2)
-$FormYLocation = ($YRes / 2) - (602 / 2) - 70
+$FormXLocation = ($XRes / 2) - (258 / 2) - 15
+$FormYLocation = ($YRes / 2) - (602 / 2) - 85
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
