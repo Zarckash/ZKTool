@@ -13,14 +13,14 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
 $SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
-$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
+$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3F434B")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $Location = 233 # Sets Each Panel Location
 $XRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentHorizontalResolution" # Resolucion Horizontal
 $YRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentVerticalResolution" # Resolucion Vertical
-$FormXLocation = ($XRes / 2) - (258 / 2) - 15
-$FormYLocation = ($YRes / 2) - (602 / 2) - 85
+$FormXLocation = ($XRes / 2) - (258 / 2) - 5
+$FormYLocation = ($YRes / 2) - (602 / 2) - 90
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
