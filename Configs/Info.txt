@@ -59,6 +59,7 @@ EXTRA TWEAKS
 - Evita que Windows cree el archivo dumpstack.log en la carpeta raiz
 - Oculta el boton de vista de tareas (W10)
 - Oculta el boton de cortana (W10)
+- Oculta el boton de reunirse ahora (W10)
 - Oculta el boton de busqueda
 - Oculta el boton de chats (Teams)
 - Aplica el modo oscuro global
