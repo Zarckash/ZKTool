@@ -69,6 +69,7 @@ EXTRA TWEAKS
 - Cambia el nombre del PC a 'NOMBREUSUARIO'-PC
 - Establece la categoria de la red a Privada
 - Muestra los detalles de transferencias al mover o copiar archivos
+- Limpia "Nuevo" en el menu de contexto
 - Desactiva que Windows reduzca el volumen automaticamente
 - Oculta los botones Hibernar, Suspender y Bloquear del boton de apagar de  Windows
 - Evita que Alt-Tab muestre ventanas de Edge
