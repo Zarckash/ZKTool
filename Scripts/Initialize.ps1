@@ -6,9 +6,10 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
+New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+
 if (!(Test-Path -Path "HKCR:\Directory\Background\shell\ZKTool\command\")) {
     Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Scripts/ZKTool.exe" -OutFile "$env:windir\System32\ZKTool.exe" | Out-Null
-    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "ZKTool.exe,0"
