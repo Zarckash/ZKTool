@@ -989,15 +989,15 @@ $HTPanel.Controls.Add($HTS)
 
 $Position = 20
 
-# Void
+# Start Menu Pinned
 $HTB1                            = New-Object System.Windows.Forms.Button
-$HTB1.Text                       = "Void"
+$HTB1.Text                       = "Start Menu Pinned"
 $HTB1.Width                      = 215
 $HTB1.Height                     = 35
 $HTB1.Location                   = New-Object System.Drawing.Point(10,$Position)
 $HTB1.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $HTB1.BackColor                  = $ButtonColor
-#$HTPanel.Controls.Add($HTB1)
+$HTPanel.Controls.Add($HTB1)
 $Position += 37
 
 # Void
@@ -1737,6 +1737,36 @@ $HB9.Add_Click({
     }
 })
 
+$HTB1.Add_Click({
+    if ($HTB1.BackColor -eq $ButtonColor) {
+        $HTB1.BackColor = $TextColor
+        $HTB1.ForeColor = $SelectedTextColor
+    }else {
+        $HTB1.BackColor = $ButtonColor
+        $HTB1.ForeColor = $FormTextColor
+    }
+})
+
+$HTB2.Add_Click({
+    if ($HTB2.BackColor -eq $ButtonColor) {
+        $HTB2.BackColor = $TextColor
+        $HTB2.ForeColor = $SelectedTextColor
+    }else {
+        $HTB2.BackColor = $ButtonColor
+        $HTB2.ForeColor = $FormTextColor
+    }
+})
+
+$HTB3.Add_Click({
+    if ($HTB3.BackColor -eq $ButtonColor) {
+        $HTB3.BackColor = $TextColor
+        $HTB3.ForeColor = $SelectedTextColor
+    }else {
+        $HTB3.BackColor = $ButtonColor
+        $HTB3.ForeColor = $FormTextColor
+    }
+})
+
 $StartScript.Add_Click({
     $StatusBox.Text = "|Iniciando Script...`r`n" + $StatusBox.Text
 
@@ -2000,6 +2030,14 @@ $StartScript.Add_Click({
         # Disable Background Apps
         $StatusBox.Text = "|Desactivando Aplicaciones En Segundo Plano...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Name "GlobalUserDisabled" -Type DWord -Value 1
+
+        # Hide Keyboard Layout Icon
+        Set-WinLanguageBarOption -UseLegacyLanguageBar
+        New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-Null
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ExtraIconsOnMinimized" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "Label" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ShowStatus" -Type DWord -Value 3
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "Transparency" -Type DWord -Value 255
     
         # Disable Telemetry
         $StatusBox.Text = "|Deshabilitando Telemetria...`r`n" + $StatusBox.Text
@@ -2140,6 +2178,7 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "MicrosoftTeams" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.MSPaint" | Remove-AppxPackage
         Get-AppxPackage -All "Microsoft.MixedReality.Portal" | Remove-AppxPackage 
+        Get-AppxPackage -All -Name *Disney* | Remove-AppxPackage
         }
         $TB1.BackColor = $TextColor
     }
@@ -2524,8 +2563,10 @@ $StartScript.Add_Click({
         $HB9.BackColor = $TextColor
     }
     if ($HTB1.BackColor -eq $TextColor) {
-        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "|Anclando Aplicaciones Al Menu De Inicio...`r`n" + $StatusBox.Text
         $HTB1.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Configs/start.bin", $ToPath+"\Configs\start.bin")
+        Copy-Item -Path ($ToPath+"\Configs\start.bin") -Destination "$env:userprofile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState" -Force
         $HTB1.BackColor = $TextColor
     }
     if ($HTB2.BackColor -eq $TextColor) {
