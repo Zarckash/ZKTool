@@ -12,6 +12,7 @@ ESSENTIAL TWEAKS
 - Desactiva la aceleracion del raton
 - Optimiza registros de Windows relacionados con la GPU
 - Evita que las aplicaciones se ejecuten en segundo plano
+- Oculta el boton de idioma del teclado
 - Deshabilita la telemetria de Windows
 - Deshabilita las sugerencias de aplicaciones en Windows
 - Deshabilita el historial de actividad de Windows
