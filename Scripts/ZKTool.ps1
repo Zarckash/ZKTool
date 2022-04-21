@@ -73,134 +73,58 @@ $Position                        = 10 # Sets Each Button Position
 # Google Chrome
 $SB1                             = New-Object System.Windows.Forms.Button
 $SB1.Text                        = "Google Chrome"
-$SB1.Width                       = 215
-$SB1.Height                      = 35
-$SB1.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB1.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB1.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB1)
-$Position += 37
 
 # GeForce Experience
 $SB2                             = New-Object System.Windows.Forms.Button
 $SB2.Text                        = "GeForce Experience"
-$SB2.Width                       = 215
-$SB2.Height                      = 35
-$SB2.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB2.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB2.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB2)
-$Position += 37
 
 # NanaZip
 $SB3                             = New-Object System.Windows.Forms.Button
 $SB3.Text                        = "NanaZip"
-$SB3.Width                       = 215
-$SB3.Height                      = 35
-$SB3.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB3.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB3.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB3)
-$Position += 37
 
 # Discord
 $SB4                             = New-Object System.Windows.Forms.Button
 $SB4.Text                        = "Discord"
-$SB4.Width                       = 215
-$SB4.Height                      = 35
-$SB4.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB4.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB4.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB4)
-$Position += 37
 
 # HW Monitor
 $SB5                             = New-Object System.Windows.Forms.Button
 $SB5.Text                        = "HW Monitor"
-$SB5.Width                       = 215
-$SB5.Height                      = 35
-$SB5.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB5.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB5.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB5)
-$Position += 37
 
 # MSI Afterburner
 $SB6                             = New-Object System.Windows.Forms.Button
 $SB6.Text                        = "MSI Afterburner"
-$SB6.Width                       = 215
-$SB6.Height                      = 35
-$SB6.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB6.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB6.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB6)
-$Position += 37
 
 # Corsair iCue
 $SB7                             = New-Object System.Windows.Forms.Button
 $SB7.Text                        = "Corsair iCue"
-$SB7.Width                       = 215
-$SB7.Height                      = 35
-$SB7.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB7.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB7.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB7)
-$Position += 37
 
 # Logitech GHUB
 $SB8                             = New-Object System.Windows.Forms.Button
 $SB8.Text                        = "Logitech G HUB"
-$SB8.Width                       = 215
-$SB8.Height                      = 35
-$SB8.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB8.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB8.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB8)
-$Position += 37
 
 # Razer Synapse
 $SB9                             = New-Object System.Windows.Forms.Button
 $SB9.Text                        = "Razer Synapse"
-$SB9.Width                       = 215
-$SB9.Height                      = 35
-$SB9.Location                    = New-Object System.Drawing.Point(10,$Position)
-$SB9.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB9.BackColor                   = $ButtonColor
-$SPanel.Controls.Add($SB9)
-$Position += 37
 
 # uTorrent Web
 $SB10                            = New-Object System.Windows.Forms.Button
 $SB10.Text                       = "uTorrent Web"
-$SB10.Width                      = 215
-$SB10.Height                     = 35
-$SB10.Location                   = New-Object System.Drawing.Point(10,$Position)
-$SB10.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB10.BackColor                  = $ButtonColor
-$SPanel.Controls.Add($SB10)
-$Position += 37
 
 # Libre Office
 $SB11                            = New-Object System.Windows.Forms.Button
 $SB11.Text                       = "Libre Office"
-$SB11.Width                      = 215
-$SB11.Height                     = 35
-$SB11.Location                   = New-Object System.Drawing.Point(10,$Position)
-$SB11.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$SB11.BackColor                  = $ButtonColor
-$SPanel.Controls.Add($SB11)
-$Position += 37
 
 # More Software Button
 $MoreS                           = New-Object System.Windows.Forms.Button
 $MoreS.Text                      = "Mostrar Mas"
-$MoreS.Width                     = 215
-$MoreS.Height                    = 35
-$MoreS.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MoreS.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MoreS.BackColor                 = $ButtonColor
-$SPanel.Controls.Add($MoreS)
+
 $Position = 10
+$Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MoreS)
+foreach ($Button in $Buttons) {
+    $SPanel.Controls.Add($Button)
+    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
+    $Position+=37
+}
 
 
             ##################################
@@ -216,136 +140,60 @@ $MSPanel.Location                = New-Object System.Drawing.Point(($Location*0)
 $Position                        = 10
 
 # Streamlabs OBS
-$MSB1                            = New-Object system.Windows.Forms.Button
+$MSB1                            = New-Object System.Windows.Forms.Button
 $MSB1.Text                       = "Streamlabs OBS"
-$MSB1.Width                      = 215
-$MSB1.Height                     = 35
-$MSB1.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB1.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB1.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB1)
-$Position += 37
 
 # Photoshop Portable
-$MSB2                            = New-Object system.Windows.Forms.Button
+$MSB2                            = New-Object System.Windows.Forms.Button
 $MSB2.Text                       = "Photoshop Portable"
-$MSB2.Width                      = 215
-$MSB2.Height                     = 35
-$MSB2.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB2.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB2.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB2)
-$Position += 37
 
 # Premiere Portable
-$MSB3                            = New-Object system.Windows.Forms.Button
+$MSB3                            = New-Object System.Windows.Forms.Button
 $MSB3.Text                       = "Premiere Portable"
-$MSB3.Width                      = 215
-$MSB3.Height                     = 35
-$MSB3.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB3.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB3.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB3)
-$Position += 37
 
 # Spotify
-$MSB4                            = New-Object system.Windows.Forms.Button
+$MSB4                            = New-Object System.Windows.Forms.Button
 $MSB4.Text                       = "Spotify"
-$MSB4.Width                      = 215
-$MSB4.Height                     = 35
-$MSB4.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB4.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB4.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB4)
-$Position += 37
 
 # Netflix
-$MSB5                            = New-Object system.Windows.Forms.Button
+$MSB5                            = New-Object System.Windows.Forms.Button
 $MSB5.Text                       = "Netflix"
-$MSB5.Width                      = 215
-$MSB5.Height                     = 35
-$MSB5.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB5.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB5.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB5)
-$Position += 37
 
 # Prime Video
-$MSB6                            = New-Object system.Windows.Forms.Button
+$MSB6                            = New-Object System.Windows.Forms.Button
 $MSB6.Text                       = "Prime Video"
-$MSB6.Width                      = 215
-$MSB6.Height                     = 35
-$MSB6.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB6.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB6.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB6)
-$Position += 37
 
 # VLC Media Player
-$MSB7                            = New-Object system.Windows.Forms.Button
+$MSB7                            = New-Object System.Windows.Forms.Button
 $MSB7.Text                       = "VLC Media Player"
-$MSB7.Width                      = 215
-$MSB7.Height                     = 35
-$MSB7.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB7.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB7.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB7)
-$Position += 37
 
 # GitHub Desktop
-$MSB8                            = New-Object system.Windows.Forms.Button
+$MSB8                            = New-Object System.Windows.Forms.Button
 $MSB8.Text                       = "GitHub Desktop"
-$MSB8.Width                      = 215
-$MSB8.Height                     = 35
-$MSB8.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB8.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB8.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB8)
-$Position += 37
 
 # Megasync
 $MSB9                            = New-Object System.Windows.Forms.Button
 $MSB9.Text                       = "Megasync"
-$MSB9.Width                      = 215
-$MSB9.Height                     = 35
-$MSB9.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MSB9.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB9.BackColor                  = $ButtonColor
-$MSPanel.Controls.Add($MSB9)
-$Position += 37
 
 # Void
 $MSB10                           = New-Object System.Windows.Forms.Button
 $MSB10.Text                      = "Void"
-$MSB10.Width                     = 215
-$MSB10.Height                    = 35
-$MSB10.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MSB10.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB10.BackColor                 = $ButtonColor
-#$MSPanel.Controls.Add($MSB10)
-$Position += 37
 
 # Void
 $MSB11                           = New-Object System.Windows.Forms.Button
 $MSB11.Text                      = "Void"
-$MSB11.Width                     = 215
-$MSB11.Height                    = 35
-$MSB11.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MSB11.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB11.BackColor                 = $ButtonColor
-#$MSPanel.Controls.Add($MSB11)
-$Position += 37
 
 # Void
 $MSB12                           = New-Object System.Windows.Forms.Button
 $MSB12.Text                      = "Void"
-$MSB12.Width                     = 215
-$MSB12.Height                    = 35
-$MSB12.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MSB12.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MSB12.BackColor                 = $ButtonColor
-#$MSPanel.Controls.Add($MSB12)
+
 $Position = 10
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9)
+foreach ($Button in $Buttons) {
+    $MSPanel.Controls.Add($Button)
+    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
+    $Position+=37
+}
 
 
             ##################################
@@ -374,90 +222,42 @@ $Form.Controls.Add($LPanel)
 # Steam
 $LB1                             = New-Object System.Windows.Forms.Button
 $LB1.Text                        = "Steam"
-$LB1.Width                       = 215
-$LB1.Height                      = 35
-$LB1.Location                    = New-Object System.Drawing.Point(10,$Position)
-$LB1.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$LB1.BackColor                   = $ButtonColor
-$LPanel.Controls.Add($LB1)
-$Position += 37
 
 # EA Desktop
 $LB2                             = New-Object System.Windows.Forms.Button
 $LB2.Text                        = "EA Desktop"
-$LB2.Width                       = 215
-$LB2.Height                      = 35
-$LB2.Location                    = New-Object System.Drawing.Point(10,$Position)
-$LB2.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$LB2.BackColor                   = $ButtonColor
-$LPanel.Controls.Add($LB2)
-$Position += 37
 
 # Ubisoft Connect
 $LB3                             = New-Object System.Windows.Forms.Button
 $LB3.Text                        = "Ubisoft Connect"
-$LB3.Width                       = 215
-$LB3.Height                      = 35
-$LB3.Location                    = New-Object System.Drawing.Point(10,$Position)
-$LB3.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$LB3.BackColor                   = $ButtonColor
-$LPanel.Controls.Add($LB3)
-$Position += 37
 
 # Battle.Net
 $LB4                             = New-Object System.Windows.Forms.Button
 $LB4.Text                        = "Battle.Net"
-$LB4.Width                       = 215
-$LB4.Height                      = 35
-$LB4.Location                    = New-Object System.Drawing.Point(10,$Position)
-$LB4.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$LB4.BackColor                   = $ButtonColor
-$LPanel.Controls.Add($LB4)
-$Position += 37
 
 # GOG Galaxy
 $LB5                             = New-Object System.Windows.Forms.Button
 $LB5.Text                        = "GOG Galaxy"
-$LB5.Width                       = 215
-$LB5.Height                      = 35
-$LB5.Location                    = New-Object System.Drawing.Point(10,$Position)
-$LB5.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$LB5.BackColor                   = $ButtonColor
-$LPanel.Controls.Add($LB5)
-$Position += 37
 
 # Rockstar Games
 $LB6                             = New-Object System.Windows.Forms.Button
 $LB6.Text                        = "Rockstar Games"
-$LB6.Width                       = 215
-$LB6.Height                      = 35
-$LB6.Location                    = New-Object System.Drawing.Point(10,$Position)
-$LB6.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$LB6.BackColor                   = $ButtonColor
-$LPanel.Controls.Add($LB6)
-$Position += 37
 
 # Epic Games
 $LB7                             = New-Object System.Windows.Forms.Button
 $LB7.Text                        = "Epic Games"
-$LB7.Width                       = 215
-$LB7.Height                      = 35
-$LB7.Location                    = New-Object System.Drawing.Point(10,$Position)
-$LB7.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$LB7.BackColor                   = $ButtonColor
-$LPanel.Controls.Add($LB7)
-$Position += 37
 
 # Xbox App
 $LB8                             = New-Object System.Windows.Forms.Button
 $LB8.Text                        = "Xbox App"
-$LB8.Width                       = 215
-$LB8.Height                      = 35
-$LB8.Location                    = New-Object System.Drawing.Point(10,$Position)
-$LB8.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$LB8.BackColor                   = $ButtonColor
-$LPanel.Controls.Add($LB8)
+
 $Position = 10
+$Buttons = @($LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8)
+foreach ($Button in $Buttons) {
+    $LPanel.Controls.Add($Button)
+    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
+    $Position+=37
+}
 
 
             ##################################
@@ -486,123 +286,56 @@ $Form.Controls.Add($TPanel)
 # Essential Tweaks
 $TB1                             = New-Object System.Windows.Forms.Button
 $TB1.Text                        = "Essential Tweaks"
-$TB1.Width                       = 215
-$TB1.Height                      = 72
-$TB1.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB1.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB1.BackColor                   = $ButtonColor
+$TB1.Location                    = New-Object System.Drawing.Point(10,10)
 $TPanel.Controls.Add($TB1)
-$Position += 37*2
 
 # Extra Tweaks
 $TB2                             = New-Object System.Windows.Forms.Button
 $TB2.Text                        = "Extra Tweaks"
-$TB2.Width                       = 215
-$TB2.Height                      = 35
-$TB2.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB2.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB2.BackColor                   = $ButtonColor
-$TPanel.Controls.Add($TB2)
-$Position += 37
 
 # Nvidia Settings
 $TB3                             = New-Object System.Windows.Forms.Button
 $TB3.Text                        = "Nvidia Settings"
-$TB3.Width                       = 215
-$TB3.Height                      = 35
-$TB3.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB3.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB3.BackColor                   = $ButtonColor
-$TPanel.Controls.Add($TB3)
-$Position += 37
 
 # Reduce Icons Spacing
 $TB4                             = New-Object System.Windows.Forms.Button
 $TB4.Text                        = "Reduce Icons Spacing"
-$TB4.Width                       = 215
-$TB4.Height                      = 35
-$TB4.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB4.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB4.BackColor                   = $ButtonColor
-$TPanel.Controls.Add($TB4)
-$Position += 37
 
 # Hide Shortcut Arrows
 $TB5                             = New-Object System.Windows.Forms.Button
 $TB5.Text                        = "Hide Shortcut Arrows"
-$TB5.Width                       = 215
-$TB5.Height                      = 35
-$TB5.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB5.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB5.BackColor                   = $ButtonColor
-$TPanel.Controls.Add($TB5)
-$Position += 37
 
 # Set Modern Cursor
 $TB6                             = New-Object System.Windows.Forms.Button
 $TB6.Text                        = "Set Modern Cursor"
-$TB6.Width                       = 215
-$TB6.Height                      = 35
-$TB6.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB6.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB6.BackColor                   = $ButtonColor
-$TPanel.Controls.Add($TB6)
-$Position += 37
 
 # Disable Cortana
 $TB7                             = New-Object System.Windows.Forms.Button
 $TB7.Text                        = "Disable Cortana"
-$TB7.Width                       = 215
-$TB7.Height                      = 35
-$TB7.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB7.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB7.BackColor                   = $ButtonColor
-$TPanel.Controls.Add($TB7)
-$Position += 37
 
 # Uninstall OneDrive
 $TB8                             = New-Object System.Windows.Forms.Button
 $TB8.Text                        = "Uninstall OneDrive"
-$TB8.Width                       = 215
-$TB8.Height                      = 35
-$TB8.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB8.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB8.BackColor                   = $ButtonColor
-$TPanel.Controls.Add($TB8)
-$Position += 37
 
 # Uninstall Xbox Game Bar
 $TB9                             = New-Object System.Windows.Forms.Button
 $TB9.Text                        = "Uninstall Xbox Game Bar"
-$TB9.Width                       = 215
-$TB9.Height                      = 35
-$TB9.Location                    = New-Object System.Drawing.Point(10,$Position)
-$TB9.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB9.BackColor                   = $ButtonColor
-$TPanel.Controls.Add($TB9)
-$Position += 37
 
 # Ram Cleaner (ISLC)
 $TB10                            = New-Object System.Windows.Forms.Button
 $TB10.Text                       = "Ram Cleaner (ISLC)"
-$TB10.Width                      = 215
-$TB10.Height                     = 35
-$TB10.Location                   = New-Object System.Drawing.Point(10,$Position)
-$TB10.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB10.BackColor                  = $ButtonColor
-$TPanel.Controls.Add($TB10)
-$Position += 37
 
 # More Tweaks Button
 $MoreT                           = New-Object System.Windows.Forms.Button
 $MoreT.Text                      = "Mostrar Mas"
-$MoreT.Width                     = 215
-$MoreT.Height                    = 35
-$MoreT.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MoreT.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MoreT.BackColor                 = $ButtonColor
-$TPanel.Controls.Add($MoreT)
-$Position = 10
+
+$Position = 37*2+10
+$Buttons = @($TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MoreT)
+foreach ($Button in $Buttons) {    
+    $TPanel.Controls.Add($Button)
+    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
+    $Position+=37
+}
 
 
             ##################################
@@ -619,122 +352,56 @@ $MTPanel.Location                = New-Object System.Drawing.Point(($Location*3)
 # Activate Windows PRO
 $MTB1                            = New-Object System.Windows.Forms.Button
 $MTB1.Text                       = "Activate Windows Pro Edition"
-$MTB1.Width                      = 215
-$MTB1.Height                     = 72
-$MTB1.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MTB1.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB1.BackColor                  = $ButtonColor
+$MTB1.Location                   = New-Object System.Drawing.Point(10,10)
 $MTPanel.Controls.Add($MTB1)
-$Position += 37*2
 
 # Install Visual C++
 $MTB2                            = New-Object System.Windows.Forms.Button
 $MTB2.Text                       = "Install Visual C++"
-$MTB2.Width                      = 215
-$MTB2.Height                     = 35
-$MTB2.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MTB2.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB2.BackColor                  = $ButtonColor
-$MTPanel.Controls.Add($MTB2)
-$Position += 37
 
 # Install TaskbarX
-$MTB3                           = New-Object System.Windows.Forms.Button
-$MTB3.Text                      = "Install TaskbarX"
-$MTB3.Width                     = 215
-$MTB3.Height                    = 35
-$MTB3.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MTB3.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB3.BackColor                 = $ButtonColor
-$MTPanel.Controls.Add($MTB3)
-$Position += 37
+$MTB3                            = New-Object System.Windows.Forms.Button
+$MTB3.Text                       = "Install TaskbarX"
 
 # Video Extensions
-$MTB4                           = New-Object System.Windows.Forms.Button
-$MTB4.Text                      = "Install Video Extensions"
-$MTB4.Width                     = 215
-$MTB4.Height                    = 35
-$MTB4.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MTB4.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB4.BackColor                 = $ButtonColor
-$MTPanel.Controls.Add($MTB4)
-$Position += 37
+$MTB4                            = New-Object System.Windows.Forms.Button
+$MTB4.Text                       = "Install Video Extensions"
 
 # Windows Terminal Fix
 $MTB5                            = New-Object System.Windows.Forms.Button
 $MTB5.Text                       = "Windows Terminal Fix"
-$MTB5.Width                      = 215
-$MTB5.Height                     = 35
-$MTB5.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MTB5.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB5.BackColor                  = $ButtonColor
-$MTPanel.Controls.Add($MTB5)
-$Position += 37
 
 # Power Plan
 $MTB6                            = New-Object System.Windows.Forms.Button
 $MTB6.Text                       = "Power Plan"
-$MTB6.Width                      = 215
-$MTB6.Height                     = 35
-$MTB6.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MTB6.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB6.BackColor                  = $ButtonColor
-$MTPanel.Controls.Add($MTB6)
-$Position += 37
 
 # Performance Counters
 $MTB7                            = New-Object System.Windows.Forms.Button
 $MTB7.Text                       = "Performance Counters"
-$MTB7.Width                      = 215
-$MTB7.Height                     = 35
-$MTB7.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MTB7.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB7.BackColor                  = $ButtonColor
-$MTPanel.Controls.Add($MTB7)
-$Position += 37
 
 # Static IP + DNS
 $MTB8                            = New-Object System.Windows.Forms.Button
 $MTB8.Text                       = "Static IP + DNS"
-$MTB8.Width                      = 215
-$MTB8.Height                     = 35
-$MTB8.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MTB8.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB8.BackColor                  = $ButtonColor
-$MTPanel.Controls.Add($MTB8)
-$Position += 37
 
 # Autoruns
 $MTB9                            = New-Object System.Windows.Forms.Button
 $MTB9.Text                       = "Autoruns"
-$MTB9.Width                      = 215
-$MTB9.Height                     = 35
-$MTB9.Location                   = New-Object System.Drawing.Point(10,$Position)
-$MTB9.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB9.BackColor                  = $ButtonColor
-$MTPanel.Controls.Add($MTB9)
-$Position += 37
 
 # VisualFX Fix
 $MTB10                           = New-Object System.Windows.Forms.Button
 $MTB10.Text                      = "VisualFX Fix"
-$MTB10.Width                     = 215
-$MTB10.Height                    = 35
-$MTB10.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MTB10.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB10.BackColor                 = $ButtonColor
-$MTPanel.Controls.Add($MTB10)
-$Position += 37
 
 # Void
 $MTB11                           = New-Object System.Windows.Forms.Button
 $MTB11.Text                      = "Void"
-$MTB11.Width                     = 215
-$MTB11.Height                    = 35
-$MTB11.Location                  = New-Object System.Drawing.Point(10,$Position)
-$MTB11.Font                      = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$MTB11.BackColor                 = $ButtonColor
-#$MTPanel.Controls.Add($MTB11)
+
+$Position = 37*2+10
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10)
+foreach ($Button in $Buttons) {
+    $MTPanel.Controls.Add($Button)
+    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
+    $Position+=37
+}
 
 
             ##################################
@@ -816,39 +483,25 @@ $HSS.BackColor                   = $TextColor
 $HSS.Enabled                     = $False
 $HSPanel.Controls.Add($HSS)
 
-$Position = 20
-
 # Valorant
 $HSB1                            = New-Object System.Windows.Forms.Button
 $HSB1.Text                       = "Valorant"
-$HSB1.Width                      = 215
-$HSB1.Height                     = 35
-$HSB1.Location                   = New-Object System.Drawing.Point(10,$Position)
-$HSB1.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HSB1.BackColor                  = $ButtonColor
-$HSPanel.Controls.Add($HSB1)
-$Position += 37
 
 # League of Legends
 $HSB2                            = New-Object System.Windows.Forms.Button
 $HSB2.Text                       = "League of Legends"
-$HSB2.Width                      = 215
-$HSB2.Height                     = 35
-$HSB2.Location                   = New-Object System.Drawing.Point(10,$Position)
-$HSB2.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HSB2.BackColor                  = $ButtonColor
-$HSPanel.Controls.Add($HSB2)
-$Position += 37
 
 # Escape From Tarkov
 $HSB3                            = New-Object System.Windows.Forms.Button
 $HSB3.Text                       = "Escape From Tarkov"
-$HSB3.Width                      = 215
-$HSB3.Height                     = 35
-$HSB3.Location                   = New-Object System.Drawing.Point(10,$Position)
-$HSB3.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HSB3.BackColor                  = $ButtonColor
-$HSPanel.Controls.Add($HSB3)
+
+$Position = 20
+$Buttons = @($HSB1,$HSB2,$HSB3)
+foreach ($Button in $Buttons) {
+    $HSPanel.Controls.Add($Button)
+    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
+    $Position+=37
+}
 
 
             ##################################
@@ -873,101 +526,55 @@ $HPS.Enabled                     = $False
 $HPanel.Controls.Add($HPS)
 
 $Position = 20
-
 # Rufus
 $HB1                             = New-Object System.Windows.Forms.Button
 $HB1.Text                        = "Rufus"
-$HB1.Width                       = 215
-$HB1.Height                      = 35
 $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
-$HB1.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB1.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB1)
 
 # MSI Afterburner Config
 $HB2                             = New-Object System.Windows.Forms.Button
 $HB2.Text                        = "Msi Afterburner Config"
-$HB2.Width                       = 215
-$HB2.Height                      = 35
 $HB2.Location                    = New-Object System.Drawing.Point(243,$Position)
-$HB2.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB2.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB2)
 
 # Discord Second Screen
 $HB3                             = New-Object System.Windows.Forms.Button
 $HB3.Text                        = "Discord Second Screen"
-$HB3.Width                       = 215
-$HB3.Height                      = 35
 $HB3.Location                    = New-Object System.Drawing.Point(476,$Position)
-$HB3.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB3.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB3)
-
 $Position += 37
 
 # Software RL
 $HB4                             = New-Object System.Windows.Forms.Button
 $HB4.Text                        = "Software RL"
-$HB4.Width                       = 215
-$HB4.Height                      = 35
 $HB4.Location                    = New-Object System.Drawing.Point(10,$Position)
-$HB4.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB4.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB4)
 
 # RGB Fusion
 $HB5                             = New-Object System.Windows.Forms.Button
 $HB5.Text                        = "RGB Fusion"
-$HB5.Width                       = 215
-$HB5.Height                      = 35
 $HB5.Location                    = New-Object System.Drawing.Point(243,$Position)
-$HB5.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB5.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB5)
 
 # JDK 17
 $HB6                             = New-Object System.Windows.Forms.Button
 $HB6.Text                        = "JDK 17"
-$HB6.Width                       = 215
-$HB6.Height                      = 35
 $HB6.Location                    = New-Object System.Drawing.Point(476,$Position)
-$HB6.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB6.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB6)
-
 $Position += 37
 
 # Eclipse IDE
 $HB7                             = New-Object System.Windows.Forms.Button
 $HB7.Text                        = "Eclipse IDE"
-$HB7.Width                       = 215
-$HB7.Height                      = 35
 $HB7.Location                    = New-Object System.Drawing.Point(10,$Position)
-$HB7.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB7.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB7)
 
 # Visual Studio Code
 $HB8                             = New-Object System.Windows.Forms.Button
 $HB8.Text                        = "Visual Studio Code"
-$HB8.Width                       = 215
-$HB8.Height                      = 35
 $HB8.Location                    = New-Object System.Drawing.Point(243,$Position)
-$HB8.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB8.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB8)
 
 # Game Settings
 $HB9                             = New-Object System.Windows.Forms.Button
 $HB9.Text                        = "Game Settings"
-$HB9.Width                       = 215
-$HB9.Height                      = 35
 $HB9.Location                    = New-Object System.Drawing.Point(476,$Position)
-$HB9.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HB9.BackColor                   = $ButtonColor
-$HPanel.Controls.Add($HB9)
 
+$Buttons = @($HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
+foreach ($Button in $Buttons) {$HPanel.Controls.Add($Button)}
 
 
             ##################################
@@ -991,40 +598,25 @@ $HTS.BackColor                   = $TextColor
 $HTS.Enabled                     = $False
 $HTPanel.Controls.Add($HTS)
 
-$Position = 20
-
 # Unpin All Apps
 $HTB1                            = New-Object System.Windows.Forms.Button
 $HTB1.Text                       = "Unpin All Apps"
-$HTB1.Width                      = 215
-$HTB1.Height                     = 35
-$HTB1.Location                   = New-Object System.Drawing.Point(10,$Position)
-$HTB1.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HTB1.BackColor                  = $ButtonColor
-$HTPanel.Controls.Add($HTB1)
-$Position += 37
 
 # Void
 $HTB2                            = New-Object System.Windows.Forms.Button
 $HTB2.Text                       = "Void"
-$HTB2.Width                      = 215
-$HTB2.Height                     = 35
-$HTB2.Location                   = New-Object System.Drawing.Point(10,$Position)
-$HTB2.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HTB2.BackColor                  = $ButtonColor
-#$HTPanel.Controls.Add($HTB2)
-$Position += 37
 
 # Void
-$HTB2                            = New-Object System.Windows.Forms.Button
-$HTB2.Text                       = "Void"
-$HTB2.Width                      = 215
-$HTB2.Height                     = 35
-$HTB2.Location                   = New-Object System.Drawing.Point(10,$Position)
-$HTB2.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$HTB2.BackColor                  = $ButtonColor
-#$HTPanel.Controls.Add($HTB2)
+$HTB3                            = New-Object System.Windows.Forms.Button
+$HTB3.Text                       = "Void"
 
+$Position = 20
+$Buttons = @($HTB1)
+foreach ($Button in $Buttons) {
+    $HTPanel.Controls.Add($Button)
+    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
+    $Position+=37
+}
 
             ##################################
             ######### PADDING BOTTOM #########
@@ -1037,6 +629,19 @@ $PaddingPanel.Height             = 8
 $PaddingPanel.Width              = 695
 $PaddingPanel.Location           = New-Object System.Drawing.Point(($Location*0),594)
 $Form.Controls.Add($PaddingPanel)
+
+$Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MoreS,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
+$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MoreT,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
+$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HSB1,$HSB2,$HSB3,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9,$HTB1,$HTB2,$HTB3)
+foreach ($Button in $Buttons) {
+    $Button.Width                = 215
+    $Button.Height               = 35
+    $Button.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
+    $Button.BackColor            = $ButtonColor
+}
+
+$TB1.Height                      = 72
+$MTB1.Height                     = 72
 
 $SB1.Add_Click({
     if ($SB1.BackColor -eq $ButtonColor) {
@@ -2492,7 +2097,7 @@ $StartScript.Add_Click({
             $MTB9.BackColor = $TextColor
         }  
         if ($MTB10.BackColor -eq $TextColor) { # VisualFX Fix
-            $StatusBox.text = "|Ajustando Animaciones De Windows...`r`n" + $StatusBox.text
+            $StatusBox.Text = "|Ajustando Animaciones De Windows...`r`n" + $StatusBox.Text
             $MTB10.BackColor = $ProcessingColor
             #Custom Setting
             Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
@@ -2530,7 +2135,7 @@ $StartScript.Add_Click({
             $MTB10.BackColor = $TextColor
         }   
         if ($MTB11.BackColor -eq $TextColor) { # Void
-            $StatusBox.text = "|Void...`r`n" + $StatusBox.text
+            $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
             $MTB11.BackColor = $ProcessingColor
             $MTB11.BackColor = $TextColor
         } 
@@ -2556,62 +2161,62 @@ $StartScript.Add_Click({
         $HSB3.BackColor = $TextColor
     }
     if ($HB1.BackColor -eq $TextColor) { # Rufus
-        $StatusBox.text = "|Iniciando Rufus...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Iniciando Rufus...`r`n" + $StatusBox.Text
         $HB1.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Apps/Rufus.exe", $ToPath+"\Apps\Rufus.exe")
         Start-Process ($ToPath+"\Apps\Rufus.exe")
         $HB1.BackColor = $TextColor
     } 
     if ($HB2.BackColor -eq $TextColor) { # MSI Afterburner Config
-        $StatusBox.text = "|Configurando MSI Afterburner...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Configurando MSI Afterburner...`r`n" + $StatusBox.Text
         $HB2.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Configs/Profiles.zip", $ToPath+"\Configs\Profiles.zip")
         Expand-Archive -Path ($ToPath+"\Configs\Profiles.zip") -DestinationPath 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
         $HB2.BackColor = $TextColor
     }   
     if ($HB3.BackColor -eq $TextColor) { # Discord Second Screen
-        $StatusBox.text = "|Configurando Discord En El Monitor Derecho...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Configurando Discord En El Monitor Derecho...`r`n" + $StatusBox.Text
         $HB3.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Configs/settings.json", $ToPath+"\Configs\settings.json")
         Copy-Item -Path ($ToPath+"\Configs\settings.json") -DestinationPath "$env:userprofile\AppData\Roaming\discord" -Force
         $HB3.BackColor = $TextColor
     }   
     if ($HB4.BackColor -eq $TextColor) { # Software RL
-        $StatusBox.text = "|Instalando Software RL...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Instalando Software RL...`r`n" + $StatusBox.Text
         $HB4.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Apps/RLSoftware.exe", $ToPath+"\Apps\RLSoftware.exe")
         Start-Process ($ToPath+"\Apps\RLSoftware.exe")
         $HB4.BackColor = $TextColor
     }   
     if ($HB5.BackColor -eq $TextColor) { # RGB Fusion
-        $StatusBox.text = "|Instalando RGB Fusion...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Instalando RGB Fusion...`r`n" + $StatusBox.Text
         $HB5.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Scripts/Downloads/RGBFusion.ps1", $ToPath+"\Scripts\Downloads\RGBFusion.ps1")
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\FORMATEO\Scripts\Downloads\RGBFusion.ps1 ; exit"
         $HB5.BackColor = $TextColor
     }   
     if ($HB6.BackColor -eq $TextColor) { # JDK 17
-        $StatusBox.text = "|Instalando JDK 17...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Instalando JDK 17...`r`n" + $StatusBox.Text
         $HB6.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Scripts/Downloads/JDK17.ps1", $ToPath+"\Scripts\Downloads\JDK17.ps1")
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\FORMATEO\Scripts\Downloads\JDK17.ps1 ; exit"
         $HB6.BackColor = $TextColor
     }   
     if ($HB7.BackColor -eq $TextColor) { # Eclipse IDE
-        $StatusBox.text = "|Instalando Eclipse IDE...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Instalando Eclipse IDE...`r`n" + $StatusBox.Text
         $HB7.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Scripts/Downloads/Eclipse.ps1", $ToPath+"\Scripts\Downloads\Eclipse.ps1")
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\FORMATEO\Scripts\Downloads\Eclipse.ps1 ; exit"
         $HB7.BackColor = $TextColor
     }   
     if ($HB8.BackColor -eq $TextColor) { # Visual Studio Code
-        $StatusBox.text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.Text
         $HB8.BackColor = $ProcessingColor
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-Null
         $HB8.BackColor = $TextColor
     }   
     if ($HB9.BackColor -eq $TextColor) { # Game Settings
-        $StatusBox.text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.text
+        $StatusBox.Text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.Text
         $HB9.BackColor = $ProcessingColor
         Iex (Iwr ($FromPath+"/Scripts/GameSettings.ps1"))
         $HB9.BackColor = $TextColor
