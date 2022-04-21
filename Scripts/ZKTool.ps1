@@ -2121,6 +2121,7 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.MicrosoftStickyNotes" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.NetworkSpeedTest" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.Office.OneNote" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.Office.Sway" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.OneConnect" | Remove-AppxPackage 
@@ -2137,6 +2138,8 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "Microsoft.YourPhone" | Remove-AppxPackage 
         Get-AppxPackage -All "MicrosoftWindows.Client.WebExperience" | Remove-AppxPackage 
         Get-AppxPackage -All "MicrosoftTeams" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.MSPaint" | Remove-AppxPackage
+        Get-AppxPackage -All "Microsoft.MixedReality.Portal" | Remove-AppxPackage 
         }
         $TB1.BackColor = $TextColor
     }
@@ -2165,6 +2168,10 @@ $StartScript.Add_Click({
         # Hide Cortana Button
         $StatusBox.Text = "|Ocultando Boton De Cortana...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCortanaButton" -Type DWord -Value 0
+
+        # Hide Meet Now Button
+        $StatusBox.Text = "|Ocultando Boton De Reunirse Ahora...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Value 1
     
         # Hide Search Button
         $StatusBox.Text = "|Ocultando Boton De Busqueda...`r`n" + $StatusBox.Text
@@ -2213,8 +2220,22 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Type DWord -Value 3
     
         # Uninstall Windows Optional Features
-        $Download.DownloadFile($FromPath+"/Apps/RemoveOptionalFeatures.ps1", $ToPath+"\Apps\RemoveOptionalFeatures.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\RemoveOptionalFeatures.ps1 ; exit"
+        &{ $ProgressPreference = 'SilentlyContinue'
+        $StatusBox.Text = "|Desinstalando Servidor OpenSSH...`r`n" + $StatusBox.Text
+        Get-WindowsPackage -Online | Where PackageName -like *SSH* | Remove-WindowsPackage -Online -NoRestart | Out-Null
+        $StatusBox.Text = "|Desinstalando Rostro De Windows Hello...`r`n" + $StatusBox.Text
+        Get-WindowsPackage -Online | Where PackageName -like *Hello-Face* | Remove-WindowsPackage -Online -NoRestart | Out-Null
+        $StatusBox.Text = "|Desinstalando Grabacion De Acciones Del Usuario...`r`n" + $StatusBox.Text
+        DISM /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart | Out-Null
+        $StatusBox.Text = "|Desinstalando Modo De Internet Explorer...`r`n" + $StatusBox.Text
+        DISM /Online /Remove-Capability /CapabilityName:Browser.InternetExplorer~~~~0.0.11.0 /NoRestart | Out-Null
+        $StatusBox.Text = "|Desinstalando WordPad...`r`n" + $StatusBox.Text
+        DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.WordPad~~~~0.0.1.0 /NoRestart | Out-Null
+        $StatusBox.Text = "|Desinstalando Windows Powershell ISE...`r`n" + $StatusBox.Text
+        DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0 /NoRestart | Out-Null
+        $StatusBox.Text = "|Desinstalando Reconocedor Matematico...`r`n" + $StatusBox.Text
+        DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0
+        }
         $TB2.BackColor = $TextColor
     } 
     if ($TB3.BackColor -eq $TextColor) { # Nvidia Settings
