@@ -989,9 +989,9 @@ $HTPanel.Controls.Add($HTS)
 
 $Position = 20
 
-# Start Menu Pinned
+# Unpin All Apps
 $HTB1                            = New-Object System.Windows.Forms.Button
-$HTB1.Text                       = "Start Menu Pinned"
+$HTB1.Text                       = "Unpin All Apps"
 $HTB1.Width                      = 215
 $HTB1.Height                     = 35
 $HTB1.Location                   = New-Object System.Drawing.Point(10,$Position)
@@ -1845,7 +1845,7 @@ $StartScript.Add_Click({
     if ($SB11.BackColor -eq $TextColor) { # Libre Office
         $StatusBox.Text = "|Instalando Libre Office...`r`n" + $StatusBox.Text
         $SB11.BackColor = $ProcessingColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id LibreOffice.LibreOffice | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id TheDocumentFoundation.LibreOffice | Out-Null
         $SB11.BackColor = $TextColor
     }
     if ($MoreS.BackColor -eq $TextColor) { # More Software Bracket
@@ -2220,6 +2220,12 @@ $StartScript.Add_Click({
         # Hide Chat Button
         $StatusBox.Text = "|Ocultando Boton De Chats...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
+
+        # Set Desktop Icons Size To Small
+        $StatusBox.Text = "|Reduciendo El Tamaño De Los Iconos Del Escritorio...`r`n" + $StatusBox.Text
+        taskkill /f /im explorer.exe
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
+        explorer.exe
     
         # Set Dark Theme
         $StatusBox.Text = "|Estableciendo Modo Oscuro...`r`n" + $StatusBox.Text
@@ -2247,6 +2253,20 @@ $StartScript.Add_Click({
         # Show File Operations Details
         $StatusBox.Text = "|Mostrando Detalles De Transferencias De Archivos...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" -Name "EnthusiastMode" -Type DWord -Value 1
+
+        # Clean "New" In Context Menu
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+        # Texto OpenDocument
+        Remove-ItemProperty -Path "HKCR:\.odt\LibreOffice.WriterDocument.1\ShellNew" -Name "FileName"
+        # Hoja De Calculo OpenDocument
+        Remove-ItemProperty -Path "HKCR:\.ods\LibreOffice.CalcDocument.1\ShellNew" -Name "FileName"
+        # Presentacion OpenDocument
+        Remove-ItemProperty -Path "HKCR:\.odp\LibreOffice.ImpressDocument.1\ShellNew" -Name "FileName"
+        # Dibujo OpenDocument
+        Remove-ItemProperty -Path "HKCR:\.odg\LibreOffice.DrawDocument.1\ShellNew" -Name "FileName"
+        # Carpeta Comprimida En Zip
+        Remove-ItemProperty -Path "HKCR:\.zip\CompressedFolder\ShellNew" -Name "Data"
+        Remove-ItemProperty -Path "HKCR:\.zip\CompressedFolder\ShellNew" -Name "ItemName"
     
         # Sounds Communications Do Nothing
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Multimedia\Audio" -Name "UserDuckingPreference" -Type DWord -Value 3
@@ -2470,10 +2490,39 @@ $StartScript.Add_Click({
         if ($MTB10.BackColor -eq $TextColor) { # VisualFX Fix
             $StatusBox.text = "|Ajustando Animaciones De Windows...`r`n" + $StatusBox.text
             $MTB10.BackColor = $ProcessingColor
-            $Download.DownloadFile($FromPath+"/Configs/VisualFX.png", $ToPath+"\Configs\VisualFX.png")
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 2
-            Start-Process $env:windir\system32\systempropertiesperformance.exe
-            Start-Process ($ToPath+"\Configs\VisualFX.png")
+            #Custom Setting
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
+            # Animaciones En La Barra De Tareas ON
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAnimations" -Type DWord -Value 1
+            # Animar Las Ventanas Al Minimizar Y Maximizar ON
+            Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "MinAnimate" -Value 1
+            # Guardar Vistas De Miniaturas De La Barra De Tareas OFF
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "AlwaysHibernateThumbnails" -Type DWord -Value 0
+            # Habilitar Peek OFF
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "EnableAeroPeek" -Type DWord -Value 0
+            # Mostrar El Contenido De La Ventana Mientras Se Arrastra ON
+            Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Value 1
+            # Mostrar El Rectangulo De Seleccion Translucido ON
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewAlphaSelect" -Type DWord -Value 1
+            # Mostrar Vistas En Miniatura En Lugar De Iconos ON
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "IconsOnly" -Type DWord -Value 0
+            # Suavizar Bordes Para Las Fuentes De Pantalla ON
+            Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "FontSmoothing" -Value 2
+            # Usar Sombras En Las Etiquetas... OFF
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewShadow" -Type DWord -Value 0
+            # Animar Los Controles Y Elementos Dentro De Las Ventanas ON
+            # Atenuar Los Elementos Despues De Hacer Click OFF
+            # Atenuar O Deslizar La Informacion... OFF
+            # Atenuar O Deslizar Los Menus En La Vista OFF
+            # Deslizar Los Cuadros Combinados Al Abrirlos OFF
+            # Desplazamiento Suave De Los Cuadros De Lista OFF
+            # Mostrar Sombra Bajo El Puntero Del Mouse OFF
+            # Mostrar Sombras Bajo Las Ventanas ON
+            $MaskValue = "90,12,07,80,12,01,00,00"
+            $MaskValueToHex = $MaskValue.Split(',') | % { "0x$_"}
+            Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]]$MaskValueToHex)
+            
+            
             $MTB10.BackColor = $TextColor
         }   
         if ($MTB11.BackColor -eq $TextColor) { # Void
@@ -2563,9 +2612,11 @@ $StartScript.Add_Click({
         Iex (Iwr ($FromPath+"/Scripts/GameSettings.ps1"))
         $HB9.BackColor = $TextColor
     }
-    if ($HTB1.BackColor -eq $TextColor) {
-        $StatusBox.Text = "|Anclando Aplicaciones Al Menu De Inicio...`r`n" + $StatusBox.Text
+    if ($HTB1.BackColor -eq $TextColor) { # Unpin All Apps
+        $StatusBox.Text = "|Desanclando Todas Las Aplicaciones...`r`n" + $StatusBox.Text
         $HTB1.BackColor = $ProcessingColor
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites" -Type Binary -Value ([byte[]](255))
+        Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "FavoritesResolve" -ErrorAction SilentlyContinue
         $Download.DownloadFile($FromPath+"/Configs/start.bin", $ToPath+"\Configs\start.bin")
         Copy-Item -Path ($ToPath+"\Configs\start.bin") -Destination "$env:userprofile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState" -Force
         $HTB1.BackColor = $TextColor
