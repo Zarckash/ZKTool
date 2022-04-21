@@ -524,8 +524,19 @@ $TPanel.Controls.Add($TB4)
 $Position += 37
 
 # Hide Shortcut Arrows
+$TB5                             = New-Object System.Windows.Forms.Button
+$TB5.Text                        = "Hide Shortcut Arrows"
+$TB5.Width                       = 215
+$TB5.Height                      = 35
+$TB5.Location                    = New-Object System.Drawing.Point(10,$Position)
+$TB5.Font                        = New-Object System.Drawing.Font('Ubuntu Mono',12)
+$TB5.BackColor                   = $ButtonColor
+$TPanel.Controls.Add($TB5)
+$Position += 37
+
+# Set Modern Cursor
 $TB6                             = New-Object System.Windows.Forms.Button
-$TB6.Text                        = "Hide Shortcut Arrows"
+$TB6.Text                        = "Set Modern Cursor"
 $TB6.Width                       = 215
 $TB6.Height                      = 35
 $TB6.Location                    = New-Object System.Drawing.Point(10,$Position)
@@ -534,9 +545,9 @@ $TB6.BackColor                   = $ButtonColor
 $TPanel.Controls.Add($TB6)
 $Position += 37
 
-# Set Modern Cursor
+# Disable Cortana
 $TB7                             = New-Object System.Windows.Forms.Button
-$TB7.Text                        = "Set Modern Cursor"
+$TB7.Text                        = "Disable Cortana"
 $TB7.Width                       = 215
 $TB7.Height                      = 35
 $TB7.Location                    = New-Object System.Drawing.Point(10,$Position)
@@ -545,9 +556,9 @@ $TB7.BackColor                   = $ButtonColor
 $TPanel.Controls.Add($TB7)
 $Position += 37
 
-# Disable Cortana
+# Uninstall OneDrive
 $TB8                             = New-Object System.Windows.Forms.Button
-$TB8.Text                        = "Disable Cortana"
+$TB8.Text                        = "Uninstall OneDrive"
 $TB8.Width                       = 215
 $TB8.Height                      = 35
 $TB8.Location                    = New-Object System.Drawing.Point(10,$Position)
@@ -556,9 +567,9 @@ $TB8.BackColor                   = $ButtonColor
 $TPanel.Controls.Add($TB8)
 $Position += 37
 
-# Uninstall OneDrive
+# Uninstall Xbox Game Bar
 $TB9                             = New-Object System.Windows.Forms.Button
-$TB9.Text                        = "Uninstall OneDrive"
+$TB9.Text                        = "Uninstall Xbox Game Bar"
 $TB9.Width                       = 215
 $TB9.Height                      = 35
 $TB9.Location                    = New-Object System.Drawing.Point(10,$Position)
@@ -567,26 +578,15 @@ $TB9.BackColor                   = $ButtonColor
 $TPanel.Controls.Add($TB9)
 $Position += 37
 
-# Uninstall Xbox Game Bar
+# Ram Cleaner (ISLC)
 $TB10                            = New-Object System.Windows.Forms.Button
-$TB10.Text                       = "Uninstall Xbox Game Bar"
+$TB10.Text                       = "Ram Cleaner (ISLC)"
 $TB10.Width                      = 215
 $TB10.Height                     = 35
 $TB10.Location                   = New-Object System.Drawing.Point(10,$Position)
 $TB10.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $TB10.BackColor                  = $ButtonColor
 $TPanel.Controls.Add($TB10)
-$Position += 37
-
-# Ram Cleaner (ISLC)
-$TB11                            = New-Object System.Windows.Forms.Button
-$TB11.Text                       = "Ram Cleaner (ISLC)"
-$TB11.Width                      = 215
-$TB11.Height                     = 35
-$TB11.Location                   = New-Object System.Drawing.Point(10,$Position)
-$TB11.Font                       = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$TB11.BackColor                  = $ButtonColor
-$TPanel.Controls.Add($TB11)
 $Position += 37
 
 # More Tweaks Button
@@ -1477,16 +1477,6 @@ $TB10.Add_Click({
     }else {
         $TB10.BackColor = $ButtonColor
         $TB10.ForeColor = $FormTextColor
-    }
-})
-
-$TB11.Add_Click({
-    if ($TB11.BackColor -eq $ButtonColor) {
-        $TB11.BackColor = $TextColor
-        $TB11.ForeColor = $SelectedTextColor
-    }else {
-        $TB11.BackColor = $ButtonColor
-        $TB11.ForeColor = $FormTextColor
     }
 })
 
@@ -2532,7 +2522,7 @@ $StartScript.Add_Click({
     $StartScript.ForeColor = $TextColor
 
     $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
-                $LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
+                $LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
                 $MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HSB1,$HSB2,$HSB3,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9,$HTB1,$HTB2,$HTB3)
     
     foreach ($Button in $Buttons) {
