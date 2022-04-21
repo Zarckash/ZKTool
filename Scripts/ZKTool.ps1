@@ -2032,6 +2032,7 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Name "GlobalUserDisabled" -Type DWord -Value 1
 
         # Hide Keyboard Layout Icon
+        $StatusBox.Text = "|Ocultando El Boton De Idioma Del Teclado...`r`n" + $StatusBox.Text
         Set-WinLanguageBarOption -UseLegacyLanguageBar
         New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-Null
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ExtraIconsOnMinimized" -Type DWord -Value 0
