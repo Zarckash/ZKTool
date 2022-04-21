@@ -29,7 +29,7 @@ $FormYLocation = ($YRes / 2) - (602 / 2) - 85
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 779)
-$Form.Text                       = "ZKTool"
+$Form.Text                       = "ZKToolTTT"
 $Form.StartPosition              = "Manual"
 $Form.Location                   = New-Object System.Drawing.Point($FormXLocation, $FormYLocation)
 $Form.TopMost                    = $false
