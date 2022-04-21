@@ -63,6 +63,7 @@ EXTRA TWEAKS
 - Oculta el boton de reunirse ahora (W10)
 - Oculta el boton de busqueda
 - Oculta el boton de chats (Teams)
+- Aplica el tamaño a los iconos del escritorio a pequeño
 - Aplica el modo oscuro global
 - Oculta archivos y carpetas recientes en el explorador de archivos
 - Cambia el nombre del PC a 'NOMBREUSUARIO'-PC
