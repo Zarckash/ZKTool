@@ -13,7 +13,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
 $SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
-$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3F434B")
+$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $Location = 233 # Sets Each Panel Location
@@ -157,6 +157,21 @@ $B8.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',
 $B8.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B8)
 $Position += 172
+
+$Buttons = @($B1,$B2,$B3,$B4,$B5,$B6,$B7,$B8)
+foreach ($Button in $Buttons) {
+    $Button.Add_MouseEnter({
+        if ($this.BackColor -eq $ButtonColor) {
+            $this.BackColor = $ProcessingColor
+        }
+    })
+
+    $Button.Add_MouseLeave({
+        if ($this.BackColor -eq $ProcessingColor) {
+            $this.BackColor = $ButtonColor
+        }
+    })
+}
 
 $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
 $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path

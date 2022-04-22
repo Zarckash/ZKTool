@@ -13,7 +13,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
 $SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
-$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3F434B")
+$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $Location = 233 # Sets Each Panel Location
@@ -126,6 +126,21 @@ $Accept.Font                     = New-Object System.Drawing.Font('Ubuntu Mono',
 $Accept.BackColor                = $ButtonColor
 $Accept.ForeColor                = $TextColor
 $Panel2.Controls.Add($Accept)
+
+$Buttons = @($SearchIP,$Cancel,$Accept)
+foreach ($Button in $Buttons) {
+    $Button.Add_MouseEnter({
+        if ($this.BackColor -eq $ButtonColor) {
+            $this.BackColor = $ProcessingColor
+        }
+    })
+
+    $Button.Add_MouseLeave({
+        if ($this.BackColor -eq $ProcessingColor) {
+            $this.BackColor = $ButtonColor
+        }
+    })
+}
 
 $Gateway = Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
 
