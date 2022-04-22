@@ -21,10 +21,10 @@ $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
-$Location = 233 # Sets Each Panel Location
+$PanelSize = 233 # Sets Each Panel Location
 $XRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentHorizontalResolution" # Resolucion Horizontal
 $YRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentVerticalResolution" # Resolucion Vertical
-$FormXLocation = ($XRes / 2) - (($Location*3) / 2) - 5
+$FormXLocation = ($XRes / 2) - (($PanelSize*3) / 2) - 5
 $FormYLocation = ($YRes / 2) - (602 / 2) - 90
 
 $Form                            = New-Object System.Windows.Forms.Form
@@ -65,7 +65,7 @@ $Form.Controls.Add($SLabel)
 $SPanel                          = New-Object System.Windows.Forms.Panel
 $SPanel.Height                   = 455
 $SPanel.Width                    = 233
-$SPanel.Location                 = New-Object System.Drawing.Point(($Location*0),44)
+$SPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),44)
 $Form.Controls.Add($SPanel)
 
 $Position                        = 10 # Sets Each Button Position
@@ -136,8 +136,7 @@ foreach ($Button in $Buttons) {
 $MSPanel                         = New-Object system.Windows.Forms.Panel
 $MSPanel.Height                  = 455
 $MSPanel.Width                   = 233
-$MSPanel.Location                = New-Object System.Drawing.Point(($Location*0),44)
-$Position                        = 10
+$MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),44)
 
 # Streamlabs OBS
 $MSB1                            = New-Object System.Windows.Forms.Button
@@ -216,7 +215,7 @@ $Form.Controls.Add($LLabel)
 $LPanel                          = New-Object System.Windows.Forms.Panel
 $LPanel.Height                   = 310
 $LPanel.Width                    = 233
-$LPanel.Location                 = New-Object System.Drawing.Point($Location,44)
+$LPanel.Location                 = New-Object System.Drawing.Point($PanelSize,44)
 $Form.Controls.Add($LPanel)
 
 # Steam
@@ -280,7 +279,7 @@ $Form.Controls.Add($TLabel)
 $TPanel                          = New-Object System.Windows.Forms.Panel
 $TPanel.Height                   = 455
 $TPanel.Width                    = 233
-$TPanel.Location                 = New-Object System.Drawing.Point(($Location*2),44)
+$TPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),44)
 $Form.Controls.Add($TPanel)
 
 # Essential Tweaks
@@ -347,7 +346,7 @@ foreach ($Button in $Buttons) {
 $MTPanel                         = New-Object System.Windows.Forms.Panel
 $MTPanel.Height                  = 455
 $MTPanel.Width                   = 233
-$MTPanel.Location                = New-Object System.Drawing.Point(($Location*3),44)
+$MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),44)
 
 # Activate Windows PRO
 $MTB1                            = New-Object System.Windows.Forms.Button
@@ -413,7 +412,7 @@ foreach ($Button in $Buttons) {
 $LogoBox                         = New-Object System.Windows.Forms.PictureBox
 $LogoBox.Width                   = 233
 $LogoBox.Height                  = 125
-$LogoBox.Location                = New-Object System.Drawing.Point($Location,364)
+$LogoBox.Location                = New-Object System.Drawing.Point($PanelSize,364)
 $LogoBox.imageLocation           = "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/ZKLogo.png"
 $LogoBox.SizeMode                = "Zoom"
 $Form.Controls.Add($LogoBox)
@@ -428,7 +427,7 @@ $Form.Controls.Add($LogoBox)
 $SSPanel                         = New-Object System.Windows.Forms.Panel
 $SSPanel.Height                  = 48
 $SSPanel.Width                   = 699
-$SSPanel.Location                = New-Object System.Drawing.Point(($Location*0),500)
+$SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),500)
 $Form.Controls.Add($SSPanel)
 
 # Start Script Button
@@ -453,7 +452,7 @@ $StatusBox                       = New-Object System.Windows.Forms.TextBox
 $StatusBox.multiline             = $true
 $StatusBox.Width                 = 679
 $StatusBox.Height                = 45
-$StatusBox.Location              = New-Object System.Drawing.Point(($Location*0+11),549)
+$StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),549)
 $StatusBox.Font                  = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $StatusBox.BackColor             = $ButtonColor
 $StatusBox.ForeColor             = $FormTextColor
@@ -471,7 +470,7 @@ $Form.Controls.Add($StatusBox)
 $HSPanel                         = New-Object System.Windows.Forms.Panel
 $HSPanel.Height                  = 131
 $HSPanel.Width                   = 233
-$HSPanel.Location                = New-Object System.Drawing.Point(($Location*0),500)
+$HSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),500)
 
 # Hidden Software Separator
 $HSS                             = New-Object System.Windows.Forms.Button
@@ -513,7 +512,7 @@ foreach ($Button in $Buttons) {
 $HPanel                          = New-Object System.Windows.Forms.Panel
 $HPanel.Height                   = 131
 $HPanel.Width                    = 699
-$HPanel.Location                 = New-Object System.Drawing.Point(($Location*0),500)
+$HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),500)
 
 # Hidden Panel Separator
 $HPS                             = New-Object System.Windows.Forms.Button
@@ -586,7 +585,7 @@ foreach ($Button in $Buttons) {$HPanel.Controls.Add($Button)}
 $HTPanel                         = New-Object System.Windows.Forms.Panel
 $HTPanel.Height                  = 131
 $HTPanel.Width                   = 233
-$HTPanel.Location                = New-Object System.Drawing.Point(($Location*3),500)
+$HTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),500)
 
 # Hidden Tweaks Separator
 $HTS                             = New-Object System.Windows.Forms.Button
@@ -627,7 +626,7 @@ foreach ($Button in $Buttons) {
 $PaddingPanel                    = New-Object System.Windows.Forms.Panel
 $PaddingPanel.Height             = 8
 $PaddingPanel.Width              = 695
-$PaddingPanel.Location           = New-Object System.Drawing.Point(($Location*0),594)
+$PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),594)
 $Form.Controls.Add($PaddingPanel)
 
 $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MoreS,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
@@ -643,140 +642,77 @@ foreach ($Button in $Buttons) {
 $TB1.Height                      = 72
 $MTB1.Height                     = 72
 
-$SB1.Add_Click({
-    if ($SB1.BackColor -eq $ButtonColor) {
-        $SB1.BackColor = $TextColor
-        $SB1.ForeColor = $SelectedTextColor
-    }else {
-        $SB1.BackColor = $ButtonColor
-        $SB1.ForeColor = $FormTextColor
+
+$Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
+$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
+$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HSB1,$HSB2,$HSB3,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9,$HTB1,$HTB2,$HTB3)
+foreach ($Button in $Buttons) {
+
+    $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
+    $SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
+    $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
+    $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
+    $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
+
+    $Button.Add_Click({
+        if ($this.BackColor -eq $ProcessingColor) {
+            $this.BackColor = $TextColor
+            $this.ForeColor = $SelectedTextColor
+        }else {
+            $this.BackColor = $ButtonColor
+            $this.ForeColor = $FormTextColor
+        }
+    })
+
+    $Button.Add_MouseEnter({
+        if ($this.BackColor -eq $ButtonColor) {
+            $this.BackColor = $ProcessingColor
+        }
+    })
+
+    $Button.Add_MouseLeave({
+        if ($this.BackColor -eq $ProcessingColor) {
+            $this.BackColor = $ButtonColor
+        }
+    })
+}
+
+$MoreS.Add_MouseEnter({
+    if ($this.BackColor -eq $ButtonColor) {
+        $this.BackColor = $ProcessingColor
     }
 })
 
-$SB2.Add_Click({
-    if ($SB2.BackColor -eq $ButtonColor) {
-        $SB2.BackColor = $TextColor
-        $SB2.ForeColor = $SelectedTextColor
-    }else {
-        $SB2.BackColor = $ButtonColor
-        $SB2.ForeColor = $FormTextColor
-    }
-})
-
-$SB3.Add_Click({
-    if ($SB3.BackColor -eq $ButtonColor) {
-        $SB3.BackColor = $TextColor
-        $SB3.ForeColor = $SelectedTextColor
-    }else {
-        $SB3.BackColor = $ButtonColor
-        $SB3.ForeColor = $FormTextColor
-    }
-})
-
-$SB4.Add_Click({
-    if ($SB4.BackColor -eq $ButtonColor) {
-        $SB4.BackColor = $TextColor
-        $SB4.ForeColor = $SelectedTextColor
-    }else {
-        $SB4.BackColor = $ButtonColor
-        $SB4.ForeColor = $FormTextColor
-    }
-})
-
-$SB5.Add_Click({
-    if ($SB5.BackColor -eq $ButtonColor) {
-        $SB5.BackColor = $TextColor
-        $SB5.ForeColor = $SelectedTextColor
-    }else {
-        $SB5.BackColor = $ButtonColor
-        $SB5.ForeColor = $FormTextColor
-    }
-})
-
-$SB6.Add_Click({
-    if ($SB6.BackColor -eq $ButtonColor) {
-        $SB6.BackColor = $TextColor
-        $SB6.ForeColor = $SelectedTextColor
-    }else {
-        $SB6.BackColor = $ButtonColor
-        $SB6.ForeColor = $FormTextColor
-    }
-})
-
-$SB7.Add_Click({
-    if ($SB7.BackColor -eq $ButtonColor) {
-        $SB7.BackColor = $TextColor
-        $SB7.ForeColor = $SelectedTextColor
-    }else {
-        $SB7.BackColor = $ButtonColor
-        $SB7.ForeColor = $FormTextColor
-    }
-})
-
-$SB8.Add_Click({
-    if ($SB8.BackColor -eq $ButtonColor) {
-        $SB8.BackColor = $TextColor
-        $SB8.ForeColor = $SelectedTextColor
-    }else {
-        $SB8.BackColor = $ButtonColor
-        $SB8.ForeColor = $FormTextColor
-    }
-})
-
-$SB9.Add_Click({
-    if ($SB9.BackColor -eq $ButtonColor) {
-        $SB9.BackColor = $TextColor
-        $SB9.ForeColor = $SelectedTextColor
-    }else {
-        $SB9.BackColor = $ButtonColor
-        $SB9.ForeColor = $FormTextColor
-    }
-})
-
-$SB10.Add_Click({
-    if ($SB10.BackColor -eq $ButtonColor) {
-        $SB10.BackColor = $TextColor
-        $SB10.ForeColor = $SelectedTextColor
-    }else {
-        $SB10.BackColor = $ButtonColor
-        $SB10.ForeColor = $FormTextColor
-    }
-})
-
-$SB11.Add_Click({
-    if ($SB11.BackColor -eq $ButtonColor) {
-        $SB11.BackColor = $TextColor
-        $SB11.ForeColor = $SelectedTextColor
-    }else {
-        $SB11.BackColor = $ButtonColor
-        $SB11.ForeColor = $FormTextColor
+$MoreS.Add_MouseLeave({
+    if ($this.BackColor -eq $ProcessingColor) {
+        $this.BackColor = $ButtonColor
     }
 })
 
 $MoreS.Add_Click({
-        if ($MoreS.BackColor -eq $ButtonColor) {
+        if ($MoreS.BackColor -eq $ProcessingColor) {
             $MoreS.BackColor = $TextColor
             $MoreS.ForeColor = $SelectedTextColor
             $Form.Controls.Add($MSPanel)
             $MSPanel.Width = 233
-            $Form.Location                   = New-Object System.Drawing.Point(($FormXLocation -233), $FormYLocation)
-            $SLabel.Location                 = New-Object System.Drawing.Point((25+$Location/2),13)
-            $SPanel.Location                 = New-Object System.Drawing.Point(($Location),44)
-            $LLabel.Location                 = New-Object System.Drawing.Point((252+$Location),13)
-            $LPanel.Location                 = New-Object System.Drawing.Point(($Location*2),44)
-            $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location),13)
-            $TPanel.Location                 = New-Object System.Drawing.Point(($Location*3),44)
-            $LogoBox.Location                = New-Object System.Drawing.Point(($Location*2),364)
-            $HPanel.Location                 = New-Object System.Drawing.Point(($Location),500)
-            $HTPanel.Location                = New-Object System.Drawing.Point(($Location*4),500)
-            $SSPanel.Width                  += $Location
-            $StartScript.Width              += $Location
-            $StatusBox.Width                += $Location
+            $Form.Location                   = New-Object System.Drawing.Point(($FormXLocation -$PanelSize), $FormYLocation)
+            $SLabel.Location                 = New-Object System.Drawing.Point((25+$PanelSize/2),13)
+            $SPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),44)
+            $LLabel.Location                 = New-Object System.Drawing.Point((252+$PanelSize),13)
+            $LPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),44)
+            $TLabel.Location                 = New-Object System.Drawing.Point((520+$PanelSize),13)
+            $TPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*3),44)
+            $LogoBox.Location                = New-Object System.Drawing.Point(($PanelSize*2),364)
+            $HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),500)
+            $HTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*4),500)
+            $SSPanel.Width                  += $PanelSize
+            $StartScript.Width              += $PanelSize
+            $StatusBox.Width                += $PanelSize
         }
 
         if ($MoreT.BackColor -eq $TextColor) {
-            $MTPanel.Location                = New-Object System.Drawing.Point(($Location*4),44)
-            $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location+($Location/2)),13)
+            $MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*4),44)
+            $TLabel.Location                 = New-Object System.Drawing.Point((520+$PanelSize+($PanelSize/2)),13)
         }
 
         if ($HPS.BackColor -eq $TextColor) {
@@ -784,325 +720,37 @@ $MoreS.Add_Click({
         }
 })
 
-$MSB1.Add_Click({
-    if ($MSB1.BackColor -eq $ButtonColor) {
-        $MSB1.BackColor = $TextColor
-        $MSB1.ForeColor = $SelectedTextColor
-    }else {
-        $MSB1.BackColor = $ButtonColor
-        $MSB1.ForeColor = $FormTextColor
-    }
-})
-
-$MSB2.Add_Click({
-    if ($MSB2.BackColor -eq $ButtonColor) {
-        $MSB2.BackColor = $TextColor
-        $MSB2.ForeColor = $SelectedTextColor
-    }else {
-        $MSB2.BackColor = $ButtonColor
-        $MSB2.ForeColor = $FormTextColor
-    }
-})
-
-$MSB3.Add_Click({
-    if ($MSB3.BackColor -eq $ButtonColor) {
-        $MSB3.BackColor = $TextColor
-        $MSB3.ForeColor = $SelectedTextColor
-    }else {
-        $MSB3.BackColor = $ButtonColor
-        $MSB3.ForeColor = $FormTextColor
-    }
-})
-
-$MSB4.Add_Click({
-    if ($MSB4.BackColor -eq $ButtonColor) {
-        $MSB4.BackColor = $TextColor
-        $MSB4.ForeColor = $SelectedTextColor
-    }else {
-        $MSB4.BackColor = $ButtonColor
-        $MSB4.ForeColor = $FormTextColor
-    }
-})
-
-$MSB5.Add_Click({
-    if ($MSB5.BackColor -eq $ButtonColor) {
-        $MSB5.BackColor = $TextColor
-        $MSB5.ForeColor = $SelectedTextColor
-    }else {
-        $MSB5.BackColor = $ButtonColor
-        $MSB5.ForeColor = $FormTextColor
-    }
-})
-
-$MSB6.Add_Click({
-    if ($MSB6.BackColor -eq $ButtonColor) {
-        $MSB6.BackColor = $TextColor
-        $MSB6.ForeColor = $SelectedTextColor
-    }else {
-        $MSB6.BackColor = $ButtonColor
-        $MSB6.ForeColor = $FormTextColor
-    }
-})
-
-$MSB7.Add_Click({
-    if ($MSB7.BackColor -eq $ButtonColor) {
-        $MSB7.BackColor = $TextColor
-        $MSB7.ForeColor = $SelectedTextColor
-    }else {
-        $MSB7.BackColor = $ButtonColor
-        $MSB7.ForeColor = $FormTextColor
-    }
-})
-
-$MSB8.Add_Click({
-    if ($MSB8.BackColor -eq $ButtonColor) {
-        $MSB8.BackColor = $TextColor
-        $MSB8.ForeColor = $SelectedTextColor
-    }else {
-        $MSB8.BackColor = $ButtonColor
-        $MSB8.ForeColor = $FormTextColor
-    }
-})
-
-$MSB9.Add_Click({
-    if ($MSB9.BackColor -eq $ButtonColor) {
-        $MSB9.BackColor = $TextColor
-        $MSB9.ForeColor = $SelectedTextColor
-    }else {
-        $MSB9.BackColor = $ButtonColor
-        $MSB9.ForeColor = $FormTextColor
-    }
-})
-
-$MSB10.Add_Click({
-    if ($MSB10.BackColor -eq $ButtonColor) {
-        $MSB10.BackColor = $TextColor
-        $MSB10.ForeColor = $SelectedTextColor
-    }else {
-        $MSB10.BackColor = $ButtonColor
-        $MSB10.ForeColor = $FormTextColor
-    }
-})
-
-$MSB11.Add_Click({
-    if ($MSB11.BackColor -eq $ButtonColor) {
-        $MSB11.BackColor = $TextColor
-        $MSB11.ForeColor = $SelectedTextColor
-    }else {
-        $MSB11.BackColor = $ButtonColor
-        $MSB11.ForeColor = $FormTextColor
-    }
-})
-
-$MSB12.Add_Click({
-    if ($MSB12.BackColor -eq $ButtonColor) {
-        $MSB12.BackColor = $TextColor
-        $MSB12.ForeColor = $SelectedTextColor
-    }else {
-        $MSB12.BackColor = $ButtonColor
-        $MSB12.ForeColor = $FormTextColor
-    }
-})
-
-$LB1.Add_Click({
-    if ($LB1.BackColor -eq $ButtonColor) {
-        $LB1.BackColor = $TextColor
-        $LB1.ForeColor = $SelectedTextColor
-    }else {
-        $LB1.BackColor = $ButtonColor
-        $LB1.ForeColor = $FormTextColor
-    }
-})
-
-$LB2.Add_Click({
-    if ($LB2.BackColor -eq $ButtonColor) {
-        $LB2.BackColor = $TextColor
-        $LB2.ForeColor = $SelectedTextColor
-    }else {
-        $LB2.BackColor = $ButtonColor
-        $LB2.ForeColor = $FormTextColor
-    }
-})
-
-$LB3.Add_Click({
-    if ($LB3.BackColor -eq $ButtonColor) {
-        $LB3.BackColor = $TextColor
-        $LB3.ForeColor = $SelectedTextColor
-    }else {
-        $LB3.BackColor = $ButtonColor
-        $LB3.ForeColor = $FormTextColor
-    }
-})
-
-$LB4.Add_Click({
-    if ($LB4.BackColor -eq $ButtonColor) {
-        $LB4.BackColor = $TextColor
-        $LB4.ForeColor = $SelectedTextColor
-    }else {
-        $LB4.BackColor = $ButtonColor
-        $LB4.ForeColor = $FormTextColor
-    }
-})
-
-$LB5.Add_Click({
-    if ($LB5.BackColor -eq $ButtonColor) {
-        $LB5.BackColor = $TextColor
-        $LB5.ForeColor = $SelectedTextColor
-    }else {
-        $LB5.BackColor = $ButtonColor
-        $LB5.ForeColor = $FormTextColor
-    }
-})
-
-$LB6.Add_Click({
-    if ($LB6.BackColor -eq $ButtonColor) {
-        $LB6.BackColor = $TextColor
-        $LB6.ForeColor = $SelectedTextColor
-    }else {
-        $LB6.BackColor = $ButtonColor
-        $LB6.ForeColor = $FormTextColor
-    }
-})
-
-$LB7.Add_Click({
-    if ($LB7.BackColor -eq $ButtonColor) {
-        $LB7.BackColor = $TextColor
-        $LB7.ForeColor = $SelectedTextColor
-    }else {
-        $LB7.BackColor = $ButtonColor
-        $LB7.ForeColor = $FormTextColor
-    }
-})
-
-$LB8.Add_Click({
-    if ($LB8.BackColor -eq $ButtonColor) {
-        $LB8.BackColor = $TextColor
-        $LB8.ForeColor = $SelectedTextColor
-    }else {
-        $LB8.BackColor = $ButtonColor
-        $LB8.ForeColor = $FormTextColor
-    }
-})
-
 $TLabel.Add_Click({
     Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Info.txt" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
     Start-Process "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
 })
 
-$TB1.Add_Click({
-    if ($TB1.BackColor -eq $ButtonColor) {
-        $TB1.BackColor = $TextColor
-        $TB1.ForeColor = $SelectedTextColor
-    }else {
-        $TB1.BackColor = $ButtonColor
-        $TB1.ForeColor = $FormTextColor
+$MoreT.Add_MouseEnter({
+    if ($this.BackColor -eq $ButtonColor) {
+        $this.BackColor = $ProcessingColor
     }
 })
 
-$TB2.Add_Click({
-    if ($TB2.BackColor -eq $ButtonColor) {
-        $TB2.BackColor = $TextColor
-        $TB2.ForeColor = $SelectedTextColor
-    }else {
-        $TB2.BackColor = $ButtonColor
-        $TB2.ForeColor = $FormTextColor
-    }
-})
-
-$TB3.Add_Click({
-    if ($TB3.BackColor -eq $ButtonColor) {
-        $TB3.BackColor = $TextColor
-        $TB3.ForeColor = $SelectedTextColor
-    }else {
-        $TB3.BackColor = $ButtonColor
-        $TB3.ForeColor = $FormTextColor
-    }
-})
-
-$TB4.Add_Click({
-    if ($TB4.BackColor -eq $ButtonColor) {
-        $TB4.BackColor = $TextColor
-        $TB4.ForeColor = $SelectedTextColor
-    }else {
-        $TB4.BackColor = $ButtonColor
-        $TB4.ForeColor = $FormTextColor
-    }
-})
-
-$TB5.Add_Click({
-    if ($TB5.BackColor -eq $ButtonColor) {
-        $TB5.BackColor = $TextColor
-        $TB5.ForeColor = $SelectedTextColor
-    }else {
-        $TB5.BackColor = $ButtonColor
-        $TB5.ForeColor = $FormTextColor
-    }
-})
-
-$TB6.Add_Click({
-    if ($TB6.BackColor -eq $ButtonColor) {
-        $TB6.BackColor = $TextColor
-        $TB6.ForeColor = $SelectedTextColor
-    }else {
-        $TB6.BackColor = $ButtonColor
-        $TB6.ForeColor = $FormTextColor
-    }
-})
-
-$TB7.Add_Click({
-    if ($TB7.BackColor -eq $ButtonColor) {
-        $TB7.BackColor = $TextColor
-        $TB7.ForeColor = $SelectedTextColor
-    }else {
-        $TB7.BackColor = $ButtonColor
-        $TB7.ForeColor = $FormTextColor
-    }
-})
-
-$TB8.Add_Click({
-    if ($TB8.BackColor -eq $ButtonColor) {
-        $TB8.BackColor = $TextColor
-        $TB8.ForeColor = $SelectedTextColor
-    }else {
-        $TB8.BackColor = $ButtonColor
-        $TB8.ForeColor = $FormTextColor
-    }
-})
-
-$TB9.Add_Click({
-    if ($TB9.BackColor -eq $ButtonColor) {
-        $TB9.BackColor = $TextColor
-        $TB9.ForeColor = $SelectedTextColor
-    }else {
-        $TB9.BackColor = $ButtonColor
-        $TB9.ForeColor = $FormTextColor
-    }
-})
-
-$TB10.Add_Click({
-    if ($TB10.BackColor -eq $ButtonColor) {
-        $TB10.BackColor = $TextColor
-        $TB10.ForeColor = $SelectedTextColor
-    }else {
-        $TB10.BackColor = $ButtonColor
-        $TB10.ForeColor = $FormTextColor
+$MoreT.Add_MouseLeave({
+    if ($this.BackColor -eq $ProcessingColor) {
+        $this.BackColor = $ButtonColor
     }
 })
 
 $MoreT.Add_Click({
-    if ($MoreT.BackColor -eq $ButtonColor) {
+    if ($MoreT.BackColor -eq $ProcessingColor) {
     $MoreT.BackColor = $TextColor
     $MoreT.ForeColor = $SelectedTextColor
     $Form.Controls.Add($MTPanel)
-    $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location/2),13)
-    $SSPanel.Width                  += $Location
-    $StartScript.Width              += $Location
-    $StatusBox.Width                += $Location
+    $TLabel.Location                 = New-Object System.Drawing.Point((520+$PanelSize/2),13)
+    $SSPanel.Width                  += $PanelSize
+    $StartScript.Width              += $PanelSize
+    $StatusBox.Width                += $PanelSize
     }
 
     if ($MoreS.BackColor -eq $TextColor) {
-        $TLabel.Location                 = New-Object System.Drawing.Point((520+$Location+($Location/2)),13)
-        $MTPanel.Location                = New-Object System.Drawing.Point(($Location*4),44)
+        $TLabel.Location                 = New-Object System.Drawing.Point((520+$PanelSize+($PanelSize/2)),13)
+        $MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*4),44)
     }
 
     if ($HPS.BackColor -eq $TextColor) {
@@ -1110,111 +758,11 @@ $MoreT.Add_Click({
     }
 })
 
-$MTB1.Add_Click({
-    if ($MTB1.BackColor -eq $ButtonColor) {
-        $MTB1.BackColor = $TextColor
-        $MTB1.ForeColor = $SelectedTextColor
-    }else {
-        $MTB1.BackColor = $ButtonColor
-        $MTB1.ForeColor = $FormTextColor
-    }
-})
-
-$MTB2.Add_Click({
-    if ($MTB2.BackColor -eq $ButtonColor) {
-        $MTB2.BackColor = $TextColor
-        $MTB2.ForeColor = $SelectedTextColor
-    }else {
-        $MTB2.BackColor = $ButtonColor
-        $MTB2.ForeColor = $FormTextColor
-    }
-})
-
-$MTB3.Add_Click({
-    if ($MTB3.BackColor -eq $ButtonColor) {
-        $MTB3.BackColor = $TextColor
-        $MTB3.ForeColor = $SelectedTextColor
-    }else {
-        $MTB3.BackColor = $ButtonColor
-        $MTB3.ForeColor = $FormTextColor
-    }
-})
-
-$MTB4.Add_Click({
-    if ($MTB4.BackColor -eq $ButtonColor) {
-        $MTB4.BackColor = $TextColor
-        $MTB4.ForeColor = $SelectedTextColor
-    }else {
-        $MTB4.BackColor = $ButtonColor
-        $MTB4.ForeColor = $FormTextColor
-    }
-})
-
-$MTB5.Add_Click({
-    if ($MTB5.BackColor -eq $ButtonColor) {
-        $MTB5.BackColor = $TextColor
-        $MTB5.ForeColor = $SelectedTextColor
-    }else {
-        $MTB5.BackColor = $ButtonColor
-        $MTB5.ForeColor = $FormTextColor
-    }
-})
-
-$MTB6.Add_Click({
-    if ($MTB6.BackColor -eq $ButtonColor) {
-        $MTB6.BackColor = $TextColor
-        $MTB6.ForeColor = $SelectedTextColor
-    }else {
-        $MTB6.BackColor = $ButtonColor
-        $MTB6.ForeColor = $FormTextColor
-    }
-})
-
-$MTB7.Add_Click({
-    if ($MTB7.BackColor -eq $ButtonColor) {
-        $MTB7.BackColor = $TextColor
-        $MTB7.ForeColor = $SelectedTextColor
-    }else {
-        $MTB7.BackColor = $ButtonColor
-        $MTB7.ForeColor = $FormTextColor
-    }
-})
-
-$MTB8.Add_Click({
-    if ($MTB8.BackColor -eq $ButtonColor) {
-        $MTB8.BackColor = $TextColor
-        $MTB8.ForeColor = $SelectedTextColor
-    }else {
-        $MTB8.BackColor = $ButtonColor
-        $MTB8.ForeColor = $FormTextColor
-    }
-})
-
-$MTB9.Add_Click({
-    if ($MTB9.BackColor -eq $ButtonColor) {
-        $MTB9.BackColor = $TextColor
-        $MTB9.ForeColor = $SelectedTextColor
-    }else {
-        $MTB9.BackColor = $ButtonColor
-        $MTB9.ForeColor = $FormTextColor
-    }
-})
-
-$MTB10.Add_Click({
-    if ($MTB10.BackColor -eq $ButtonColor) {
-        $MTB10.BackColor = $TextColor
-        $MTB10.ForeColor = $SelectedTextColor
-    }else {
-        $MTB10.BackColor = $ButtonColor
-        $MTB10.ForeColor = $FormTextColor
-    }
-})
-
 $LogoBox.Add_Click({
     $Form.Controls.Add($HPanel)
-    $SSPanel.Location                = New-Object System.Drawing.Point(($Location*0),(500+135))
-    $StatusBox.Location              = New-Object System.Drawing.Point(($Location*0+11),(549+135))
-    $PaddingPanel.Location           = New-Object System.Drawing.Point(($Location*0),(594+135))
+    $SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),(500+135))
+    $StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),(549+135))
+    $PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),(594+135))
     $HPS.BackColor                   = $TextColor
 
     if ($MoreS.BackColor -eq $TextColor) {
@@ -1223,156 +771,6 @@ $LogoBox.Add_Click({
 
     if ($MoreT.BackColor -eq $TextColor) {
         $Form.Controls.Add($HTPanel)
-    }
-})
-
-$HSB1.Add_Click({
-    if ($HSB1.BackColor -eq $ButtonColor) {
-        $HSB1.BackColor = $TextColor
-        $HSB1.ForeColor = $SelectedTextColor
-    }else {
-        $HSB1.BackColor = $ButtonColor
-        $HSB1.ForeColor = $FormTextColor
-    }
-})
-
-$HSB2.Add_Click({
-    if ($HSB2.BackColor -eq $ButtonColor) {
-        $HSB2.BackColor = $TextColor
-        $HSB2.ForeColor = $SelectedTextColor
-    }else {
-        $HSB2.BackColor = $ButtonColor
-        $HSB2.ForeColor = $FormTextColor
-    }
-})
-
-$HSB3.Add_Click({
-    if ($HSB3.BackColor -eq $ButtonColor) {
-        $HSB3.BackColor = $TextColor
-        $HSB3.ForeColor = $SelectedTextColor
-    }else {
-        $HSB3.BackColor = $ButtonColor
-        $HSB3.ForeColor = $FormTextColor
-    }
-})
-
-$HB1.Add_Click({
-    if ($HB1.BackColor -eq $ButtonColor) {
-        $HB1.BackColor = $TextColor
-        $HB1.ForeColor = $SelectedTextColor
-    }else {
-        $HB1.BackColor = $ButtonColor
-        $HB1.ForeColor = $FormTextColor
-    }
-})
-
-$HB2.Add_Click({
-    if ($HB2.BackColor -eq $ButtonColor) {
-        $HB2.BackColor = $TextColor
-        $HB2.ForeColor = $SelectedTextColor
-    }else {
-        $HB2.BackColor = $ButtonColor
-        $HB2.ForeColor = $FormTextColor
-    }
-})
-
-$HB3.Add_Click({
-    if ($HB3.BackColor -eq $ButtonColor) {
-        $HB3.BackColor = $TextColor
-        $HB3.ForeColor = $SelectedTextColor
-    }else {
-        $HB3.BackColor = $ButtonColor
-        $HB3.ForeColor = $FormTextColor
-    }
-})
-
-$HB4.Add_Click({
-    if ($HB4.BackColor -eq $ButtonColor) {
-        $HB4.BackColor = $TextColor
-        $HB4.ForeColor = $SelectedTextColor
-    }else {
-        $HB4.BackColor = $ButtonColor
-        $HB4.ForeColor = $FormTextColor
-    }
-})
-
-$HB5.Add_Click({
-    if ($HB5.BackColor -eq $ButtonColor) {
-        $HB5.BackColor = $TextColor
-        $HB5.ForeColor = $SelectedTextColor
-    }else {
-        $HB5.BackColor = $ButtonColor
-        $HB5.ForeColor = $FormTextColor
-    }
-})
-
-$HB6.Add_Click({
-    if ($HB6.BackColor -eq $ButtonColor) {
-        $HB6.BackColor = $TextColor
-        $HB6.ForeColor = $SelectedTextColor
-    }else {
-        $HB6.BackColor = $ButtonColor
-        $HB6.ForeColor = $FormTextColor
-    }
-})
-
-$HB7.Add_Click({
-    if ($HB7.BackColor -eq $ButtonColor) {
-        $HB7.BackColor = $TextColor
-        $HB7.ForeColor = $SelectedTextColor
-    }else {
-        $HB7.BackColor = $ButtonColor
-        $HB7.ForeColor = $FormTextColor
-    }
-})
-
-$HB8.Add_Click({
-    if ($HB8.BackColor -eq $ButtonColor) {
-        $HB8.BackColor = $TextColor
-        $HB8.ForeColor = $SelectedTextColor
-    }else {
-        $HB8.BackColor = $ButtonColor
-        $HB8.ForeColor = $FormTextColor
-    }
-})
-
-$HB9.Add_Click({
-    if ($HB9.BackColor -eq $ButtonColor) {
-        $HB9.BackColor = $TextColor
-        $HB9.ForeColor = $SelectedTextColor
-    }else {
-        $HB9.BackColor = $ButtonColor
-        $HB9.ForeColor = $FormTextColor
-    }
-})
-
-$HTB1.Add_Click({
-    if ($HTB1.BackColor -eq $ButtonColor) {
-        $HTB1.BackColor = $TextColor
-        $HTB1.ForeColor = $SelectedTextColor
-    }else {
-        $HTB1.BackColor = $ButtonColor
-        $HTB1.ForeColor = $FormTextColor
-    }
-})
-
-$HTB2.Add_Click({
-    if ($HTB2.BackColor -eq $ButtonColor) {
-        $HTB2.BackColor = $TextColor
-        $HTB2.ForeColor = $SelectedTextColor
-    }else {
-        $HTB2.BackColor = $ButtonColor
-        $HTB2.ForeColor = $FormTextColor
-    }
-})
-
-$HTB3.Add_Click({
-    if ($HTB3.BackColor -eq $ButtonColor) {
-        $HTB3.BackColor = $TextColor
-        $HTB3.ForeColor = $SelectedTextColor
-    }else {
-        $HTB3.BackColor = $ButtonColor
-        $HTB3.ForeColor = $FormTextColor
     }
 })
 
@@ -2243,6 +1641,9 @@ $StartScript.Add_Click({
        
     $StartScript.BackColor = $ButtonColor
     $StartScript.ForeColor = $TextColor
+
+$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
+$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
 
     $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
                 $LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
