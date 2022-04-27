@@ -21,8 +21,8 @@ Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/ZKLogo.ico" -OutFile "$
 
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
 $SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
-$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
-$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
+$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#89EDFF")
+$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3E434F")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $PanelSize = 233 # Sets Each Panel Location
