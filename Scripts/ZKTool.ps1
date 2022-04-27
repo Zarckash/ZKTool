@@ -10,6 +10,10 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
+if (!(Get-MpPreference | Select-Object -ExpandProperty ExclusionPath) -eq "C:\Windows\System32\ZKTool.exe") {
+    Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
+}
+
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-Null
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-Null
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory | Out-Null
@@ -946,8 +950,8 @@ $StartScript.Add_Click({
     if ($LB4.BackColor -eq $TextColor) { # Battle.Net
         $StatusBox.Text = "|Instalando Battle.Net...`r`n" + $StatusBox.Text
         $LB4.BackColor = $ProcessingColor
-        $tempfile = "https://www.battle.net/D$Download/getInstallerForGame?os=win&gameProgram=BATTLENET_APP&version=Live&id=undefined"
-        $Download.DownloadFile($tempfile, $ToPath+"\Apps\BattleNet.exe")
+        $TempFile = "https://www.battle.net/download/getInstallerForGame?os=win&gameProgram=BATTLENET_APP&version=Live&id=undefined"
+        $Download.DownloadFile($TempFile, $ToPath+"\Apps\BattleNet.exe")
         Start-Process ($ToPath+"\Apps\BattleNet.exe")
         $LB4.BackColor = $TextColor
     }
@@ -1253,6 +1257,7 @@ $StartScript.Add_Click({
     
         # Show File Operations Details
         $StatusBox.Text = "|Mostrando Detalles De Transferencias De Archivos...`r`n" + $StatusBox.Text
+        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "OperationStatusManager" | Out-Null
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" -Name "EnthusiastMode" -Type DWord -Value 1
 
         # Clean "New" In Context Menu
@@ -1273,6 +1278,7 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Multimedia\Audio" -Name "UserDuckingPreference" -Type DWord -Value 3
     
         # Hide Buttons From Power Button
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "FlyoutMenuSettings" | Out-Null
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowHibernateOption" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowSleepOption" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowLockOption" -Type DWord -Value 0
@@ -1295,7 +1301,7 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Desinstalando Windows Powershell ISE...`r`n" + $StatusBox.Text
         DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0 /NoRestart | Out-Null
         $StatusBox.Text = "|Desinstalando Reconocedor Matematico...`r`n" + $StatusBox.Text
-        DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0
+        DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-Null
         }
         $TB2.BackColor = $TextColor
     } 
@@ -1474,13 +1480,7 @@ $StartScript.Add_Click({
             $Download.DownloadFile($FromPath+"/Apps/PerformanceCounters.cmd", $ToPath+"\Apps\PerformanceCounters.cmd")
             Start-Process ($ToPath+"\ZKTool\Apps\PerformanceCounters.cmd")
             $MTB7.BackColor = $TextColor
-        }  
-        if ($MTB8.BackColor -eq $TextColor) { # Static IP + DNS
-            $StatusBox.Text = "|Abriendo Selector De IPs...`r`n" + $StatusBox.Text
-            $MTB8.BackColor = $ProcessingColor
-            iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ChooseIp.ps1")))
-            $MTB8.BackColor = $TextColor
-        }  
+        }    
         if ($MTB9.BackColor -eq $TextColor) { # Autoruns
             $StatusBox.Text = "|Abriendo Autoruns...`r`n" + $StatusBox.Text
             $MTB9.BackColor = $ProcessingColor
@@ -1631,6 +1631,12 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
         $HTB3.BackColor = $ProcessingColor
         $HTB3.BackColor = $TextColor
+    }
+    if ($MTB8.BackColor -eq $TextColor) { # Static IP + DNS
+        $StatusBox.Text = "|Abriendo Selector De IPs...`r`n" + $StatusBox.Text
+        $MTB8.BackColor = $ProcessingColor
+        iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ChooseIp.ps1")))
+        $MTB8.BackColor = $TextColor
     }
        
     $StartScript.BackColor = $ButtonColor
