@@ -605,16 +605,16 @@ $HTPanel.Controls.Add($HTS)
 $HTB1                            = New-Object System.Windows.Forms.Button
 $HTB1.Text                       = "Unpin All Apps"
 
-# Void
+# Remove Realtek
 $HTB2                            = New-Object System.Windows.Forms.Button
-$HTB2.Text                       = "Void"
+$HTB2.Text                       = "Remove Realtek"
 
 # Void
 $HTB3                            = New-Object System.Windows.Forms.Button
 $HTB3.Text                       = "Void"
 
 $Position = 20
-$Buttons = @($HTB1)
+$Buttons = @($HTB1,$HTB2)
 foreach ($Button in $Buttons) {
     $HTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -1622,9 +1622,14 @@ $StartScript.Add_Click({
         Copy-Item -Path ($ToPath+"\Configs\start.bin") -Destination "$env:userprofile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState" -Force
         $HTB1.BackColor = $TextColor
     }
-    if ($HTB2.BackColor -eq $TextColor) {
-        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+    if ($HTB2.BackColor -eq $TextColor) { # Remove Realtek
+        $StatusBox.Text = "|Quitando Realtek Audio Service...`r`n" + $StatusBox.Text
         $HTB2.BackColor = $ProcessingColor
+        sc stop Audiosrv
+        sc stop RtkAudioUniversalService
+        taskkill /f /im RtkAudUService64.exe | Out-Null
+        sc delete RtkAudioUniversalService
+        Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
         $HTB2.BackColor = $TextColor
     }
     if ($HTB3.BackColor -eq $TextColor) {
