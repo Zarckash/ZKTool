@@ -635,11 +635,7 @@ $LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,
 $MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HSB1,$HSB2,$HSB3,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9,$HTB1,$HTB2,$HTB3)
 
 foreach ($Button in $Buttons) {
-    $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
-    $SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
-    $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#99FFFD")
-    $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3A3D45")
-    $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
+
 
     $Button.Add_Click({
         if ($this.BackColor -eq $ProcessingColor) {
