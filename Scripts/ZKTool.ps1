@@ -438,7 +438,7 @@ $Form.Controls.Add($SSPanel)
 $StartScript                     = New-Object System.Windows.Forms.Button
 $StartScript.Text                = "I N I C I A R    S C R I P T"
 $StartScript.Width               = 681
-$StartScript.Height              = 45
+$StartScript.Height              = 50
 $StartScript.Location            = New-Object System.Drawing.Point(10,0)
 $StartScript.Font                = New-Object System.Drawing.Font('Ubuntu Mono',18)
 $StartScript.BackColor           = $ButtonColor
@@ -456,7 +456,7 @@ $StatusBox                       = New-Object System.Windows.Forms.TextBox
 $StatusBox.multiline             = $true
 $StatusBox.Width                 = 679
 $StatusBox.Height                = 45
-$StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),609)
+$StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),614)
 $StatusBox.Font                  = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $StatusBox.BackColor             = $ButtonColor
 $StatusBox.ForeColor             = $FormTextColor
@@ -630,7 +630,7 @@ foreach ($Button in $Buttons) {
 $PaddingPanel                    = New-Object System.Windows.Forms.Panel
 $PaddingPanel.Height             = 8
 $PaddingPanel.Width              = 695
-$PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),654)
+$PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),659)
 $Form.Controls.Add($PaddingPanel)
 
 
@@ -758,8 +758,8 @@ $MoreT.Add_Click({
 $LogoBox.Add_Click({
     $Form.Controls.Add($HPanel)
     $SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),(560+150))
-    $StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),(609+150))
-    $PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),(654+150))
+    $StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),(614+150))
+    $PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),(659+150))
     $HPS.BackColor                   = $TextColor
 
     if ($MoreS.BackColor -eq $TextColor) {
