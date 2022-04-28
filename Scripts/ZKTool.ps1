@@ -67,7 +67,7 @@ $Form.Controls.Add($SLabel)
 
 # Software Panel
 $SPanel                          = New-Object System.Windows.Forms.Panel
-$SPanel.Height                   = 455
+$SPanel.Height                   = 515
 $SPanel.Width                    = 233
 $SPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),44)
 $Form.Controls.Add($SPanel)
@@ -127,7 +127,7 @@ $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MoreS)
 foreach ($Button in $Buttons) {
     $SPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=37
+    $Position+=42
 }
 
 
@@ -138,7 +138,7 @@ foreach ($Button in $Buttons) {
 
 # More Software Panel
 $MSPanel                         = New-Object system.Windows.Forms.Panel
-$MSPanel.Height                  = 455
+$MSPanel.Height                  = 515
 $MSPanel.Width                   = 233
 $MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),44)
 
@@ -195,7 +195,7 @@ $Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=37
+    $Position+=42
 }
 
 
@@ -217,7 +217,7 @@ $Form.Controls.Add($LLabel)
 
 # Launchers Panel
 $LPanel                          = New-Object System.Windows.Forms.Panel
-$LPanel.Height                   = 310
+$LPanel.Height                   = 360
 $LPanel.Width                    = 233
 $LPanel.Location                 = New-Object System.Drawing.Point($PanelSize,44)
 $Form.Controls.Add($LPanel)
@@ -259,7 +259,7 @@ $Buttons = @($LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8)
 foreach ($Button in $Buttons) {
     $LPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=37
+    $Position+=42
 }
 
 
@@ -281,7 +281,7 @@ $Form.Controls.Add($TLabel)
 
 # Tweaks Panel
 $TPanel                          = New-Object System.Windows.Forms.Panel
-$TPanel.Height                   = 455
+$TPanel.Height                   = 515
 $TPanel.Width                    = 233
 $TPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),44)
 $Form.Controls.Add($TPanel)
@@ -332,12 +332,12 @@ $TB10.Text                       = "Ram Cleaner (ISLC)"
 $MoreT                           = New-Object System.Windows.Forms.Button
 $MoreT.Text                      = "Mostrar Mas"
 
-$Position = 37*2+10
+$Position = 42*2+10
 $Buttons = @($TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MoreT)
 foreach ($Button in $Buttons) {    
     $TPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=37
+    $Position+=42
 }
 
 
@@ -348,7 +348,7 @@ foreach ($Button in $Buttons) {
 
 # More Tweaks Panel
 $MTPanel                         = New-Object System.Windows.Forms.Panel
-$MTPanel.Height                  = 455
+$MTPanel.Height                  = 515
 $MTPanel.Width                   = 233
 $MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),44)
 
@@ -398,12 +398,12 @@ $MTB10.Text                      = "VisualFX Fix"
 $MTB11                           = New-Object System.Windows.Forms.Button
 $MTB11.Text                      = "Void"
 
-$Position = 37*2+10
+$Position = 42*2+10
 $Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=37
+    $Position+=42
 }
 
 
@@ -416,7 +416,7 @@ foreach ($Button in $Buttons) {
 $LogoBox                         = New-Object System.Windows.Forms.PictureBox
 $LogoBox.Width                   = 233
 $LogoBox.Height                  = 125
-$LogoBox.Location                = New-Object System.Drawing.Point($PanelSize,364)
+$LogoBox.Location                = New-Object System.Drawing.Point($PanelSize,412)
 $LogoBox.imageLocation           = "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/ZKLogo.png"
 $LogoBox.SizeMode                = "Zoom"
 $Form.Controls.Add($LogoBox)
@@ -431,7 +431,7 @@ $Form.Controls.Add($LogoBox)
 $SSPanel                         = New-Object System.Windows.Forms.Panel
 $SSPanel.Height                  = 48
 $SSPanel.Width                   = 699
-$SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),500)
+$SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),560)
 $Form.Controls.Add($SSPanel)
 
 # Start Script Button
@@ -456,7 +456,7 @@ $StatusBox                       = New-Object System.Windows.Forms.TextBox
 $StatusBox.multiline             = $true
 $StatusBox.Width                 = 679
 $StatusBox.Height                = 45
-$StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),549)
+$StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),609)
 $StatusBox.Font                  = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $StatusBox.BackColor             = $ButtonColor
 $StatusBox.ForeColor             = $FormTextColor
@@ -472,9 +472,9 @@ $Form.Controls.Add($StatusBox)
 
 # Hidden Software Panel
 $HSPanel                         = New-Object System.Windows.Forms.Panel
-$HSPanel.Height                  = 131
+$HSPanel.Height                  = 146
 $HSPanel.Width                   = 233
-$HSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),500)
+$HSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),560)
 
 # Hidden Software Separator
 $HSS                             = New-Object System.Windows.Forms.Button
@@ -503,7 +503,7 @@ $Buttons = @($HSB1,$HSB2,$HSB3)
 foreach ($Button in $Buttons) {
     $HSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=37
+    $Position+=42
 }
 
 
@@ -514,9 +514,9 @@ foreach ($Button in $Buttons) {
 
 # Hidden Panel
 $HPanel                          = New-Object System.Windows.Forms.Panel
-$HPanel.Height                   = 131
+$HPanel.Height                   = 146
 $HPanel.Width                    = 699
-$HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),500)
+$HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),560)
 
 # Hidden Panel Separator
 $HPS                             = New-Object System.Windows.Forms.Button
@@ -543,7 +543,7 @@ $HB2.Location                    = New-Object System.Drawing.Point(243,$Position
 $HB3                             = New-Object System.Windows.Forms.Button
 $HB3.Text                        = "Discord Second Screen"
 $HB3.Location                    = New-Object System.Drawing.Point(476,$Position)
-$Position += 37
+$Position += 42
 
 # Software RL
 $HB4                             = New-Object System.Windows.Forms.Button
@@ -559,7 +559,7 @@ $HB5.Location                    = New-Object System.Drawing.Point(243,$Position
 $HB6                             = New-Object System.Windows.Forms.Button
 $HB6.Text                        = "JDK 17"
 $HB6.Location                    = New-Object System.Drawing.Point(476,$Position)
-$Position += 37
+$Position += 42
 
 # Eclipse IDE
 $HB7                             = New-Object System.Windows.Forms.Button
@@ -587,9 +587,9 @@ foreach ($Button in $Buttons) {$HPanel.Controls.Add($Button)}
 
 # Hidden Tweaks Panel
 $HTPanel                         = New-Object System.Windows.Forms.Panel
-$HTPanel.Height                  = 131
+$HTPanel.Height                  = 146
 $HTPanel.Width                   = 233
-$HTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),500)
+$HTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),560)
 
 # Hidden Tweaks Separator
 $HTS                             = New-Object System.Windows.Forms.Button
@@ -618,7 +618,7 @@ $Buttons = @($HTB1,$HTB2)
 foreach ($Button in $Buttons) {
     $HTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=37
+    $Position+=42
 }
 
             ##################################
@@ -630,7 +630,7 @@ foreach ($Button in $Buttons) {
 $PaddingPanel                    = New-Object System.Windows.Forms.Panel
 $PaddingPanel.Height             = 8
 $PaddingPanel.Width              = 695
-$PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),594)
+$PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),654)
 $Form.Controls.Add($PaddingPanel)
 
 
@@ -666,13 +666,13 @@ foreach ($Button in $Buttons) {
 $Buttons += @($MoreS,$MoreT)
 foreach ($Button in $Buttons) {
     $Button.Width                = 215
-    $Button.Height               = 35
+    $Button.Height               = 40
     $Button.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
     $Button.BackColor            = $ButtonColor
 }
 
-$TB1.Height                      = 72
-$MTB1.Height                     = 72
+$TB1.Height                      = 82
+$MTB1.Height                     = 82
 
 $MoreS.Add_MouseEnter({
     if ($this.BackColor -eq $ButtonColor) {
@@ -699,9 +699,9 @@ $MoreS.Add_Click({
             $LPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),44)
             $TLabel.Location                 = New-Object System.Drawing.Point((520+$PanelSize),13)
             $TPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*3),44)
-            $LogoBox.Location                = New-Object System.Drawing.Point(($PanelSize*2),364)
-            $HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),500)
-            $HTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*4),500)
+            $LogoBox.Location                = New-Object System.Drawing.Point(($PanelSize*2),410)
+            $HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),560)
+            $HTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*4),560)
             $SSPanel.Width                  += $PanelSize
             $StartScript.Width              += $PanelSize
             $StatusBox.Width                += $PanelSize
@@ -757,9 +757,9 @@ $MoreT.Add_Click({
 
 $LogoBox.Add_Click({
     $Form.Controls.Add($HPanel)
-    $SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),(500+135))
-    $StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),(549+135))
-    $PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),(594+135))
+    $SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),(560+150))
+    $StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),(609+150))
+    $PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize*0),(654+150))
     $HPS.BackColor                   = $TextColor
 
     if ($MoreS.BackColor -eq $TextColor) {

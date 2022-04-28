@@ -41,7 +41,7 @@ $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(
 
 # Search IPs Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
-$Panel.height                    = 37 # Button Draw Size + Padding Bottom
+$Panel.height                    = 42 # Button Draw Size + Padding Bottom
 $Panel.width                     = 258
 $Panel.location                  = New-Object System.Drawing.Point(0,10)
 $Form.Controls.Add($Panel)
@@ -50,7 +50,7 @@ $Form.Controls.Add($Panel)
 $SearchIP                        = New-Object System.Windows.Forms.Button
 $SearchIP.text                   = "Buscar IPs"
 $SearchIP.width                  = 240
-$SearchIP.height                 = 35
+$SearchIP.height                 = 40
 $SearchIP.location               = New-Object System.Drawing.Point(10,0)
 $SearchIP.Font                   = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $SearchIP.BackColor              = $ButtonColor
@@ -62,7 +62,7 @@ $AvaibleIPsLabel.text            = "IPs Disponibles:"
 $AvaibleIPsLabel.AutoSize        = $True
 $AvaibleIPsLabel.width           = 230
 $AvaibleIPsLabel.height          = 35
-$AvaibleIPsLabel.location        = New-Object System.Drawing.Point(8,55)
+$AvaibleIPsLabel.location        = New-Object System.Drawing.Point(8,60)
 $AvaibleIPsLabel.Font            = New-Object System.Drawing.Font('Ubuntu Mono',14)
 $AvaibleIPsLabel.ForeColor       = $TextColor
 $Form.Controls.Add($AvaibleIPsLabel)
@@ -71,7 +71,7 @@ $Form.Controls.Add($AvaibleIPsLabel)
 $AvaibleIPs                      = New-Object System.Windows.Forms.Label
 $AvaibleIPs.width                = 245
 $AvaibleIPs.height               = 45
-$AvaibleIPs.location             = New-Object System.Drawing.Point(8,80)
+$AvaibleIPs.location             = New-Object System.Drawing.Point(8,88)
 $AvaibleIPs.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $AvaibleIPs.ForeColor            = $FormTextColor
 $Form.Controls.Add($AvaibleIPs)
@@ -82,7 +82,7 @@ $ChooseIPLabel.text              = "Seleccionar IP:"
 $ChooseIPLabel.AutoSize          = $True
 $ChooseIPLabel.width             = 230
 $ChooseIPLabel.height            = 25
-$ChooseIPLabel.location          = New-Object System.Drawing.Point(8,145)
+$ChooseIPLabel.location          = New-Object System.Drawing.Point(8,150)
 $ChooseIPLabel.Font              = New-Object System.Drawing.Font('Ubuntu Mono',14)
 $ChooseIPLabel.ForeColor         = $TextColor
 $Form.Controls.Add($ChooseIPLabel)
@@ -90,8 +90,8 @@ $Form.Controls.Add($ChooseIPLabel)
 # Input TextBox
 $InputBox                        = New-Object System.Windows.Forms.TextBox
 $InputBox.width                  = 238
-$InputBox.height                 = 35
-$InputBox.location               = New-Object System.Drawing.Point(11,170)
+$InputBox.height                 = 40
+$InputBox.location               = New-Object System.Drawing.Point(11,175)
 $InputBox.Font                   = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $InputBox.AcceptsReturn          = $True
 $InputBox.Text                   = (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10)
@@ -101,7 +101,7 @@ $Form.Controls.Add($InputBox)
 
 # Choose IP Panel
 $Panel2                          = New-Object System.Windows.Forms.Panel
-$Panel2.height                   = 37+18 # Button Draw Size + Padding Bottom
+$Panel2.height                   = 42+18 # Button Draw Size + Padding Bottom
 $Panel2.width                    = 258
 $Panel2.location                 = New-Object System.Drawing.Point(0,195)
 $Form.Controls.Add($Panel2)
@@ -110,7 +110,7 @@ $Form.Controls.Add($Panel2)
 $Cancel                          = New-Object System.Windows.Forms.Button
 $Cancel.text                     = "Cancelar"
 $Cancel.width                    = 117
-$Cancel.height                   = 35
+$Cancel.height                   = 40
 $Cancel.location                 = New-Object System.Drawing.Point(10,10)
 $Cancel.Font                     = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $Cancel.BackColor                = $ButtonColor
@@ -120,7 +120,7 @@ $Panel2.Controls.Add($Cancel)
 $Accept                          = New-Object System.Windows.Forms.Button
 $Accept.text                     = "Aceptar"
 $Accept.width                    = 117
-$Accept.height                   = 35
+$Accept.height                   = 40
 $Accept.location                 = New-Object System.Drawing.Point(133,10)
 $Accept.Font                     = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $Accept.BackColor                = $ButtonColor
