@@ -1,7 +1,7 @@
 @echo off
 echo
 echo install power plan
-powercfg -import %userprofile%\AppData\Local\Temp\FORMATEO\PROGRAMAS\HighestPerformance.pow 77777777-7777-7777-7777-777777777777
+powercfg -import %userprofile%\AppData\Local\Temp\ZKTool\Apps\HighestPerformance.pow 77777777-7777-7777-7777-777777777777
 echo
 echo set power plan active
 powercfg -SETACTIVE "77777777-7777-7777-7777-777777777777"
