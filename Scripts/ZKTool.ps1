@@ -1452,8 +1452,8 @@ $StartScript.Add_Click({
             $MTB5.BackColor = $ProcessingColor
             if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\SourceCodePro*)) {
                 $Download.DownloadFile($FromPath+"/Configs/FontSourceCodePro.zip", $ToPath+"\Configs\FontSourceCodePro.zip")
-                Expand-Archive -Path ($ToPath+"\ZKTool\Configs\FontSourceCodePro.zip") -DestinationPath ($ToPath+"\ZKTool\Configs\FontSourceCodePro") -Force
-                Start-Process ($ToPath+"\ZKTool\Configs\FontSourceCodePro\Install.exe")
+                Expand-Archive -Path ($ToPath+"\Configs\FontSourceCodePro.zip") -DestinationPath ($ToPath+"\Configs\FontSourceCodePro") -Force
+                Start-Process ($ToPath+"\Configs\FontSourceCodePro\Install.exe")
                 Wait-Process -Name "Install"
             }
             $Download.DownloadFile($FromPath+"/Configs/WindowsTerminalFix.zip", $ToPath+"\Configs\WindowsTerminalFix.zip")
@@ -1521,8 +1521,6 @@ $StartScript.Add_Click({
             $MaskValue = "90,12,07,80,12,01,00,00"
             $MaskValueToHex = $MaskValue.Split(',') | % { "0x$_"}
             Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]]$MaskValueToHex)
-            
-            
             $MTB10.BackColor = $TextColor
         }   
         if ($MTB11.BackColor -eq $TextColor) { # Void
