@@ -6,6 +6,15 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
+# Check PowerShell Core
+Write-Host "Comprobando PowerShell Core..."
+if (!(Test-Path -Path "C:\Program Files\PowerShell")) {
+    Write-Host "Instalando PowerShell Core..."
+    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-Null
+}
+
+# Check First Time
+Write-Host "Comprobando Si Existe ZKTool.exe..."
 if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
     Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Scripts/ZKTool.exe" -OutFile "$env:windir\System32\ZKTool.exe" | Out-Null
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
@@ -15,18 +24,25 @@ if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "ZKTool.exe"
 }
 
+# Check Winget
+Write-Host "Comprobando Winget..."
 if (!(Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe)) {
+    Write-Host "Instalando Winget..."
     Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
 	$nid = (Get-Process AppInstaller).Id
 	Wait-Process -Id $nid
 }  
 
+# Check GUI Fonts
+Write-Host "Comprobando Fuentes Necesarias..."
 if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\UbuntuMono*)) {
+    Write-Host "Instalando Fuentes Necesarias..."
 	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/FontUbuntuMono.zip" -OutFile $env:userprofile\AppData\Local\Temp\FontUbuntuMono.zip
     Expand-Archive $env:userprofile\AppData\Local\Temp\FontUbuntuMono.zip $env:userprofile\AppData\Local\Temp\FontUbuntuMono -Force
     Start-Process $env:userprofile\AppData\Local\Temp\FontUbuntuMono\Install.exe
     Start-Sleep 10
 }
 
+Write-Host "Ready"
 Start-Process $env:windir\System32\ZKTool.exe
-Taskkill /PID $PID -F
+Exit
