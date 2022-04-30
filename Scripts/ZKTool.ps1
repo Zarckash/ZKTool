@@ -777,6 +777,8 @@ $LogoBox.Add_Click({
     }
 })
 
+$StatusBox.Text = $PSEdition
+
 $StartScript.Add_Click({
     $StatusBox.Text = "|Iniciando Script...`r`n" + $StatusBox.Text
 
