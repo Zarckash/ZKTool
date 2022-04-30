@@ -1456,6 +1456,7 @@ $StartScript.Add_Click({
                 Start-Process ($ToPath+"\Configs\FontSourceCodePro\Install.exe")
                 Wait-Process -Name "Install"
             }
+            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-Null
             $Download.DownloadFile($FromPath+"/Configs/WindowsTerminalFix.zip", $ToPath+"\Configs\WindowsTerminalFix.zip")
             Expand-Archive -Path ($ToPath+"\Configs\WindowsTerminalFix.zip") -DestinationPath $env:userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
             $MTB5.BackColor = $TextColor 
