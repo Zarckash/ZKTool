@@ -13,7 +13,6 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 # Run Script In Powershell Core
 if ($PSEdition -eq "Desktop") {
     pwsh.exe "`"$PSCommandPath`""
-    Exit
 }
 
 if (!(Get-MpPreference | Select-Object -ExpandProperty ExclusionPath) -eq "C:\Windows\System32\ZKTool.exe") {
