@@ -5,10 +5,11 @@ $ConfirmPreference = 'None'
 
 # Run Script As Administrator
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
-	Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
 	Exit
 }
 
+<<<<<<< HEAD
 # Run Script In Powershell Core
 if ($PSEdition -eq "Desktop") {
     pwsh.exe | Out-Null
@@ -19,6 +20,8 @@ Add-Type -AssemblyName System.Windows.Forms
 $ErrorActionPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
+=======
+>>>>>>> parent of 83f52e9 (Migrate From PowerShell Desktop To PowerShell Core)
 if (!(Get-MpPreference | Select-Object -ExpandProperty ExclusionPath) -eq "C:\Windows\System32\ZKTool.exe") {
     Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
 }
@@ -874,14 +877,14 @@ $StartScript.Add_Click({
             $StatusBox.Text = "|Instalando Adobe Photoshop...`r`n" + $StatusBox.Text
             $MSB2.BackColor = $ProcessingColor
             $Download.DownloadFile($FromPath+"/Apps/Photoshop.ps1", $ToPath+"\Apps\Photoshop.ps1")
-            Start-Process pwsh -ArgumentList "-noexit -windowstyle minimized -command pwsh.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Photoshop.ps1 ; exit"
+            Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Photoshop.ps1 ; exit"
             $MSB2.BackColor = $TextColor
         }
         if ($MSB3.BackColor -eq $TextColor) { # Premiere Portable
             $StatusBox.Text = "|Instalando Adobe Premiere...`r`n" + $StatusBox.Text
             $MSB3.BackColor = $ProcessingColor
             $Download.DownloadFile($FromPath+"/Apps/Premiere.ps1", $ToPath+"\Apps\Premiere.ps1")
-            Start-Process pwsh -ArgumentList "-noexit -windowstyle minimized -command pwsh.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Premiere.ps1 ; exit"
+            Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Premiere.ps1 ; exit"
             $MSB3.BackColor = $TextColor
         }
         if ($MSB4.BackColor -eq $TextColor) { # Spotify
@@ -901,7 +904,7 @@ $StartScript.Add_Click({
             $StatusBox.Text = "|Instalando Prime Video...`r`n" + $StatusBox.Text
             $MSB6.BackColor = $ProcessingColor
             $Download.DownloadFile($FromPath+"/Apps/DownloadPrimeVideo.ps1", $ToPath+"\Apps\DownloadPrimeVideo.ps1")
-            Start-Process pwsh -ArgumentList "-noexit -windowstyle minimized -command pwsh.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\DownloadPrimeVideo.ps1 ; exit"
+            Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\DownloadPrimeVideo.ps1 ; exit"
             $MSB6.BackColor = $TextColor
         }
         if ($MSB7.BackColor -eq $TextColor) { # VLC Media Player
@@ -1467,6 +1470,7 @@ $StartScript.Add_Click({
                 Start-Process ($ToPath+"\Configs\FontSourceCodePro\Install.exe")
                 Wait-Process -Name "Install"
             }
+            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-Null
             $Download.DownloadFile($FromPath+"/Configs/WindowsTerminalFix.zip", $ToPath+"\Configs\WindowsTerminalFix.zip")
             Expand-Archive -Path ($ToPath+"\Configs\WindowsTerminalFix.zip") -DestinationPath $env:userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
             $MTB5.BackColor = $TextColor 
@@ -1544,7 +1548,7 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
         $HSB1.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Apps/Valorant.ps1", $ToPath+"\Apps\Valorant.ps1")
-        Start-Process pwsh -ArgumentList "-noexit -windowstyle minimized -command pwsh.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Valorant.ps1 ; exit" 
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Valorant.ps1 ; exit" 
         $HSB1.BackColor = $TextColor
     }
     if ($HSB2.BackColor -eq $TextColor) { # League of Legends
@@ -1557,7 +1561,7 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Instalando Escape From Tarkov...`r`n" + $StatusBox.Text
         $HSB3.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
-        Start-Process pwsh -ArgumentList "-noexit -windowstyle minimized -command pwsh.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
         $HSB3.BackColor = $TextColor
     }
     if ($HB1.BackColor -eq $TextColor) { # Rufus
@@ -1592,21 +1596,21 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Instalando RGB Fusion...`r`n" + $StatusBox.Text
         $HB5.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Apps/RGBFusion.ps1", $ToPath+"\Apps\RGBFusion.ps1")
-        Start-Process pwsh -ArgumentList "-noexit -windowstyle minimized -command pwsh.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\RGBFusion.ps1 ; exit"
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\RGBFusion.ps1 ; exit"
         $HB5.BackColor = $TextColor
     }   
     if ($HB6.BackColor -eq $TextColor) { # JDK 17
         $StatusBox.Text = "|Instalando JDK 17...`r`n" + $StatusBox.Text
         $HB6.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Apps/JDK17.ps1", $ToPath+"\Apps\JDK17.ps1")
-        Start-Process pwsh -ArgumentList "-noexit -windowstyle minimized -command pwsh.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\JDK17.ps1 ; exit"
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\JDK17.ps1 ; exit"
         $HB6.BackColor = $TextColor
     }   
     if ($HB7.BackColor -eq $TextColor) { # Eclipse IDE
         $StatusBox.Text = "|Instalando Eclipse IDE...`r`n" + $StatusBox.Text
         $HB7.BackColor = $ProcessingColor
         $Download.DownloadFile($FromPath+"/Apps/Eclipse.ps1", $ToPath+"\Apps\Eclipse.ps1")
-        Start-Process pwsh -ArgumentList "-noexit -windowstyle minimized -command pwsh.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Eclipse.ps1 ; exit"
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Eclipse.ps1 ; exit"
         $HB7.BackColor = $TextColor
     }   
     if ($HB8.BackColor -eq $TextColor) { # Visual Studio Code
