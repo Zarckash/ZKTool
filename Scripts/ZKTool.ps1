@@ -1,4 +1,5 @@
-
+Add-Type -AssemblyName System.Windows.Forms
+[System.Windows.Forms.Application]::EnableVisualStyles()
 
 $ErrorActionPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
@@ -9,19 +10,6 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
-<<<<<<< HEAD
-# Run Script In Powershell Core
-if ($PSEdition -eq "Desktop") {
-    pwsh.exe | Out-Null
-}
-
-Add-Type -AssemblyName System.Windows.Forms
-[System.Windows.Forms.Application]::EnableVisualStyles()
-$ErrorActionPreference = 'SilentlyContinue'
-$ConfirmPreference = 'None'
-
-=======
->>>>>>> parent of 83f52e9 (Migrate From PowerShell Desktop To PowerShell Core)
 if (!(Get-MpPreference | Select-Object -ExpandProperty ExclusionPath) -eq "C:\Windows\System32\ZKTool.exe") {
     Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
 }
@@ -782,8 +770,6 @@ $LogoBox.Add_Click({
         $Form.Controls.Add($HTPanel)
     }
 })
-
-$StatusBox.Text = $PSEdition
 
 $StartScript.Add_Click({
     $StatusBox.Text = "|Iniciando Script...`r`n" + $StatusBox.Text
