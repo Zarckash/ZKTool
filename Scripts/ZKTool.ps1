@@ -11,10 +11,10 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 }
 
 # Run Script In Powershell Core
-#if ($PSEdition -eq "Desktop") {
-#    Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-#    Exit
-#}
+if ($PSEdition -eq "Desktop") {
+    pwsh.exe "`"$PSCommandPath`""
+    Exit
+}
 
 if (!(Get-MpPreference | Select-Object -ExpandProperty ExclusionPath) -eq "C:\Windows\System32\ZKTool.exe") {
     Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
@@ -62,7 +62,7 @@ $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(
 
 # Software Label
 $SLabel                          = New-Object System.Windows.Forms.Label
-$SLabel.Text                     = "S O F T W A R E"
+$SLabel.Text                     = "S O F Taaasas W A R E"
 $SLabel.AutoSize                 = $true
 $SLabel.Width                    = 215
 $SLabel.Height                   = 25
