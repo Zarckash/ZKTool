@@ -609,12 +609,12 @@ $HTB1.Text                       = "Unpin All Apps"
 $HTB2                            = New-Object System.Windows.Forms.Button
 $HTB2.Text                       = "Remove Realtek"
 
-# Void
+# Link Shell Extension
 $HTB3                            = New-Object System.Windows.Forms.Button
-$HTB3.Text                       = "Void"
+$HTB3.Text                       = "Link Shell Extension"
 
 $Position = 20
-$Buttons = @($HTB1,$HTB2)
+$Buttons = @($HTB1,$HTB2,$HTB3)
 foreach ($Button in $Buttons) {
     $HTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -1630,9 +1630,11 @@ $StartScript.Add_Click({
         Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
         $HTB2.BackColor = $TextColor
     }
-    if ($HTB3.BackColor -eq $TextColor) {
-        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+    if ($HTB3.BackColor -eq $TextColor) { # Link Shell Extension
+        $StatusBox.Text = "|Instalando Link Shell Extension...`r`n" + $StatusBox.Text
         $HTB3.BackColor = $ProcessingColor
+        $Download.DownloadFile($FromPath+"/Apps/LinkShellExtension.exe", $ToPath+"\Apps\LinkShellExtension.exe")
+        "%userprofile%\AppData\Local\Temp\ZKTool\Apps\LinkShellExtension.exe /S /Language=English" | cmd
         $HTB3.BackColor = $TextColor
     }
     if ($MTB8.BackColor -eq $TextColor) { # Static IP + DNS
