@@ -16,17 +16,12 @@ $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#89EDFF")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3E434F")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
-$Location = 233 # Sets Each Panel Location
-$XRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentHorizontalResolution" # Resolucion Horizontal
-$YRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentVerticalResolution" # Resolucion Vertical
-$FormXLocation = ($XRes / 2) - (($Location*3) / 2) - 5
-$FormYLocation = ($YRes / 2) - (602 / 2) - 120
+$PanelSize = 233 # Sets Each Panel Location
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "Game Settings"
-$Form.StartPosition              = "Manual"
-$Form.Location                   = New-Object System.Drawing.Point($FormXLocation, $FormYLocation)
+$Form.StartPosition              = "CenterScreen"
 $Form.TopMost                    = $false
 $Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $Form.AutoScaleDimensions        = '192, 192'
@@ -37,6 +32,7 @@ $Form.FormBorderStyle            = "FixedSingle"
 $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $FormTextColor
+$Form.MaximizeBox                = $False
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico")
 
 
@@ -56,7 +52,7 @@ $Label.Font                      = New-Object System.Drawing.Font('Berserker',16
 $Label.ForeColor                 = $TextColor
 $Form.Controls.Add($Label)
 
-$Location                        = 233 # Sets Each Panel Location
+$PanelSize                        = 233 # Sets Each Panel Location
 $Row                             = 0
 $Position                        = 10
 
@@ -64,7 +60,7 @@ $Position                        = 10
 $Panel                           = New-Object System.Windows.Forms.Panel
 $Panel.Height                    = 60
 $Panel.Width                     = 699
-$Panel.Location                  = New-Object System.Drawing.Point(($Location*0),55)
+$Panel.Location                  = New-Object System.Drawing.Point(($PanelSize*0),55)
 $Form.Controls.Add($Panel)
 
 # Player Unknown Battlegrounds

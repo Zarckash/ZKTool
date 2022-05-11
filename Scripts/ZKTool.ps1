@@ -26,16 +26,11 @@ $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3E434F")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
 $PanelSize = 233 # Sets Each Panel Location
-$XRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentHorizontalResolution" # Resolucion Horizontal
-$YRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentVerticalResolution" # Resolucion Vertical
-$FormXLocation = ($XRes / 2) - (($PanelSize*3) / 2) - 5
-$FormYLocation = ($YRes / 2) - (602 / 2) - 120
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 779)
 $Form.Text                       = "ZKTool"
-$Form.StartPosition              = "Manual"
-$Form.Location                   = New-Object System.Drawing.Point($FormXLocation, $FormYLocation)
+$Form.StartPosition              = "CenterScreen"
 $Form.TopMost                    = $false
 $Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $Form.AutoScaleDimensions        = '192, 192'
@@ -46,6 +41,7 @@ $Form.FormBorderStyle            = "FixedSingle"
 $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $FormTextColor
+$Form.MaximizeBox                = $False
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico")
 
 
@@ -692,7 +688,7 @@ $MoreS.Add_Click({
             $MoreS.ForeColor = $SelectedTextColor
             $Form.Controls.Add($MSPanel)
             $MSPanel.Width = 233
-            $Form.Location                   = New-Object System.Drawing.Point(($FormXLocation -$PanelSize), $FormYLocation)
+            $Form.Left -= 233 
             $SLabel.Location                 = New-Object System.Drawing.Point((25+$PanelSize/2),13)
             $SPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),44)
             $LLabel.Location                 = New-Object System.Drawing.Point((252+$PanelSize),13)

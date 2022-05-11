@@ -16,17 +16,12 @@ $TextColor = [System.Drawing.ColorTranslator]::FromHtml("#89EDFF")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3E434F")
 $ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
 
-$Location = 233 # Sets Each Panel Location
-$XRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentHorizontalResolution" # Resolucion Horizontal
-$YRes = Get-WmiObject -Class "Win32_VideoController" | Select-Object -ExpandProperty "CurrentVerticalResolution" # Resolucion Vertical
-$FormXLocation = ($XRes / 2) - (258 / 2) - 5
-$FormYLocation = ($YRes / 2) - (602 / 2) - 120
+$PanelSize = 233 # Sets Each Panel Location
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "Seleccionar IP"
-$Form.StartPosition              = "Manual"
-$Form.Location                   = New-Object System.Drawing.Point($FormXLocation, $FormYLocation)
+$Form.StartPosition              = "CenterScreen"
 $Form.TopMost                    = $False
 $Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $Form.AutoScaleDimensions        = '192, 192'
@@ -37,6 +32,7 @@ $Form.FormBorderStyle            = "FixedSingle"
 $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $FormTextColor
+$Form.MaximizeBox                = $False
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico")
 
 # Search IPs Panel
