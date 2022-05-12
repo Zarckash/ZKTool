@@ -175,17 +175,17 @@ $MSB7.Text                       = "VLC Media Player"
 $MSB8                            = New-Object System.Windows.Forms.Button
 $MSB8.Text                       = "GitHub Desktop"
 
-# Valorant
+# Void
 $MSB9                            = New-Object System.Windows.Forms.Button
-$MSB9.Text                       = "Valorant"
+$MSB9.Text                       = "Void"
 
-# League of Legends
+# Void
 $MSB10                           = New-Object System.Windows.Forms.Button
-$MSB10.Text                      = "League of Legends"
+$MSB10.Text                      = "Void"
 
-# Escape From Tarkov
+# Void
 $MSB11                           = New-Object System.Windows.Forms.Button
-$MSB11.Text                      = "Escape From Tarkov"
+$MSB11.Text                      = "Void"
 
 # Void
 $MSB12                           = New-Object System.Windows.Forms.Button
@@ -203,20 +203,20 @@ $MSB14.Text                      = "Void"
 $MSB15                           = New-Object System.Windows.Forms.Button
 $MSB15.Text                      = "Void"
 
-# Void
+# Valorant
 $MSB16                           = New-Object System.Windows.Forms.Button
-$MSB16.Text                      = "Void"
+$MSB16.Text                      = "Valorant"
 
-# Void
+# League of Legends
 $MSB17                           = New-Object System.Windows.Forms.Button
-$MSB17.Text                      = "Void"
+$MSB17.Text                      = "League of Legends"
 
-# Void
+# Escape From Tarkov
 $MSB18                           = New-Object System.Windows.Forms.Button
-$MSB18.Text                      = "Void"
+$MSB18.Text                      = "Escape From Tarkov"
 
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB16,$MSB17,$MSB18)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -839,24 +839,19 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
         $MSB8.Image = $ActiveButtonColor
     }
-    if ($MSB9.Image -eq $ActiveButtonColor) { # Valorant
-        $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
+    if ($MSB9.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MSB9.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/Valorant.ps1", $ToPath+"\Apps\Valorant.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Valorant.ps1 ; exit" 
         $MSB9.Image = $ActiveButtonColor
     }
-    if ($MSB10.Image -eq $ActiveButtonColor) { # League of Legends
-        $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
+    if ($MSB10.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MSB10.Image = $ProcessingButtonColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-Null
         $MSB10.Image = $ActiveButtonColor
     }
-    if ($MSB11.Image -eq $ActiveButtonColor) { # Escape From Tarkov
-        $StatusBox.Text = "|Instalando Escape From Tarkov...`r`n" + $StatusBox.Text
+    if ($MSB11.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MSB11.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
         $MSB11.Image = $ActiveButtonColor
     }
     if ($MSB12.Image -eq $ActiveButtonColor) { # Void
@@ -879,19 +874,24 @@ $StartScript.Add_Click({
         $MSB15.Image = $ProcessingButtonColor
         $MSB15.Image = $ActiveButtonColor
     }
-    if ($MSB16.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB16.Image -eq $ActiveButtonColor) { # Valorant
+        $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
         $MSB16.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Valorant.ps1", $ToPath+"\Apps\Valorant.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Valorant.ps1 ; exit" 
         $MSB16.Image = $ActiveButtonColor
     }
-    if ($MSB17.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB17.Image -eq $ActiveButtonColor) { # League of Legends
+        $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
         $MSB17.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-Null
         $MSB17.Image = $ActiveButtonColor
     }
-    if ($MSB18.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB18.Image -eq $ActiveButtonColor) { # Escape From Tarkov
+        $StatusBox.Text = "|Instalando Escape From Tarkov...`r`n" + $StatusBox.Text
         $MSB18.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
         $MSB18.Image = $ActiveButtonColor
     }
     if ($LB1.Image -eq $ActiveButtonColor) { # Steam
