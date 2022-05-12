@@ -47,7 +47,7 @@ $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $False
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico")
+$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ZKLogo.ico")
 
 
             ##################################
@@ -119,12 +119,12 @@ $SB10.Text                       = "uTorrent Web"
 $SB11                            = New-Object System.Windows.Forms.Button
 $SB11.Text                       = "Libre Office"
 
-# More Software Button
-$MoreS                           = New-Object System.Windows.Forms.Button
-$MoreS.Text                      = "Mostrar Mas"
+# Megasync
+$SB12                            = New-Object System.Windows.Forms.Button
+$SB12.Text                       = "MegaSync"
 
 $Position = 10
-$Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MoreS)
+$Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12)
 foreach ($Button in $Buttons) {
     $SPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -139,7 +139,7 @@ foreach ($Button in $Buttons) {
 
 # More Software Panel
 $MSPanel                         = New-Object system.Windows.Forms.Panel
-$MSPanel.Height                  = 491
+$MSPanel.Height                  = 491 + 235
 $MSPanel.Width                   = $PanelSize
 $MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),44)
 
@@ -175,24 +175,48 @@ $MSB7.Text                       = "VLC Media Player"
 $MSB8                            = New-Object System.Windows.Forms.Button
 $MSB8.Text                       = "GitHub Desktop"
 
-# Megasync
+# Valorant
 $MSB9                            = New-Object System.Windows.Forms.Button
-$MSB9.Text                       = "Megasync"
+$MSB9.Text                       = "Valorant"
 
-# Void
+# League of Legends
 $MSB10                           = New-Object System.Windows.Forms.Button
-$MSB10.Text                      = "Void"
+$MSB10.Text                      = "League of Legends"
 
-# Void
+# Escape From Tarkov
 $MSB11                           = New-Object System.Windows.Forms.Button
-$MSB11.Text                      = "Void"
+$MSB11.Text                      = "Escape From Tarkov"
 
 # Void
 $MSB12                           = New-Object System.Windows.Forms.Button
 $MSB12.Text                      = "Void"
 
+# Void
+$MSB13                           = New-Object System.Windows.Forms.Button
+$MSB13.Text                      = "Void"
+
+# Void
+$MSB14                           = New-Object System.Windows.Forms.Button
+$MSB14.Text                      = "Void"
+
+# Void
+$MSB15                           = New-Object System.Windows.Forms.Button
+$MSB15.Text                      = "Void"
+
+# Void
+$MSB16                           = New-Object System.Windows.Forms.Button
+$MSB16.Text                      = "Void"
+
+# Void
+$MSB17                           = New-Object System.Windows.Forms.Button
+$MSB17.Text                      = "Void"
+
+# Void
+$MSB18                           = New-Object System.Windows.Forms.Button
+$MSB18.Text                      = "Void"
+
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -211,7 +235,7 @@ $LLabel.Text                     = "L A U N C H E R S"
 $LLabel.AutoSize                 = $true
 $LLabel.Width                    = 230
 $LLabel.Height                   = 25
-$LLabel.Location                 = New-Object System.Drawing.Point(252,13)
+$LLabel.Location                 = New-Object System.Drawing.Point(245,13)
 $LLabel.Font                     = New-Object System.Drawing.Font('Berserker',16)
 $LLabel.ForeColor                = $LabelColor
 $Form.Controls.Add($LLabel)
@@ -275,7 +299,7 @@ $TLabel.Text                     = "T W E A K S"
 $TLabel.AutoSize                 = $true
 $TLabel.Width                    = 230
 $TLabel.Height                   = 25
-$TLabel.Location                 = New-Object System.Drawing.Point(520,13)
+$TLabel.Location                 = New-Object System.Drawing.Point(510,13)
 $TLabel.Font                     = New-Object System.Drawing.Font('Berserker',16)
 $TLabel.ForeColor                = $LabelColor
 $Form.Controls.Add($TLabel)
@@ -329,12 +353,12 @@ $TB9.Text                        = "Uninstall Xbox Game Bar"
 $TB10                            = New-Object System.Windows.Forms.Button
 $TB10.Text                       = "Ram Cleaner (ISLC)"
 
-# More Tweaks Button
-$MoreT                           = New-Object System.Windows.Forms.Button
-$MoreT.Text                      = "Mostrar Mas"
+# VisualFX Fix
+$TB11                            = New-Object System.Windows.Forms.Button
+$TB11.Text                       = "VisualFX Fix"
 
 $Position = 40*2+10
-$Buttons = @($TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MoreT)
+$Buttons = @($TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11)
 foreach ($Button in $Buttons) {    
     $TPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -349,8 +373,8 @@ foreach ($Button in $Buttons) {
 
 # More Tweaks Panel
 $MTPanel                         = New-Object System.Windows.Forms.Panel
-$MTPanel.Height                  = 491
-$MTPanel.Width                   = $PanelSize
+$MTPanel.Height                  = 491 + 235
+$MTPanel.Width                   = $PanelSize - 2
 $MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),44)
 
 # Activate Windows PRO
@@ -391,16 +415,40 @@ $MTB8.Text                       = "Static IP + DNS"
 $MTB9                            = New-Object System.Windows.Forms.Button
 $MTB9.Text                       = "Autoruns"
 
-# VisualFX Fix
+# Unpin All Apps
 $MTB10                           = New-Object System.Windows.Forms.Button
-$MTB10.Text                      = "VisualFX Fix"
+$MTB10.Text                      = "Unpin All Apps"
+
+# Remove Realtek
+$MTB11                           = New-Object System.Windows.Forms.Button
+$MTB11.Text                      = "Remove Realtek"
+
+# Link Shell Extension
+$MTB12                           = New-Object System.Windows.Forms.Button
+$MTB12.Text                      = "Link Shell Extension"
 
 # Void
-$MTB11                           = New-Object System.Windows.Forms.Button
-$MTB11.Text                      = "Void"
+$MTB13                           = New-Object System.Windows.Forms.Button
+$MTB13.Text                      = "Void"
+
+# Void
+$MTB14                           = New-Object System.Windows.Forms.Button
+$MTB14.Text                      = "Void"
+
+# Void
+$MTB15                           = New-Object System.Windows.Forms.Button
+$MTB15.Text                      = "Void"
+
+# Void
+$MTB16                           = New-Object System.Windows.Forms.Button
+$MTB16.Text                      = "Void"
+
+# Void
+$MTB17                           = New-Object System.Windows.Forms.Button
+$MTB17.Text                      = "Void"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -430,7 +478,7 @@ $Form.Controls.Add($LogoBox)
 
 # Start Script Panel
 $SSPanel                         = New-Object System.Windows.Forms.Panel
-$SSPanel.Height                  = 45
+$SSPanel.Height                  = 50
 $SSPanel.Width                   = $PanelSize*3 - 2
 $SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),535)
 $Form.Controls.Add($SSPanel)
@@ -439,7 +487,7 @@ $Form.Controls.Add($SSPanel)
 $StartScript                     = New-Object System.Windows.Forms.Button
 $StartScript.Text                = "I N I C I A R    S C R I P T"
 $StartScript.Width               = 670
-$StartScript.Height              = 45
+$StartScript.Height              = 50
 $StartScript.Location            = New-Object System.Drawing.Point(10,0)
 $StartScript.Font                = New-Object System.Drawing.Font('Ubuntu Mono',18)
 $StartScript.BackColor           = $DefaultButtonColor
@@ -460,45 +508,13 @@ $StatusBox                       = New-Object System.Windows.Forms.TextBox
 $StatusBox.multiline             = $true
 $StatusBox.Width                 = 669
 $StatusBox.Height                = 45
-$StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),585)
+$StatusBox.Location              = New-Object System.Drawing.Point(($PanelSize*0+11),594)
 $StatusBox.Font                  = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $StatusBox.BackColor             = [System.Drawing.ColorTranslator]::FromHtml("#3E434F")
 $StatusBox.ForeColor             = $DefaultForeColor
 $StatusBox.ReadOnly              = $true
 $StatusBox.Text                  = "|Ready"
 $Form.Controls.Add($StatusBox)
-
-
-            ##################################
-            ######## HIDDEN  SOFTWARE ########
-            ##################################
-
-
-# Hidden Software Panel
-$HSPanel                         = New-Object System.Windows.Forms.Panel
-$HSPanel.Height                  = 146
-$HSPanel.Width                   = $PanelSize
-$HSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),560)
-
-# Valorant
-$HSB1                            = New-Object System.Windows.Forms.Button
-$HSB1.Text                       = "Valorant"
-
-# League of Legends
-$HSB2                            = New-Object System.Windows.Forms.Button
-$HSB2.Text                       = "League of Legends"
-
-# Escape From Tarkov
-$HSB3                            = New-Object System.Windows.Forms.Button
-$HSB3.Text                       = "Escape From Tarkov"
-
-$Position = 20
-$Buttons = @($HSB1,$HSB2,$HSB3)
-foreach ($Button in $Buttons) {
-    $HSPanel.Controls.Add($Button)
-    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=40
-}
 
 
             ##################################
@@ -510,7 +526,7 @@ foreach ($Button in $Buttons) {
 $HPanel                          = New-Object System.Windows.Forms.Panel
 $HPanel.Height                   = 146
 $HPanel.Width                    = $PanelSize*3 - 2
-$HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),560)
+$HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),515)
 
 $Position = 20
 # Rufus
@@ -521,12 +537,12 @@ $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
 # MSI Afterburner Config
 $HB2                             = New-Object System.Windows.Forms.Button
 $HB2.Text                        = "Msi Afterburner Config"
-$HB2.Location                    = New-Object System.Drawing.Point(243,$Position)
+$HB2.Location                    = New-Object System.Drawing.Point(238,$Position)
 
 # Discord Second Screen
 $HB3                             = New-Object System.Windows.Forms.Button
 $HB3.Text                        = "Discord Second Screen"
-$HB3.Location                    = New-Object System.Drawing.Point(476,$Position)
+$HB3.Location                    = New-Object System.Drawing.Point(471,$Position)
 $Position += 40
 
 # Software RL
@@ -537,12 +553,12 @@ $HB4.Location                    = New-Object System.Drawing.Point(10,$Position)
 # RGB Fusion
 $HB5                             = New-Object System.Windows.Forms.Button
 $HB5.Text                        = "RGB Fusion"
-$HB5.Location                    = New-Object System.Drawing.Point(243,$Position)
+$HB5.Location                    = New-Object System.Drawing.Point(237,$Position)
 
 # JDK 17
 $HB6                             = New-Object System.Windows.Forms.Button
 $HB6.Text                        = "JDK 17"
-$HB6.Location                    = New-Object System.Drawing.Point(476,$Position)
+$HB6.Location                    = New-Object System.Drawing.Point(471,$Position)
 $Position += 40
 
 # Eclipse IDE
@@ -553,47 +569,16 @@ $HB7.Location                    = New-Object System.Drawing.Point(10,$Position)
 # Visual Studio Code
 $HB8                             = New-Object System.Windows.Forms.Button
 $HB8.Text                        = "Visual Studio Code"
-$HB8.Location                    = New-Object System.Drawing.Point(243,$Position)
+$HB8.Location                    = New-Object System.Drawing.Point(238,$Position)
 
 # Game Settings
 $HB9                             = New-Object System.Windows.Forms.Button
 $HB9.Text                        = "Game Settings"
-$HB9.Location                    = New-Object System.Drawing.Point(476,$Position)
+$HB9.Location                    = New-Object System.Drawing.Point(471,$Position)
 
 $Buttons = @($HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
 foreach ($Button in $Buttons) {$HPanel.Controls.Add($Button)}
 
-
-            ##################################
-            ######### HIDDEN  TWEAKS #########
-            ##################################
-
-
-# Hidden Tweaks Panel
-$HTPanel                         = New-Object System.Windows.Forms.Panel
-$HTPanel.Height                  = 146
-$HTPanel.Width                   = $PanelSize
-$HTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),560)
-
-# Unpin All Apps
-$HTB1                            = New-Object System.Windows.Forms.Button
-$HTB1.Text                       = "Unpin All Apps"
-
-# Remove Realtek
-$HTB2                            = New-Object System.Windows.Forms.Button
-$HTB2.Text                       = "Remove Realtek"
-
-# Link Shell Extension
-$HTB3                            = New-Object System.Windows.Forms.Button
-$HTB3.Text                       = "Link Shell Extension"
-
-$Position = 20
-$Buttons = @($HTB1,$HTB2,$HTB3)
-foreach ($Button in $Buttons) {
-    $HTPanel.Controls.Add($Button)
-    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=40
-}
 
             ##################################
             ######### PADDING BOTTOM #########
@@ -604,25 +589,20 @@ foreach ($Button in $Buttons) {
 $PaddingPanel                    = New-Object System.Windows.Forms.Panel
 $PaddingPanel.Height             = 8
 $PaddingPanel.Width              = $PanelSize
-$PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize),630)
+$PaddingPanel.Location           = New-Object System.Drawing.Point(($PanelSize),639)
 $Form.Controls.Add($PaddingPanel)
 
 
-$Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
-$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
-$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HSB1,$HSB2,$HSB3,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9,$HTB1,$HTB2,$HTB3)
-
+$Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
+$MSB17,$MSB18,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
+$MTB13,$MTB14,$MTB15,$MTB16,$MTB17,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
 foreach ($Button in $Buttons) {
-
-    $Button.Add_Click({
-        if ($this.Image -eq $ProcessingButtonColor) {
-            $this.Image = $ActiveButtonColor
-            $this.ForeColor = $ActiveForeColor
-        }else {
-            $this.Image = $DefaultButtonColor
-            $this.ForeColor = $DefaultForeColor
-        }
-    })
+    $Button.Width                = 210
+    $Button.Height               = 35
+    $Button.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
+    $Button.FlatStyle = "Flat"
+    $Button.FlatAppearance.BorderSize = 0
+    $Button.Image = $DefaultButtonColor
 
     $Button.Add_MouseEnter({
         if ($this.Image -eq $DefaultButtonColor) {
@@ -635,26 +615,25 @@ foreach ($Button in $Buttons) {
             $this.Image = $DefaultButtonColor
         }
     })
+
+    $Button.Add_Click({
+        if ($this.Image -eq $ProcessingButtonColor) {
+            $this.Image = $ActiveButtonColor
+            $this.ForeColor = $ActiveForeColor
+        }else{
+            $this.Image = $DefaultButtonColor
+            $this.ForeColor = $DefaultForeColor
+        }
+    })
 }
 
-$Buttons += @($MoreS,$MoreT)
-foreach ($Button in $Buttons) {
-    $Button.Width                = 210
-    $Button.Height               = 35
-    $Button.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
-    $Button.FlatStyle = "Flat"
-    $Button.FlatAppearance.BorderSize = 0
-    $Button.Image = $DefaultButtonColor
-
-}
 
 $Buttons = @($TB1,$MTB1)
 foreach ($Button in $Buttons) {
-
     $Button.Width                = 210
     $Button.Height               = 75
     $Button.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
-    $Button.FlatStyle = "Flat"
+    $Button.FlatStyle            = "Flat"
     $Button.FlatAppearance.BorderSize = 0
     $Button.Image = $DefaultButtonColorBIG
 
@@ -681,105 +660,50 @@ foreach ($Button in $Buttons) {
     })
 }
 
-$MoreS.Add_MouseEnter({
-    if ($this.Image -eq $DefaultButtonColor) {
-        $this.Image = $ProcessingButtonColor
-    }
-})
-
-$MoreS.Add_MouseLeave({
-    if ($this.Image -eq $ProcessingButtonColor) {
-        $this.Image = $DefaultButtonColor
-    }
-})
-
-$MoreS.Add_Click({
-        if ($MoreS.Image -eq $ProcessingButtonColor) {
-            $MoreS.Image = $ActiveButtonColor
-            $MoreS.ForeColor = $ActiveForeColor
-            $Form.Controls.Add($MSPanel)
-            $MSPanel.Width = $PanelSize
-            $Form.Left -= $PanelSize 
-            $SLabel.Location     = New-Object System.Drawing.Point((25+$PanelSize/2),13)
-            $SPanel.Left        += $PanelSize
-            $LLabel.Location     = New-Object System.Drawing.Point((252+$PanelSize),13)
-            $LPanel.Left        += $PanelSize
-            $TLabel.Location     = New-Object System.Drawing.Point((520+$PanelSize),13)
-            $TPanel.Left        += $PanelSize
-            $LogoBox.Left       += $PanelSize
-            $HPanel.Location     = New-Object System.Drawing.Point(($PanelSize),560)
-            $HTPanel.Location    = New-Object System.Drawing.Point(($PanelSize*4),560)
-            $SSPanel.Left       += $PanelSize
-            $StatusBox.Left     += $PanelSize
-        }
-
-        if ($MoreT.Image -eq $ActiveButtonColor) {
-            $MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*4),44)
-            $TLabel.Location                 = New-Object System.Drawing.Point((520+$PanelSize+($PanelSize/2)),13)
-        }
-
-        if ($HPS.Image -eq $ActiveButtonColor) {
-            $Form.Controls.Add($HSPanel)
-        }
-})
-
 $TLabel.Add_Click({
     Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Info.txt" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
     Start-Process "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
 })
 
-$MoreT.Add_MouseEnter({
-    if ($this.Image -eq $DefaultButtonColor) {
-        $this.Image = $ProcessingButtonColor
-    }
-})
-
-$MoreT.Add_MouseLeave({
-    if ($this.Image -eq $ProcessingButtonColor) {
-        $this.Image = $DefaultButtonColor
-    }
-})
-
-$MoreT.Add_Click({
-    if ($MoreT.Image -eq $ProcessingButtonColor) {
-    $MoreT.Image = $ActiveButtonColor
-    $MoreT.ForeColor = $ActiveForeColor
-    $Form.Controls.Add($MTPanel)
-    $TLabel.Location             = New-Object System.Drawing.Point((520+$PanelSize/2),13)
-    }
-
-    if ($MoreS.Image -eq $ActiveButtonColor) {
-        $TLabel.Location         = New-Object System.Drawing.Point((520+$PanelSize+($PanelSize/2)),13)
-        $MTPanel.Location        = New-Object System.Drawing.Point(($PanelSize*4),44)
-    }
-
-    if ($HPS.Image -eq $ActiveButtonColor) {
-        $Form.Controls.Add($HTPanel)
-    }
-})
+$LogoBox.Text = "Unlocked"
 
 $LogoBox.Add_Click({
-    $Form.Controls.Add($HPanel)
-    $SSPanel.Location            = New-Object System.Drawing.Point((0),(560+150))
-    $StatusBox.Location          = New-Object System.Drawing.Point((11),(614+150))
-    $HPS.Image                   = $ActiveButtonColor
-
-    if ($MoreS.Image -eq $ActiveButtonColor) {
-        $Form.Controls.Add($HSPanel)
-        $SSPanel.Location            = New-Object System.Drawing.Point((0+$PanelSize),(560+150))
-        $StatusBox.Location          = New-Object System.Drawing.Point((11+$PanelSize),(614+150))
+    if ($LogoBox.Text -eq "Unlocked") {
+        $LogoBox.Text            = "Locked"
+        $MSPanel.Width           = $PanelSize
+        $Form.Left              -= $PanelSize 
+        $SLabel.Left            += $PanelSize / 2
+        $SPanel.Left            += $PanelSize
+        $LLabel.Left            += $PanelSize
+        $LPanel.Left            += $PanelSize
+        $TLabel.Left            += $PanelSize + $PanelSize / 2
+        $TPanel.Left            += $PanelSize
+        $LogoBox.Left           += $PanelSize
+        $SSPanel.Left           += $PanelSize
+        $SSPanel.Top            += 120
+        $StatusBox.Left         += $PanelSize
+        $StatusBox.Top          += 120
+        $PaddingPanel.Top       += 120
+        $MTPanel.Left           += $PanelSize
+        $Form.Controls.AddRange(@($MSPanel,$MTPanel,$HPanel))
     }
 
-    if ($MoreT.Image -eq $ActiveButtonColor) {
-        $Form.Controls.Add($HTPanel)
-    }
+    $Decoy = $false
+    
+})
+
+$StartScript.Add_MouseEnter({
+    $StartScript.Image = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\SSProcessing.png")
+})
+
+$StartScript.Add_MouseLeave({
+    $StartScript.Image = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\SSDefault.png")
 })
 
 $StartScript.Add_Click({
     $StatusBox.Text = "|Iniciando Script...`r`n" + $StatusBox.Text
 
     $StartScript.Image = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\SSProcessing.png")
-    $StartScript.ForeColor = $ActiveForeColor
 
     $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
     $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path
@@ -856,81 +780,119 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id TheDocumentFoundation.LibreOffice | Out-Null
         $SB11.Image = $ActiveButtonColor
     }
-    if ($MoreS.Image -eq $ActiveButtonColor) { # More Software Bracket
-        if ($MSB1.Image -eq $ActiveButtonColor) { # Streamlabs OBS
-            $StatusBox.Text = "|Instalando Streamlabs OBS...`r`n" + $StatusBox.Text
-            $MSB1.Image = $ProcessingButtonColor
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Streamlabs.StreamlabsOBS | Out-Null
-            $MSB1.Image = $ActiveButtonColor
-        }
-        if ($MSB2.Image -eq $ActiveButtonColor) { # Photoshop Portable
-            $StatusBox.Text = "|Instalando Adobe Photoshop...`r`n" + $StatusBox.Text
-            $MSB2.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/Photoshop.ps1", $ToPath+"\Apps\Photoshop.ps1")
-            Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Photoshop.ps1 ; exit"
-            $MSB2.Image = $ActiveButtonColor
-        }
-        if ($MSB3.Image -eq $ActiveButtonColor) { # Premiere Portable
-            $StatusBox.Text = "|Instalando Adobe Premiere...`r`n" + $StatusBox.Text
-            $MSB3.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/Premiere.ps1", $ToPath+"\Apps\Premiere.ps1")
-            Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Premiere.ps1 ; exit"
-            $MSB3.Image = $ActiveButtonColor
-        }
-        if ($MSB4.Image -eq $ActiveButtonColor) { # Spotify
-            $StatusBox.Text = "|Instalando Spotify...`r`n" + $StatusBox.Text
-            $MSB4.Image = $ProcessingButtonColor
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Spotify.Spotify | Out-Null
-            $MSB4.Image = $ActiveButtonColor
-        }
-        if ($MSB5.Image -eq $ActiveButtonColor) { # Netflix
-            $StatusBox.Text = "|Instalando Netflix...`r`n" + $StatusBox.Text
-            $MSB5.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/Netflix.appx", $ToPath+"\Apps\Netflix.appx")
-            &{ $ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\Netflix.appx") }
-            $MSB5.Image = $ActiveButtonColor
-        }
-        if ($MSB6.Image -eq $ActiveButtonColor) { # Prime Video
-            $StatusBox.Text = "|Instalando Prime Video...`r`n" + $StatusBox.Text
-            $MSB6.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/DownloadPrimeVideo.ps1", $ToPath+"\Apps\DownloadPrimeVideo.ps1")
-            Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\DownloadPrimeVideo.ps1 ; exit"
-            $MSB6.Image = $ActiveButtonColor
-        }
-        if ($MSB7.Image -eq $ActiveButtonColor) { # VLC Media Player
-            $StatusBox.Text = "|Instalando VLC Media Player...`r`n" + $StatusBox.Text
-            $MSB7.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/VLCMediaPlayer.exe", $ToPath+"\Apps\VLCMediaPlayer.exe")
-            Start-Process ($ToPath+"\Apps\VLCMediaPlayer.exe")
-            $MSB7.Image = $ActiveButtonColor
-        }
-        if ($MSB8.Image -eq $ActiveButtonColor) { # GitHub Desktop
-            $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
-            $MSB8.Image = $ProcessingButtonColor
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
-            $MSB8.Image = $ActiveButtonColor
-        }
-        if ($MSB9.Image -eq $ActiveButtonColor) { # MegaSync
-            $StatusBox.Text = "|Instalando MegaSync...`r`n" + $StatusBox.Text
-            $MSB9.Image = $ProcessingButtonColor
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-Null
-            $MSB9.Image = $ActiveButtonColor
-        }
-        if ($MSB10.Image -eq $ActiveButtonColor) { # Void
-            $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
-            $MSB10.Image = $ProcessingButtonColor
-            $MSB10.Image = $ActiveButtonColor
-        }
-        if ($MSB11.Image -eq $ActiveButtonColor) { # Void
-            $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
-            $MSB11.Image = $ProcessingButtonColor
-            $MSB11.Image = $ActiveButtonColor
-        }
-        if ($MSB12.Image -eq $ActiveButtonColor) { # Void
-            $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
-            $MSB12.Image = $ProcessingButtonColor
-            $MSB12.Image = $ActiveButtonColor
-        }
+    if ($SB12.Image -eq $ActiveButtonColor) { # MegaSync
+        $StatusBox.Text = "|Instalando Libre Office...`r`n" + $StatusBox.Text
+        $SB11.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-Null
+        $SB12.Image = $ActiveButtonColor
+    }
+    if ($MSB1.Image -eq $ActiveButtonColor) { # Streamlabs OBS
+        $StatusBox.Text = "|Instalando Streamlabs OBS...`r`n" + $StatusBox.Text
+        $MSB1.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Streamlabs.StreamlabsOBS | Out-Null
+        $MSB1.Image = $ActiveButtonColor
+    }
+    if ($MSB2.Image -eq $ActiveButtonColor) { # Photoshop Portable
+        $StatusBox.Text = "|Instalando Adobe Photoshop...`r`n" + $StatusBox.Text
+        $MSB2.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Photoshop.ps1", $ToPath+"\Apps\Photoshop.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Photoshop.ps1 ; exit"
+        $MSB2.Image = $ActiveButtonColor
+    }
+    if ($MSB3.Image -eq $ActiveButtonColor) { # Premiere Portable
+        $StatusBox.Text = "|Instalando Adobe Premiere...`r`n" + $StatusBox.Text
+        $MSB3.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Premiere.ps1", $ToPath+"\Apps\Premiere.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Premiere.ps1 ; exit"
+        $MSB3.Image = $ActiveButtonColor
+    }
+    if ($MSB4.Image -eq $ActiveButtonColor) { # Spotify
+        $StatusBox.Text = "|Instalando Spotify...`r`n" + $StatusBox.Text
+        $MSB4.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Spotify.Spotify | Out-Null
+        $MSB4.Image = $ActiveButtonColor
+    }
+    if ($MSB5.Image -eq $ActiveButtonColor) { # Netflix
+        $StatusBox.Text = "|Instalando Netflix...`r`n" + $StatusBox.Text
+        $MSB5.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Netflix.appx", $ToPath+"\Apps\Netflix.appx")
+        &{ $ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\Netflix.appx") }
+        $MSB5.Image = $ActiveButtonColor
+    }
+    if ($MSB6.Image -eq $ActiveButtonColor) { # Prime Video
+        $StatusBox.Text = "|Instalando Prime Video...`r`n" + $StatusBox.Text
+        $MSB6.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/DownloadPrimeVideo.ps1", $ToPath+"\Apps\DownloadPrimeVideo.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\DownloadPrimeVideo.ps1 ; exit"
+        $MSB6.Image = $ActiveButtonColor
+    }
+    if ($MSB7.Image -eq $ActiveButtonColor) { # VLC Media Player
+        $StatusBox.Text = "|Instalando VLC Media Player...`r`n" + $StatusBox.Text
+        $MSB7.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/VLCMediaPlayer.exe", $ToPath+"\Apps\VLCMediaPlayer.exe")
+        Start-Process ($ToPath+"\Apps\VLCMediaPlayer.exe")
+        $MSB7.Image = $ActiveButtonColor
+    }
+    if ($MSB8.Image -eq $ActiveButtonColor) { # GitHub Desktop
+        $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
+        $MSB8.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
+        $MSB8.Image = $ActiveButtonColor
+    }
+    if ($MSB9.Image -eq $ActiveButtonColor) { # Valorant
+        $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
+        $MSB9.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Valorant.ps1", $ToPath+"\Apps\Valorant.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Valorant.ps1 ; exit" 
+        $MSB9.Image = $ActiveButtonColor
+    }
+    if ($MSB10.Image -eq $ActiveButtonColor) { # League of Legends
+        $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
+        $MSB10.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-Null
+        $MSB10.Image = $ActiveButtonColor
+    }
+    if ($MSB11.Image -eq $ActiveButtonColor) { # Escape From Tarkov
+        $StatusBox.Text = "|Instalando Escape From Tarkov...`r`n" + $StatusBox.Text
+        $MSB11.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
+        $MSB11.Image = $ActiveButtonColor
+    }
+    if ($MSB12.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $MSB12.Image = $ProcessingButtonColor
+        $MSB12.Image = $ActiveButtonColor
+    }
+    if ($MSB13.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $MSB13.Image = $ProcessingButtonColor
+        $MSB13.Image = $ActiveButtonColor
+    }
+    if ($MSB14.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $MSB14.Image = $ProcessingButtonColor
+        $MSB14.Image = $ActiveButtonColor
+    }
+    if ($MSB15.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $MSB15.Image = $ProcessingButtonColor
+        $MSB15.Image = $ActiveButtonColor
+    }
+    if ($MSB16.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $MSB16.Image = $ProcessingButtonColor
+        $MSB16.Image = $ActiveButtonColor
+    }
+    if ($MSB17.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $MSB17.Image = $ProcessingButtonColor
+        $MSB17.Image = $ActiveButtonColor
+    }
+    if ($MSB18.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $MSB18.Image = $ProcessingButtonColor
+        $MSB18.Image = $ActiveButtonColor
     }
     if ($LB1.Image -eq $ActiveButtonColor) { # Steam
         $StatusBox.Text = "|Instalando Steam...`r`n" + $StatusBox.Text
@@ -984,9 +946,9 @@ $StartScript.Add_Click({
         &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\XboxApp.appx")} 
         $LB8.Image = $ActiveButtonColor
     }
-    if ($TB1.Image -eq $ActiveButtonColor) { # Essential Tweaks
+    if ($TB1.Image -eq $ActiveButtonColorBIG) { # Essential Tweaks
         $StatusBox.Text = "|AJUSTES ESENCIALES`r`n`r`n" + $StatusBox.Text
-        $TB1.Image = $ProcessingButtonColor
+        $TB1.Image = $ProcessingButtonColorBIG
 
         # Create Restore Point
         $StatusBox.Text = "|Creando Punto De Restauracion...`r`n" + $StatusBox.Text
@@ -1189,7 +1151,7 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "Microsoft.MixedReality.Portal" | Remove-AppxPackage 
         Get-AppxPackage -All -Name *Disney* | Remove-AppxPackage
         }
-        $TB1.Image = $ActiveButtonColor
+        $TB1.Image = $ActiveButtonColorBIG
     }
     if ($TB2.Image -eq $ActiveButtonColor) { # Extra Tweaks
         $StatusBox.Text = "|Aplicando Extra Tweaks...`r`n`r`n" + $StatusBox.Text
@@ -1408,151 +1370,175 @@ $StartScript.Add_Click({
         Start-Process "C:\Program Files\ISLC\Intelligent standby list cleaner ISLC.exe"
         $TB10.Image = $ActiveButtonColor
     } 
-    if ($MoreT.Image -eq $ActiveButtonColor) { # More Tweaks Bracket
-        if ($MTB1.Image -eq $ActiveButtonColor) { # Activate Windows Pro Edition
-            $StatusBox.Text = "|Activando Windows Pro Edition...`r`n" + $StatusBox.Text
-            $MTB1.Image = $ProcessingButtonColor
-            cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
-            cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /skms kms.digiboy.ir
-            cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ato
-            $MTB1.Image = $ActiveButtonColor
+    if ($TB11.Image -eq $ActiveButtonColor) { # VisualFX Fix
+        $StatusBox.Text = "|Ajustando Animaciones De Windows...`r`n" + $StatusBox.Text
+        $TB11.Image = $ProcessingButtonColor
+        #Custom Setting
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
+        # Animaciones En La Barra De Tareas ON
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAnimations" -Type DWord -Value 1
+        # Animar Las Ventanas Al Minimizar Y Maximizar ON
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "MinAnimate" -Value 1
+        # Guardar Vistas De Miniaturas De La Barra De Tareas OFF
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "AlwaysHibernateThumbnails" -Type DWord -Value 0
+        # Habilitar Peek OFF
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "EnableAeroPeek" -Type DWord -Value 0
+        # Mostrar El Contenido De La Ventana Mientras Se Arrastra ON
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Value 1
+        # Mostrar El Rectangulo De Seleccion Translucido ON
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewAlphaSelect" -Type DWord -Value 1
+        # Mostrar Vistas En Miniatura En Lugar De Iconos ON
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "IconsOnly" -Type DWord -Value 0
+        # Suavizar Bordes Para Las Fuentes De Pantalla ON
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "FontSmoothing" -Value 2
+        # Usar Sombras En Las Etiquetas... OFF
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewShadow" -Type DWord -Value 0
+        # Animar Los Controles Y Elementos Dentro De Las Ventanas ON
+        # Atenuar Los Elementos Despues De Hacer Click OFF
+        # Atenuar O Deslizar La Informacion... OFF
+        # Atenuar O Deslizar Los Menus En La Vista OFF
+        # Deslizar Los Cuadros Combinados Al Abrirlos OFF
+        # Desplazamiento Suave De Los Cuadros De Lista OFF
+        # Mostrar Sombra Bajo El Puntero Del Mouse OFF
+        # Mostrar Sombras Bajo Las Ventanas ON
+        $MaskValue = "90,12,07,80,12,01,00,00"
+        $MaskValueToHex = $MaskValue.Split(',') | % { "0x$_"}
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]]$MaskValueToHex)
+        $TB11.Image = $ActiveButtonColor
+    }  
+    if ($MTB1.Image -eq $ActiveButtonColorBIG) { # Activate Windows Pro Edition
+        $StatusBox.Text = "|Activando Windows Pro Edition...`r`n" + $StatusBox.Text
+        $MTB1.Image = $ProcessingButtonColorBIG
+        cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
+        cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /skms kms.digiboy.ir
+        cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ato
+        $MTB1.Image = $ActiveButtonColorBIG
+    }
+    if ($MTB2.Image -eq $ActiveButtonColor) { # Install Visual C++
+        $StatusBox.Text = "|Instalando Todas Las Versiones De Visual C++...`r`n" + $StatusBox.Text
+        $MTB2.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x64 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x86 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x64 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x86 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x64 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x86 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x64 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x86 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x64 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x86 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x64 | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x86 | Out-Null
+        $MTB2.Image = $ActiveButtonColor
+    }  
+    if ($MTB3.Image -eq $ActiveButtonColor) { # Install TaskbarX
+        $StatusBox.Text = "|Instalando TaskbarX...`r`n" + $StatusBox.Text
+        $MTB3.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/TaskbarX.zip", $ToPath+"\Apps\TaskbarX.zip")
+        Expand-Archive -Path ($ToPath+"\Apps\TaskbarX.zip") -DestinationPath 'C:\Program Files\TaskbarX' -Force
+        Copy-Item -Path 'C:\Program Files\TaskbarX\TaskbarX Configurator.lnk' -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" -Force
+        Start-Process "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\TaskbarX Configurator.lnk"
+        $MTB3.Image = $ActiveButtonColor
+    }  
+    if ($MTB4.Image -eq $ActiveButtonColor) { # Install HEVC + HEIF
+        $StatusBox.Text = "Instalando Extensiones De Video HEVC Y HEIF... `r`n" + $StatusBox.Text
+        $MTB4.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/HEVC.appx", $ToPath+"\Apps\HEVC.appx")
+        $Download.DownloadFile($FromPath+"/Apps/HEIF.appx", $ToPath+"\Apps\HEIF.appx")
+        &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\HEVC.appx"); Add-AppxPackage ($ToPath+"\Apps\HEIF.appx")}
+        $MTB4.Image = $ActiveButtonColor
+    }  
+    if ($MTB5.Image -eq $ActiveButtonColor) { # Windows Terminal Fix
+        $StatusBox.Text = "|Aplicando Ajustes A Windows Terminal...`r`n" + $StatusBox.Text
+        $MTB5.Image = $ProcessingButtonColor
+        if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\SourceCodePro*)) {
+            $Download.DownloadFile($FromPath+"/Configs/FontSourceCodePro.zip", $ToPath+"\Configs\FontSourceCodePro.zip")
+            Expand-Archive -Path ($ToPath+"\Configs\FontSourceCodePro.zip") -DestinationPath ($ToPath+"\Configs\FontSourceCodePro") -Force
+            Start-Process ($ToPath+"\Configs\FontSourceCodePro\Install.exe")
+            Wait-Process -Name "Install"
+            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-Null
         }
-        if ($MTB2.Image -eq $ActiveButtonColor) { # Install Visual C++
-            $StatusBox.Text = "|Instalando Todas Las Versiones De Visual C++...`r`n" + $StatusBox.Text
-            $MTB2.Image = $ProcessingButtonColor
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x64 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x86 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x64 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x86 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x64 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x86 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x64 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x86 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x64 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x86 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x64 | Out-Null
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x86 | Out-Null
-            $MTB2.Image = $ActiveButtonColor
-        }  
-        if ($MTB3.Image -eq $ActiveButtonColor) { # Install TaskbarX
-            $StatusBox.Text = "|Instalando TaskbarX...`r`n" + $StatusBox.Text
-            $MTB3.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/TaskbarX.zip", $ToPath+"\Apps\TaskbarX.zip")
-            Expand-Archive -Path ($ToPath+"\Apps\TaskbarX.zip") -DestinationPath 'C:\Program Files\TaskbarX' -Force
-            Copy-Item -Path 'C:\Program Files\TaskbarX\TaskbarX Configurator.lnk' -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs" -Force
-            Start-Process "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\TaskbarX Configurator.lnk"
-            $MTB3.Image = $ActiveButtonColor
-        }  
-        if ($MTB4.Image -eq $ActiveButtonColor) { # Install HEVC + HEIF
-            $StatusBox.Text = "Instalando Extensiones De Video HEVC Y HEIF... `r`n" + $StatusBox.Text
-            $MTB4.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/HEVC.appx", $ToPath+"\Apps\HEVC.appx")
-            $Download.DownloadFile($FromPath+"/Apps/HEIF.appx", $ToPath+"\Apps\HEIF.appx")
-            &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\HEVC.appx"); Add-AppxPackage ($ToPath+"\Apps\HEIF.appx")}
-            $MTB4.Image = $ActiveButtonColor
-        }  
-        if ($MTB5.Image -eq $ActiveButtonColor) { # Windows Terminal Fix
-            $StatusBox.Text = "|Aplicando Ajustes A Windows Terminal...`r`n" + $StatusBox.Text
-            $MTB5.Image = $ProcessingButtonColor
-            if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\SourceCodePro*)) {
-                $Download.DownloadFile($FromPath+"/Configs/FontSourceCodePro.zip", $ToPath+"\Configs\FontSourceCodePro.zip")
-                Expand-Archive -Path ($ToPath+"\Configs\FontSourceCodePro.zip") -DestinationPath ($ToPath+"\Configs\FontSourceCodePro") -Force
-                Start-Process ($ToPath+"\Configs\FontSourceCodePro\Install.exe")
-                Wait-Process -Name "Install"
-                winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-Null
-            }
-            $Download.DownloadFile($FromPath+"/Configs/WindowsTerminalFix.zip", $ToPath+"\Configs\WindowsTerminalFix.zip")
-            Expand-Archive -Path ($ToPath+"\Configs\WindowsTerminalFix.zip") -DestinationPath $env:userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
-            $MTB5.Image = $ActiveButtonColor 
-        }  
-        if ($MTB6.Image -eq $ActiveButtonColor) { # Extreme Power Plan
-            $StatusBox.Text = "|Activando Highest Performance Power Plan...`r`n" + $StatusBox.Text
-            $MTB6.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/HighestPerformance.pow", $ToPath+"\Apps\HighestPerformance.pow")
-            $Download.DownloadFile($FromPath+"/Apps/PowerPlan.cmd", $ToPath+"\Apps\PowerPlan.cmd")
-            Start-Process ($ToPath+"\Apps\PowerPlan.cmd")
-            Start-Sleep 5
-            powercfg /X monitor-timeout-ac 15
-            powercfg /X monitor-timeout-dc 15
-            powercfg /X standby-timeout-ac 0
-            powercfg /X standby-timeout-dc 0
-            $MTB6.Image = $ActiveButtonColor
-        }  
-        if ($MTB7.Image -eq $ActiveButtonColor) { # Performance Counters
-            $StatusBox.Text = "|Reconstruyendo Contadores De Rendimiento...`r`n" + $StatusBox.Text
-            $MTB7.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/PerformanceCounters.cmd", $ToPath+"\Apps\PerformanceCounters.cmd")
-            Start-Process ($ToPath+"\ZKTool\Apps\PerformanceCounters.cmd")
-            $MTB7.Image = $ActiveButtonColor
-        }    
-        if ($MTB9.Image -eq $ActiveButtonColor) { # Autoruns
-            $StatusBox.Text = "|Abriendo Autoruns...`r`n" + $StatusBox.Text
-            $MTB9.Image = $ProcessingButtonColor
-            $Download.DownloadFile($FromPath+"/Apps/Autoruns.exe", $ToPath+"\Apps\Autoruns.exe")
-            Start-Process ($ToPath+"\Apps\Autoruns.exe")
-            $MTB9.Image = $ActiveButtonColor
-        }  
-        if ($MTB10.Image -eq $ActiveButtonColor) { # VisualFX Fix
-            $StatusBox.Text = "|Ajustando Animaciones De Windows...`r`n" + $StatusBox.Text
-            $MTB10.Image = $ProcessingButtonColor
-            #Custom Setting
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
-            # Animaciones En La Barra De Tareas ON
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAnimations" -Type DWord -Value 1
-            # Animar Las Ventanas Al Minimizar Y Maximizar ON
-            Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "MinAnimate" -Value 1
-            # Guardar Vistas De Miniaturas De La Barra De Tareas OFF
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "AlwaysHibernateThumbnails" -Type DWord -Value 0
-            # Habilitar Peek OFF
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "EnableAeroPeek" -Type DWord -Value 0
-            # Mostrar El Contenido De La Ventana Mientras Se Arrastra ON
-            Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Value 1
-            # Mostrar El Rectangulo De Seleccion Translucido ON
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewAlphaSelect" -Type DWord -Value 1
-            # Mostrar Vistas En Miniatura En Lugar De Iconos ON
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "IconsOnly" -Type DWord -Value 0
-            # Suavizar Bordes Para Las Fuentes De Pantalla ON
-            Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "FontSmoothing" -Value 2
-            # Usar Sombras En Las Etiquetas... OFF
-            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewShadow" -Type DWord -Value 0
-            # Animar Los Controles Y Elementos Dentro De Las Ventanas ON
-            # Atenuar Los Elementos Despues De Hacer Click OFF
-            # Atenuar O Deslizar La Informacion... OFF
-            # Atenuar O Deslizar Los Menus En La Vista OFF
-            # Deslizar Los Cuadros Combinados Al Abrirlos OFF
-            # Desplazamiento Suave De Los Cuadros De Lista OFF
-            # Mostrar Sombra Bajo El Puntero Del Mouse OFF
-            # Mostrar Sombras Bajo Las Ventanas ON
-            $MaskValue = "90,12,07,80,12,01,00,00"
-            $MaskValueToHex = $MaskValue.Split(',') | % { "0x$_"}
-            Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]]$MaskValueToHex)
-            $MTB10.Image = $ActiveButtonColor
-        }   
-        if ($MTB11.Image -eq $ActiveButtonColor) { # Void
-            $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
-            $MTB11.Image = $ProcessingButtonColor
-            $MTB11.Image = $ActiveButtonColor
-        } 
+        $Download.DownloadFile($FromPath+"/Configs/WindowsTerminalFix.zip", $ToPath+"\Configs\WindowsTerminalFix.zip")
+        Expand-Archive -Path ($ToPath+"\Configs\WindowsTerminalFix.zip") -DestinationPath $env:userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
+        $MTB5.Image = $ActiveButtonColor 
+    }  
+    if ($MTB6.Image -eq $ActiveButtonColor) { # Extreme Power Plan
+        $StatusBox.Text = "|Activando Highest Performance Power Plan...`r`n" + $StatusBox.Text
+        $MTB6.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/HighestPerformance.pow", $ToPath+"\Apps\HighestPerformance.pow")
+        $Download.DownloadFile($FromPath+"/Apps/PowerPlan.cmd", $ToPath+"\Apps\PowerPlan.cmd")
+        Start-Process ($ToPath+"\Apps\PowerPlan.cmd")
+        Start-Sleep 5
+        powercfg /X monitor-timeout-ac 15
+        powercfg /X monitor-timeout-dc 15
+        powercfg /X standby-timeout-ac 0
+        powercfg /X standby-timeout-dc 0
+        $MTB6.Image = $ActiveButtonColor
+    }  
+    if ($MTB7.Image -eq $ActiveButtonColor) { # Performance Counters
+        $StatusBox.Text = "|Reconstruyendo Contadores De Rendimiento...`r`n" + $StatusBox.Text
+        $MTB7.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/PerformanceCounters.cmd", $ToPath+"\Apps\PerformanceCounters.cmd")
+        Start-Process ($ToPath+"\ZKTool\Apps\PerformanceCounters.cmd")
+        $MTB7.Image = $ActiveButtonColor
+    }    
+    if ($MTB9.Image -eq $ActiveButtonColor) { # Autoruns
+        $StatusBox.Text = "|Abriendo Autoruns...`r`n" + $StatusBox.Text
+        $MTB9.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Autoruns.exe", $ToPath+"\Apps\Autoruns.exe")
+        Start-Process ($ToPath+"\Apps\Autoruns.exe")
+        $MTB9.Image = $ActiveButtonColor
     }
-    if ($HSB1.Image -eq $ActiveButtonColor) { # Valorant
-        $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
-        $HSB1.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/Valorant.ps1", $ToPath+"\Apps\Valorant.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Valorant.ps1 ; exit" 
-        $HSB1.Image = $ActiveButtonColor
+    if ($MTB10.Image -eq $ActiveButtonColor) { # Unpin All Apps
+        $StatusBox.Text = "|Desanclando Todas Las Aplicaciones...`r`n" + $StatusBox.Text
+        $MTB10.Image = $ProcessingButtonColor
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites" -Type Binary -Value ([byte[]](255))
+        Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "FavoritesResolve" -ErrorAction SilentlyContinue
+        $Download.DownloadFile($FromPath+"/Configs/start.bin", $ToPath+"\Configs\start.bin")
+        Copy-Item -Path ($ToPath+"\Configs\start.bin") -Destination "$env:userprofile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState" -Force
+        $MTB10.Image = $ActiveButtonColor
     }
-    if ($HSB2.Image -eq $ActiveButtonColor) { # League of Legends
-        $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
-        $HSB2.Image = $ProcessingButtonColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-Null
-        $HSB2.Image = $ActiveButtonColor
+    if ($MTB11.Image -eq $ActiveButtonColor) { # Remove Realtek
+        $StatusBox.Text = "|Quitando Realtek Audio Service...`r`n" + $StatusBox.Text
+        $MTB11.Image = $ProcessingButtonColor
+        sc stop Audiosrv
+        sc stop RtkAudioUniversalService
+        taskkill /f /im RtkAudUService64.exe | Out-Null
+        sc delete RtkAudioUniversalService
+        Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
+        $MTB11.Image = $ActiveButtonColor
     }
-    if ($HSB3.Image -eq $ActiveButtonColor) { # Escape From Tarkov
-        $StatusBox.Text = "|Instalando Escape From Tarkov...`r`n" + $StatusBox.Text
-        $HSB3.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
-        $HSB3.Image = $ActiveButtonColor
+    if ($MTB12.Image -eq $ActiveButtonColor) { # Link Shell Extension
+        $StatusBox.Text = "|Instalando Link Shell Extension...`r`n" + $StatusBox.Text
+        $MTB12.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/LinkShellExtension.exe", $ToPath+"\Apps\LinkShellExtension.exe")
+        "%userprofile%\AppData\Local\Temp\ZKTool\Apps\LinkShellExtension.exe /S /Language=English" | cmd
+        $MTB12.Image = $ActiveButtonColor
+    }
+    if ($MTB13.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $MTB13.Image = $ProcessingButtonColor
+        $MTB13.Image = $ActiveButtonColor
+    }
+    if ($MTB14.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $MTB14.Image = $ProcessingButtonColor
+        $MTB14.Image = $ActiveButtonColor
+    }
+    if ($MTB15.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $MTB15.Image = $ProcessingButtonColor
+        $MTB15.Image = $ActiveButtonColor
+    }
+    if ($MTB16.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $MTB16.Image = $ProcessingButtonColor
+        $MTB16.Image = $ActiveButtonColor
+    }
+    if ($MTB17.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $MTB17.Image = $ProcessingButtonColor
+        $MTB17.Image = $ActiveButtonColor
     }
     if ($HB1.Image -eq $ActiveButtonColor) { # Rufus
         $StatusBox.Text = "|Iniciando Rufus...`r`n" + $StatusBox.Text
@@ -1615,32 +1601,6 @@ $StartScript.Add_Click({
         Iex (Iwr ($FromPath+"/Scripts/GameSettings.ps1"))
         $HB9.Image = $ActiveButtonColor
     }
-    if ($HTB1.Image -eq $ActiveButtonColor) { # Unpin All Apps
-        $StatusBox.Text = "|Desanclando Todas Las Aplicaciones...`r`n" + $StatusBox.Text
-        $HTB1.Image = $ProcessingButtonColor
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites" -Type Binary -Value ([byte[]](255))
-        Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "FavoritesResolve" -ErrorAction SilentlyContinue
-        $Download.DownloadFile($FromPath+"/Configs/start.bin", $ToPath+"\Configs\start.bin")
-        Copy-Item -Path ($ToPath+"\Configs\start.bin") -Destination "$env:userprofile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState" -Force
-        $HTB1.Image = $ActiveButtonColor
-    }
-    if ($HTB2.Image -eq $ActiveButtonColor) { # Remove Realtek
-        $StatusBox.Text = "|Quitando Realtek Audio Service...`r`n" + $StatusBox.Text
-        $HTB2.Image = $ProcessingButtonColor
-        sc stop Audiosrv
-        sc stop RtkAudioUniversalService
-        taskkill /f /im RtkAudUService64.exe | Out-Null
-        sc delete RtkAudioUniversalService
-        Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
-        $HTB2.Image = $ActiveButtonColor
-    }
-    if ($HTB3.Image -eq $ActiveButtonColor) { # Link Shell Extension
-        $StatusBox.Text = "|Instalando Link Shell Extension...`r`n" + $StatusBox.Text
-        $HTB3.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/LinkShellExtension.exe", $ToPath+"\Apps\LinkShellExtension.exe")
-        "%userprofile%\AppData\Local\Temp\ZKTool\Apps\LinkShellExtension.exe /S /Language=English" | cmd
-        $HTB3.Image = $ActiveButtonColor
-    }
     if ($MTB8.Image -eq $ActiveButtonColor) { # Static IP + DNS
         $StatusBox.Text = "|Abriendo Selector De IPs...`r`n" + $StatusBox.Text
         $MTB8.Image = $ProcessingButtonColor
@@ -1649,12 +1609,10 @@ $StartScript.Add_Click({
     }
        
     $StartScript.Image = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\SSDefault.png")
-    $StartScript.ForeColor = $ActiveButtonColor
 
-    $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,
-                $LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,
-                $MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$HSB1,$HSB2,$HSB3,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9,$HTB1,$HTB2,$HTB3)
-    
+    $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
+    $MSB17,$MSB18,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
+    $MTB13,$MTB14,$MTB15,$MTB16,$MTB17,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
     foreach ($Button in $Buttons) {
         if ($Button.Image -eq $ActiveButtonColor) {
                 $Button.Image = $DefaultButtonColor
