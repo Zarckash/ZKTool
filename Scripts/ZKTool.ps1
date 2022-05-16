@@ -427,9 +427,9 @@ $MTB11.Text                      = "Remove Realtek"
 $MTB12                           = New-Object System.Windows.Forms.Button
 $MTB12.Text                      = "Link Shell Extension"
 
-# Void
+# Increase PageFile Size
 $MTB13                           = New-Object System.Windows.Forms.Button
-$MTB13.Text                      = "Void"
+$MTB13.Text                      = "Increase PageFile Size"
 
 # Void
 $MTB14                           = New-Object System.Windows.Forms.Button
@@ -448,7 +448,7 @@ $MTB17                           = New-Object System.Windows.Forms.Button
 $MTB17.Text                      = "Void"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,$MTB13)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -1515,10 +1515,19 @@ $StartScript.Add_Click({
         "%userprofile%\AppData\Local\Temp\ZKTool\Apps\LinkShellExtension.exe /S /Language=English" | cmd
         $MTB12.Image = $ActiveButtonColor
     }
-    if ($MTB13.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
-        $MTB13.Image = $ProcessingButtonColor
-        $MTB13.Image = $ActiveButtonColor
+    if ($MTB13.Image -eq $ActiveButtonColor) { # Increase PageFile Size
+        $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1mb
+        if ($RamCapacity -le 17000) {
+            $RamCapacity += $RamCapacity/2
+            $StatusBox.Text = "|Estableciendo El Tamaño Del Archivo De Paginacion En $RamCapacity MB...`r`n" + $StatusBox.Text
+            $MTB13.Image = $ProcessingButtonColor
+            $PageFile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
+            $PageFile.AutomaticManagedPagefile = $false
+            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "PagingFiles" -Value "c:\pagefile.sys $RamCapacity $RamCapacity"
+            $MTB13.Image = $ActiveButtonColor
+        }else {
+            $StatusBox.Text = "|La Cantidad De Memoria RAM Es Superior A Los 16GB, No Se Realizara Ningun Cambio...`r`n" + $StatusBox.Text
+        }
     }
     if ($MTB14.Image -eq $ActiveButtonColor) { # Void
         $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
