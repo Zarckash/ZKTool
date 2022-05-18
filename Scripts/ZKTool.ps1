@@ -26,6 +26,7 @@ $ActiveForeColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $DefaultButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\DefaultButtonColor.png")
 $ActiveButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ActiveButtonColor.png")
 $ProcessingButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ProcessingButtonColor.png")
+$ErrorButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ErrorButtonColor.png")
 $DefaultButtonColorBIG = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\DefaultButtonColorBIG.png")
 $ActiveButtonColorBIG = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ActiveButtonColorBIG.png")
 $ProcessingButtonColorBIG = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ProcessingButtonColorBIG.png")
@@ -91,9 +92,9 @@ $SB3.Text                        = "NanaZip"
 $SB4                             = New-Object System.Windows.Forms.Button
 $SB4.Text                        = "Discord"
 
-# HW Monitor
+# HWMonitor
 $SB5                             = New-Object System.Windows.Forms.Button
-$SB5.Text                        = "HW Monitor"
+$SB5.Text                        = "HWMonitor"
 
 # MSI Afterburner
 $SB6                             = New-Object System.Windows.Forms.Button
@@ -115,9 +116,9 @@ $SB9.Text                        = "Razer Synapse"
 $SB10                            = New-Object System.Windows.Forms.Button
 $SB10.Text                       = "uTorrent Web"
 
-# Libre Office
+# LibreOffice
 $SB11                            = New-Object System.Windows.Forms.Button
-$SB11.Text                       = "Libre Office"
+$SB11.Text                       = "LibreOffice"
 
 # Megasync
 $SB12                            = New-Object System.Windows.Forms.Button
@@ -143,9 +144,9 @@ $MSPanel.Height                  = 491 + 235
 $MSPanel.Width                   = $PanelSize
 $MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),44)
 
-# Streamlabs OBS
+# StreamlabsOBS
 $MSB1                            = New-Object System.Windows.Forms.Button
-$MSB1.Text                       = "Streamlabs OBS"
+$MSB1.Text                       = "StreamlabsOBS"
 
 # Photoshop Portable
 $MSB2                            = New-Object System.Windows.Forms.Button
@@ -251,9 +252,9 @@ $Form.Controls.Add($LPanel)
 $LB1                             = New-Object System.Windows.Forms.Button
 $LB1.Text                        = "Steam"
 
-# EA Desktop
+# EA App
 $LB2                             = New-Object System.Windows.Forms.Button
-$LB2.Text                        = "EA Desktop"
+$LB2.Text                        = "EA App"
 
 # Ubisoft Connect
 $LB3                             = New-Object System.Windows.Forms.Button
@@ -271,13 +272,13 @@ $LB5.Text                        = "GOG Galaxy"
 $LB6                             = New-Object System.Windows.Forms.Button
 $LB6.Text                        = "Rockstar Games"
 
-# Epic Games
+# Epic Games Launcher
 $LB7                             = New-Object System.Windows.Forms.Button
-$LB7.Text                        = "Epic Games"
+$LB7.Text                        = "Epic Games Launcher"
 
-# Xbox App
+# Xbox
 $LB8                             = New-Object System.Windows.Forms.Button
-$LB8.Text                        = "Xbox App"
+$LB8.Text                        = "Xbox"
 
 $Position = 10
 $Buttons = @($LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8)
@@ -536,7 +537,7 @@ $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
 
 # MSI Afterburner Config
 $HB2                             = New-Object System.Windows.Forms.Button
-$HB2.Text                        = "Msi Afterburner Config"
+$HB2.Text                        = "MSI Afterburner Config"
 $HB2.Location                    = New-Object System.Drawing.Point(238,$Position)
 
 # Discord Second Screen
@@ -1626,6 +1627,18 @@ $StartScript.Add_Click({
         if ($Button.Image -eq $ActiveButtonColor) {
                 $Button.Image = $DefaultButtonColor
                 $Button.ForeColor = $LabelColor
+        }
+    }
+
+    $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB11,$SB12,$MSB1,$MSB4,$MSB5,$MSB6,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB17,$LB1,$LB2,$LB3,$LB5,
+    $LB7,$LB8,$HB5,$HB8)
+    foreach ($Button in $Buttons) {
+        if ($Button.ForeColor -eq $LabelColor) {
+            $WingetListCheck = Winget List $Button.Text | Select-String -Pattern $Button.Text | ForEach {$_.matches} | Select-Object -ExpandProperty Value
+            if (!($WingetListCheck -eq $Button.Text)) {
+                $Button.Image = $ErrorButtonColor
+                $Button.ForeColor = $DefaultForeColor
+            }
         }
     }
 
