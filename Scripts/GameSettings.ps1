@@ -12,9 +12,9 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
 $SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
-$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#89EDFF")
+$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#00e6ff")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3E434F")
-$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
+$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#ff006e")
 
 $PanelSize = 233 # Sets Each Panel Location
 

@@ -12,9 +12,9 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 $FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
 $SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
-$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#89EDFF")
+$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#00e6ff")
 $ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3E434F")
-$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#DC4995")
+$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#ff006e")
 
 $PanelSize = 233 # Sets Each Panel Location
 
@@ -139,17 +139,19 @@ foreach ($Button in $Buttons) {
 }
 
 $Gateway = Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
+$i = New-Object System.Windows.Forms.Button
+$i.Width = 20
 
 # Search IPs Button
 $SearchIP.Add_Click({
     $SearchIP.BackColor = $ProcessingColor
     $Condition = $False
+    $AvaibleIPs.Text = ""
 
     while (!($Condition)) {
-
         $Found=0
-        for ($Hop = 24; $Found -lt 6 -and $Hop -lt 100; $Hop++) {
-            $TestIP = $Gateway.Substring(0,10) + $Hop
+        for ($i.Width; $Found -lt 6 -and $i.Width -lt 100; $i.Width++) {
+            $TestIP = $Gateway.Substring(0,10) + $i.Width
             if (!(Test-Connection $TestIP -Count 1 -Quiet)) {
                 $AvaibleIPs.Text += "$TestIP    "
                 $Found++
@@ -157,6 +159,8 @@ $SearchIP.Add_Click({
         }
         $Condition = $True
     }
+    
+    $SearchIP.Text = "Buscar Mas IPs"
     $SearchIP.BackColor = $ButtonColor
 })
 
