@@ -20,7 +20,7 @@ New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory
 Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-Null
 Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\
 
-$LabelColor = [System.Drawing.ColorTranslator]::FromHtml("#89EDFF") 
+$LabelColor = [System.Drawing.ColorTranslator]::FromHtml("#00E6FF") 
 $DefaultForeColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
 $ActiveForeColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $DefaultButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\DefaultButtonColor.png")
@@ -1087,7 +1087,7 @@ $StartScript.Add_Click({
         "MicrosoftEdgeElevationService"                # Disables one of edge  service 
         "edgeupdatem"                                  # Disables another one of update service (disables edgeupdatem)                          
         "PerfHost"                                     # Disables remote users and 64-bit processes to query performance .
-        "BcastDVRUserService_48486de"                  # Disables GameDVR and Broadcast   is used for Game Recordings and Live Broadcasts
+        "BcastDVRUserService_48486de"                  # Disables GameDVR and Broadcast is used for Game Recordings and Live Broadcasts
         )
     
         foreach ($service in $services) {
@@ -1204,7 +1204,7 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
     
         # Hide Recent Files And Folders In Explorer
-        $StatusBox.Text = "|Ocultando Archivos Y Carpetas Recientes De  Acceso Rapido...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "|Ocultando Archivos Y Carpetas Recientes De Acceso Rapido...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
     
