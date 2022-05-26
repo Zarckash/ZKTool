@@ -1621,12 +1621,16 @@ $StartScript.Add_Click({
     $StartScript.Image = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\SSDefault.png")
 
     $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
-    $MSB17,$MSB18,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
+    $MSB17,$MSB18,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
     $MTB13,$MTB14,$MTB15,$MTB16,$MTB17,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
     foreach ($Button in $Buttons) {
         if ($Button.Image -eq $ActiveButtonColor) {
                 $Button.Image = $DefaultButtonColor
                 $Button.ForeColor = $LabelColor
+        }
+        if ($Button.Image -eq $ActiveButtonColorBIG) {
+            $Button.Image = $DefaultButtonColorBIG
+            $Button.ForeColor = $LabelColor
         }
     }
 
