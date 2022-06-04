@@ -968,7 +968,11 @@ $StartScript.Add_Click({
         # Enable Hardware Acceleration
         $StatusBox.Text = "|Activando Aceleracion De Hardware...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
-        
+
+        # Enable Borderless Optimizations
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\GraphicsSettings" -Name "SwapEffectUpgradeCache" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -Name "DirectXUserGlobalSettings" -Value "SwapEffectUpgradeEnable=1;1"
+
         # Set High Performance Profile
         $StatusBox.Text = "|Estableciendo Perfil De Alto Rendimiento...`r`n" + $StatusBox.Text
         powercfg.exe -SETACTIVE 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
@@ -987,6 +991,12 @@ $StartScript.Add_Click({
         # Open File Explorer In This PC Page
         $StatusBox.Text = "|Estableciendo Abrir El Explorador De Archivos En  La Pagina Este Equipo...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
+
+        # Reduce svchost Process Amount
+        $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1kb
+        if ($RamCapacity -ige 16777216) {
+            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value $RamCapacity
+        }
     
         # Disable Mouse Acceleration
         $StatusBox.Text = "|Desactivando Aceleracion Del Raton...`r`n" + $StatusBox.Text
@@ -1041,6 +1051,10 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SYSTEM\Maps" -Name "AutoUpdateEnabled" -Type DWord -Value 0
+
+        # Disable Nearby Sharing
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP" -Name "CdpSessionUserAuthzPolicy" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP" -Name "RomeSdkChannelUserAuthzPolicy" -Type DWord -Value 0
     
         # Disable Feedback
         $StatusBox.Text = "|Deshabilitando Feedback...`r`n" + $StatusBox.Text
@@ -1149,7 +1163,8 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "MicrosoftWindows.Client.WebExperience" | Remove-AppxPackage 
         Get-AppxPackage -All "MicrosoftTeams" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.MSPaint" | Remove-AppxPackage
-        Get-AppxPackage -All "Microsoft.MixedReality.Portal" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.MixedReality.Portal" | Remove-AppxPackage
+        Get-AppxPackage -All "Clipchamp.Clipchamp" | Remove-AppxPackage 
         Get-AppxPackage -All -Name *Disney* | Remove-AppxPackage
         }
         $TB1.Image = $ActiveButtonColorBIG
@@ -1163,11 +1178,12 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Apps/RamCleaner.reg", $ToPath+"\Apps\RamCleaner.reg")
         Start-Process ($ToPath+"\Apps\PowerRun.exe") "%%PowerRunDir%%\RamCleaner.reg"
 
-        # Reduce svchost Process Amount
-        $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1kb
-        if ($RamCapacity -ige 16777216) {
-            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value $RamCapacity
-        }
+        # Show TaskBar Only In Main Screen
+        $StatusBox.Text = "|Desactivando Mostrar Barra De Tareas En Todos Los Monitores...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MMTaskbarEnabled" -Type DWord -Value 0
+
+        # Show More Pinned Items In Start Menu
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_Layout" -Type DWord -Value 1
 
         # Keep Windows From Creating DumpStack.log File
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
@@ -1187,7 +1203,10 @@ $StartScript.Add_Click({
         # Hide Search Button
         $StatusBox.Text = "|Ocultando Boton De Busqueda...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
-    
+
+        # Hide Search Recomendations
+        Set-ItemProperty -Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
+        
         # Hide Chat Button
         $StatusBox.Text = "|Ocultando Boton De Chats...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
