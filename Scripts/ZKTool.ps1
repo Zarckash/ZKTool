@@ -1187,6 +1187,11 @@ $StartScript.Add_Click({
 
         # Keep Windows From Creating DumpStack.log File
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
+
+        # Stop Microsoft Store From Updating Apps Automatically
+        $StatusBox.Text = "|Desactivando Actualizaciones Automaticas De Microsoft Store...`r`n" + $StatusBox.Text
+        New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "WindowsStore"
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -Name "AutoDownload" -Type DWord -Value 2
     
         # Hide TaskBar View Button
         $StatusBox.Text = "|Ocultando Boton Vista De Tareas...`r`n" + $StatusBox.Text
@@ -1461,7 +1466,7 @@ $StartScript.Add_Click({
         $MTB3.Image = $ActiveButtonColor
     }  
     if ($MTB4.Image -eq $ActiveButtonColor) { # Install HEVC + HEIF
-        $StatusBox.Text = "Instalando Extensiones De Video HEVC Y HEIF... `r`n" + $StatusBox.Text
+        $StatusBox.Text = "|Instalando Extensiones De Video HEVC Y HEIF... `r`n" + $StatusBox.Text
         $MTB4.Image = $ProcessingButtonColor
         $Download.DownloadFile($FromPath+"/Apps/HEVC.appx", $ToPath+"\Apps\HEVC.appx")
         $Download.DownloadFile($FromPath+"/Apps/HEIF.appx", $ToPath+"\Apps\HEIF.appx")
@@ -1636,8 +1641,6 @@ $StartScript.Add_Click({
         iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ChooseIp.ps1")))
         $MTB8.Image = $ActiveButtonColor
     }
-       
-    $StartScript.Image = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\SSDefault.png")
 
     $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
     $MSB17,$MSB18,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
@@ -1659,11 +1662,12 @@ $StartScript.Add_Click({
         if ($Button.ForeColor -eq $LabelColor) {
             $WingetListCheck = Winget List $Button.Text | Select-String -Pattern $Button.Text | ForEach {$_.matches} | Select-Object -ExpandProperty Value
             if (!($WingetListCheck -eq $Button.Text)) {
-                $Button.Image = $ErrorButtonColor
-                $Button.ForeColor = $DefaultForeColor
+                $Button.ForeColor = "Red"
             }
         }
     }
+
+    $StartScript.Image = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\SSDefault.png")
 
     $StatusBox.Text = "|Ready`r`n|Script Finalizado`r`n" + $StatusBox.Text
 })
