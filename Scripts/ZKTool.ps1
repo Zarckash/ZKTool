@@ -1528,10 +1528,11 @@ $StartScript.Add_Click({
     if ($MTB11.Image -eq $ActiveButtonColor) { # Remove Realtek
         $StatusBox.Text = "|Quitando Realtek Audio Service...`r`n" + $StatusBox.Text
         $MTB11.Image = $ProcessingButtonColor
-        sc stop Audiosrv
-        sc stop RtkAudioUniversalService
+        sc stop Audiosrv | pwsh
+        sc stop RtkAudioUniversalService | pwsh
         taskkill /f /im RtkAudUService64.exe | Out-Null
-        sc delete RtkAudioUniversalService
+        sc delete RtkAudioUniversalService | pwsh
+        sc start Audiosrv | pwsh
         Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
         $MTB11.Image = $ActiveButtonColor
     }
@@ -1603,6 +1604,7 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\command\" -Name "(default)" -Value "NextWallpaper.exe"
         Move-Item -Path ($ToPath+"\Apps\WallpaperEngine\Wallpaper Engine.lnk") -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
         Set-ItemProperty -Path "HKCU:\Software\WallpaperEngine" -Name "hideTrayIcon" -Type DWord -Value 1
+        Add-MpPreference -ExclusionPath "$env:windir\System32\NextWallpaper.exe"
         $HB3.Image = $ActiveButtonColor
     }   
     if ($HB4.Image -eq $ActiveButtonColor) { # Software RL
