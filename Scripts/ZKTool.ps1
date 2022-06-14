@@ -540,9 +540,9 @@ $HB2                             = New-Object System.Windows.Forms.Button
 $HB2.Text                        = "MSI Afterburner Config"
 $HB2.Location                    = New-Object System.Drawing.Point(238,$Position)
 
-# Discord Second Screen
+# Wallpaper Engine Tweak
 $HB3                             = New-Object System.Windows.Forms.Button
-$HB3.Text                        = "Discord Second Screen"
+$HB3.Text                        = "Wallpaper Engine Tweak"
 $HB3.Location                    = New-Object System.Drawing.Point(471,$Position)
 $Position += 40
 
@@ -1164,7 +1164,9 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "MicrosoftTeams" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.MSPaint" | Remove-AppxPackage
         Get-AppxPackage -All "Microsoft.MixedReality.Portal" | Remove-AppxPackage
-        Get-AppxPackage -All "Clipchamp.Clipchamp" | Remove-AppxPackage 
+        Get-AppxPackage -All "Clipchamp.Clipchamp" | Remove-AppxPackage
+        Get-AppxPackage -All "Microsoft.PowerAutomateDesktop" | Remove-AppxPackage
+        Get-AppxPackage -All "Microsoft.Todos" | Remove-AppxPackage
         Get-AppxPackage -All -Name *Disney* | Remove-AppxPackage
         }
         $TB1.Image = $ActiveButtonColorBIG
@@ -1588,11 +1590,19 @@ $StartScript.Add_Click({
         Expand-Archive -Path ($ToPath+"\Configs\Profiles.zip") -DestinationPath 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
         $HB2.Image = $ActiveButtonColor
     }   
-    if ($HB3.Image -eq $ActiveButtonColor) { # Discord Second Screen
-        $StatusBox.Text = "|Configurando Discord En El Monitor Derecho...`r`n" + $StatusBox.Text
+    if ($HB3.Image -eq $ActiveButtonColor) { # Wallpaper Engine Tweak
+        $StatusBox.Text = "|Aplicando Configuracion De Wallpaper Engine...`r`n" + $StatusBox.Text
         $HB3.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Configs/settings.json", $ToPath+"\Configs\settings.json")
-        Copy-Item -Path ($ToPath+"\Configs\settings.json") -DestinationPath "$env:userprofile\AppData\Roaming\discord" -Force
+        $Download.DownloadFile($FromPath+"/Apps/WallpaperEngine.zip", $ToPath+"\Apps\WallpaperEngine.zip")
+        Expand-Archive -Path ($ToPath+"\Apps\WallpaperEngine.zip") -DestinationPath ($ToPath+"\Apps\WallpaperEngine") -Force
+        Move-Item -Path ($ToPath+"\Apps\WallpaperEngine\NextWallpaper.exe") -Destination "$env:windir\System32\NextWallpaper.exe"
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\" -Name "Siguiente Wallpaper"
+        New-Item -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\" -Name "command"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\" -Name "Icon" -Value "NextWallpaper.exe,0"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\command\" -Name "(default)" -Value "NextWallpaper.exe"
+        Move-Item -Path ($ToPath+"\Apps\WallpaperEngine\Wallpaper Engine.lnk") -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
+        Set-ItemProperty -Path "HKCU:\Software\WallpaperEngine" -Name "hideTrayIcon" -Type DWord -Value 1
         $HB3.Image = $ActiveButtonColor
     }   
     if ($HB4.Image -eq $ActiveButtonColor) { # Software RL
