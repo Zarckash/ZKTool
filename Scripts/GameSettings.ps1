@@ -63,9 +63,9 @@ $Panel.Width                     = 699
 $Panel.Location                  = New-Object System.Drawing.Point(($PanelSize*0),55)
 $Form.Controls.Add($Panel)
 
-# Player Unknown Battlegrounds
+# Pubg
 $B1                              = New-Object System.Windows.Forms.Button
-$B1.Text                         = "Player Unknown Battlegrounds"
+$B1.Text                         = "Pubg"
 $B1.Width                        = 165
 $B1.Height                       = 50
 $B1.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -74,9 +74,9 @@ $B1.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B1)
 $Position += 172
 
-# The Cycle: Frontier
+# The Cycle
 $B2                              = New-Object System.Windows.Forms.Button
-$B2.Text                         = "The Cycle: Frontier"
+$B2.Text                         = "The Cycle"
 $B2.Width                        = 165
 $B2.Height                       = 50
 $B2.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -96,9 +96,9 @@ $B3.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B3)
 $Position += 172
 
-# 
+# Rogue Company
 $B4                              = New-Object System.Windows.Forms.Button
-$B4.Text                         = ""
+$B4.Text                         = "Rogue Company"
 $B4.Width                        = 165
 $B4.Height                       = 50
 $B4.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -203,9 +203,12 @@ $B3.Add_Click({
     $B3.BackColor = $ButtonColor
 })
 
+# Rogue Company
 $B4.Add_Click({
     $B4.BackColor = $ProcessingColor
     $B4.ForeColor = $FormTextColor
+    $Download.DownloadFile($FromPath+"/Configs/RogueCompany.zip", $ToPath+"\Configs\RogueCompany.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\RogueCompany.zip") -DestinationPath "$env:userprofile\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
     $B4.ForeColor = $ProcessingColor
     $B4.BackColor = $ButtonColor
 })
