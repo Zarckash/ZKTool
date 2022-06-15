@@ -1561,7 +1561,7 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Instalando Drivers De Red...`r`n" + $StatusBox.Text
         $MTB14.Image = $ProcessingButtonColor
         $Download.DownloadFile($FromPath+"/Apps/LanDrivers.exe", $ToPath+"\Apps\LanDrivers.exe")
-        Start-Process $ToPath+"\Apps\LanDrivers.exe"
+        Start-Process ($ToPath+"\Apps\LanDrivers.exe")
         $MTB14.Image = $ActiveButtonColor
     }
     if ($MTB15.Image -eq $ActiveButtonColor) { # Void
