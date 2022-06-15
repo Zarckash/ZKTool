@@ -1150,7 +1150,8 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "Microsoft.Office.Sway" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.OneConnect" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.People" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.Print3D" | Remove-AppxPackage 
+        Get-AppxPackage -All "Microsoft.Print3D" | Remove-AppxPackage
+        Get-AppxPackage -All "Microsoft.Paint" | Remove-AppxPackage  
         Get-AppxPackage -All "Microsoft.Wallet" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.WindowsAlarms" | Remove-AppxPackage 
         Get-AppxPackage -All "Microsoft.WindowsCamera" | Remove-AppxPackage 
@@ -1167,6 +1168,8 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "Clipchamp.Clipchamp" | Remove-AppxPackage
         Get-AppxPackage -All "Microsoft.PowerAutomateDesktop" | Remove-AppxPackage
         Get-AppxPackage -All "Microsoft.Todos" | Remove-AppxPackage
+        Get-AppxPackage -All "Microsoft.ZuneMusic" | Remove-AppxPackage
+        Get-AppxPackage -All "MicrosoftCorporationII.MicrosoftFamily" | Remove-AppxPackage
         Get-AppxPackage -All -Name *Disney* | Remove-AppxPackage
         }
         $TB1.Image = $ActiveButtonColorBIG
@@ -1383,7 +1386,8 @@ $StartScript.Add_Click({
         Get-AppxPackage "Microsoft.XboxGamingOverlay" | Remove-AppxPackage 
         Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage 
         Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage 
-        Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage 
+        Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
+        Get-AppxPackage "Microsoft.GamingApp" | Remove-AppxPackage 
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
         $TB9.Image = $ActiveButtonColor
