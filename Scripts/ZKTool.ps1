@@ -1675,6 +1675,8 @@ $StartScript.Add_Click({
         }
     }
 
+    $StatusBox.Text = "|Comprobando Instalaciones...`r`n" + $StatusBox.Text
+
     $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB11,$SB12,$MSB1,$MSB4,$MSB5,$MSB6,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB17,$LB1,$LB2,$LB3,$LB5,
     $LB7,$LB8,$HB5,$HB8)
     foreach ($Button in $Buttons) {
