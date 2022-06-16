@@ -176,9 +176,9 @@ $MSB7.Text                       = "VLC Media Player"
 $MSB8                            = New-Object System.Windows.Forms.Button
 $MSB8.Text                       = "GitHub Desktop"
 
-# Void
+# WinRAR
 $MSB9                            = New-Object System.Windows.Forms.Button
-$MSB9.Text                       = "Void"
+$MSB9.Text                       = "WinRAR"
 
 # Void
 $MSB10                           = New-Object System.Windows.Forms.Button
@@ -217,7 +217,7 @@ $MSB18                           = New-Object System.Windows.Forms.Button
 $MSB18.Text                      = "Escape From Tarkov"
 
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB16,$MSB17,$MSB18)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB16,$MSB17,$MSB18)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -840,9 +840,10 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
         $MSB8.Image = $ActiveButtonColor
     }
-    if ($MSB9.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB9.Image -eq $ActiveButtonColor) { # WinRAR
+        $StatusBox.Text = "|Instalando WinRAR...`r`n" + $StatusBox.Text
         $MSB9.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RARLab.WinRAR | Out-Null
         $MSB9.Image = $ActiveButtonColor
     }
     if ($MSB10.Image -eq $ActiveButtonColor) { # Void
