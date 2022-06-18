@@ -9,7 +9,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 # Check First Time
 Write-Host "Comprobando Si Existe ZKTool.exe..."
 if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
-    Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Scripts/ZKTool.exe" -OutFile "$env:windir\System32\ZKTool.exe"
+    Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.exe" -OutFile "$env:windir\System32\ZKTool.exe"
+    Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk" -OutFile "C:\Users\Public\Desktop\ZKTool.lnk"
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool"
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command"
