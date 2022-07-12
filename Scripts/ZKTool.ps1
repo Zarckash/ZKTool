@@ -1004,6 +1004,12 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSpeed" -Value 0
         Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold1" -Value 0
         Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold2" -Value 0
+
+        # Disable Keyboard Layout Shortcut
+        $StatusBox.Text = "|Desactivando Cambio De Idioma Del Teclado...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Hotkey" -Value 3
+        Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Language Hotkey" -Value 3
+        Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Layout Hotkey" -Value 3
         
         # GPU Optimizations
         $StatusBox.Text = "|Optimizando Registros De GPU...`r`n" + $StatusBox.Text
