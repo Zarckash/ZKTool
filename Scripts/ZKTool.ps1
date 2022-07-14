@@ -688,9 +688,6 @@ $LogoBox.Add_Click({
         $MTPanel.Left           += $PanelSize
         $Form.Controls.AddRange(@($MSPanel,$MTPanel,$HPanel))
     }
-
-    $Decoy = $false
-    
 })
 
 $StartScript.Add_MouseEnter({
@@ -1697,6 +1694,16 @@ $StartScript.Add_Click({
     $StartScript.Image = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\SSDefault.png")
 
     $StatusBox.Text = "|Ready`r`n|Script Finalizado`r`n" + $StatusBox.Text
+
+    if ($TB1.ForeColor -eq $LabelColor) {
+        $MessageBox = [System.Windows.Forms.MessageBox]::Show("El equipo requiere reiniciarse para aplicar los cambios`r`nReiniciar equipo ahora?", "Reiniciar equipo", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Information)
+        if ($MessageBox -ne [System.Windows.Forms.DialogResult]::No) {
+            $StatusBox.Text = "|Reiniciando El Equipo En 5 Segundos...`r`n" + $StatusBox.Text
+            Start-Sleep 5
+            Remove-Item -Path "$env:userprofile\AppData\Local\Temp\ZKTool" -Recurse
+            Restart-Computer
+        } else {} 
+    }
 })
 
 $Form.Add_Closing({
