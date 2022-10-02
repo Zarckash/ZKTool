@@ -33,7 +33,7 @@ $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $FormTextColor
 $Form.MaximizeBox                = $False
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\ZKLogo.ico")
+$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ZKLogo.ico")
 
 # Search IPs Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
