@@ -156,9 +156,9 @@ $MSB2.Text                       = "Photoshop Portable"
 $MSB3                            = New-Object System.Windows.Forms.Button
 $MSB3.Text                       = "Premiere Portable"
 
-# Spotify
+# Void
 $MSB4                            = New-Object System.Windows.Forms.Button
-$MSB4.Text                       = "Spotify"
+$MSB4.Text                       = "Void"
 
 # Netflix
 $MSB5                            = New-Object System.Windows.Forms.Button
@@ -172,9 +172,9 @@ $MSB6.Text                       = "Prime Video"
 $MSB7                            = New-Object System.Windows.Forms.Button
 $MSB7.Text                       = "VLC Media Player"
 
-# GitHub Desktop
+# Void
 $MSB8                            = New-Object System.Windows.Forms.Button
-$MSB8.Text                       = "GitHub Desktop"
+$MSB8.Text                       = "Void"
 
 # WinRAR
 $MSB9                            = New-Object System.Windows.Forms.Button
@@ -217,7 +217,7 @@ $MSB18                           = New-Object System.Windows.Forms.Button
 $MSB18.Text                      = "Escape From Tarkov"
 
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB16,$MSB17,$MSB18)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB5,$MSB6,$MSB7,$MSB9,$MSB16,$MSB17,$MSB18)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -400,13 +400,13 @@ $MTB4.Text                       = "Install HEVC + HEIF"
 $MTB5                            = New-Object System.Windows.Forms.Button
 $MTB5.Text                       = "Windows Terminal Fix"
 
-# Power Plan
+# Void
 $MTB6                            = New-Object System.Windows.Forms.Button
-$MTB6.Text                       = "Power Plan"
+$MTB6.Text                       = "Void"
 
-# Performance Counters
+# Void
 $MTB7                            = New-Object System.Windows.Forms.Button
-$MTB7.Text                       = "Performance Counters"
+$MTB7.Text                       = "Void"
 
 # Static IP + DNS
 $MTB8                            = New-Object System.Windows.Forms.Button
@@ -424,17 +424,17 @@ $MTB10.Text                      = "Unpin All Apps"
 $MTB11                           = New-Object System.Windows.Forms.Button
 $MTB11.Text                      = "Remove Realtek"
 
-# Link Shell Extension
+# Void
 $MTB12                           = New-Object System.Windows.Forms.Button
-$MTB12.Text                      = "Link Shell Extension"
+$MTB12.Text                      = "Void"
 
 # Increase PageFile Size
 $MTB13                           = New-Object System.Windows.Forms.Button
 $MTB13.Text                      = "Increase PageFile Size"
 
-# Z390 Lan Drivers
+# Void      
 $MTB14                           = New-Object System.Windows.Forms.Button
-$MTB14.Text                      = "Z390 Lan Drivers"
+$MTB14.Text                      = "Void"
 
 # Void
 $MTB15                           = New-Object System.Windows.Forms.Button
@@ -449,7 +449,7 @@ $MTB17                           = New-Object System.Windows.Forms.Button
 $MTB17.Text                      = "Void"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,$MTB13,$MTB14)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -556,20 +556,20 @@ $HB5                             = New-Object System.Windows.Forms.Button
 $HB5.Text                        = "RGB Fusion"
 $HB5.Location                    = New-Object System.Drawing.Point(237,$Position)
 
-# JDK 17
+# Z390 Lan Drivers
 $HB6                             = New-Object System.Windows.Forms.Button
-$HB6.Text                        = "JDK 17"
+$HB6.Text                        = "Z390 Lan Drivers"
 $HB6.Location                    = New-Object System.Drawing.Point(471,$Position)
 $Position += 40
 
-# Eclipse IDE
+# Visual Studio Code
 $HB7                             = New-Object System.Windows.Forms.Button
-$HB7.Text                        = "Eclipse IDE"
+$HB7.Text                        = "Visual Studio Code"
 $HB7.Location                    = New-Object System.Drawing.Point(10,$Position)
 
-# Visual Studio Code
+# GitHub Desktop
 $HB8                             = New-Object System.Windows.Forms.Button
-$HB8.Text                        = "Visual Studio Code"
+$HB8.Text                        = "GitHub Desktop"
 $HB8.Location                    = New-Object System.Drawing.Point(238,$Position)
 
 # Game Settings
@@ -804,10 +804,9 @@ $StartScript.Add_Click({
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Premiere.ps1 ; exit"
         $MSB3.Image = $ActiveButtonColor
     }
-    if ($MSB4.Image -eq $ActiveButtonColor) { # Spotify
-        $StatusBox.Text = "|Instalando Spotify...`r`n" + $StatusBox.Text
+    if ($MSB4.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MSB4.Image = $ProcessingButtonColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Spotify.Spotify | Out-Null
         $MSB4.Image = $ActiveButtonColor
     }
     if ($MSB5.Image -eq $ActiveButtonColor) { # Netflix
@@ -831,10 +830,9 @@ $StartScript.Add_Click({
         Start-Process ($ToPath+"\Apps\VLCMediaPlayer.exe")
         $MSB7.Image = $ActiveButtonColor
     }
-    if ($MSB8.Image -eq $ActiveButtonColor) { # GitHub Desktop
-        $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
+    if ($MSB8.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MSB8.Image = $ProcessingButtonColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
         $MSB8.Image = $ActiveButtonColor
     }
     if ($MSB9.Image -eq $ActiveButtonColor) { # WinRAR
@@ -974,13 +972,18 @@ $StartScript.Add_Click({
         # Set High Performance Profile
         $StatusBox.Text = "|Estableciendo Perfil De Alto Rendimiento...`r`n" + $StatusBox.Text
         powercfg.exe -SETACTIVE 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
-        
+
         # Set Sleep Timeout Timer
         $StatusBox.Text = "|Estableciendo Sleep Timeout...`r`n" + $StatusBox.Text
         powercfg /X monitor-timeout-ac 15
         powercfg /X monitor-timeout-dc 15
         powercfg /X standby-timeout-ac 0
         powercfg /X standby-timeout-dc 0
+
+        # Rebuild Performance Counters
+        $StatusBox.Text = "|Reconstruyendo Contadores De Rendimiento...`r`n" + $StatusBox.Text
+        $Download.DownloadFile($FromPath+"/Apps/PerformanceCounters.cmd", $ToPath+"\Apps\PerformanceCounters.cmd")
+        Start-Process ($ToPath+"\ZKTool\Apps\PerformanceCounters.cmd")
     
         # Show File Extensions
         $StatusBox.Text = "|Activando Extensiones De Archivos...`r`n" + $StatusBox.Text
@@ -1497,24 +1500,14 @@ $StartScript.Add_Click({
         Expand-Archive -Path ($ToPath+"\Configs\WindowsTerminalFix.zip") -DestinationPath $env:userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
         $MTB5.Image = $ActiveButtonColor 
     }  
-    if ($MTB6.Image -eq $ActiveButtonColor) { # Extreme Power Plan
-        $StatusBox.Text = "|Activando Highest Performance Power Plan...`r`n" + $StatusBox.Text
+    if ($MTB6.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
         $MTB6.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/HighestPerformance.pow", $ToPath+"\Apps\HighestPerformance.pow")
-        $Download.DownloadFile($FromPath+"/Apps/PowerPlan.cmd", $ToPath+"\Apps\PowerPlan.cmd")
-        Start-Process ($ToPath+"\Apps\PowerPlan.cmd")
-        Start-Sleep 5
-        powercfg /X monitor-timeout-ac 15
-        powercfg /X monitor-timeout-dc 15
-        powercfg /X standby-timeout-ac 0
-        powercfg /X standby-timeout-dc 0
         $MTB6.Image = $ActiveButtonColor
     }  
-    if ($MTB7.Image -eq $ActiveButtonColor) { # Performance Counters
-        $StatusBox.Text = "|Reconstruyendo Contadores De Rendimiento...`r`n" + $StatusBox.Text
+    if ($MTB7.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
         $MTB7.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/PerformanceCounters.cmd", $ToPath+"\Apps\PerformanceCounters.cmd")
-        Start-Process ($ToPath+"\ZKTool\Apps\PerformanceCounters.cmd")
         $MTB7.Image = $ActiveButtonColor
     }    
     if ($MTB9.Image -eq $ActiveButtonColor) { # Autoruns
@@ -1544,11 +1537,9 @@ $StartScript.Add_Click({
         Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
         $MTB11.Image = $ActiveButtonColor
     }
-    if ($MTB12.Image -eq $ActiveButtonColor) { # Link Shell Extension
-        $StatusBox.Text = "|Instalando Link Shell Extension...`r`n" + $StatusBox.Text
+    if ($MTB12.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MTB12.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/LinkShellExtension.exe", $ToPath+"\Apps\LinkShellExtension.exe")
-        "%userprofile%\AppData\Local\Temp\ZKTool\Apps\LinkShellExtension.exe /S /Language=English" | cmd
         $MTB12.Image = $ActiveButtonColor
     }
     if ($MTB13.Image -eq $ActiveButtonColor) { # Increase PageFile Size
@@ -1565,11 +1556,9 @@ $StartScript.Add_Click({
             $StatusBox.Text = "|La Cantidad De Memoria RAM Es Superior A Los 16GB, No Se Realizara Ningun Cambio...`r`n" + $StatusBox.Text
         }
     }
-    if ($MTB14.Image -eq $ActiveButtonColor) { # Z390 Lan Drivers
-        $StatusBox.Text = "|Instalando Drivers De Red...`r`n" + $StatusBox.Text
+    if ($MTB14.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MTB14.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/LanDrivers.exe", $ToPath+"\Apps\LanDrivers.exe")
-        Start-Process ($ToPath+"\Apps\LanDrivers.exe")
         $MTB14.Image = $ActiveButtonColor
     }
     if ($MTB15.Image -eq $ActiveButtonColor) { # Void
@@ -1631,24 +1620,23 @@ $StartScript.Add_Click({
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\RGBFusion.ps1 ; exit"
         $HB5.Image = $ActiveButtonColor
     }   
-    if ($HB6.Image -eq $ActiveButtonColor) { # JDK 17
-        $StatusBox.Text = "|Instalando JDK 17...`r`n" + $StatusBox.Text
+    if ($HB6.Image -eq $ActiveButtonColor) { # Z390 Lan Drivers
+        $StatusBox.Text = "|Instalando Z390 Lan Drivers...`r`n" + $StatusBox.Text
         $HB6.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/JDK17.ps1", $ToPath+"\Apps\JDK17.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\JDK17.ps1 ; exit"
+        $Download.DownloadFile($FromPath+"/Apps/LanDrivers.exe", $ToPath+"\Apps\LanDrivers.exe")
+        Start-Process ($ToPath+"\Apps\LanDrivers.exe")
         $HB6.Image = $ActiveButtonColor
     }   
-    if ($HB7.Image -eq $ActiveButtonColor) { # Eclipse IDE
-        $StatusBox.Text = "|Instalando Eclipse IDE...`r`n" + $StatusBox.Text
+    if ($HB7.Image -eq $ActiveButtonColor) { # Visual Studio Code
+        $StatusBox.Text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.Text
         $HB7.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/Eclipse.ps1", $ToPath+"\Apps\Eclipse.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Eclipse.ps1 ; exit"
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-Null
         $HB7.Image = $ActiveButtonColor
     }   
-    if ($HB8.Image -eq $ActiveButtonColor) { # Visual Studio Code
-        $StatusBox.Text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.Text
+    if ($HB8.Image -eq $ActiveButtonColor) { # GitHub Desktop
+        $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
         $HB8.Image = $ProcessingButtonColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
         $HB8.Image = $ActiveButtonColor
     }   
     if ($HB9.Image -eq $ActiveButtonColor) { # Game Settings
