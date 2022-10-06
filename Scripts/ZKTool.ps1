@@ -437,10 +437,10 @@ $MTB15.Text                      = "Void"
 
 # Void
 $MTB16                           = New-Object System.Windows.Forms.Button
-$MTB16.Text                      = "haka gordo"
+$MTB16.Text                      = "Void"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13,$MTB16)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -1545,11 +1545,8 @@ $StartScript.Add_Click({
         $MTB15.Image = $ActiveButtonColor
     }
     if ($MTB16.Image -eq $ActiveButtonColor) { # Void
-        #$StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
         $MTB16.Image = $ProcessingButtonColor
-        $StatusBox.Text = "|Desactivando Sugerencias De Configuracion De Dispositivo...`r`n" + $StatusBox.Text
-        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "UserProfileEngagement"
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement" -Name "ScoobeSystemSettingEnabled" -Type DWord -Value 0
         $MTB16.Image = $ActiveButtonColor
     }
     if ($HB1.Image -eq $ActiveButtonColor) { # Game Settings
