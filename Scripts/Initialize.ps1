@@ -21,12 +21,14 @@ if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
 
 # Check Winget
 Write-Host "`r`nComprobando Winget..."
-if (!(Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe)) {
-    Write-Host "    Instalando Winget..."
-    Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
-	$nid = (Get-Process AppInstaller).Id
-	Wait-Process -Id $nid
-}  
+if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsName) -eq "Microsoft Windows 11 Pro")) {
+    if (!(Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe)) {
+        Write-Host "    Instalando Winget..."
+        Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
+        $nid = (Get-Process AppInstaller).Id
+        Wait-Process -Id $nid
+    }  
+}
 
 # Check GUI Fonts
 Write-Host "`r`nComprobando Fuentes Necesarias..."
