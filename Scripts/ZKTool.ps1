@@ -26,7 +26,6 @@ $ActiveForeColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 $DefaultButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\DefaultButtonColor.png")
 $ActiveButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ActiveButtonColor.png")
 $ProcessingButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ProcessingButtonColor.png")
-$ErrorButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ErrorButtonColor.png")
 $DefaultButtonColorBIG = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\DefaultButtonColorBIG.png")
 $ActiveButtonColorBIG = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ActiveButtonColorBIG.png")
 $ProcessingButtonColorBIG = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ProcessingButtonColorBIG.png")
@@ -140,7 +139,7 @@ foreach ($Button in $Buttons) {
 
 # More Software Panel
 $MSPanel                         = New-Object system.Windows.Forms.Panel
-$MSPanel.Height                  = 491 + 235
+$MSPanel.Height                  = 491 + 195
 $MSPanel.Width                   = $PanelSize
 $MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),44)
 
@@ -172,9 +171,9 @@ $MSB6.Text                       = "Prime Video"
 $MSB7                            = New-Object System.Windows.Forms.Button
 $MSB7.Text                       = "VLC Media Player"
 
-# Void
+# Rufus
 $MSB8                            = New-Object System.Windows.Forms.Button
-$MSB8.Text                       = "Void"
+$MSB8.Text                       = "Rufus"
 
 # WinRAR
 $MSB9                            = New-Object System.Windows.Forms.Button
@@ -196,13 +195,13 @@ $MSB12.Text                      = "Void"
 $MSB13                           = New-Object System.Windows.Forms.Button
 $MSB13.Text                      = "Void"
 
-# Void
+# Visual Studio Code
 $MSB14                           = New-Object System.Windows.Forms.Button
-$MSB14.Text                      = "Void"
+$MSB14.Text                      = "Visual Studio Code"
 
-# Void
+# GitHub Desktop
 $MSB15                           = New-Object System.Windows.Forms.Button
-$MSB15.Text                      = "Void"
+$MSB15.Text                      = "GitHub Desktop"
 
 # Valorant
 $MSB16                           = New-Object System.Windows.Forms.Button
@@ -212,12 +211,8 @@ $MSB16.Text                      = "Valorant"
 $MSB17                           = New-Object System.Windows.Forms.Button
 $MSB17.Text                      = "League of Legends"
 
-# Escape From Tarkov
-$MSB18                           = New-Object System.Windows.Forms.Button
-$MSB18.Text                      = "Escape From Tarkov"
-
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB5,$MSB6,$MSB7,$MSB9,$MSB16,$MSB17,$MSB18)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB14,$MSB15,$MSB16,$MSB17)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -374,7 +369,7 @@ foreach ($Button in $Buttons) {
 
 # More Tweaks Panel
 $MTPanel                         = New-Object System.Windows.Forms.Panel
-$MTPanel.Height                  = 491 + 235
+$MTPanel.Height                  = 491 + 195
 $MTPanel.Width                   = $PanelSize - 2
 $MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),44)
 
@@ -442,14 +437,10 @@ $MTB15.Text                      = "Void"
 
 # Void
 $MTB16                           = New-Object System.Windows.Forms.Button
-$MTB16.Text                      = "Void"
-
-# Void
-$MTB17                           = New-Object System.Windows.Forms.Button
-$MTB17.Text                      = "Void"
+$MTB16.Text                      = "haka gordo"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13,$MTB16)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -525,14 +516,14 @@ $Form.Controls.Add($StatusBox)
 
 # Hidden Panel
 $HPanel                          = New-Object System.Windows.Forms.Panel
-$HPanel.Height                   = 146
+$HPanel.Height                   = 106
 $HPanel.Width                    = $PanelSize*3 - 2
 $HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),515)
 
 $Position = 20
-# Rufus
+# Game Settings
 $HB1                             = New-Object System.Windows.Forms.Button
-$HB1.Text                        = "Rufus"
+$HB1.Text                        = "Game Settings"
 $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
 
 # MSI Afterburner Config
@@ -562,22 +553,7 @@ $HB6.Text                        = "Z390 Lan Drivers"
 $HB6.Location                    = New-Object System.Drawing.Point(471,$Position)
 $Position += 40
 
-# Visual Studio Code
-$HB7                             = New-Object System.Windows.Forms.Button
-$HB7.Text                        = "Visual Studio Code"
-$HB7.Location                    = New-Object System.Drawing.Point(10,$Position)
-
-# GitHub Desktop
-$HB8                             = New-Object System.Windows.Forms.Button
-$HB8.Text                        = "GitHub Desktop"
-$HB8.Location                    = New-Object System.Drawing.Point(238,$Position)
-
-# Game Settings
-$HB9                             = New-Object System.Windows.Forms.Button
-$HB9.Text                        = "Game Settings"
-$HB9.Location                    = New-Object System.Drawing.Point(471,$Position)
-
-$Buttons = @($HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
+$Buttons = @($HB1,$HB2,$HB3,$HB4,$HB5,$HB6)
 foreach ($Button in $Buttons) {$HPanel.Controls.Add($Button)}
 
 
@@ -595,8 +571,8 @@ $Form.Controls.Add($PaddingPanel)
 
 
 $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
-$MSB17,$MSB18,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
-$MTB13,$MTB14,$MTB15,$MTB16,$MTB17,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
+$MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
+$MTB13,$MTB14,$MTB15,$MTB16,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6)
 foreach ($Button in $Buttons) {
     $Button.Width                = 210
     $Button.Height               = 35
@@ -681,10 +657,10 @@ $LogoBox.Add_Click({
         $TPanel.Left            += $PanelSize
         $LogoBox.Left           += $PanelSize
         $SSPanel.Left           += $PanelSize
-        $SSPanel.Top            += 120
+        $SSPanel.Top            += 80
         $StatusBox.Left         += $PanelSize
-        $StatusBox.Top          += 120
-        $PaddingPanel.Top       += 120
+        $StatusBox.Top          += 80
+        $PaddingPanel.Top       += 80
         $MTPanel.Left           += $PanelSize
         $Form.Controls.AddRange(@($MSPanel,$MTPanel,$HPanel))
     }
@@ -830,9 +806,11 @@ $StartScript.Add_Click({
         Start-Process ($ToPath+"\Apps\VLCMediaPlayer.exe")
         $MSB7.Image = $ActiveButtonColor
     }
-    if ($MSB8.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB8.Image -eq $ActiveButtonColor) { # Rufus
+        $StatusBox.Text = "|Iniciando Rufus...`r`n" + $StatusBox.Text
         $MSB8.Image = $ProcessingButtonColor
+        $Download.DownloadFile($FromPath+"/Apps/Rufus.exe", $ToPath+"\Apps\Rufus.exe")
+        Start-Process ($ToPath+"\Apps\Rufus.exe")
         $MSB8.Image = $ActiveButtonColor
     }
     if ($MSB9.Image -eq $ActiveButtonColor) { # WinRAR
@@ -861,14 +839,16 @@ $StartScript.Add_Click({
         $MSB13.Image = $ProcessingButtonColor
         $MSB13.Image = $ActiveButtonColor
     }
-    if ($MSB14.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB14.Image -eq $ActiveButtonColor) { # Visual Studio Code
+        $StatusBox.Text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.Text
         $MSB14.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-Null
         $MSB14.Image = $ActiveButtonColor
     }
     if ($MSB15.Image -eq $ActiveButtonColor) { # Void
         $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MSB15.Image = $ProcessingButtonColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
         $MSB15.Image = $ActiveButtonColor
     }
     if ($MSB16.Image -eq $ActiveButtonColor) { # Valorant
@@ -883,13 +863,6 @@ $StartScript.Add_Click({
         $MSB17.Image = $ProcessingButtonColor
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-Null
         $MSB17.Image = $ActiveButtonColor
-    }
-    if ($MSB18.Image -eq $ActiveButtonColor) { # Escape From Tarkov
-        $StatusBox.Text = "|Instalando Escape From Tarkov...`r`n" + $StatusBox.Text
-        $MSB18.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
-        $MSB18.Image = $ActiveButtonColor
     }
     if ($LB1.Image -eq $ActiveButtonColor) { # Steam
         $StatusBox.Text = "|Instalando Steam...`r`n" + $StatusBox.Text
@@ -956,6 +929,11 @@ $StartScript.Add_Click({
         # Disable UAC
         $StatusBox.Text = "|Desactivando UAC...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
+
+        # Disable Device Set Up Suggestions
+        $StatusBox.Text = "|Desactivando Sugerencias De Configuracion De Dispositivo...`r`n" + $StatusBox.Text
+        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "UserProfileEngagement"
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement" -Name "ScoobeSystemSettingEnabled" -Type DWord -Value 0
         
         # Disable Fast Boot
         $StatusBox.Text = "|Desactivando Fast Boot...`r`n" + $StatusBox.Text
@@ -1567,20 +1545,17 @@ $StartScript.Add_Click({
         $MTB15.Image = $ActiveButtonColor
     }
     if ($MTB16.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+        #$StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
         $MTB16.Image = $ProcessingButtonColor
+        $StatusBox.Text = "|Desactivando Sugerencias De Configuracion De Dispositivo...`r`n" + $StatusBox.Text
+        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "UserProfileEngagement"
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement" -Name "ScoobeSystemSettingEnabled" -Type DWord -Value 0
         $MTB16.Image = $ActiveButtonColor
     }
-    if ($MTB17.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
-        $MTB17.Image = $ProcessingButtonColor
-        $MTB17.Image = $ActiveButtonColor
-    }
-    if ($HB1.Image -eq $ActiveButtonColor) { # Rufus
-        $StatusBox.Text = "|Iniciando Rufus...`r`n" + $StatusBox.Text
+    if ($HB1.Image -eq $ActiveButtonColor) { # Game Settings
+        $StatusBox.Text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.Text
         $HB1.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/Rufus.exe", $ToPath+"\Apps\Rufus.exe")
-        Start-Process ($ToPath+"\Apps\Rufus.exe")
+        Iex (Iwr ($FromPath+"/Scripts/GameSettings.ps1"))
         $HB1.Image = $ActiveButtonColor
     } 
     if ($HB2.Image -eq $ActiveButtonColor) { # MSI Afterburner Config
@@ -1626,24 +1601,6 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Apps/LanDrivers.exe", $ToPath+"\Apps\LanDrivers.exe")
         Start-Process ($ToPath+"\Apps\LanDrivers.exe")
         $HB6.Image = $ActiveButtonColor
-    }   
-    if ($HB7.Image -eq $ActiveButtonColor) { # Visual Studio Code
-        $StatusBox.Text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.Text
-        $HB7.Image = $ProcessingButtonColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-Null
-        $HB7.Image = $ActiveButtonColor
-    }   
-    if ($HB8.Image -eq $ActiveButtonColor) { # GitHub Desktop
-        $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
-        $HB8.Image = $ProcessingButtonColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
-        $HB8.Image = $ActiveButtonColor
-    }   
-    if ($HB9.Image -eq $ActiveButtonColor) { # Game Settings
-        $StatusBox.Text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.Text
-        $HB9.Image = $ProcessingButtonColor
-        Iex (Iwr ($FromPath+"/Scripts/GameSettings.ps1"))
-        $HB9.Image = $ActiveButtonColor
     }
     if ($MTB8.Image -eq $ActiveButtonColor) { # Static IP + DNS
         $StatusBox.Text = "|Abriendo Selector De IPs...`r`n" + $StatusBox.Text
@@ -1653,8 +1610,8 @@ $StartScript.Add_Click({
     }
 
     $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
-    $MSB17,$MSB18,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
-    $MTB13,$MTB14,$MTB15,$MTB16,$MTB17,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
+    $MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
+    $MTB13,$MTB14,$MTB15,$MTB16,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
     foreach ($Button in $Buttons) {
         if ($Button.Image -eq $ActiveButtonColor) {
                 $Button.Image = $DefaultButtonColor
