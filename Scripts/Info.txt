@@ -98,13 +98,13 @@ Reduce el espacio entre los iconos del escritorio cambiando un registro de Windo
 --------------------
 HIDE SHORTCUT ARROWS
 --------------------
-Oculta las flechas y el icono de ejecutar como administradorde los accesos directos
+Oculta las flechas y el icono de ejecutar como administrador de los accesos directos
 
 
 -----------------
 SET MODERN CURSOR
 -----------------
-Cambia la flecha predeterminada de Windows por una con un diseño mas parecido al de Windows 11
+Cambia la flecha predeterminada de Windows por una con un diseño mas parecido a Windows 11
 
 
 ---------------
@@ -129,6 +129,12 @@ Desinstala Xbox Game Bar ya que en Windows 11 no se puede desactivar, es necesar
 RAM CLEANER (ISLC)
 ------------------
 Instala y configura Intelligent Standby List Cleaner (ISLC), esto hace que la RAM sin usar este siempre disponible
+
+
+-------------
+VISUAL FX FIX
+-------------
+Ajusta la apariencia de Windows para que consuma menos recursos sin perder calidad visual
 
 
 ----------------------------
@@ -161,18 +167,6 @@ WINDOWS TERMINAL FIX
 Aplica ajustes a la terminal de Windows para que no afecte al tamaño del menu contextual
 
 
-----------
-POWER PLAN
-----------
-Aplica un plan de energia extremo para sacar todo el rendimiento del equipo
-
-
---------------------
-PERFORMANCE COUNTERS
---------------------
-Reconstruye los contadores de rendimiento de Windows
-
-
 ---------------
 STATIC IP + DNS
 ---------------
@@ -185,22 +179,28 @@ AUTORUNS
 Inicia autoruns.exe que permite eliminar programas que se inician automaticamente al iniciar Windows
 
 
--------------
-VISUAL FX FIX
--------------
-Ajusta la apariencia de Windows para que consuma menos recursos sin perder calidad visual
+--------------
+UNPIN ALL APPS
+--------------
+Desancla todas las aplicaciones del menu de inicio (W11)
+
+
+--------------
+REMOVE REALTEK
+--------------
+Intenta quitar rtkaud.srv completamente
+
+
+----------------------
+INCREASE PAGEFILE SIZE
+----------------------
+Aumenta el tamaño del archivo de paginacion en equipos con 16GB de RAM
 
 
 ----------------------
 MSI AFTERBURNER CONFIG
 ----------------------
 Aplica la configuracion a MSI Afterburner (curva de ventilacion e inicio automatico)
-
-
----------------------
-DISCORD SECOND SCREEN
----------------------
-Hace que discord abra siempre en el monitor derecho (1920x1080)
 
 
 -------------
