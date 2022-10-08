@@ -972,10 +972,8 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
 
         # Reduce svchost Process Amount
-        $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1kb
-        if ($RamCapacity -ige 16777216) {
-            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value $RamCapacity
-        }
+        $StatusBox.Text = "|Reduciendo Los Procesos De Windows A La Mitad...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value 4294967295
     
         # Disable Mouse Acceleration
         $StatusBox.Text = "|Desactivando Aceleracion Del Raton...`r`n" + $StatusBox.Text
@@ -1198,6 +1196,10 @@ $StartScript.Add_Click({
         # Hide Search Button
         $StatusBox.Text = "|Ocultando Boton De Busqueda...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+
+        # Disable Web Search
+        $StatusBox.Text = "|Desactivando Busqueda En La Web Con Bing...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
 
         # Hide Search Recomendations
         Set-ItemProperty -Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
