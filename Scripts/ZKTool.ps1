@@ -927,8 +927,8 @@ $StartScript.Add_Click({
         Checkpoint-Computer -Description "Pre Optimizacion" -RestorePointType "MODIFY_SETTINGS"
         
         # Disable UAC
-        $StatusBox.Text = "|Desactivando UAC...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
+        $StatusBox.Text = "|Desactivando UAC Para Administradores...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Type DWord -Value 0
 
         # Disable Device Set Up Suggestions
         $StatusBox.Text = "|Desactivando Sugerencias De Configuracion De Dispositivo...`r`n" + $StatusBox.Text
@@ -987,9 +987,30 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Language Hotkey" -Value 3
         Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Layout Hotkey" -Value 3
         
-        # GPU Optimizations
-        $StatusBox.Text = "|Optimizando Registros De GPU...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -Name "NetworkThrottlingIndex" -Type DWord -Value 268435455
+        # Network Optimizations
+        $StatusBox.Text = "|Optimizando Registros De Red...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "IRPStackSize" -Type DWord -Value 20
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -Name "NetworkThrottlingIndex" -Type DWord -Value 4294967295
+
+        # Performance Optimizations
+        $StatusBox.Text = "|Optimizando Registros De Rendimiento...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" -Name "SearchOrderConfig" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -Name "SystemResponsiveness" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "WaitToKillServiceTimeout" -Type DWord -Value 2000
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WaitToKillAppTimeout" -Type DWord -Value 5000
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoEndTasks" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "LowLevelHooksTimeout" -Type DWord -Value 1000
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WaitToKillServiceTimeout" -Type DWord -Value 2000
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "ClearPageFileAtShutdown" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseHoverTime" -Type DWord -Value 10
+        Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "HungAppTimeout" -ErrorAction SilentlyContinue
+
+        # Games Performance Optimizations
+        $StatusBox.Text = "|Optimizando Registros De Juegos...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "GPU Priority" -Type DWord -Value 8
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Priority" -Type DWord -Value 6
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Scheduling Category" -Type String -Value "High"
     
         # Disable Background Apps
         $StatusBox.Text = "|Desactivando Aplicaciones En Segundo Plano...`r`n" + $StatusBox.Text
@@ -1052,39 +1073,92 @@ $StartScript.Add_Click({
         # Service Tweaks To Manual 
         $StatusBox.Text = "|Deshabilitando Servicios...`r`n" + $StatusBox.Text
         $services = @(
-        "diagnosticshub.standardcollector.service"     # Microsoft (R) Diagnostics Hub Standard Collector Service
-        "DiagTrack"                                    # Diagnostics Tracking Service
-        "dmwappushservice"                             # WAP Push Message Routing Service (see known issues)
-        "lfsvc"                                        # Geolocation Service
-        "MapsBroker"                                   # Downloaded Maps Manager
-        "NetTcpPortSharing"                            # Net.Tcp Port Sharing Service
-        "RemoteAccess"                                 # Routing and Remote Access
-        "RemoteRegistry"                               # Remote Registry
-        "SharedAccess"                                 # Internet Connection Sharing (ICS)
-        "TrkWks"                                       # Distributed Link Tracking Client
-        "WMPNetworkSvc"                                # Windows Media Player Network Sharing Service
-        "WerSvc"                                       # Ddisables windows error reporting
-        "Fax"                                          # Disables fax
-        "fhsvc"                                        # Disables fax histroy
-        "gupdate"                                      # Disables google update
-        "gupdatem"                                     # Disables another google update
-        "stisvc"                                       # Disables Windows Image Acquisition (WIA)
-        "AJRouter"                                     # Disables (needed for AllJoyn Router Service)
-        "MSDTC"                                        # Disables Distributed Transaction Coordinator
-        "WpcMonSvc"                                    # Disables Parental Controls
-        "PhoneSvc"                                     # Disables Phone Service(Manages the telephony state on the device)
-        "PcaSvc"                                       # Disables Program Compatibility Assistant Service
-        "SysMain"                                      # Disables sysmain
-        "lmhosts"                                      # Disables TCP/IP NetBIOS Helper
-        "wisvc"                                        # Disables Windows Insider program(Windows Insider will not work)
-        "SCardSvr"                                     # Disables Windows smart card
-        "EntAppSvc"                                    # Disables enterprise application management.
-        "Browser"                                      # Disables computer browser
-        "edgeupdate"                                   # Disables one of edge update service  
-        "MicrosoftEdgeElevationService"                # Disables one of edge  service 
-        "edgeupdatem"                                  # Disables another one of update service (disables edgeupdatem)                          
-        "PerfHost"                                     # Disables remote users and 64-bit processes to query performance .
-        "BcastDVRUserService_48486de"                  # Disables GameDVR and Broadcast is used for Game Recordings and Live Broadcasts
+            "ALG"                                          # Application Layer Gateway Service(Provides support for 3rd party protocol plug-ins for Internet Connection Sharing)
+            "AJRouter"                                     # Needed for AllJoyn Router Service
+            "BcastDVRUserService_48486de"                  # GameDVR and Broadcast is used for Game Recordings and Live Broadcasts
+            #"BDESVC"                                      # Bitlocker Drive Encryption Service
+            #"BFE"                                         # Base Filtering Engine (Manages Firewall and Internet Protocol security)
+            #"BluetoothUserService_48486de"                # Bluetooth user service supports proper functionality of Bluetooth features relevant to each user session.
+            #"BrokerInfrastructure"                        # Windows Infrastructure Service (Controls which background tasks can run on the system)
+            "Browser"                                      # Let users browse and locate shared resources in neighboring computers
+            #"BthAvctpSvc"                                  # AVCTP service (needed for Bluetooth Audio Devices or Wireless Headphones)
+            #"CaptureService_48486de"                       # Optional screen capture functionality for applications that call the Windows.Graphics.Capture API.
+            #"cbdhsvc_48486de"                              # Clipboard Service
+            "diagnosticshub.standardcollector.service"     # Microsoft (R) Diagnostics Hub Standard Collector Service
+            "DiagTrack"                                    # Diagnostics Tracking Service
+            "dmwappushservice"                             # WAP Push Message Routing Service
+            "DPS"                                          # Diagnostic Policy Service (Detects and Troubleshoots Potential Problems)
+            "edgeupdate"                                   # Edge Update Service
+            "edgeupdatem"                                  # Another Update Service
+            #"EntAppSvc"                                    # Enterprise Application Management.
+            "Fax"                                          # Fax Service
+            "fhsvc"                                        # Fax History
+            "FontCache"                                    # Windows font cache
+            #"FrameServer"                                 # Windows Camera Frame Server (Allows multiple clients to access video frames from camera devices)
+            "gupdate"                                      # Google Update
+            "gupdatem"                                     # Another Google Update Service
+            "iphlpsvc"                                     # ipv6(Most websites use ipv4 instead)
+            "lfsvc"                                        # Geolocation Service
+            #"LicenseManager"                              # Disable LicenseManager (Windows Store may not work properly)
+            "lmhosts"                                      # TCP/IP NetBIOS Helper
+            "MapsBroker"                                   # Downloaded Maps Manager
+            "MicrosoftEdgeElevationService"                # Another Edge Update Service
+            "MSDTC"                                        # Distributed Transaction Coordinator
+            "NahimicService"                               # Nahimic Service
+            #"ndu"                                          # Windows Network Data Usage Monitor (Disabling Breaks Task Manager Per-Process Network Monitoring)
+            "NetTcpPortSharing"                            # Net.Tcp Port Sharing Service
+            "PcaSvc"                                       # Program Compatibility Assistant Service
+            "PerfHost"                                     # Remote users and 64-bit processes to query performance.
+            "PhoneSvc"                                     # Phone Service(Manages the telephony state on the device)
+            #"PNRPsvc"                                      # Peer Name Resolution Protocol (Some peer-to-peer and collaborative applications, such as Remote Assistance, may not function, Discord will still work)
+            #"p2psvc"                                       # Peer Name Resolution Protocol(Enables multi-party communication using Peer-to-Peer Grouping.  If disabled, some applications, such as HomeGroup, may not function. Discord will still work)iscord will still work)
+            #"p2pimsvc"                                     # Peer Networking Identity Manager (Peer-to-Peer Grouping services may not function, and some applications, such as HomeGroup and Remote Assistance, may not function correctly. Discord will still work)
+            #"PrintNotify"                                  # Windows printer notifications and extentions
+            #"QWAVE"                                        # Quality Windows Audio Video Experience (audio and video might sound worse)
+            "RemoteAccess"                                 # Routing and Remote Access
+            "RemoteRegistry"                               # Remote Registry
+            "RetailDemo"                                   # Demo Mode for Store Display
+            "RtkBtManServ"                                 # Realtek Bluetooth Device Manager Service
+            "SCardSvr"                                     # Windows Smart Card Service
+            "seclogon"                                     # Secondary Logon (Disables other credentials only password will work)
+            "SEMgrSvc"                                     # Payments and NFC/SE Manager (Manages payments and Near Field Communication (NFC) based secure elements)
+            "SharedAccess"                                 # Internet Connection Sharing (ICS)
+            #"Spooler"                                      # Printing
+            "stisvc"                                       # Windows Image Acquisition (WIA)
+            #"StorSvc"                                      # StorSvc (usb external hard drive will not be reconized by windows)
+            "SysMain"                                      # Analyses System Usage and Improves Performance
+            "TrkWks"                                       # Distributed Link Tracking Client
+            "WbioSrvc"                                     # Windows Biometric Service (required for Fingerprint reader / facial detection)
+            "WerSvc"                                       # Windows error reporting
+            "wisvc"                                        # Windows Insider program(Windows Insider will not work if Disabled)
+            #"WlanSvc"                                      # WLAN AutoConfig
+            "WMPNetworkSvc"                                # Windows Media Player Network Sharing Service
+            "WpcMonSvc"                                    # Parental Controls
+            "WPDBusEnum"                                   # Portable Device Enumerator Service
+            #"WpnService"                                   # WpnService (Push Notifications may not work)
+            #"wscsvc"                                       # Windows Security Center Service
+            #"WSearch"                                      # Windows Search
+            "XblAuthManager"                               # Xbox Live Auth Manager (Disabling Breaks Xbox Live Games)
+            "XblGameSave"                                  # Xbox Live Game Save Service (Disabling Breaks Xbox Live Games)
+            "XboxNetApiSvc"                                # Xbox Live Networking Service (Disabling Breaks Xbox Live Games)
+            "XboxGipSvc"                                   # Xbox Accessory Management Service
+            # Hp services
+            "HPAppHelperCap"
+            "HPDiagsCap"
+            "HPNetworkCap"
+            "HPSysInfoCap"
+            "HpTouchpointAnalyticsService"
+            # Hyper-V services
+            "HvHost"
+            "vmicguestinterface"
+            "vmicheartbeat"
+            "vmickvpexchange"
+            "vmicrdv"
+            "vmicshutdown"
+            "vmictimesync"
+            "vmicvmsession"
+            # Services that cannot be disabled
+            #"WdNisSvc"
         )
     
         foreach ($service in $services) {
@@ -1162,9 +1236,9 @@ $StartScript.Add_Click({
         $TB2.Image = $ProcessingButtonColor
     
         # RAM Cleaning And Lots Of Optimizations
-        $Download.DownloadFile($FromPath+"/Apps/PowerRun.exe", $ToPath+"\Apps\PowerRun.exe")
-        $Download.DownloadFile($FromPath+"/Apps/RamCleaner.reg", $ToPath+"\Apps\RamCleaner.reg")
-        Start-Process ($ToPath+"\Apps\PowerRun.exe") "%%PowerRunDir%%\RamCleaner.reg"
+        #$Download.DownloadFile($FromPath+"/Apps/PowerRun.exe", $ToPath+"\Apps\PowerRun.exe")
+        #$Download.DownloadFile($FromPath+"/Apps/RamCleaner.reg", $ToPath+"\Apps\RamCleaner.reg")
+        #Start-Process ($ToPath+"\Apps\PowerRun.exe") "%%PowerRunDir%%\RamCleaner.reg"
 
         # Show TaskBar Only In Main Screen
         $StatusBox.Text = "|Desactivando Mostrar Barra De Tareas En Todos Los Monitores...`r`n" + $StatusBox.Text
@@ -1202,17 +1276,12 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
 
         # Hide Search Recomendations
-        Set-ItemProperty -Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
+        $StatusBox.Text = "|Desactivando Recomendaciones De Busqueda...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
         
         # Hide Chat Button
         $StatusBox.Text = "|Ocultando Boton De Chats...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
-
-        # Set Desktop Icons Size To Small
-        $StatusBox.Text = "|Reduciendo El Tamaño De Los Iconos Del Escritorio...`r`n" + $StatusBox.Text
-        taskkill /f /im explorer.exe
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
-        explorer.exe
     
         # Set Dark Theme
         $StatusBox.Text = "|Estableciendo Modo Oscuro...`r`n" + $StatusBox.Text
@@ -1285,6 +1354,13 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Desinstalando Reconocedor Matematico...`r`n" + $StatusBox.Text
         DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-Null
         }
+
+        # Set Desktop Icons Size To Small
+        $StatusBox.Text = "|Reduciendo El Tamaño De Los Iconos Del Escritorio...`r`n" + $StatusBox.Text
+        taskkill /f /im explorer.exe
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
+        explorer.exe
+
         $TB2.Image = $ActiveButtonColor
     } 
     if ($TB3.Image -eq $ActiveButtonColor) { # Nvidia Settings
