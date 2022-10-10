@@ -155,9 +155,9 @@ $MSB2.Text                       = "Photoshop Portable"
 $MSB3                            = New-Object System.Windows.Forms.Button
 $MSB3.Text                       = "Premiere Portable"
 
-# Void
+# Spotify
 $MSB4                            = New-Object System.Windows.Forms.Button
-$MSB4.Text                       = "Void"
+$MSB4.Text                       = "Spotify"
 
 # Netflix
 $MSB5                            = New-Object System.Windows.Forms.Button
@@ -212,7 +212,7 @@ $MSB17                           = New-Object System.Windows.Forms.Button
 $MSB17.Text                      = "League of Legends"
 
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB14,$MSB15,$MSB16,$MSB17)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB14,$MSB15,$MSB16,$MSB17)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -780,9 +780,10 @@ $StartScript.Add_Click({
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Premiere.ps1 ; exit"
         $MSB3.Image = $ActiveButtonColor
     }
-    if ($MSB4.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB4.Image -eq $ActiveButtonColor) { # Spotify
+        $StatusBox.Text = "|Instalando Spotify...`r`n" + $StatusBox.Text
         $MSB4.Image = $ProcessingButtonColor
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex "& { $((iwr -useb 'https://raw.githubusercontent.com/SpotX-CLI/SpotX-Win/main/Install.ps1').Content) } -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -cache_off -block_update_off"
         $MSB4.Image = $ActiveButtonColor
     }
     if ($MSB5.Image -eq $ActiveButtonColor) { # Netflix
