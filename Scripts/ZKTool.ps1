@@ -783,7 +783,8 @@ $StartScript.Add_Click({
     if ($MSB4.Image -eq $ActiveButtonColor) { # Spotify
         $StatusBox.Text = "|Instalando Spotify...`r`n" + $StatusBox.Text
         $MSB4.Image = $ProcessingButtonColor
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex "& { $((iwr -useb 'https://raw.githubusercontent.com/SpotX-CLI/SpotX-Win/main/Install.ps1').Content) } -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -cache_off -block_update_off" | Out-Null
+        $Download.DownloadFile($FromPath+"/Apps/Spotify.ps1", $ToPath+"\Apps\Spotify.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Spotify.ps1 ; exit"
         $MSB4.Image = $ActiveButtonColor
     }
     if ($MSB5.Image -eq $ActiveButtonColor) { # Netflix
