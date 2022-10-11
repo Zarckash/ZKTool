@@ -47,6 +47,6 @@ Start-Process $env:windir\System32\ZKTool.exe
 Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command Remove-Item C:\ZKTool.lnk ; Remove-Item C:\Windows\ZKTool -Recurse ; exit"
 Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "ZKTool" -ErrorAction SilentlyContinue
 
-Start-Sleep 2
+Start-Sleep 1
 
 Exit
