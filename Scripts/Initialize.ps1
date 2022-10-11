@@ -21,7 +21,7 @@ if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
 
 # Check Winget
 Write-Host "`r`nComprobando Winget..."
-if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsName) -eq "Microsoft Windows 11 Pro")) {
+if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsBuildNumber) -lt 22000)) {
     if (!(Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe)) {
         Write-Host "    Instalando Winget..."
         Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
@@ -37,7 +37,7 @@ if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\Ubu
 	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/FontUbuntuMono.zip" -OutFile $env:userprofile\AppData\Local\Temp\FontUbuntuMono.zip
     Expand-Archive $env:userprofile\AppData\Local\Temp\FontUbuntuMono.zip $env:userprofile\AppData\Local\Temp\FontUbuntuMono -Force
     Start-Process $env:userprofile\AppData\Local\Temp\FontUbuntuMono\Install.exe
-    Start-Sleep 10
+    Wait-Process Install
 }
 
 Write-Host "`r`n        ###################" -ForegroundColor Green
