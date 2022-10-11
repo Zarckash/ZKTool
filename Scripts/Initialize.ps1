@@ -27,7 +27,7 @@ if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsName) -eq "Microsoft W
         Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
         $nid = (Get-Process AppInstaller).Id
         Wait-Process -Id $nid
-    }  
+    }
 }
 
 # Check GUI Fonts
@@ -44,6 +44,8 @@ Write-Host "`r`n        ###################" -ForegroundColor Green
 Write-Host "        #####  READY  #####" -ForegroundColor Green
 Write-Host "        ###################" -ForegroundColor Green
 Start-Process $env:windir\System32\ZKTool.exe
+Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command Remove-Item C:\ZKTool.lnk ; Remove-Item C:\Windows\ZKTool -Recurse ; exit"
+Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "ZKTool" -ErrorAction SilentlyContinue
 
 Start-Sleep 2
 
