@@ -847,8 +847,8 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-Null
         $MSB14.Image = $ActiveButtonColor
     }
-    if ($MSB15.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB15.Image -eq $ActiveButtonColor) { # GitHub Desktop
+        $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
         $MSB15.Image = $ProcessingButtonColor
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-Null
         $MSB15.Image = $ActiveButtonColor
@@ -930,7 +930,7 @@ $StartScript.Add_Click({
         
         # Disable UAC
         $StatusBox.Text = "|Desactivando UAC Para Administradores...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
         # Disable Device Set Up Suggestions
         $StatusBox.Text = "|Desactivando Sugerencias De Configuracion De Dispositivo...`r`n" + $StatusBox.Text
@@ -1125,7 +1125,7 @@ $StartScript.Add_Click({
             "seclogon"                                     # Secondary Logon (Disables other credentials only password will work)
             "SEMgrSvc"                                     # Payments and NFC/SE Manager (Manages payments and Near Field Communication (NFC) based secure elements)
             "SharedAccess"                                 # Internet Connection Sharing (ICS)
-            #"Spooler"                                      # Printing
+            "Spooler"                                      # Printing
             "stisvc"                                       # Windows Image Acquisition (WIA)
             #"StorSvc"                                      # StorSvc (usb external hard drive will not be reconized by windows)
             "SysMain"                                      # Analyses System Usage and Improves Performance
@@ -1587,11 +1587,11 @@ $StartScript.Add_Click({
     if ($MTB11.Image -eq $ActiveButtonColor) { # Remove Realtek
         $StatusBox.Text = "|Quitando Realtek Audio Service...`r`n" + $StatusBox.Text
         $MTB11.Image = $ProcessingButtonColor
-        sc stop Audiosrv | pwsh
-        sc stop RtkAudioUniversalService | pwsh
-        taskkill /f /im RtkAudUService64.exe | Out-Null
-        sc delete RtkAudioUniversalService | pwsh
-        sc start Audiosrv | pwsh
+        pwsh.exe -command {sc stop Audiosrv} | Out-Null
+        pwsh.exe -command {sc stop RtkAudioUniversalService} | Out-Null
+        taskkill.exe /f /im RtkAudUService64.exe | Out-Null
+        pwsh.exe -command {sc delete RtkAudioUniversalService} | Out-Null
+        pwsh.exe -command {sc start Audiosrv} | Out-Null
         Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
         $MTB11.Image = $ActiveButtonColor
     }
