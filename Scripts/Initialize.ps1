@@ -44,9 +44,9 @@ Write-Host "`r`n        ###################" -ForegroundColor Green
 Write-Host "        #####  READY  #####" -ForegroundColor Green
 Write-Host "        ###################" -ForegroundColor Green
 Start-Process $env:windir\System32\ZKTool.exe
-Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command Remove-Item C:\ZKTool.lnk ; Remove-Item C:\Windows\ZKTool -Recurse ; exit"
-Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "ZKTool" -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "ElevatedPowershell" -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "SetClipboard" -ErrorAction SilentlyContinue
 
-Start-Sleep 1
+Start-Sleep 2
 
 Exit
