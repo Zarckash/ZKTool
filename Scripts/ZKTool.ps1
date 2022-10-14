@@ -647,6 +647,7 @@ $LogoBox.Text = "Unlocked"
 $LogoBox.Add_Click({
     if ($LogoBox.Text -eq "Unlocked") {
         $LogoBox.Text            = "Locked"
+        $LogoBox.imageLocation   = "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/ZKLogoBlue.png"
         $MSPanel.Width           = $PanelSize
         $Form.Left              -= $PanelSize 
         $SLabel.Left            += $PanelSize / 2
@@ -1385,8 +1386,13 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Configs/Blank.ico", $ToPath+"\Configs\Blank.ico")
         Unblock-File ($ToPath+"\Configs\Blank.ico")
         Copy-Item -Path ($ToPath+"\Configs\Blank.ico") -Destination "C:\Windows\System32" -Force
-        $Download.DownloadFile($FromPath+"/Apps/BlankShortcut.reg", $ToPath+"\Apps\BlankShortcut.reg")
-        regedit /s ($ToPath+"\Apps\BlankShortcut.reg")
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+        Set-ItemProperty -Path "HKCR:\IE.AssocFile.URL" -Name "IsShortcut" -Value ""
+        Set-ItemProperty -Path "HKCR:\InternetShortcut" -Name "IsShortcut" -Value ""
+        Set-ItemProperty -Path "HKCR:\lnkfile" -Name "IsShortcut" -Value ""
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -Value "%windir%\System32\Blank.ico"
+        #$Download.DownloadFile($FromPath+"/Apps/BlankShortcut.reg", $ToPath+"\Apps\BlankShortcut.reg")
+        #regedit /s ($ToPath+"\Apps\BlankShortcut.reg")
         $TB5.Image = $ActiveButtonColor
     } 
     if ($TB6.Image -eq $ActiveButtonColor) { # Set Modern Cursor
@@ -1555,6 +1561,7 @@ $StartScript.Add_Click({
             winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-Null
         }
         $Download.DownloadFile($FromPath+"/Configs/WindowsTerminalFix.zip", $ToPath+"\Configs\WindowsTerminalFix.zip")
+        Remove-Item -Path $env:userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
         Expand-Archive -Path ($ToPath+"\Configs\WindowsTerminalFix.zip") -DestinationPath $env:userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
         $MTB5.Image = $ActiveButtonColor 
     }  
