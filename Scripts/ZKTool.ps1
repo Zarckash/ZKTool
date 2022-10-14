@@ -1229,7 +1229,7 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "Microsoft.Todos" | Remove-AppxPackage
         Get-AppxPackage -All "Microsoft.ZuneMusic" | Remove-AppxPackage
         Get-AppxPackage -All "MicrosoftCorporationII.MicrosoftFamily" | Remove-AppxPackage
-        Get-AppxPackage -All -Name *Disney* | Remove-AppxPackage
+        Get-AppxPackage -All "Disney.37853FC22B2CE" | Remove-AppxPackage
         }
         $TB1.Image = $ActiveButtonColorBIG
     }
@@ -1593,6 +1593,7 @@ $StartScript.Add_Click({
         pwsh.exe -command {sc delete RtkAudioUniversalService} | Out-Null
         pwsh.exe -command {sc start Audiosrv} | Out-Null
         Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
+        Get-AppxPackage -All "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
         $MTB11.Image = $ActiveButtonColor
     }
     if ($MTB12.Image -eq $ActiveButtonColor) { # Void
