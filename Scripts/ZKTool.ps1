@@ -647,7 +647,7 @@ $LogoBox.Text = "Unlocked"
 $LogoBox.Add_Click({
     if ($LogoBox.Text -eq "Unlocked") {
         $LogoBox.Text            = "Locked"
-        $LogoBox.imageLocation   = "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/ZKLogoBlue.png"
+        $LogoBox.imageLocation   = "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/ZKILogoBlue.png"
         $MSPanel.Width           = $PanelSize
         $Form.Left              -= $PanelSize 
         $SLabel.Left            += $PanelSize / 2
