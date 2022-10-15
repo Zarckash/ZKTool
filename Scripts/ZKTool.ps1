@@ -1239,9 +1239,9 @@ $StartScript.Add_Click({
         $TB2.Image = $ProcessingButtonColor
     
         # RAM Cleaning And Lots Of Optimizations
-        #$Download.DownloadFile($FromPath+"/Apps/PowerRun.exe", $ToPath+"\Apps\PowerRun.exe")
-        #$Download.DownloadFile($FromPath+"/Apps/RamCleaner.reg", $ToPath+"\Apps\RamCleaner.reg")
-        #Start-Process ($ToPath+"\Apps\PowerRun.exe") "%%PowerRunDir%%\RamCleaner.reg"
+        $Download.DownloadFile($FromPath+"/Apps/PowerRun.exe", $ToPath+"\Apps\PowerRun.exe")
+        $Download.DownloadFile($FromPath+"/Apps/RamCleaner.reg", $ToPath+"\Apps\RamCleaner.reg")
+        Start-Process ($ToPath+"\Apps\PowerRun.exe") "%%PowerRunDir%%\RamCleaner.reg"
 
         # Show TaskBar Only In Main Screen
         $StatusBox.Text = "|Desactivando Mostrar Barra De Tareas En Todos Los Monitores...`r`n" + $StatusBox.Text
