@@ -947,8 +947,13 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
 
         # Enable Borderless Optimizations
+        If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\DirectX")) {
+            New-Item -Path "HKCU:\Software\Microsoft" -Name "DirectX" | Out-Null 
+            New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "GraphicsSettings" | Out-Null
+            New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "UserGpuPreferences" | Out-Null
+        }
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\GraphicsSettings" -Name "SwapEffectUpgradeCache" -Type DWord -Value 1
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -Name "DirectXUserGlobalSettings" -Value "SwapEffectUpgradeEnable=1;1"
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -Name "DirectXUserGlobalSettings" -Value "SwapEffectUpgradeEnable=1;"
 
         # Set High Performance Profile
         $StatusBox.Text = "|Estableciendo Perfil De Alto Rendimiento...`r`n" + $StatusBox.Text
