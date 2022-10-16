@@ -6,6 +6,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
+
 # Check First Time
 Write-Host "Comprobando Si Existe ZKTool.exe..."
 if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
