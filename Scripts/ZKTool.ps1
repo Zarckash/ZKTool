@@ -693,7 +693,9 @@ $StartScript.Add_Click({
     if ($SB2.Image -eq $ActiveButtonColor) { # GeForce Experience
         $StatusBox.Text = "|Instalando GeForce Experience...`r`n" + $StatusBox.Text
         $SB2.Image = $ProcessingButtonColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Nvidia.GeForceExperience | Out-Null
+        $Download.DownloadFile($FromPath+"/Apps/Nvidia.ps1", $ToPath+"\Apps\Nvidia.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Nvidia.ps1 ; exit"
+        #winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Nvidia.GeForceExperience | Out-Null
         $SB2.Image = $ActiveButtonColor
     }
     if ($SB3.Image -eq $ActiveButtonColor) { # NanaZip
@@ -1395,6 +1397,7 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCR:\IE.AssocFile.URL" -Name "IsShortcut" -Value ""
         Set-ItemProperty -Path "HKCR:\InternetShortcut" -Name "IsShortcut" -Value ""
         Set-ItemProperty -Path "HKCR:\lnkfile" -Name "IsShortcut" -Value ""
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "Shell Icons" | Out-Null
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -Value "%windir%\System32\Blank.ico"
         #$Download.DownloadFile($FromPath+"/Apps/BlankShortcut.reg", $ToPath+"\Apps\BlankShortcut.reg")
         #regedit /s ($ToPath+"\Apps\BlankShortcut.reg")
