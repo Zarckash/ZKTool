@@ -693,9 +693,7 @@ $StartScript.Add_Click({
     if ($SB2.Image -eq $ActiveButtonColor) { # GeForce Experience
         $StatusBox.Text = "|Instalando GeForce Experience...`r`n" + $StatusBox.Text
         $SB2.Image = $ProcessingButtonColor
-        $Download.DownloadFile($FromPath+"/Apps/Nvidia.ps1", $ToPath+"\Apps\Nvidia.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Nvidia.ps1 ; exit"
-        #winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Nvidia.GeForceExperience | Out-Null
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Nvidia.GeForceExperience | Out-Null
         $SB2.Image = $ActiveButtonColor
     }
     if ($SB3.Image -eq $ActiveButtonColor) { # NanaZip
