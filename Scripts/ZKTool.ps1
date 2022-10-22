@@ -968,8 +968,8 @@ $StartScript.Add_Click({
 
         # Rebuild Performance Counters
         $StatusBox.Text = "|Reconstruyendo Contadores De Rendimiento...`r`n" + $StatusBox.Text
-        $Download.DownloadFile($FromPath+"/Apps/PerformanceCounters.cmd", $ToPath+"\Apps\PerformanceCounters.cmd")
-        Start-Process ($ToPath+"\ZKTool\Apps\PerformanceCounters.cmd")
+        lodctr /r
+        lodctr /r
     
         # Show File Extensions
         $StatusBox.Text = "|Activando Extensiones De Archivos...`r`n" + $StatusBox.Text
@@ -1242,11 +1242,6 @@ $StartScript.Add_Click({
     if ($TB2.Image -eq $ActiveButtonColor) { # Extra Tweaks
         $StatusBox.Text = "|Aplicando Extra Tweaks...`r`n`r`n" + $StatusBox.Text
         $TB2.Image = $ProcessingButtonColor
-    
-        # RAM Cleaning And Lots Of Optimizations
-        #$Download.DownloadFile($FromPath+"/Apps/PowerRun.exe", $ToPath+"\Apps\PowerRun.exe")
-        #$Download.DownloadFile($FromPath+"/Apps/RamCleaner.reg", $ToPath+"\Apps\RamCleaner.reg")
-        #Start-Process ($ToPath+"\Apps\PowerRun.exe") "%%PowerRunDir%%\RamCleaner.reg"
 
         # Show TaskBar Only In Main Screen
         $StatusBox.Text = "|Desactivando Mostrar Barra De Tareas En Todos Los Monitores...`r`n" + $StatusBox.Text
@@ -1397,8 +1392,6 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCR:\lnkfile" -Name "IsShortcut" -Value ""
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "Shell Icons" | Out-Null
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -Value "%windir%\System32\Blank.ico"
-        #$Download.DownloadFile($FromPath+"/Apps/BlankShortcut.reg", $ToPath+"\Apps\BlankShortcut.reg")
-        #regedit /s ($ToPath+"\Apps\BlankShortcut.reg")
         $TB5.Image = $ActiveButtonColor
     } 
     if ($TB6.Image -eq $ActiveButtonColor) { # Set Modern Cursor
