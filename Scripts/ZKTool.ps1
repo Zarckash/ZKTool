@@ -1250,6 +1250,11 @@ $StartScript.Add_Click({
         # Show More Pinned Items In Start Menu
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_Layout" -Type DWord -Value 1
 
+        # Hide Recent Files In Start Menu
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocks" -Type DWord -Value 0
+        $Download.DownloadFile($FromPath+"/Apps/StartMenu.reg", $ToPath+"\Apps\StartMenu.reg")
+        regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\StartMenu.reg
+
         # Keep Windows From Creating DumpStack.log File
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
 
