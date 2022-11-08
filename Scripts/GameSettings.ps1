@@ -171,6 +171,7 @@ foreach ($Button in $Buttons) {
 
 $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
 $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path
+$DocumentsPath = Get-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal" | Select-Object -ExpandProperty Personal
 $Download = New-Object net.webclient
 
 # Player Unknown Battlegrounds
@@ -197,7 +198,6 @@ $B2.Add_Click({
 $B3.Add_Click({
     $B3.BackColor = $ProcessingColor
     $B3.ForeColor = $FormTextColor
-    $DocumentsPath = [environment]::getfolderpath(“mydocuments”)
     $Download.DownloadFile($FromPath+"/Configs/ModernWarfareII.zip", $ToPath+"\Configs\ModernWarfareII.zip")
     Expand-Archive -Path ($ToPath+"\Configs\ModernWarfareII.zip") -DestinationPath ($DocumentsPath+"\Call of Duty\players") -Force
     $B3.ForeColor = $ProcessingColor
