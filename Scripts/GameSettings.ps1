@@ -171,7 +171,7 @@ foreach ($Button in $Buttons) {
 
 $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
 $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path
-$DocumentsPath = [environment]::getfolderpath(“mydocuments”)
+
 $Download = New-Object net.webclient
 
 # Player Unknown Battlegrounds
