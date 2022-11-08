@@ -1694,7 +1694,7 @@ $StartScript.Add_Click({
     if ($MTB8.Image -eq $ActiveButtonColor) { # Static IP + DNS
         $StatusBox.Text = "|Abriendo Selector De IPs...`r`n" + $StatusBox.Text
         $MTB8.Image = $ProcessingButtonColor
-        iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ChooseIp.ps1")))
+        iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
         $MTB8.Image = $ActiveButtonColor
     }
 
