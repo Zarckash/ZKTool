@@ -521,9 +521,9 @@ $HPanel.Width                    = $PanelSize*3 - 2
 $HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),515)
 
 $Position = 20
-# Game Settings
+# Game Config Files
 $HB1                             = New-Object System.Windows.Forms.Button
-$HB1.Text                        = "Game Settings"
+$HB1.Text                        = "Game Config Files"
 $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
 
 # MSI Afterburner Config
@@ -1641,8 +1641,8 @@ $StartScript.Add_Click({
         $MTB16.Image = $ProcessingButtonColor
         $MTB16.Image = $ActiveButtonColor
     }
-    if ($HB1.Image -eq $ActiveButtonColor) { # Game Settings
-        $StatusBox.Text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.Text
+    if ($HB1.Image -eq $ActiveButtonColor) { # Game Config Files
+        $StatusBox.Text = "|Abriendo Game Config Files Options...`r`n" + $StatusBox.Text
         $HB1.Image = $ProcessingButtonColor
         iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
         $HB1.Image = $ActiveButtonColor
