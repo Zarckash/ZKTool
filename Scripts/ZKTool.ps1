@@ -1644,7 +1644,7 @@ $StartScript.Add_Click({
     if ($HB1.Image -eq $ActiveButtonColor) { # Game Settings
         $StatusBox.Text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.Text
         $HB1.Image = $ProcessingButtonColor
-        Iex (Iwr ($FromPath+"/Scripts/GameSettings.ps1"))
+        iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
         $HB1.Image = $ActiveButtonColor
     } 
     if ($HB2.Image -eq $ActiveButtonColor) { # MSI Afterburner Config
