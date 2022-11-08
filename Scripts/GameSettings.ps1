@@ -85,9 +85,9 @@ $B2.BackColor                    = $ButtonColor
 $Panel.Controls.Add($B2)
 $Position += 172
 
-# World War 3
+# Modern Warfare II
 $B3                              = New-Object System.Windows.Forms.Button
-$B3.Text                         = "World War 3"
+$B3.Text                         = "Modern Warfare II"
 $B3.Width                        = 165
 $B3.Height                       = 50
 $B3.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -171,6 +171,7 @@ foreach ($Button in $Buttons) {
 
 $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
 $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path
+$DocumentsPath = [environment]::getfolderpath(“mydocuments”)
 $Download = New-Object net.webclient
 
 # Player Unknown Battlegrounds
@@ -193,12 +194,12 @@ $B2.Add_Click({
     $B2.BackColor = $ButtonColor
 })
 
-# World War 3
+# Modern Warfare II
 $B3.Add_Click({
     $B3.BackColor = $ProcessingColor
     $B3.ForeColor = $FormTextColor
-    $Download.DownloadFile($FromPath+"/Configs/WorldWar3.zip", $ToPath+"\Configs\WorldWar3.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\WorldWar3.zip") -DestinationPath "$env:userprofile\AppData\Local\WW3\Saved\Config\WindowsClient" -Force
+    $Download.DownloadFile($FromPath+"/Configs/ModernWarfareII.zip", $ToPath+"\Configs\ModernWarfareII.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\ModernWarfareII.zip") -DestinationPath ($DocumentsPath+"\Call of Duty\players") -Force
     $B3.ForeColor = $ProcessingColor
     $B3.BackColor = $ButtonColor
 })
