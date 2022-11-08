@@ -197,6 +197,7 @@ $B2.Add_Click({
 $B3.Add_Click({
     $B3.BackColor = $ProcessingColor
     $B3.ForeColor = $FormTextColor
+    $DocumentsPath = [environment]::getfolderpath(“mydocuments”)
     $Download.DownloadFile($FromPath+"/Configs/ModernWarfareII.zip", $ToPath+"\Configs\ModernWarfareII.zip")
     Expand-Archive -Path ($ToPath+"\Configs\ModernWarfareII.zip") -DestinationPath ($DocumentsPath+"\Call of Duty\players") -Force
     $B3.ForeColor = $ProcessingColor
