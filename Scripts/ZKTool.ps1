@@ -1286,6 +1286,11 @@ $StartScript.Add_Click({
         # Hide Search Recomendations
         $StatusBox.Text = "|Desactivando Recomendaciones De Busqueda...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
+
+        # Disable Microsoft Account In Windows Search
+        $StatusBox.Text = "|Desactivando Cuenta De Microsoft En Windows Search...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsMSACloudSearchEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsAADCloudSearchEnabled" -Type DWord -Value 0
         
         # Hide Chat Button
         $StatusBox.Text = "|Ocultando Boton De Chats...`r`n" + $StatusBox.Text
