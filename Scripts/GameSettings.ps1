@@ -52,13 +52,13 @@ $Label.Font                      = New-Object System.Drawing.Font('Berserker',16
 $Label.ForeColor                 = $TextColor
 $Form.Controls.Add($Label)
 
-$PanelSize                        = 233 # Sets Each Panel Location
+$PanelSize                       = 233 # Sets Each Panel Location
 $Row                             = 0
 $Position                        = 10
 
 # Software Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
-$Panel.Height                    = 60
+$Panel.Height                    = 120
 $Panel.Width                     = 699
 $Panel.Location                  = New-Object System.Drawing.Point(($PanelSize*0),55)
 $Form.Controls.Add($Panel)
@@ -110,9 +110,9 @@ $Position += 172
 $Row                             = 1
 $Position                        = 10
 
-# Google Chrome
+# RF
 $B5                              = New-Object System.Windows.Forms.Button
-$B5.Text                         = "Juego"
+$B5.Text                         = "RF"
 $B5.Width                        = 165
 $B5.Height                       = 50
 $B5.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
@@ -129,7 +129,6 @@ $B6.Height                       = 50
 $B6.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
 $B6.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $B6.BackColor                    = $ButtonColor
-$Panel.Controls.Add($B6)
 $Position += 172
 
 # Google Chrome
@@ -140,7 +139,6 @@ $B7.Height                       = 50
 $B7.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
 $B7.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $B7.BackColor                    = $ButtonColor
-$Panel.Controls.Add($B7)
 $Position += 172
 
 # Google Chrome
@@ -151,7 +149,6 @@ $B8.Height                       = 50
 $B8.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
 $B8.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
 $B8.BackColor                    = $ButtonColor
-$Panel.Controls.Add($B8)
 $Position += 172
 
 $Buttons = @($B1,$B2,$B3,$B4,$B5,$B6,$B7,$B8)
@@ -214,9 +211,13 @@ $B4.Add_Click({
     $B4.BackColor = $ButtonColor
 })
 
+# RF
 $B5.Add_Click({
     $B5.BackColor = $ProcessingColor
     $B5.ForeColor = $FormTextColor
+    $Download.DownloadFile($FromPath+"/Configs/RF.zip", $ToPath+"\Configs\RF.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\RF.zip") -DestinationPath "$env:userprofile\AppData\Local\Hotta\Saved\Config\WindowsNoEditor" -Force
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "TdrLevel" -Value 0
     $B5.ForeColor = $ProcessingColor
     $B5.BackColor = $ButtonColor
 })
