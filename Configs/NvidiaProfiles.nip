@@ -143,20 +143,4 @@
       </ProfileSetting>
     </Settings>
   </Profile>
-  <Profile>
-    <ProfileName>Minecraft Launcher</ProfileName>
-    <Executeables>
-      <string>minecraftlauncher.exe</string>
-      <string>microsoft.4297127d64ec6_8wekyb3d8bbwe</string>
-      <string>net.minecraft.launcher.main</string>
-    </Executeables>
-    <Settings>
-      <ProfileSetting>
-        <SettingNameInfo>Anisotropic filtering mode</SettingNameInfo>
-        <SettingID>282245910</SettingID>
-        <SettingValue>0</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-    </Settings>
-  </Profile>
 </ArrayOfProfile>
