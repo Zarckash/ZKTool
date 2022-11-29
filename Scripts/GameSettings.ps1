@@ -10,13 +10,12 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
-$FormTextColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
-$SelectedTextColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
-$TextColor = [System.Drawing.ColorTranslator]::FromHtml("#00e6ff")
-$ButtonColor = [System.Drawing.ColorTranslator]::FromHtml("#3E434F")
-$ProcessingColor = [System.Drawing.ColorTranslator]::FromHtml("#ff006e")
-
-$PanelSize = 233 # Sets Each Panel Location
+$LabelColor = [System.Drawing.ColorTranslator]::FromHtml("#00E6FF") 
+$DefaultForeColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
+$ActiveForeColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
+$DefaultGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\DefaultGameButtonColor.png")
+$ActiveGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ActiveGameButtonColor.png")
+$ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ProcessingGameButtonColor.png")
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
@@ -41,7 +40,7 @@ $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(
             ##################################
 
 
-# Software Label
+# Label
 $Label                           = New-Object System.Windows.Forms.Label
 $Label.Text                      = "G A M E    S E T T I N G S"
 $Label.AutoSize                  = $true
@@ -49,119 +48,103 @@ $Label.Width                     = 215
 $Label.Height                    = 25
 $Label.Location                  = New-Object System.Drawing.Point(225,13)
 $Label.Font                      = New-Object System.Drawing.Font('Berserker',16)
-$Label.ForeColor                 = $TextColor
+$Label.ForeColor                 = $LabelColor
 $Form.Controls.Add($Label)
 
-$PanelSize                       = 233 # Sets Each Panel Location
-$Row                             = 0
-$Position                        = 10
-
-# Software Panel
+# Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
-$Panel.Height                    = 120
-$Panel.Width                     = 699
-$Panel.Location                  = New-Object System.Drawing.Point(($PanelSize*0),55)
+$Panel.Height                    = 60 * 1
+$Panel.Width                     = 709
+$Panel.Location                  = New-Object System.Drawing.Point(0,55)
 $Form.Controls.Add($Panel)
 
-# Pubg
-$B1                              = New-Object System.Windows.Forms.Button
-$B1.Text                         = "Pubg"
-$B1.Width                        = 165
-$B1.Height                       = 50
-$B1.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
-$B1.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$B1.BackColor                    = $ButtonColor
-$Panel.Controls.Add($B1)
-$Position += 172
-
-# The Cycle
-$B2                              = New-Object System.Windows.Forms.Button
-$B2.Text                         = "The Cycle"
-$B2.Width                        = 165
-$B2.Height                       = 50
-$B2.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
-$B2.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$B2.BackColor                    = $ButtonColor
-$Panel.Controls.Add($B2)
-$Position += 172
-
 # Modern Warfare II
-$B3                              = New-Object System.Windows.Forms.Button
-$B3.Text                         = "Modern Warfare II"
-$B3.Width                        = 165
-$B3.Height                       = 50
-$B3.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
-$B3.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$B3.BackColor                    = $ButtonColor
-$Panel.Controls.Add($B3)
-$Position += 172
+$R1B1                            = New-Object System.Windows.Forms.Button
+$R1B1.Text                       = "Modern Warfare II"
+
+# PUBG
+$R1B2                            = New-Object System.Windows.Forms.Button
+$R1B2.Text                       = "PUBG"
 
 # Rogue Company
-$B4                              = New-Object System.Windows.Forms.Button
-$B4.Text                         = "Rogue Company"
-$B4.Width                        = 165
-$B4.Height                       = 50
-$B4.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
-$B4.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$B4.BackColor                    = $ButtonColor
-$Panel.Controls.Add($B4)
-$Position += 172
+$R1B3                            = New-Object System.Windows.Forms.Button
+$R1B3.Text                       = "Rogue Company"
 
-$Row                             = 1
-$Position                        = 10
+# Battlefield 2042
+$R1B4                            = New-Object System.Windows.Forms.Button
+$R1B4.Text                       = "Battlefield 2042"
 
-# RF
-$B5                              = New-Object System.Windows.Forms.Button
-$B5.Text                         = "RF"
-$B5.Width                        = 165
-$B5.Height                       = 50
-$B5.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
-$B5.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$B5.BackColor                    = $ButtonColor
-$Panel.Controls.Add($B5)
-$Position += 172
+# Game
+$R2B1                            = New-Object System.Windows.Forms.Button
+$R2B1.Text                       = "1"
 
-# Google Chrome
-$B6                              = New-Object System.Windows.Forms.Button
-$B6.Text                         = "Juego"
-$B6.Width                        = 165
-$B6.Height                       = 50
-$B6.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
-$B6.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$B6.BackColor                    = $ButtonColor
-$Position += 172
+# Game
+$R2B2                            = New-Object System.Windows.Forms.Button
+$R2B2.Text                       = "2"
 
-# Google Chrome
-$B7                              = New-Object System.Windows.Forms.Button
-$B7.Text                         = "Juego"
-$B7.Width                        = 165
-$B7.Height                       = 50
-$B7.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
-$B7.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$B7.BackColor                    = $ButtonColor
-$Position += 172
+# Game
+$R2B3                            = New-Object System.Windows.Forms.Button
+$R2B3.Text                       = "3"
 
-# Google Chrome
-$B8                              = New-Object System.Windows.Forms.Button
-$B8.Text                         = "Juego"
-$B8.Width                        = 165
-$B8.Height                       = 50
-$B8.Location                     = New-Object System.Drawing.Point($Position,(60*$Row))
-$B8.Font                         = New-Object System.Drawing.Font('Ubuntu Mono',12)
-$B8.BackColor                    = $ButtonColor
-$Position += 172
+# Game
+$R2B4                            = New-Object System.Windows.Forms.Button
+$R2B4.Text                       = "4"
 
-$Buttons = @($B1,$B2,$B3,$B4,$B5,$B6,$B7,$B8)
+# Game
+$R3B1                            = New-Object System.Windows.Forms.Button
+$R3B1.Text                       = "1"
+
+# Game
+$R3B2                            = New-Object System.Windows.Forms.Button
+$R3B2.Text                       = "2"
+
+# Game
+$R3B3                            = New-Object System.Windows.Forms.Button
+$R3B3.Text                       = "3"
+
+# Game
+$R3B4                            = New-Object System.Windows.Forms.Button
+$R3B4.Text                       = "4"
+
+$PositionX = 10
+$PositionY = 0
+
+$Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
 foreach ($Button in $Buttons) {
+    $Panel.Controls.Add($Button)
+    $Button.Location             = New-Object System.Drawing.Point($PositionX,$PositionY)
+    $PositionX += 175
+    if ($PositionX -gt 700) {
+        $PositionX = 10
+        $PositionY += 60
+    }
+    
+    $Button.Width                = 165
+    $Button.Height               = 50
+    $Button.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
+    $Button.FlatStyle = "Flat"
+    $Button.FlatAppearance.BorderSize = 0
+    $Button.Image = $DefaultGameButtonColor
+
     $Button.Add_MouseEnter({
-        if ($this.BackColor -eq $ButtonColor) {
-            $this.BackColor = $ProcessingColor
+        if ($this.Image -eq $DefaultGameButtonColor) {
+            $this.Image = $ProcessingGameButtonColor
         }
     })
 
     $Button.Add_MouseLeave({
-        if ($this.BackColor -eq $ProcessingColor) {
-            $this.BackColor = $ButtonColor
+        if ($this.Image -eq $ProcessingGameButtonColor) {
+            $this.Image = $DefaultGameButtonColor
+        }
+    })
+
+    $Button.Add_Click({
+        if ($this.Image -eq $ProcessingGameButtonColor) {
+            $this.Image = $ActiveGameButtonColor
+            $this.ForeColor = $ActiveForeColor
+        }else{
+            $this.Image = $DefaultGameButtonColor
+            $this.ForeColor = $DefaultForeColor
         }
     })
 }
@@ -171,75 +154,41 @@ $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Pat
 $DocumentsPath = Get-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal" | Select-Object -ExpandProperty Personal
 $Download = New-Object net.webclient
 
-# Player Unknown Battlegrounds
-$B1.Add_Click({
-    $B1.BackColor = $ProcessingColor
-    $B1.ForeColor = $FormTextColor
-    $Download.DownloadFile($FromPath+"/Configs/Pubg.zip", $ToPath+"\Configs\Pubg.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\Pubg.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
-    $B1.ForeColor = $ProcessingColor
-    $B1.BackColor = $ButtonColor
-})
-
-# The Cycle: Frontier
-$B2.Add_Click({
-    $B2.BackColor = $ProcessingColor
-    $B2.ForeColor = $FormTextColor
-    $Download.DownloadFile($FromPath+"/Configs/TheCycleFrontier.zip", $ToPath+"\Configs\TheCycleFrontier.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\TheCycleFrontier.zip") -DestinationPath "$env:userprofile\AppData\Local\Prospect\Saved\Config\WindowsNoEditor" -Force
-    $B2.ForeColor = $ProcessingColor
-    $B2.BackColor = $ButtonColor
-})
-
 # Modern Warfare II
-$B3.Add_Click({
-    $B3.BackColor = $ProcessingColor
-    $B3.ForeColor = $FormTextColor
+$R1B1.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/ModernWarfareII.zip", $ToPath+"\Configs\ModernWarfareII.zip")
     Expand-Archive -Path ($ToPath+"\Configs\ModernWarfareII.zip") -DestinationPath ($DocumentsPath+"\Call of Duty\players") -Force
-    $B3.ForeColor = $ProcessingColor
-    $B3.BackColor = $ButtonColor
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada ...`r`n" + $StatusBox.Text
+})
+
+# Player Unknown Battlegrounds
+$R1B2.Add_Click({
+    $Download.DownloadFile($FromPath+"/Configs/Pubg.zip", $ToPath+"\Configs\Pubg.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\Pubg.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada ...`r`n" + $StatusBox.Text
 })
 
 # Rogue Company
-$B4.Add_Click({
-    $B4.BackColor = $ProcessingColor
-    $B4.ForeColor = $FormTextColor
+$R1B3.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/RogueCompany.zip", $ToPath+"\Configs\RogueCompany.zip")
     Expand-Archive -Path ($ToPath+"\Configs\RogueCompany.zip") -DestinationPath "$env:userprofile\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
-    $B4.ForeColor = $ProcessingColor
-    $B4.BackColor = $ButtonColor
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada ...`r`n" + $StatusBox.Text
 })
 
-# RF
-$B5.Add_Click({
-    $B5.BackColor = $ProcessingColor
-    $B5.ForeColor = $FormTextColor
-    $Download.DownloadFile($FromPath+"/Configs/RF.zip", $ToPath+"\Configs\RF.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\RF.zip") -DestinationPath "$env:userprofile\AppData\Local\Hotta\Saved\Config\WindowsNoEditor" -Force
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "TdrLevel" -Value 0
-    $B5.ForeColor = $ProcessingColor
-    $B5.BackColor = $ButtonColor
+# Battlefield 2042
+$R1B4.Add_Click({
+    $Download.DownloadFile($FromPath+"/Configs/Battlefield2042.zip", $ToPath+"\Configs\Battlefield2042.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\Battlefield2042.zip") -DestinationPath ($DocumentsPath+"\Battlefield 2042\settings") -Force
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada ...`r`n" + $StatusBox.Text
 })
 
-$B6.Add_Click({
-    $B6.BackColor = $ProcessingColor
-    $B6.ForeColor = $FormTextColor
-    $B6.ForeColor = $ProcessingColor
-    $B6.BackColor = $ButtonColor
-})
+$Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
+foreach ($Button in $Buttons) {
+    $Button.Add_Click({
+        Start-Sleep 2
+        $this.Image = $DefaultGameButtonColor
+        $this.ForeColor = $LabelColor
+    })
+}
 
-$B7.Add_Click({
-    $B7.BackColor = $ProcessingColor
-    $B7.ForeColor = $FormTextColor
-    $B7.ForeColor = $ProcessingColor
-    $B7.BackColor = $ButtonColor
-})
-
-$B8.Add_Click({
-    $B8.BackColor = $ProcessingColor
-    $B8.ForeColor = $FormTextColor
-    $B8.ForeColor = $ProcessingColor
-    $B8.BackColor = $ButtonColor
-})
 [void]$Form.ShowDialog()
