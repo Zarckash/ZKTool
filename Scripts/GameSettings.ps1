@@ -30,7 +30,7 @@ $Form.ClientSize                 = "1050, 700"
 $Form.FormBorderStyle            = "FixedSingle"
 $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
-$Form.ForeColor                  = $FormTextColor
+$Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $False
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ZKLogo.ico")
 
@@ -158,28 +158,28 @@ $Download = New-Object net.webclient
 $R1B1.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/ModernWarfareII.zip", $ToPath+"\Configs\ModernWarfareII.zip")
     Expand-Archive -Path ($ToPath+"\Configs\ModernWarfareII.zip") -DestinationPath ($DocumentsPath+"\Call of Duty\players") -Force
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada ...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 # Player Unknown Battlegrounds
 $R1B2.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/Pubg.zip", $ToPath+"\Configs\Pubg.zip")
     Expand-Archive -Path ($ToPath+"\Configs\Pubg.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada ...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 # Rogue Company
 $R1B3.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/RogueCompany.zip", $ToPath+"\Configs\RogueCompany.zip")
     Expand-Archive -Path ($ToPath+"\Configs\RogueCompany.zip") -DestinationPath "$env:userprofile\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada ...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 # Battlefield 2042
 $R1B4.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/Battlefield2042.zip", $ToPath+"\Configs\Battlefield2042.zip")
     Expand-Archive -Path ($ToPath+"\Configs\Battlefield2042.zip") -DestinationPath ($DocumentsPath+"\Battlefield 2042\settings") -Force
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada ...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
