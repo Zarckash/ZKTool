@@ -1635,7 +1635,7 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MTB14.Image = $ProcessingButtonColor
         $MTB14.Image = $ActiveButtonColor
-    }gamesetting
+    }
     if ($MTB15.Image -eq $ActiveButtonColor) { # Void
         $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
         $MTB15.Image = $ProcessingButtonColor
