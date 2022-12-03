@@ -12,7 +12,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 # Check Last Version
 if (!((Get-Item "C:\Windows\System32\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
-    Iex (Iwr -useb "https://rb.gy/8shezm")
+    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\CheckForUpdates.ps1 ; exit"
     Exit
 }
 
