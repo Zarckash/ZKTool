@@ -11,6 +11,7 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 # Check First Time
 Write-Host "Comprobando Si Existe ZKTool.exe..."
 if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
+    Write-Host "    Creando ZKTool.exe..."
     Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.exe" -OutFile "$env:windir\System32\ZKTool.exe"
     Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk" -OutFile "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
@@ -18,7 +19,15 @@ if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "ZKTool.exe,0"
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "ZKTool.exe"
-    Write-Host "    Creando ZKTool.exe..."
+    Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
+}
+
+# Check Last Version
+Write-Host "`r`nComprobando Ultima Version..."
+if (!((Get-Item "C:\Windows\System32\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
+    Write-Host "Actualizando ZKTool.exe"
+    Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.exe" -OutFile "$env:windir\System32\ZKTool.exe"
+    Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk" -OutFile "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
 }
 
 # Check Winget
