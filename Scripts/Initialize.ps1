@@ -37,9 +37,6 @@ Write-Host "`r`n        ###################" -ForegroundColor Green
 Write-Host "        #####  READY  #####" -ForegroundColor Green
 Write-Host "        ###################" -ForegroundColor Green
 Start-Process $env:windir\System32\ZKTool.exe
-Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "ElevatedPowershell" -ErrorAction SilentlyContinue
-Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "SetClipboard" -ErrorAction SilentlyContinue
-
 Start-Sleep 2
 
 Exit
