@@ -22,14 +22,6 @@ if (!(Test-Path -Path "$env:windir\System32\ZKTool.exe")) {
     Add-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
 }
 
-# Check Last Version
-Write-Host "`r`nComprobando Ultima Version..."
-if (!((Get-Item "C:\Windows\System32\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
-    Write-Host "Actualizando ZKTool.exe"
-    Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.exe" -OutFile "$env:windir\System32\ZKTool.exe"
-    Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk" -OutFile "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
-}
-
 # Check Winget
 Write-Host "`r`nComprobando Winget..."
 if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsBuildNumber) -lt 22000)) {
