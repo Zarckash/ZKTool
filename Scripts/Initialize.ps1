@@ -32,16 +32,6 @@ if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsBuildNumber) -lt 22000
     }
 }
 
-# Check GUI Fonts
-Write-Host "`r`nComprobando Fuentes Necesarias..."
-if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\UbuntuMono*)) {
-    Write-Host "    Instalando Fuentes Necesarias..."
-	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Configs/FontUbuntuMono.zip" -OutFile $env:userprofile\AppData\Local\Temp\FontUbuntuMono.zip
-    Expand-Archive $env:userprofile\AppData\Local\Temp\FontUbuntuMono.zip $env:userprofile\AppData\Local\Temp\FontUbuntuMono -Force
-    Start-Process $env:userprofile\AppData\Local\Temp\FontUbuntuMono\Install.exe
-    Wait-Process -Name "Install"
-}
-
 Write-Host "`r`n        ###################" -ForegroundColor Green
 Write-Host "        #####  READY  #####" -ForegroundColor Green
 Write-Host "        ###################" -ForegroundColor Green
