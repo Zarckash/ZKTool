@@ -159,7 +159,9 @@ $R1B1.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/ModernWarfareII.zip", $ToPath+"\Configs\ModernWarfareII.zip")
     Expand-Archive -Path ($ToPath+"\Configs\ModernWarfareII.zip") -DestinationPath ($ToPath+"\Configs\ModernWarfareII") -Force
     Move-Item -Path ($ToPath+"\Configs\ModernWarfareII\options.3.cod22.cst") -Destination ($DocumentsPath+"\Call of Duty\players")
-    Move-Item -Path ($ToPath+"\Configs\ModernWarfareII\settings.3.local.cod22.cst") -Destination ($DocumentsPath+"\Call of Duty\players\" + (Get-ChildItem -Directory -Name 765*))
+    $CodPath = $DocumentsPath+"\Call of Duty\players\" 
+    $CodIDPath = ($CodPath + (Get-ChildItem $CodPath -Directory -Name 765*))
+    Move-Item -Path ($ToPath+"\Configs\ModernWarfareII\settings.3.local.cod22.cst") -Destination $CodIDPath
     $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
