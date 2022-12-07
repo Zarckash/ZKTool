@@ -10,11 +10,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
-$LabelColor = [System.Drawing.ColorTranslator]::FromHtml("#00E6FF") 
-$DefaultForeColor = [System.Drawing.ColorTranslator]::FromHtml("#F1F1F1")
-$ActiveForeColor = [System.Drawing.ColorTranslator]::FromHtml("#000000")
-$DefaultGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\DefaultGameButtonColor.png")
-$ActiveGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ActiveGameButtonColor.png")
+$HoverGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\HoverGameButtonColor.png")
 $ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ProcessingGameButtonColor.png")
 
 $Form                            = New-Object System.Windows.Forms.Form
@@ -43,19 +39,21 @@ $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(
 # Label
 $Label                           = New-Object System.Windows.Forms.Label
 $Label.Text                      = "G A M E    S E T T I N G S"
-$Label.AutoSize                  = $true
-$Label.Width                     = 215
-$Label.Height                    = 25
-$Label.Location                  = New-Object System.Drawing.Point(225,13)
-$Label.Font                      = New-Object System.Drawing.Font('Berserker',16)
+$Label.Width                     = 709 - 1
+$Label.Height                    = 38
+$Label.Location                  = New-Object System.Drawing.Point(0,5)
+$Label.Font                      = New-Object System.Drawing.Font('Segoe UI Bold',15)
 $Label.ForeColor                 = $LabelColor
+$Label.TextAlign                 = [System.Drawing.ContentAlignment]::MiddleCenter
+$Label.BackgroundImage           = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBgGS.png"))
 $Form.Controls.Add($Label)
 
 # Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
-$Panel.Height                    = 60 * 1
-$Panel.Width                     = 709
-$Panel.Location                  = New-Object System.Drawing.Point(0,55)
+$Panel.Height                    = 69 * 1
+$Panel.Width                     = 709 - 1
+$Panel.BackgroundImage           = [System.Drawing.Image]::FromFile(($ImageFolder + "PanelBgGS.png"))
+$Panel.Location                  = New-Object System.Drawing.Point(0,45)
 $Form.Controls.Add($Panel)
 
 # Modern Warfare II
@@ -107,7 +105,7 @@ $R3B4                            = New-Object System.Windows.Forms.Button
 $R3B4.Text                       = "4"
 
 $PositionX = 10
-$PositionY = 0
+$PositionY = 10
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
 foreach ($Button in $Buttons) {
@@ -116,36 +114,34 @@ foreach ($Button in $Buttons) {
     $PositionX += 175
     if ($PositionX -gt 700) {
         $PositionX = 10
-        $PositionY += 60
+        $PositionY += 70
     }
     
     $Button.Width                = 165
     $Button.Height               = 50
-    $Button.Font                 = New-Object System.Drawing.Font('Ubuntu Mono',12)
+    $Button.Font                 = New-Object System.Drawing.Font('Segoe UI',13)
     $Button.FlatStyle = "Flat"
     $Button.FlatAppearance.BorderSize = 0
+    $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
+    $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
     $Button.Image = $DefaultGameButtonColor
+    $Button.BackColor = $PanelBackColor
 
     $Button.Add_MouseEnter({
         if ($this.Image -eq $DefaultGameButtonColor) {
-            $this.Image = $ProcessingGameButtonColor
+            $this.Image = $HoverGameButtonColor
         }
     })
 
     $Button.Add_MouseLeave({
-        if ($this.Image -eq $ProcessingGameButtonColor) {
+        if ($this.Image -eq $HoverGameButtonColor) {
             $this.Image = $DefaultGameButtonColor
         }
     })
 
     $Button.Add_Click({
-        if ($this.Image -eq $ProcessingGameButtonColor) {
-            $this.Image = $ActiveGameButtonColor
-            $this.ForeColor = $ActiveForeColor
-        }else{
-            $this.Image = $DefaultGameButtonColor
-            $this.ForeColor = $DefaultForeColor
-        }
+            $this.Image = $ProcessingGameButtonColor
+            $this.ForeColor = "Black"
     })
 }
 
