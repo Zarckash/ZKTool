@@ -14,15 +14,15 @@ Remove-Item $env:userprofile\AppData\Local\Temp\ZKTool.log | Out-Null
 
 $LogPath  = "$env:userprofile\AppData\Local\Temp\ZKTool.log"
 
-New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-File $LogPath
-New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-File $LogPath
-New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory | Out-File $LogPath
-Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath
+New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
 Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ -Force
 
 # Check Last Version
 if (!((Get-Item "C:\Windows\System32\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
-    Iwr "https://github.com/Zarckash/ZKTool/raw/main/Apps/CheckForUpdates.ps1" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\CheckForUpdates.ps1" | Out-File $LogPath
+    Iwr "https://github.com/Zarckash/ZKTool/raw/main/Apps/CheckForUpdates.ps1" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\CheckForUpdates.ps1" | Out-File $LogPath -Encoding UTF8 -Append
     Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\CheckForUpdates.ps1 ; exit"
     Exit
 }
@@ -694,31 +694,31 @@ $StartScript.Add_Click({
     if ($SB1.Image -eq $ActiveButtonColor) { # Google Chrome
         $StatusBox.Text = "|Instalando Google Chrome...`r`n" + $StatusBox.Text
         $SB1.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Google.Chrome | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Google.Chrome | Out-File $LogPath -Encoding UTF8 -Append
         $SB1.ForeColor = $DefaultForeColor
     }
     if ($SB2.Image -eq $ActiveButtonColor) { # GeForce Experience
         $StatusBox.Text = "|Instalando GeForce Experience...`r`n" + $StatusBox.Text
         $SB2.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Nvidia.GeForceExperience | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Nvidia.GeForceExperience | Out-File $LogPath -Encoding UTF8 -Append
         $SB2.ForeColor = $DefaultForeColor
     }
     if ($SB3.Image -eq $ActiveButtonColor) { # NanaZip
         $StatusBox.Text = "|Instalando NanaZip...`r`n" + $StatusBox.Text
         $SB3.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id M2Team.NanaZip | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id M2Team.NanaZip | Out-File $LogPath -Encoding UTF8 -Append
         $SB3.ForeColor = $DefaultForeColor
     }
     if ($SB4.Image -eq $ActiveButtonColor) { # Discord
         $StatusBox.Text = "|Instalando Discord...`r`n" + $StatusBox.Text
         $SB4.ForeColor = LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Discord.Discord | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Discord.Discord | Out-File $LogPath -Encoding UTF8 -Append
         $SB4.ForeColor = $DefaultForeColor
     }
     if ($SB5.Image -eq $ActiveButtonColor) { # HWMonitor
         $StatusBox.Text = "|Instalando HWMonitor...`r`n" + $StatusBox.Text
         $SB5.ForeColor = LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id CPUID.HWMonitor | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id CPUID.HWMonitor | Out-File $LogPath -Encoding UTF8 -Append
         $SB5.ForeColor = $DefaultForeColor
     }
     if ($SB6.Image -eq $ActiveButtonColor) { # MSI Afterburner
@@ -733,13 +733,13 @@ $StartScript.Add_Click({
     if ($SB7.Image -eq $ActiveButtonColor) { # Corsair iCue
         $StatusBox.Text = "|Instalando Corsair iCue...`r`n" + $StatusBox.Text
         $SB7.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Corsair.iCUE.4 | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Corsair.iCUE.4 | Out-File $LogPath -Encoding UTF8 -Append
         $SB7.ForeColor = $DefaultForeColor
     }
     if ($SB8.Image -eq $ActiveButtonColor) { # Logitech G HUB
         $StatusBox.Text = "|Instalando Logitech G HUB...`r`n" + $StatusBox.Text
         $SB8.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Logitech.GHUB | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Logitech.GHUB | Out-File $LogPath -Encoding UTF8 -Append
         $SB8.ForeColor = $DefaultForeColor
     }
     if ($SB9.Image -eq $ActiveButtonColor) { # Razer Synapse
@@ -759,19 +759,19 @@ $StartScript.Add_Click({
     if ($SB11.Image -eq $ActiveButtonColor) { # Libre Office
         $StatusBox.Text = "|Instalando Libre Office...`r`n" + $StatusBox.Text
         $SB11.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id TheDocumentFoundation.LibreOffice | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id TheDocumentFoundation.LibreOffice | Out-File $LogPath -Encoding UTF8 -Append
         $SB11.ForeColor = $DefaultForeColor
     }
     if ($SB12.Image -eq $ActiveButtonColor) { # MegaSync
         $StatusBox.Text = "|Instalando Libre Office...`r`n" + $StatusBox.Text
         $SB11.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-File $LogPath -Encoding UTF8 -Append
         $SB12.ForeColor = $DefaultForeColor
     }
     if ($MSB1.Image -eq $ActiveButtonColor) { # Streamlabs OBS
         $StatusBox.Text = "|Instalando Streamlabs OBS...`r`n" + $StatusBox.Text
         $MSB1.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Streamlabs.StreamlabsOBS | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Streamlabs.StreamlabsOBS | Out-File $LogPath -Encoding UTF8 -Append
         $MSB1.ForeColor = $DefaultForeColor
     }
     if ($MSB2.Image -eq $ActiveButtonColor) { # Photoshop Portable
@@ -826,7 +826,7 @@ $StartScript.Add_Click({
     if ($MSB9.Image -eq $ActiveButtonColor) { # WinRAR
         $StatusBox.Text = "|Instalando WinRAR...`r`n" + $StatusBox.Text
         $MSB9.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RARLab.WinRAR | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RARLab.WinRAR | Out-File $LogPath -Encoding UTF8 -Append
         $MSB9.ForeColor = $DefaultForeColor
     }
     if ($MSB10.Image -eq $ActiveButtonColor) { # Void
@@ -854,44 +854,44 @@ $StartScript.Add_Click({
     if ($MSB14.Image -eq $ActiveButtonColor) { # Visual Studio Code
         $StatusBox.Text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.Text
         $MSB14.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-File $LogPath -Encoding UTF8 -Append
         $MSB14.ForeColor = $DefaultForeColor
     }
     if ($MSB15.Image -eq $ActiveButtonColor) { # GitHub Desktop
         $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
         $MSB15.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-File $LogPath -Encoding UTF8 -Append
         $MSB15.ForeColor = $DefaultForeColor
     }
     if ($MSB16.Image -eq $ActiveButtonColor) { # Valorant
         $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
         $MSB16.ForeColor = $LabelColor
         $Download.DownloadFile($FromPath+"/Apps/Valorant.ps1", $ToPath+"\Apps\Valorant.ps1")
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.Valorant.EU | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.Valorant.EU | Out-File $LogPath -Encoding UTF8 -Append
         $MSB16.ForeColor = $DefaultForeColor
     }
     if ($MSB17.Image -eq $ActiveButtonColor) { # League of Legends
         $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
         $MSB17.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-File $LogPath -Encoding UTF8 -Append
         $MSB17.ForeColor = $DefaultForeColor
     }
     if ($LB1.Image -eq $ActiveButtonColor) { # Steam
         $StatusBox.Text = "|Instalando Steam...`r`n" + $StatusBox.Text
         $LB1.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Valve.Steam | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Valve.Steam | Out-File $LogPath -Encoding UTF8 -Append
         $LB1.ForeColor = $DefaultForeColor
     }
     if ($LB2.Image -eq $ActiveButtonColor) { # EA Desktop
         $StatusBox.Text = "|Instalando EA Desktop...`r`n" + $StatusBox.Text
         $LB2.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id ElectronicArts.EADesktop | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id ElectronicArts.EADesktop | Out-File $LogPath -Encoding UTF8 -Append
         $LB2.ForeColor = $DefaultForeColor
     }
     if ($LB3.Image -eq $ActiveButtonColor) { # Ubisoft Connect
         $StatusBox.Text = "|Instalando Ubisoft Connect...`r`n" + $StatusBox.Text
         $LB3.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Ubisoft.Connect | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Ubisoft.Connect | Out-File $LogPath -Encoding UTF8 -Append
         $LB3.ForeColor = $DefaultForeColor
     }
     if ($LB4.Image -eq $ActiveButtonColor) { # Battle.Net
@@ -905,7 +905,7 @@ $StartScript.Add_Click({
     if ($LB5.Image -eq $ActiveButtonColor) { # GOG Galaxy
         $StatusBox.Text = "|Instalando GOG Galaxy...`r`n" + $StatusBox.Text
         $LB5.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GOG.Galaxy | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GOG.Galaxy | Out-File $LogPath -Encoding UTF8 -Append
         $LB5.ForeColor = $DefaultForeColor
     }
     if ($LB6.Image -eq $ActiveButtonColor) { # Rockstar Games Launcher
@@ -918,7 +918,7 @@ $StartScript.Add_Click({
     if ($LB7.Image -eq $ActiveButtonColor) { # Epic Games Launcher
         $StatusBox.Text = "|Instalando Epic Games Launcher...`r`n" + $StatusBox.Text
         $LB7.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id EpicGames.EpicGamesLauncher | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id EpicGames.EpicGamesLauncher | Out-File $LogPath -Encoding UTF8 -Append
         $LB7.ForeColor = $DefaultForeColor
     }
     if ($LB8.Image -eq $ActiveButtonColor) { # Xbox App
@@ -957,9 +957,9 @@ $StartScript.Add_Click({
 
         # Enable Borderless Optimizations
         If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\DirectX")) {
-            New-Item -Path "HKCU:\Software\Microsoft" -Name "DirectX" | Out-File $LogPath 
-            New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "GraphicsSettings" | Out-File $LogPath
-            New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "UserGpuPreferences" | Out-File $LogPath
+            New-Item -Path "HKCU:\Software\Microsoft" -Name "DirectX" | Out-File $LogPath -Encoding UTF8 -Append 
+            New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "GraphicsSettings" | Out-File $LogPath -Encoding UTF8 -Append
+            New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "UserGpuPreferences" | Out-File $LogPath -Encoding UTF8 -Append
         }
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\GraphicsSettings" -Name "SwapEffectUpgradeCache" -Type DWord -Value 1
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -Name "DirectXUserGlobalSettings" -Value "SwapEffectUpgradeEnable=1;"
@@ -1036,7 +1036,7 @@ $StartScript.Add_Click({
         # Hide Keyboard Layout Icon
         $StatusBox.Text = "|Ocultando El Boton De Idioma Del Teclado...`r`n" + $StatusBox.Text
         Set-WinLanguageBarOption -UseLegacyLanguageBar
-        New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-File $LogPath
+        New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-File $LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ExtraIconsOnMinimized" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "Label" -Type DWord -Value 1
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ShowStatus" -Type DWord -Value 3
@@ -1046,12 +1046,12 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Deshabilitando Telemetria...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-        Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-File $LogPath
-        Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-File $LogPath
-        Disable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-File $LogPath
-        Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-File $LogPath
-        Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-File $LogPath
-        Disable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-File $LogPath
+        Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-File $LogPath -Encoding UTF8 -Append
+        Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-File $LogPath -Encoding UTF8 -Append
+        Disable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-File $LogPath -Encoding UTF8 -Append
+        Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-File $LogPath -Encoding UTF8 -Append
+        Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-File $LogPath -Encoding UTF8 -Append
+        Disable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-File $LogPath -Encoding UTF8 -Append
     
         # Disable Aplication Sugestions
         $StatusBox.Text = "|Deshabilitando Sugerencias De Aplicaciones...`r`n" + $StatusBox.Text
@@ -1080,12 +1080,12 @@ $StartScript.Add_Click({
         # Disable Feedback
         $StatusBox.Text = "|Deshabilitando Feedback...`r`n" + $StatusBox.Text
         If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules")) {
-            New-Item -Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules" -Force | Out-File $LogPath
+            New-Item -Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules" -Force | Out-File $LogPath -Encoding UTF8 -Append
         }
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules" -Name "NumberOfSIUFInPeriod" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DoNotShowFeedbackNotifications" -Type DWord -Value 1
-        Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-File $LogPath
-        Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" -ErrorAction SilentlyContinue | Out-File $LogPath
+        Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-File $LogPath -Encoding UTF8 -Append
+        Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" -ErrorAction SilentlyContinue | Out-File $LogPath -Encoding UTF8 -Append
     
         # Service Tweaks To Manual 
         $StatusBox.Text = "|Deshabilitando Servicios...`r`n" + $StatusBox.Text
@@ -1330,11 +1330,11 @@ $StartScript.Add_Click({
     
         # Show File Operations Details
         $StatusBox.Text = "|Mostrando Detalles De Transferencias De Archivos...`r`n" + $StatusBox.Text
-        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "OperationStatusManager" | Out-File $LogPath
+        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "OperationStatusManager" | Out-File $LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" -Name "EnthusiastMode" -Type DWord -Value 1
 
         # Clean "New" In Context Menu
-        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath -Encoding UTF8 -Append
         # Texto OpenDocument
         Remove-ItemProperty -Path "HKCR:\.odt\LibreOffice.WriterDocument.1\ShellNew" -Name "FileName"
         # Hoja De Calculo OpenDocument
@@ -1351,7 +1351,7 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Multimedia\Audio" -Name "UserDuckingPreference" -Type DWord -Value 3
     
         # Hide Buttons From Power Button
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "FlyoutMenuSettings" | Out-File $LogPath
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "FlyoutMenuSettings" | Out-File $LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowHibernateOption" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowSleepOption" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowLockOption" -Type DWord -Value 0
@@ -1362,19 +1362,19 @@ $StartScript.Add_Click({
         # Uninstall Windows Optional Features
         &{ $ProgressPreference = 'SilentlyContinue'
         $StatusBox.Text = "|Desinstalando Servidor OpenSSH...`r`n" + $StatusBox.Text
-        Get-WindowsPackage -Online | Where PackageName -like *SSH* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath
+        Get-WindowsPackage -Online | Where PackageName -like *SSH* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         $StatusBox.Text = "|Desinstalando Rostro De Windows Hello...`r`n" + $StatusBox.Text
-        Get-WindowsPackage -Online | Where PackageName -like *Hello-Face* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath
+        Get-WindowsPackage -Online | Where PackageName -like *Hello-Face* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         $StatusBox.Text = "|Desinstalando Grabacion De Acciones Del Usuario...`r`n" + $StatusBox.Text
-        DISM /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart | Out-File $LogPath
+        DISM /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         $StatusBox.Text = "|Desinstalando Modo De Internet Explorer...`r`n" + $StatusBox.Text
-        DISM /Online /Remove-Capability /CapabilityName:Browser.InternetExplorer~~~~0.0.11.0 /NoRestart | Out-File $LogPath
+        DISM /Online /Remove-Capability /CapabilityName:Browser.InternetExplorer~~~~0.0.11.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         $StatusBox.Text = "|Desinstalando WordPad...`r`n" + $StatusBox.Text
-        DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.WordPad~~~~0.0.1.0 /NoRestart | Out-File $LogPath
+        DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.WordPad~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         $StatusBox.Text = "|Desinstalando Windows Powershell ISE...`r`n" + $StatusBox.Text
-        DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0 /NoRestart | Out-File $LogPath
+        DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         $StatusBox.Text = "|Desinstalando Reconocedor Matematico...`r`n" + $StatusBox.Text
-        DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-File $LogPath
+        DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         }
 
         # Set Desktop Icons Size To Small
@@ -1405,11 +1405,11 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Configs/Blank.ico", $ToPath+"\Configs\Blank.ico")
         Unblock-File ($ToPath+"\Configs\Blank.ico")
         Copy-Item -Path ($ToPath+"\Configs\Blank.ico") -Destination "C:\Windows\System32" -Force
-        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKCR:\IE.AssocFile.URL" -Name "IsShortcut" -Value ""
         Set-ItemProperty -Path "HKCR:\InternetShortcut" -Name "IsShortcut" -Value ""
         Set-ItemProperty -Path "HKCR:\lnkfile" -Name "IsShortcut" -Value ""
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "Shell Icons" | Out-File $LogPath
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "Shell Icons" | Out-File $LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -Value "%windir%\System32\Blank.ico"
         $TB5.ForeColor = $DefaultForeColor
     } 
@@ -1426,20 +1426,20 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Deshabilitando Cortana...`r`n" + $StatusBox.Text
         $TB7.ForeColor = $LabelColor
         If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings")) {
-            New-Item -Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings" -Force | Out-File $LogPath
+            New-Item -Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings" -Force | Out-File $LogPath -Encoding UTF8 -Append
         }
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings" -Name "AcceptedPrivacyPolicy" -Type DWord -Value 0
         If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization")) {
-            New-Item -Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization" -Force | Out-File $LogPath
+            New-Item -Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization" -Force | Out-File $LogPath -Encoding UTF8 -Append
         }
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 1
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization" -Name "RestrictImplicitInkCollection" -Type DWord -Value 1
         If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore")) {
-            New-Item -Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore" -Force | Out-File $LogPath
+            New-Item -Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore" -Force | Out-File $LogPath -Encoding UTF8 -Append
         }
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore" -Name "HarvestContacts" -Type DWord -Value 0
         If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
-            New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-File $LogPath
+            New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-File $LogPath -Encoding UTF8 -Append
         }
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCortana" -Type DWord -Value 0
         $TB7.ForeColor = $DefaultForeColor
@@ -1462,7 +1462,7 @@ $StartScript.Add_Click({
         Remove-Item -Path "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
         Remove-Item -Path "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
         If (!(Test-Path "HKCR:")) {
-            New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath
+            New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath -Encoding UTF8 -Append
         }
         Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
         Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
@@ -1537,18 +1537,18 @@ $StartScript.Add_Click({
     if ($MTB2.Image -eq $ActiveButtonColor) { # Install Visual C++
         $StatusBox.Text = "|Instalando Todas Las Versiones De Visual C++...`r`n" + $StatusBox.Text
         $MTB2.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x64 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x86 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x64 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x86 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x64 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x86 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x64 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x86 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x64 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x86 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x64 | Out-File $LogPath
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x86 | Out-File $LogPath
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
         $MTB2.ForeColor = $DefaultForeColor
     }  
     if ($MTB3.Image -eq $ActiveButtonColor) { # Install TaskbarX
@@ -1576,7 +1576,7 @@ $StartScript.Add_Click({
             Expand-Archive -Path ($ToPath+"\Configs\FontSourceCodePro.zip") -DestinationPath ($ToPath+"\Configs\FontSourceCodePro") -Force
             Start-Process ($ToPath+"\Configs\FontSourceCodePro\Install.exe")
             Wait-Process -Name "Install"
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-File $LogPath
+            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-File $LogPath -Encoding UTF8 -Append
         }
         $Download.DownloadFile($FromPath+"/Configs/WindowsTerminalFix.zip", $ToPath+"\Configs\WindowsTerminalFix.zip")
         Remove-Item -Path $env:userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
@@ -1612,11 +1612,11 @@ $StartScript.Add_Click({
     if ($MTB11.Image -eq $ActiveButtonColor) { # Remove Realtek
         $StatusBox.Text = "|Quitando Realtek Audio Service...`r`n" + $StatusBox.Text
         $MTB11.ForeColor = $LabelColor
-        pwsh.exe -command {sc stop Audiosrv} | Out-File $LogPath
-        pwsh.exe -command {sc stop RtkAudioUniversalService} | Out-File $LogPath
-        taskkill.exe /f /im RtkAudUService64.exe | Out-File $LogPath
-        pwsh.exe -command {sc delete RtkAudioUniversalService} | Out-File $LogPath
-        pwsh.exe -command {sc start Audiosrv} | Out-File $LogPath
+        pwsh.exe -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
+        pwsh.exe -command {sc stop RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
+        taskkill.exe /f /im RtkAudUService64.exe | Out-File $LogPath -Encoding UTF8 -Append
+        pwsh.exe -command {sc delete RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
+        pwsh.exe -command {sc start Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
         Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
         Get-AppxPackage -All "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
         $MTB11.ForeColor = $DefaultForeColor
@@ -1674,7 +1674,7 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Apps/WallpaperEngine.zip", $ToPath+"\Apps\WallpaperEngine.zip")
         Expand-Archive -Path ($ToPath+"\Apps\WallpaperEngine.zip") -DestinationPath ($ToPath+"\Apps\WallpaperEngine") -Force
         Move-Item -Path ($ToPath+"\Apps\WallpaperEngine\NextWallpaper.exe") -Destination "$env:windir\System32\NextWallpaper.exe"
-        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath -Encoding UTF8 -Append
         New-Item -Path "HKCR:\Directory\Background\shell\" -Name "Siguiente Wallpaper"
         New-Item -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\" -Name "command"
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\" -Name "Icon" -Value "NextWallpaper.exe,0"
