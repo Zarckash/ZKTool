@@ -842,8 +842,8 @@ $StartScript.Add_Click({
     if ($MSB13.Image -eq $ActiveButtonColor) { # Tarkov Launcher
         $StatusBox.Text = "|Instalando Tarkov Launcher...`r`n" + $StatusBox.Text
         $MSB13.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Scripts/Downloads/Tarkov.ps1", $ToPath+"\Scripts\Downloads\Tarkov.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads\Tarkov.ps1 ; exit"
+        $Download.DownloadFile($FromPath+"Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
         $MSB13.ForeColor = $DefaultForeColor
     }
     if ($MSB14.Image -eq $ActiveButtonColor) { # Visual Studio Code
