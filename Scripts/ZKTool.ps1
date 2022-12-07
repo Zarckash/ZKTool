@@ -64,7 +64,7 @@ $SLabel.Text                     = "S O F T W A R E"
 $SLabel.Width                    = $PanelSize
 $SLabel.Height                   = 38
 $SLabel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),5)
-$SLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Bold',15)
+$SLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $SLabel.ForeColor                = $LabelColor
 $SLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
 $SLabel.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
@@ -197,9 +197,9 @@ $MSB11.Text                      = "Void"
 $MSB12                           = New-Object System.Windows.Forms.Button
 $MSB12.Text                      = "Void"
 
-# Void
+# Tarkov Launcher
 $MSB13                           = New-Object System.Windows.Forms.Button
-$MSB13.Text                      = "Void"
+$MSB13.Text                      = "Tarkov Launcher"
 
 # Visual Studio Code
 $MSB14                           = New-Object System.Windows.Forms.Button
@@ -218,7 +218,7 @@ $MSB17                           = New-Object System.Windows.Forms.Button
 $MSB17.Text                      = "League of Legends"
 
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB14,$MSB15,$MSB16,$MSB17)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB13,$MSB14,$MSB15,$MSB16,$MSB17)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -237,7 +237,7 @@ $LLabel.Text                     = "L A U N C H E R S"
 $LLabel.Width                    = $PanelSize
 $LLabel.Height                   = 38
 $LLabel.Location                 = New-Object System.Drawing.Point($PanelSize,5)
-$LLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Bold',15)
+$LLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $LLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
 $LLabel.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
 $LLabel.ForeColor                = $LabelColor
@@ -303,7 +303,7 @@ $TLabel.Text                     = "T W E A K S"
 $TLabel.Width                    = $PanelSize - 3
 $TLabel.Height                   = 38
 $TLabel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),5)
-$TLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Bold',15)
+$TLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $TLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
 $TLabel.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
 $TLabel.ForeColor                = $LabelColor
@@ -493,7 +493,7 @@ $StartScript.Text                = "I N I C I A R    S C R I P T"
 $StartScript.Width               = 670
 $StartScript.Height              = 44
 $StartScript.Location            = New-Object System.Drawing.Point(10,0)
-$StartScript.Font                = New-Object System.Drawing.Font('Segoe UI',19)
+$StartScript.Font                = New-Object System.Drawing.Font('Segoe UI Semibold',20)
 $StartScript.BackColor           = $PanelBackColor
 $StartScript.ForeColor           = $LabelColor
 $StartScript.FlatStyle           = "Flat"
@@ -839,9 +839,11 @@ $StartScript.Add_Click({
         $MSB12.ForeColor = $LabelColor
         $MSB12.ForeColor = $DefaultForeColor
     }
-    if ($MSB13.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB13.Image -eq $ActiveButtonColor) { # Tarkov Launcher
+        $StatusBox.Text = "|Instalando Tarkov Launcher...`r`n" + $StatusBox.Text
         $MSB13.ForeColor = $LabelColor
+        $Download.DownloadFile($FromPath+"/Scripts/Downloads/Tarkov.ps1", $ToPath+"\Scripts\Downloads\Tarkov.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\Downloads\Tarkov.ps1 ; exit"
         $MSB13.ForeColor = $DefaultForeColor
     }
     if ($MSB14.Image -eq $ActiveButtonColor) { # Visual Studio Code
