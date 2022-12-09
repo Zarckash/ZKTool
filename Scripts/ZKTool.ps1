@@ -442,9 +442,9 @@ $MTB12.Text                      = "Void"
 $MTB13                           = New-Object System.Windows.Forms.Button
 $MTB13.Text                      = "Set PageFile Size"
 
-# Void      
+# MSI Afterburner Config      
 $MTB14                           = New-Object System.Windows.Forms.Button
-$MTB14.Text                      = "Void"
+$MTB14.Text                      = "MSI Afterburner Config"
 
 # Void
 $MTB15                           = New-Object System.Windows.Forms.Button
@@ -455,7 +455,7 @@ $MTB16                           = New-Object System.Windows.Forms.Button
 $MTB16.Text                      = "Void"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13,$MTB14)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -541,9 +541,9 @@ $HB1                             = New-Object System.Windows.Forms.Button
 $HB1.Text                        = "Game Settings"
 $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
 
-# MSI Afterburner Config
+# Windows 11 Iso
 $HB2                             = New-Object System.Windows.Forms.Button
-$HB2.Text                        = "MSI Afterburner Config"
+$HB2.Text                        = "Windows 11"
 $HB2.Location                    = New-Object System.Drawing.Point(240,$Position)
 
 # Wallpaper Engine Tweak
@@ -1641,8 +1641,10 @@ $StartScript.Add_Click({
         }
     }
     if ($MTB14.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "|Instalando MSI Afterbuner Config...`r`n" + $StatusBox.Text
         $MTB14.ForeColor = $LabelColor
+        $Download.DownloadFile($FromPath+"/Configs/Profiles.zip", $ToPath+"\Configs\Profiles.zip")
+        Expand-Archive -Path ($ToPath+"\Configs\Profiles.zip") -DestinationPath 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
         $MTB14.ForeColor = $DefaultForeColor
     }
     if ($MTB15.Image -eq $ActiveButtonColor) { # Void
@@ -1661,11 +1663,11 @@ $StartScript.Add_Click({
         iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
         $HB1.ForeColor = $DefaultForeColor
     } 
-    if ($HB2.Image -eq $ActiveButtonColor) { # MSI Afterburner Config
-        $StatusBox.Text = "|Configurando MSI Afterburner...`r`n" + $StatusBox.Text
+    if ($HB2.Image -eq $ActiveButtonColor) { # Windows 11 Iso
+        $StatusBox.Text = "|Descargando Windows 11...`r`n" + $StatusBox.Text
         $HB2.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Configs/Profiles.zip", $ToPath+"\Configs\Profiles.zip")
-        Expand-Archive -Path ($ToPath+"\Configs\Profiles.zip") -DestinationPath 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
+        $Download.DownloadFile($FromPath+"/Apps/Windows11.ps1", $ToPath+"\Apps\Windows11.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Windows11.ps1 ; exit"
         $HB2.ForeColor = $DefaultForeColor
     }   
     if ($HB3.Image -eq $ActiveButtonColor) { # Wallpaper Engine Tweak
