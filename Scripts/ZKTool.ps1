@@ -821,6 +821,8 @@ $StartScript.Add_Click({
         $MSB8.ForeColor = $LabelColor
         $Download.DownloadFile($FromPath+"/Apps/Rufus.exe", $ToPath+"\Apps\Rufus.exe")
         Start-Process ($ToPath+"\Apps\Rufus.exe")
+        Start-Sleep 2
+        Remove-Item -Path .\rufus.com
         $MSB8.ForeColor = $DefaultForeColor
     }
     if ($MSB9.Image -eq $ActiveButtonColor) { # WinRAR
