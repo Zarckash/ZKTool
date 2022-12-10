@@ -450,12 +450,12 @@ $MTB14.Text                      = "MSI Afterburner Config"
 $MTB15                           = New-Object System.Windows.Forms.Button
 $MTB15.Text                      = "Void"
 
-# Void
+# AMD Undervolt Pack
 $MTB16                           = New-Object System.Windows.Forms.Button
-$MTB16.Text                      = "Void"
+$MTB16.Text                      = "AMD Undervolt Pack"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13,$MTB14)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13,$MTB14,$MTB16)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -1654,9 +1654,17 @@ $StartScript.Add_Click({
         $MTB15.ForeColor = $LabelColor
         $MTB15.ForeColor = $DefaultForeColor
     }
-    if ($MTB16.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+    if ($MTB16.Image -eq $ActiveButtonColor) { # AMD Undervolt Pack
+        $StatusBox.Text = "|Descargando AMD Undervolt Pack...`r`n" + $StatusBox.Text
         $MTB16.ForeColor = $LabelColor
+        $Download.DownloadFile($FromPath+"/Apps/AMDUndervoltPack.zip", $ToPath+"\Apps\AMDUndervoltPack.zip")
+        Expand-Archive -Path ($ToPath+"\Apps\AMDUndervoltPack.zip") -DestinationPath ($ToPath+"\Apps\AMD Undervolt Pack") -Force
+        Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\AMD Undervolt") -Destination 'C:\Program Files\'
+        $DesktopPath = Get-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop" | Select-Object -ExpandProperty Desktop
+        Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\CPU Undervolt.lnk") -Destination $DesktopPath
+        Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\Prime95") -Destination $DesktopPath
+        Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\CPUZ.exe") -Destination $DesktopPath
+        Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\PBO2 Tuner.lnk") -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
         $MTB16.ForeColor = $DefaultForeColor
     }
     if ($HB1.Image -eq $ActiveButtonColor) { # Game Settings
