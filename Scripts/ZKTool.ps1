@@ -359,9 +359,9 @@ $TB8.Text                        = "Remove OneDrive"
 $TB9                             = New-Object System.Windows.Forms.Button
 $TB9.Text                        = "Remove Xbox Game Bar"
 
-# Ram Cleaner (ISLC)
+# ISLC + Timer Resolution
 $TB10                            = New-Object System.Windows.Forms.Button
-$TB10.Text                       = "Ram Cleaner (ISLC)"
+$TB10.Text                       = "ISLC + Timer Resolution"
 
 # VisualFX Fix
 $TB11                            = New-Object System.Windows.Forms.Button
@@ -1483,7 +1483,7 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
         $TB9.ForeColor = $DefaultForeColor
     } 
-    if ($TB10.Image -eq $ActiveButtonColor) { # Ram Cleaner (ISLC)
+    if ($TB10.Image -eq $ActiveButtonColor) { # ISLC + Timer Resolution
         $TB10.ForeColor = $LabelColor
         $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1mb
         if ($RamCapacity -le 17000) {
@@ -1551,18 +1551,18 @@ $StartScript.Add_Click({
     if ($MTB2.Image -eq $ActiveButtonColor) { # Install Visual C++
         $StatusBox.Text = "|Instalando Todas Las Versiones De Visual C++...`r`n" + $StatusBox.Text
         $MTB2.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2005Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2008Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2010Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2012Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2013Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x64 | Out-File $LogPath -Encoding UTF8 -Append
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VC++2015-2022Redist-x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2008.x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2008.x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2010.x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2010.x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2012.x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2012.x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2013.x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2013.x86 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2015+.x64 | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2015+.x86 | Out-File $LogPath -Encoding UTF8 -Append
         $MTB2.ForeColor = $DefaultForeColor
     }  
     if ($MTB3.Image -eq $ActiveButtonColor) { # Install TaskbarX
