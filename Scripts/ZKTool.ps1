@@ -153,9 +153,9 @@ $MSPanel.Width                   = $PanelSize
 $MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),49)
 $MSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile(($ImageFolder + "MSMTPanelBg.png"))
 
-# StreamlabsOBS
+# OBS Studio
 $MSB1                            = New-Object System.Windows.Forms.Button
-$MSB1.Text                       = "StreamlabsOBS"
+$MSB1.Text                       = "OBS Studio"
 
 # Photoshop Portable
 $MSB2                            = New-Object System.Windows.Forms.Button
@@ -768,10 +768,10 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-File $LogPath -Encoding UTF8 -Append
         $SB12.ForeColor = $DefaultForeColor
     }
-    if ($MSB1.Image -eq $ActiveButtonColor) { # Streamlabs OBS
-        $StatusBox.Text = "|Instalando Streamlabs OBS...`r`n" + $StatusBox.Text
+    if ($MSB1.Image -eq $ActiveButtonColor) { # OBS Studio
+        $StatusBox.Text = "|Instalando OBS Studio...`r`n" + $StatusBox.Text
         $MSB1.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Streamlabs.StreamlabsOBS | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id OBSProject.OBSStudio | Out-File $LogPath -Encoding UTF8 -Append
         $MSB1.ForeColor = $DefaultForeColor
     }
     if ($MSB2.Image -eq $ActiveButtonColor) { # Photoshop Portable
@@ -1484,12 +1484,24 @@ $StartScript.Add_Click({
         $TB9.ForeColor = $DefaultForeColor
     } 
     if ($TB10.Image -eq $ActiveButtonColor) { # Ram Cleaner (ISLC)
-        $StatusBox.Text = "|Instalando Inteligent Standby List Cleaner (ISLC)...`r`n" + $StatusBox.Text
         $TB10.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/ISLC.zip", $ToPath+"\Apps\ISLC.zip")
-        Expand-Archive -Path ($ToPath+"\Apps\ISLC.zip") -DestinationPath 'C:\Program Files\ISLC' -Force
-        Move-Item -Path 'C:\Program Files\ISLC\ISLC Intelligent Standby List Cleaner.lnk' -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
-        Start-Process "C:\Program Files\ISLC\Intelligent standby list cleaner ISLC.exe"
+        $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1mb
+        if ($RamCapacity -le 17000) {
+            $StatusBox.Text = "|Instalando Inteligent Standby List Cleaner (ISLC)...`r`n" + $StatusBox.Text
+            $Download.DownloadFile($FromPath+"/Apps/ISLC.zip", $ToPath+"\Apps\ISLC.zip")
+            Expand-Archive -Path ($ToPath+"\Apps\ISLC.zip") -DestinationPath 'C:\Program Files\ISLC' -Force
+            Move-Item -Path 'C:\Program Files\ISLC\ISLC Intelligent Standby List Cleaner.lnk' -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
+            Start-Process "C:\Program Files\ISLC\Intelligent standby list cleaner ISLC.exe"
+        }else {
+            $StatusBox.Text = "|Instalando Set Timer Resolution Service...`r`n" + $StatusBox.Text
+            $Download.DownloadFile($FromPath+"/Apps/SetTimerResolutionService.exe", $ToPath+"\Apps\SetTimerResolutionService.exe")
+            New-Item 'C:\Program Files\Set Timer Resolution Service\' -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+            Move-Item -Path ($ToPath+"\Apps\SetTimerResolutionService.exe") -Destination 'C:\Program Files\Set Timer Resolution Service\'
+            $GoBack = Get-Location
+            Set-Location -Path "C:\Program Files\Set Timer Resolution Service"
+            .\SetTimerResolutionService.exe -install | Out-File $LogPath -Encoding UTF8 -Append
+            Set-Location -Path $GoBack
+        }
         $TB10.ForeColor = $DefaultForeColor
     } 
     if ($TB11.Image -eq $ActiveButtonColor) { # VisualFX Fix
