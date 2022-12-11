@@ -12,4 +12,6 @@ Write-Host "Descargando Escape From Tarkov..."
 
 (New-Object Net.WebClient).DownloadFile($file, $filepath)
 
+Start-Sleep 5
+
 Start-Process $filepath
