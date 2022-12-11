@@ -805,8 +805,8 @@ $StartScript.Add_Click({
     if ($MSB6.Image -eq $ActiveButtonColor) { # Prime Video
         $StatusBox.Text = "|Instalando Prime Video...`r`n" + $StatusBox.Text
         $MSB6.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/DownloadPrimeVideo.ps1", $ToPath+"\Apps\DownloadPrimeVideo.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\DownloadPrimeVideo.ps1 ; exit"
+        $Download.DownloadFile($FromPath+"/Apps/PrimeVideo.ps1", $ToPath+"\Apps\PrimeVideo.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\PrimeVideo.ps1 ; exit"
         $MSB6.ForeColor = $DefaultForeColor
     }
     if ($MSB7.Image -eq $ActiveButtonColor) { # VLC Media Player
@@ -849,7 +849,7 @@ $StartScript.Add_Click({
     if ($MSB13.Image -eq $ActiveButtonColor) { # Tarkov Launcher
         $StatusBox.Text = "|Instalando Tarkov Launcher...`r`n" + $StatusBox.Text
         $MSB13.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
+        $Download.DownloadFile($FromPath+"/Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
         $MSB13.ForeColor = $DefaultForeColor
     }
