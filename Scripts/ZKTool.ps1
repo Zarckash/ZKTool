@@ -10,9 +10,9 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
-Remove-Item $env:userprofile\AppData\Local\Temp\ZKTool.log | Out-Null
+Remove-Item $env:userprofile\AppData\Local\Temp\1ZKTool.log | Out-Null
 
-$LogPath  = "$env:userprofile\AppData\Local\Temp\ZKTool.log"
+$LogPath  = "$env:userprofile\AppData\Local\Temp\1ZKTool.log"
 
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
