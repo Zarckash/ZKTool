@@ -20,8 +20,14 @@ New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory
 Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
 Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ -Force
 
+# Remove Old Path
+if (!(Test-Path -Path "$env:ProgramFiles\ZKTool\ZKTool.exe")) {
+    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass Iex (Iwr -useb "https://rb.gy/8shezm") ; exit"
+    Exit
+}
+
 # Check Last Version
-if (!((Get-Item "C:\Windows\System32\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
+if (!((Get-Item "$env:ProgramFiles\ZKTool\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
     Iwr "https://github.com/Zarckash/ZKTool/raw/main/Apps/CheckForUpdates.ps1" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\CheckForUpdates.ps1" | Out-File $LogPath -Encoding UTF8 -Append
     Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\CheckForUpdates.ps1 ; exit"
     Exit
