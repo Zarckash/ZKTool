@@ -22,7 +22,8 @@ Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.z
 
 # Remove Old Path
 if (!(Test-Path -Path "$env:ProgramFiles\ZKTool\ZKTool.exe")) {
-    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass Iex (Iwr -useb "https://rb.gy/8shezm") ; exit"
+    Iwr "https://github.com/Zarckash/ZKTool/raw/main/Apps/Initialize.ps1" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\Initialize.ps1" | Out-File $LogPath -Encoding UTF8 -Append
+    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Initialize.ps1 ; exit"
     Exit
 }
 
