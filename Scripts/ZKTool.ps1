@@ -28,8 +28,8 @@ if (!((Get-Item "$env:ProgramFiles\ZKTool\ZKTool.exe").VersionInfo.FileVersion -
 }
 
 # Fix Context Menu
+New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ZKTool.exe"
-
 
 $ImageFolder = "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\"
 
