@@ -27,6 +27,10 @@ if (!((Get-Item "$env:ProgramFiles\ZKTool\ZKTool.exe").VersionInfo.FileVersion -
     Exit
 }
 
+# Fix Context Menu
+Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ZKTool.exe"
+
+
 $ImageFolder = "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\"
 
 $LabelColor = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 

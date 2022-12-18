@@ -29,7 +29,7 @@ if (!(Test-Path -Path "$env:ProgramFiles\ZKTool\ZKTool.exe")) {
     New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0"
-    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value ""C:\Program Files\ZKTool\ZKTool.exe""
+    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ZKTool.exe"
     Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool\ZKTool.exe"
     Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool\UninstallZKTool.exe"
 
