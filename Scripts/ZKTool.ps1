@@ -22,8 +22,14 @@ Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.z
 
 # Check Last Version
 if (!((Get-Item "$env:ProgramFiles\ZKTool\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
-    Iwr "https://github.com/Zarckash/ZKTool/raw/main/Apps/CheckForUpdates.ps1" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\CheckForUpdates.ps1" | Out-File $LogPath -Encoding UTF8 -Append
-    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\CheckForUpdates.ps1 ; exit"
+    Start-Process Powershell {
+        $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
+        Write-Host "Actualizando ZKTool App..."
+        Start-Sleep 1
+        Invoke-WebRequest -Uri 'https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.exe' -OutFile $env:ProgramFiles\ZKTool\ZKTool.exe
+        Invoke-WebRequest -Uri 'https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk' -OutFile ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk')
+        Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe
+    }
     Exit
 }
 
@@ -781,19 +787,26 @@ $StartScript.Add_Click({
     if ($MSB2.Image -eq $ActiveButtonColor) { # Photoshop Portable
         $StatusBox.Text = "|Instalando Adobe Photoshop...`r`n" + $StatusBox.Text
         $MSB2.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/Photoshop.ps1", $ToPath+"\Apps\Photoshop.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Photoshop.ps1 ; exit"
+        Start-Process Powershell {
+            $host.UI.RawUI.WindowTitle = 'Photoshop Portable'
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PhotoshopPortable.zip'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\PhotoshopPortable.zip'
+            Write-Host "Descargando Photoshop Portable..."
+            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+            Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Photoshop' -Force
+            Move-Item -Path 'C:\Program Files\Adobe\Photoshop\Photoshop.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
+        }
         $MSB2.ForeColor = $DefaultForeColor
     }
     if ($MSB3.Image -eq $ActiveButtonColor) { # Premiere Portable
         $StatusBox.Text = "|Instalando Adobe Premiere...`r`n" + $StatusBox.Text
         $MSB3.ForeColor = $LabelColor
         Start-Process Powershell {
-            $host.UI.RawUI.WindowTitle = 'Premiere Portable';
-            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PremierePortable.zip';
-            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\PremierePortable.zip';
-            Write-Host "Descargando Premiere Portable...";
-            (New-Object Net.WebClient).DownloadFile($file, $filepath);
+            $host.UI.RawUI.WindowTitle = 'Premiere Portable'
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PremierePortable.zip'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\PremierePortable.zip'
+            Write-Host "Descargando Premiere Portable..."
+            (New-Object Net.WebClient).DownloadFile($file, $filepath)
             Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Premiere' -Force
             Move-Item -Path 'C:\Program Files\Adobe\Premiere\Premiere.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
         }
@@ -816,8 +829,14 @@ $StartScript.Add_Click({
     if ($MSB6.Image -eq $ActiveButtonColor) { # Prime Video
         $StatusBox.Text = "|Instalando Prime Video...`r`n" + $StatusBox.Text
         $MSB6.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/PrimeVideo.ps1", $ToPath+"\Apps\PrimeVideo.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\PrimeVideo.ps1 ; exit"
+        Start-Process Powershell {
+            $host.UI.RawUI.WindowTitle = 'Amazon Prime Video'
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PrimeVideo.appx'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\PrimeVideo.appx'
+            Write-Host "Descargando Amazon Prime Video..."
+            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+            Add-AppxPackage $filepath
+        }
         $MSB6.ForeColor = $DefaultForeColor
     }
     if ($MSB7.Image -eq $ActiveButtonColor) { # VLC Media Player
@@ -860,8 +879,14 @@ $StartScript.Add_Click({
     if ($MSB13.Image -eq $ActiveButtonColor) { # Tarkov Launcher
         $StatusBox.Text = "|Instalando Tarkov Launcher...`r`n" + $StatusBox.Text
         $MSB13.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/Tarkov.ps1", $ToPath+"\Apps\Tarkov.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Tarkov.ps1 ; exit"
+        Start-Process Powershell {
+            $host.UI.RawUI.WindowTitle = 'Tarkov Launcher'
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/TarkovLauncher.exe'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\TarkovLauncher.exe'
+            Write-Host "Descargando Tarkov Launcher..."
+            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+            Start-Process $filepath
+        }
         $MSB13.ForeColor = $DefaultForeColor
     }
     if ($MSB14.Image -eq $ActiveButtonColor) { # Visual Studio Code
@@ -879,7 +904,6 @@ $StartScript.Add_Click({
     if ($MSB16.Image -eq $ActiveButtonColor) { # Valorant
         $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
         $MSB16.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/Valorant.ps1", $ToPath+"\Apps\Valorant.ps1")
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.Valorant.EU | Out-File $LogPath -Encoding UTF8 -Append
         $MSB16.ForeColor = $DefaultForeColor
     }
@@ -1699,8 +1723,14 @@ $StartScript.Add_Click({
     if ($HB2.Image -eq $ActiveButtonColor) { # Windows 11 Iso
         $StatusBox.Text = "|Descargando Windows 11...`r`n" + $StatusBox.Text
         $HB2.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/Windows11.ps1", $ToPath+"\Apps\Windows11.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Windows11.ps1 ; exit"
+        Start-Process Powershell {
+            $host.UI.RawUI.WindowTitle = 'Windows 11 Iso'
+            $DesktopPath = Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop' | Select-Object -ExpandProperty Desktop
+            $file = 'http://zktoolip.ddns.net/files/Windows11.iso'
+            $filepath = $DesktopPath + '\Windows11.iso'
+            Write-Host "Descargando Windows 11 Iso..."
+            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+        }
         $HB2.ForeColor = $DefaultForeColor
     }   
     if ($HB3.Image -eq $ActiveButtonColor) { # Wallpaper Engine Tweak
@@ -1729,8 +1759,14 @@ $StartScript.Add_Click({
     if ($HB5.Image -eq $ActiveButtonColor) { # RGB Fusion
         $StatusBox.Text = "|Instalando RGB Fusion...`r`n" + $StatusBox.Text
         $HB5.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/RGBFusion.ps1", $ToPath+"\Apps\RGBFusion.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\RGBFusion.ps1 ; exit"
+        Start-Process Powershell {
+            $host.UI.RawUI.WindowTitle = 'RGB Fusion'
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/RGBFusion.exe'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\RGBFusion.exe'
+            Write-Host "Descargando RGB Fusion..."
+            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+            Start-Process $filepath
+        }
         $HB5.ForeColor = $DefaultButtonColor
     }   
     if ($HB6.Image -eq $ActiveButtonColor) { # Z390 Lan Drivers
