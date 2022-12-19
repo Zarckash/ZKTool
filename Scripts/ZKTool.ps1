@@ -29,8 +29,8 @@ if (!(Test-Path "$env:ProgramFiles\ZKTool\$VersionFile")) {
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
         Write-Host "Actualizando ZKTool App..."
-        Start-Sleep 1
-        Iex (Iwr -useb "https://rb.gy/8shezm")
+        Start-Sleep 3
+        Start-Process Powershell -WindowStyle Hidden {Iex (Iwr -useb "https://rb.gy/8shezm")}
     }
     Exit
 }
