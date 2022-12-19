@@ -11,7 +11,6 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 }
 
 Remove-Item $env:userprofile\AppData\Local\Temp\1ZKTool.log | Out-Null
-
 $LogPath  = "$env:userprofile\AppData\Local\Temp\1ZKTool.log"
 
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
@@ -20,22 +19,21 @@ New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory
 Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
 Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ -Force
 
-# Check Last Version
-if (!((Get-Item "$env:ProgramFiles\ZKTool\ZKTool.exe").VersionInfo.FileVersion -eq "2.0")) {
+$VersionFile = 2.1
+
+# Update To Last Version
+if (!(Test-Path "$env:ProgramFiles\ZKTool\$VersionFile")) {
+    New-Item -Path $env:ProgramFiles\ZKTool\$VersionFile | Out-File $LogPath -Encoding UTF8 -Append
+    (Get-Item -Path $env:ProgramFiles\ZKTool\$VersionFile).Attributes += "Hidden"
+    Remove-Item -Path $env:ProgramFiles\ZKTool\2.0 -Force | Out-Null
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
         Write-Host "Actualizando ZKTool App..."
         Start-Sleep 1
-        Invoke-WebRequest -Uri 'https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.exe' -OutFile $env:ProgramFiles\ZKTool\ZKTool.exe
-        Invoke-WebRequest -Uri 'https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk' -OutFile ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk')
-        Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe
+        Iex (Iwr -useb "https://rb.gy/8shezm")
     }
     Exit
 }
-
-# Fix Context Menu
-New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ZKTool.exe"
 
 $ImageFolder = "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\"
 
