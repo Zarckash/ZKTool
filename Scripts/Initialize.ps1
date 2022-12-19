@@ -22,7 +22,7 @@ Write-Host "Instalando ZKTool App..."
 New-Item $env:ProgramFiles\ZKTool -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.exe" -OutFile "$env:ProgramFiles\ZKTool\ZKTool.exe"
 Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/UninstallZKTool.exe" -OutFile "$env:ProgramFiles\ZKTool\UninstallZKTool.exe"
-Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk" -OutFile "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKToollnk"
+Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk" -OutFile "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
 New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
