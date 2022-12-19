@@ -788,8 +788,15 @@ $StartScript.Add_Click({
     if ($MSB3.Image -eq $ActiveButtonColor) { # Premiere Portable
         $StatusBox.Text = "|Instalando Adobe Premiere...`r`n" + $StatusBox.Text
         $MSB3.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/Premiere.ps1", $ToPath+"\Apps\Premiere.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Premiere.ps1 ; exit"
+        Start-Process Powershell {
+            $host.UI.RawUI.WindowTitle = 'Premiere Portable';
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PremierePortable.zip';
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\PremierePortable.zip';
+            Write-Host "Descargando Premiere Portable...";
+            (New-Object Net.WebClient).DownloadFile($file, $filepath);
+            Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Premiere' -Force
+            Move-Item -Path 'C:\Program Files\Adobe\Premiere\Premiere.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
+        }
         $MSB3.ForeColor = $DefaultForeColor
     }
     if ($MSB4.Image -eq $ActiveButtonColor) { # Spotify
