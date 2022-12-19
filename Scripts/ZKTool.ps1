@@ -1827,7 +1827,10 @@ $StartScript.Add_Click({
 })
 
 $Form.Add_Closing({
-    Remove-Item -Path "$env:userprofile\AppData\Local\Temp\ZKTool" -Recurse
+    Start-Process Powershell -WindowStyle Hidden {
+        Start-Sleep 2
+        Remove-Item -Path "$env:userprofile\AppData\Local\Temp\ZKTool" -Recurse
+    }
 })
 
 [void]$Form.ShowDialog()
