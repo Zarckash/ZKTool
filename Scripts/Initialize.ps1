@@ -19,10 +19,10 @@ if (!(Test-Path -Path "$env:ProgramFiles\ZKTool\ZKTool.exe")) {
 
 # Install ZKTool
 Write-Host "Instalando ZKTool App..."
-New-Item $env:ProgramFiles\ZKTool -ItemType Directory | Out-Null
-Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.exe" -OutFile "$env:ProgramFiles\ZKTool\ZKTool.exe"
-Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/UninstallZKTool.exe" -OutFile "$env:ProgramFiles\ZKTool\UninstallZKTool.exe"
-Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.lnk" -OutFile "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
+New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-Null
+Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip"
+Expand-Archive -Path "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool"
+Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
 New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
