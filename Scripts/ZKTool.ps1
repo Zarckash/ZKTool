@@ -839,7 +839,7 @@ $StartScript.Add_Click({
             Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\After Effects' -Force
             Move-Item -Path 'C:\Program Files\Adobe\After Effects\After Effects.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
             New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "Adobe After Effects" | Out-Null
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "DisplayIcon" -Value "C:\Program Files\Adobe\After Effects\After Effects.exe"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "DisplayIcon" -Value "C:\Program Files\Adobe\After Effects\Support Files\AfterFX.exe"
             Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "DisplayName" -Value "Adobe After Effects"
             Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "NoModify" -Type DWord -Value 1
             Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "NoRepair" -Type DWord -Value 1
