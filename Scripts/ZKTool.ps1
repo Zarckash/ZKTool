@@ -100,13 +100,13 @@ $SB1.Text                        = "Google Chrome"
 $SB2                             = New-Object System.Windows.Forms.Button
 $SB2.Text                        = "GeForce Experience"
 
-# NanaZip
-$SB3                             = New-Object System.Windows.Forms.Button
-$SB3.Text                        = "NanaZip"
-
 # Discord
+$SB3                             = New-Object System.Windows.Forms.Button
+$SB3.Text                        = "Discord"
+
+# Spotify
 $SB4                             = New-Object System.Windows.Forms.Button
-$SB4.Text                        = "Discord"
+$SB4.Text                        = "Spotify"
 
 # HWMonitor
 $SB5                             = New-Object System.Windows.Forms.Button
@@ -132,13 +132,13 @@ $SB9.Text                        = "Razer Synapse"
 $SB10                            = New-Object System.Windows.Forms.Button
 $SB10.Text                       = "uTorrent Web"
 
-# LibreOffice
+# NanaZip
 $SB11                            = New-Object System.Windows.Forms.Button
-$SB11.Text                       = "LibreOffice"
+$SB11.Text                       = "NanaZip"
 
-# Megasync
+# Visual Studio Code
 $SB12                            = New-Object System.Windows.Forms.Button
-$SB12.Text                       = "MegaSync"
+$SB12.Text                       = "Visual Studio Code"
 
 $Position = 10
 $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12)
@@ -165,17 +165,17 @@ $MSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile(($ImageFolde
 $MSB1                            = New-Object System.Windows.Forms.Button
 $MSB1.Text                       = "OBS Studio"
 
-# Photoshop Portable
+# Adobe Photoshop
 $MSB2                            = New-Object System.Windows.Forms.Button
-$MSB2.Text                       = "Photoshop Portable"
+$MSB2.Text                       = "Adobe Photoshop"
 
-# Premiere Portable
+# Adobe Premiere
 $MSB3                            = New-Object System.Windows.Forms.Button
-$MSB3.Text                       = "Premiere Portable"
+$MSB3.Text                       = "Adobe Premiere"
 
-# Spotify
+# Adobe After Effects
 $MSB4                            = New-Object System.Windows.Forms.Button
-$MSB4.Text                       = "Spotify"
+$MSB4.Text                       = "Adobe After Effects"
 
 # Netflix
 $MSB5                            = New-Object System.Windows.Forms.Button
@@ -197,40 +197,40 @@ $MSB8.Text                       = "Rufus"
 $MSB9                            = New-Object System.Windows.Forms.Button
 $MSB9.Text                       = "WinRAR"
 
-# Void
+# MegaSync
 $MSB10                           = New-Object System.Windows.Forms.Button
-$MSB10.Text                      = "Void"
+$MSB10.Text                      = "MegaSync"
 
-# Void
+# LibreOffice
 $MSB11                           = New-Object System.Windows.Forms.Button
-$MSB11.Text                      = "Void"
-
-# Void
-$MSB12                           = New-Object System.Windows.Forms.Button
-$MSB12.Text                      = "Void"
-
-# Tarkov Launcher
-$MSB13                           = New-Object System.Windows.Forms.Button
-$MSB13.Text                      = "Tarkov Launcher"
-
-# Visual Studio Code
-$MSB14                           = New-Object System.Windows.Forms.Button
-$MSB14.Text                      = "Visual Studio Code"
+$MSB11.Text                      = "LibreOffice"
 
 # GitHub Desktop
-$MSB15                           = New-Object System.Windows.Forms.Button
-$MSB15.Text                      = "GitHub Desktop"
+$MSB12                           = New-Object System.Windows.Forms.Button
+$MSB12.Text                      = "GitHub Desktop"
 
-# Valorant
-$MSB16                           = New-Object System.Windows.Forms.Button
-$MSB16.Text                      = "Valorant"
+# Void
+$MSB13                           = New-Object System.Windows.Forms.Button
+$MSB13.Text                      = "Void"
+
+# Void
+$MSB14                           = New-Object System.Windows.Forms.Button
+$MSB14.Text                      = "Void"
+
+# Tarkov Launcher
+$MSB15                           = New-Object System.Windows.Forms.Button
+$MSB15.Text                      = "Tarkov Launcher"
 
 # League of Legends
+$MSB16                           = New-Object System.Windows.Forms.Button
+$MSB16.Text                      = "League of Legends"
+
+# Valorant
 $MSB17                           = New-Object System.Windows.Forms.Button
-$MSB17.Text                      = "League of Legends"
+$MSB17.Text                      = "Valorant"
 
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB13,$MSB14,$MSB15,$MSB16,$MSB17)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB15,$MSB16,$MSB17)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -711,16 +711,17 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Nvidia.GeForceExperience | Out-File $LogPath -Encoding UTF8 -Append
         $SB2.ForeColor = $DefaultForeColor
     }
-    if ($SB3.Image -eq $ActiveButtonColor) { # NanaZip
-        $StatusBox.Text = "|Instalando NanaZip...`r`n" + $StatusBox.Text
+    if ($SB3.Image -eq $ActiveButtonColor) { # Discord
+        $StatusBox.Text = "|Instalando Discord...`r`n" + $StatusBox.Text
         $SB3.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id M2Team.NanaZip | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Discord.Discord | Out-File $LogPath -Encoding UTF8 -Append
         $SB3.ForeColor = $DefaultForeColor
     }
-    if ($SB4.Image -eq $ActiveButtonColor) { # Discord
-        $StatusBox.Text = "|Instalando Discord...`r`n" + $StatusBox.Text
+    if ($SB4.Image -eq $ActiveButtonColor) { # Spotify
+        $StatusBox.Text = "|Instalando Spotify...`r`n" + $StatusBox.Text
         $SB4.ForeColor = LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Discord.Discord | Out-File $LogPath -Encoding UTF8 -Append
+        $Download.DownloadFile($FromPath+"/Apps/Spotify.ps1", $ToPath+"\Apps\Spotify.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Spotify.ps1 ; exit"
         $SB4.ForeColor = $DefaultForeColor
     }
     if ($SB5.Image -eq $ActiveButtonColor) { # HWMonitor
@@ -764,16 +765,16 @@ $StartScript.Add_Click({
         Start-Process ($ToPath+"\Apps\uTorrentWeb.exe")
         $SB10.ForeColor = $DefaultForeColor
     }
-    if ($SB11.Image -eq $ActiveButtonColor) { # Libre Office
-        $StatusBox.Text = "|Instalando Libre Office...`r`n" + $StatusBox.Text
+    if ($SB11.Image -eq $ActiveButtonColor) { # NanaZip
+        $StatusBox.Text = "|Instalando NanaZip...`r`n" + $StatusBox.Text
         $SB11.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id TheDocumentFoundation.LibreOffice | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id M2Team.NanaZip | Out-File $LogPath -Encoding UTF8 -Append
         $SB11.ForeColor = $DefaultForeColor
     }
-    if ($SB12.Image -eq $ActiveButtonColor) { # MegaSync
-        $StatusBox.Text = "|Instalando Libre Office...`r`n" + $StatusBox.Text
+    if ($SB12.Image -eq $ActiveButtonColor) { # Visual Studio Code
+        $StatusBox.Text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.Text
         $SB11.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-File $LogPath -Encoding UTF8 -Append
         $SB12.ForeColor = $DefaultForeColor
     }
     if ($MSB1.Image -eq $ActiveButtonColor) { # OBS Studio
@@ -782,39 +783,70 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id OBSProject.OBSStudio | Out-File $LogPath -Encoding UTF8 -Append
         $MSB1.ForeColor = $DefaultForeColor
     }
-    if ($MSB2.Image -eq $ActiveButtonColor) { # Photoshop Portable
+    if ($MSB2.Image -eq $ActiveButtonColor) { # Adobe Photoshop
         $StatusBox.Text = "|Instalando Adobe Photoshop...`r`n" + $StatusBox.Text
         $MSB2.ForeColor = $LabelColor
         Start-Process Powershell {
-            $host.UI.RawUI.WindowTitle = 'Photoshop Portable'
-            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PhotoshopPortable.zip'
-            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\PhotoshopPortable.zip'
-            Write-Host "Descargando Photoshop Portable..."
+            $host.UI.RawUI.WindowTitle = 'Adobe Photoshop'
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/AdobePhotoshop.zip'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePhotoshop.zip'
+            Write-Host "Descargando Adobe Photoshop..."
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
             Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Photoshop' -Force
             Move-Item -Path 'C:\Program Files\Adobe\Photoshop\Photoshop.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
+            New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "Adobe Photoshop" | Out-Null
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "DisplayIcon" -Value "C:\Program Files\Adobe\Photoshop\Photoshop.exe"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "DisplayName" -Value "Adobe Photoshop"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "NoModify" -Type DWord -Value 1
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "NoRepair" -Type DWord -Value 1
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "Publisher" -Value "Adobe Systems Incorporated"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "UninstallString" -Value "C:\Program Files\Adobe\Photoshop\UninstallPhotoshop.exe"
+            Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\Photoshop\UninstallPhotoshop.exe')
         }
         $MSB2.ForeColor = $DefaultForeColor
     }
-    if ($MSB3.Image -eq $ActiveButtonColor) { # Premiere Portable
+    if ($MSB3.Image -eq $ActiveButtonColor) { # Adobe Premiere
         $StatusBox.Text = "|Instalando Adobe Premiere...`r`n" + $StatusBox.Text
         $MSB3.ForeColor = $LabelColor
         Start-Process Powershell {
-            $host.UI.RawUI.WindowTitle = 'Premiere Portable'
-            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PremierePortable.zip'
-            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\PremierePortable.zip'
-            Write-Host "Descargando Premiere Portable..."
+            $host.UI.RawUI.WindowTitle = 'Adobe Premiere'
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/AdobePremiere.zip'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePremiere.zip'
+            Write-Host "Descargando Adobe Premiere..."
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
             Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Premiere' -Force
             Move-Item -Path 'C:\Program Files\Adobe\Premiere\Premiere.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
+            New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "Adobe Premiere" | Out-Null
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "DisplayIcon" -Value "C:\Program Files\Adobe\Premiere\Premiere.exe"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "DisplayName" -Value "Adobe Premiere"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "NoModifyLabelColor" -Type DWord -Value 1
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "NoRepair" -Type DWord -Value 1
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "Publisher" -Value "Adobe Systems Incorporated"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "UninstallString" -Value "C:\Program Files\Adobe\Premiere\UninstallPremiere.exe"
+            Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\Premiere\UninstallPremiere.exe')
         }
         $MSB3.ForeColor = $DefaultForeColor
     }
-    if ($MSB4.Image -eq $ActiveButtonColor) { # Spotify
-        $StatusBox.Text = "|Instalando Spotify...`r`n" + $StatusBox.Text
+    if ($MSB4.Image -eq $ActiveButtonColor) { # Adobe After Effects
+        $StatusBox.Text = "|Instalando Adobe After Effects...`r`n" + $StatusBox.Text
         $MSB4.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/Spotify.ps1", $ToPath+"\Apps\Spotify.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Spotify.ps1 ; exit"
+        Start-Process Powershell {
+            $host.UI.RawUI.WindowTitle = 'Adobe After Effects'
+            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/AdobeAfterEffects.zip'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobeAfterEffects.zip'
+            Write-Host "Descargando Adobe After Effects..."
+            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+            Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\After Effects' -Force
+            Move-Item -Path 'C:\Program Files\Adobe\After Effects\After Effects.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
+            New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "Adobe After Effects" | Out-Null
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "DisplayIcon" -Value "C:\Program Files\Adobe\After Effects\After Effects.exe"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "DisplayName" -Value "Adobe After Effects"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "NoModify" -Type DWord -Value 1
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "NoRepair" -Type DWord -Value 1
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "Publisher" -Value "Adobe Systems Incorporated"
+            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "UninstallString" -Value "C:\Program Files\Adobe\After Effects\UninstallAfterEffects.exe"
+            Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\After Effects\UninstallAfterEffects.exe')
+        }
         $MSB4.ForeColor = $DefaultForeColor
     }
     if ($MSB5.Image -eq $ActiveButtonColor) { # Netflix
@@ -859,24 +891,37 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RARLab.WinRAR | Out-File $LogPath -Encoding UTF8 -Append
         $MSB9.ForeColor = $DefaultForeColor
     }
-    if ($MSB10.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB10.Image -eq $ActiveButtonColor) { # MegaSync
+        $StatusBox.Text = "|Instalando MegaSync...`r`n" + $StatusBox.Text
         $MSB10.ForeColor = $LabelColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-File $LogPath -Encoding UTF8 -Append
         $MSB10.ForeColor = $DefaultForeColor
     }
-    if ($MSB11.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB11.Image -eq $ActiveButtonColor) { # LibreOffice
+        $StatusBox.Text = "|Instalando LibreOffice...`r`n" + $StatusBox.Text
         $MSB11.ForeColor = $LabelColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id TheDocumentFoundation.LibreOffice | Out-File $LogPath -Encoding UTF8 -Append
         $MSB11.ForeColor = $DefaultForeColor
     }
-    if ($MSB12.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB12.Image -eq $ActiveButtonColor) { # GitHub Desktop
+        $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
         $MSB12.ForeColor = $LabelColor
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-File $LogPath -Encoding UTF8 -Append
         $MSB12.ForeColor = $DefaultForeColor
     }
-    if ($MSB13.Image -eq $ActiveButtonColor) { # Tarkov Launcher
-        $StatusBox.Text = "|Instalando Tarkov Launcher...`r`n" + $StatusBox.Text
+    if ($MSB13.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
         $MSB13.ForeColor = $LabelColor
+        $MSB13.ForeColor = $DefaultForeColor
+    }
+    if ($MSB14.Image -eq $ActiveButtonColor) { # Void
+        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+        $MSB14.ForeColor = $LabelColor
+        $MSB14.ForeColor = $DefaultForeColor
+    }
+    if ($MSB15.Image -eq $ActiveButtonColor) { # Tarkov Launcher
+        $StatusBox.Text = "|Instalando Tarkov Launcher...`r`n" + $StatusBox.Text
+        $MSB15.ForeColor = $LabelColor
         Start-Process Powershell {
             $host.UI.RawUI.WindowTitle = 'Tarkov Launcher'
             $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/TarkovLauncher.exe'
@@ -885,32 +930,21 @@ $StartScript.Add_Click({
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
             Start-Process $filepath
         }
-        $MSB13.ForeColor = $DefaultForeColor
-    }
-    if ($MSB14.Image -eq $ActiveButtonColor) { # Visual Studio Code
-        $StatusBox.Text = "|Instalando Visual Studio Code...`r`n" + $StatusBox.Text
-        $MSB14.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-File $LogPath -Encoding UTF8 -Append
-        $MSB14.ForeColor = $DefaultForeColor
-    }
-    if ($MSB15.Image -eq $ActiveButtonColor) { # GitHub Desktop
-        $StatusBox.Text = "|Instalando GitHub Desktop...`r`n" + $StatusBox.Text
-        $MSB15.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-File $LogPath -Encoding UTF8 -Append
         $MSB15.ForeColor = $DefaultForeColor
     }
-    if ($MSB16.Image -eq $ActiveButtonColor) { # Valorant
-        $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
+    if ($MSB16.Image -eq $ActiveButtonColor) { # League of Legends
+        $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
         $MSB16.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.Valorant.EU | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-File $LogPath -Encoding UTF8 -Append
         $MSB16.ForeColor = $DefaultForeColor
     }
-    if ($MSB17.Image -eq $ActiveButtonColor) { # League of Legends
-        $StatusBox.Text = "|Instalando League of Legends...`r`n" + $StatusBox.Text
+    if ($MSB17.Image -eq $ActiveButtonColor) { # Valorant
+        $StatusBox.Text = "|Instalando Valorant...`r`n" + $StatusBox.Text
         $MSB17.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-File $LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.Valorant.EU | Out-File $LogPath -Encoding UTF8 -Append
         $MSB17.ForeColor = $DefaultForeColor
     }
+    
     if ($LB1.Image -eq $ActiveButtonColor) { # Steam
         $StatusBox.Text = "|Instalando Steam...`r`n" + $StatusBox.Text
         $LB1.ForeColor = $LabelColor
