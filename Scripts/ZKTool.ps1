@@ -838,6 +838,7 @@ $StartScript.Add_Click({
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
             Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\After Effects' -Force
             Move-Item -Path 'C:\Program Files\Adobe\After Effects\After Effects.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
+            Move-Item -Path 'C:\Program Files\Adobe\After Effects\Adobe' -Destination 'C:\Program Files (x86)\Common Files'
             New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Name 'Adobe After Effects' | Out-Null
             Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'DisplayIcon' -Value 'C:\Program Files\Adobe\After Effects\Support Files\AfterFX.exe'
             Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'DisplayName' -Value 'Adobe After Effects'
