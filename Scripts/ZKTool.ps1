@@ -794,13 +794,13 @@ $StartScript.Add_Click({
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
             Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Photoshop' -Force
             Move-Item -Path 'C:\Program Files\Adobe\Photoshop\Photoshop.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
-            New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "Adobe Photoshop" | Out-Null
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "DisplayIcon" -Value "C:\Program Files\Adobe\Photoshop\Photoshop.exe"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "DisplayName" -Value "Adobe Photoshop"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "NoModify" -Type DWord -Value 1
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "NoRepair" -Type DWord -Value 1
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "Publisher" -Value "Adobe Systems Incorporated"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop" -Name "UninstallString" -Value "C:\Program Files\Adobe\Photoshop\UninstallPhotoshop.exe"
+            New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Name 'Adobe Photoshop' | Out-Null
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'DisplayIcon' -Value 'C:\Program Files\Adobe\Photoshop\Photoshop.exe'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'DisplayName' -Value 'Adobe Photoshop'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'NoModify' -Type DWord -Value 1
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'NoRepair' -Type DWord -Value 1
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'Publisher' -Value 'Adobe Systems Incorporated'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'UninstallString' -Value 'C:\Program Files\Adobe\Photoshop\UninstallPhotoshop.exe'
             Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\Photoshop\UninstallPhotoshop.exe')
         }
         $MSB2.ForeColor = $DefaultForeColor
@@ -816,13 +816,13 @@ $StartScript.Add_Click({
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
             Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Premiere' -Force
             Move-Item -Path 'C:\Program Files\Adobe\Premiere\Premiere.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
-            New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "Adobe Premiere" | Out-Null
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "DisplayIcon" -Value "C:\Program Files\Adobe\Premiere\Premiere.exe"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "DisplayName" -Value "Adobe Premiere"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "NoModifyLabelColor" -Type DWord -Value 1
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "NoRepair" -Type DWord -Value 1
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "Publisher" -Value "Adobe Systems Incorporated"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere" -Name "UninstallString" -Value "C:\Program Files\Adobe\Premiere\UninstallPremiere.exe"
+            New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Name 'Adobe Premiere' | Out-Null
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'DisplayIcon' -Value 'C:\Program Files\Adobe\Premiere\Premiere.exe'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'DisplayName' -Value 'Adobe Premiere'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'NoModifyLabelColor' -Type DWord -Value 1
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'NoRepair' -Type DWord -Value 1
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'Publisher' -Value 'Adobe Systems Incorporated'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'UninstallString' -Value 'C:\Program Files\Adobe\Premiere\UninstallPremiere.exe'
             Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\Premiere\UninstallPremiere.exe')
         }
         $MSB3.ForeColor = $DefaultForeColor
@@ -838,13 +838,13 @@ $StartScript.Add_Click({
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
             Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\After Effects' -Force
             Move-Item -Path 'C:\Program Files\Adobe\After Effects\After Effects.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
-            New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "Adobe After Effects" | Out-Null
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "DisplayIcon" -Value "C:\Program Files\Adobe\After Effects\Support Files\AfterFX.exe"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "DisplayName" -Value "Adobe After Effects"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "NoModify" -Type DWord -Value 1
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "NoRepair" -Type DWord -Value 1
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "Publisher" -Value "Adobe Systems Incorporated"
-            Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects" -Name "UninstallString" -Value "C:\Program Files\Adobe\After Effects\UninstallAfterEffects.exe"
+            New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Name 'Adobe After Effects' | Out-Null
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'DisplayIcon' -Value 'C:\Program Files\Adobe\After Effects\Support Files\AfterFX.exe'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'DisplayName' -Value 'Adobe After Effects'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'NoModify' -Type DWord -Value 1
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'NoRepair' -Type DWord -Value 1
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'Publisher' -Value 'Adobe Systems Incorporated'
+            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'UninstallString' -Value 'C:\Program Files\Adobe\After Effects\UninstallAfterEffects.exe'
             Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\After Effects\UninstallAfterEffects.exe')
         }
         $MSB4.ForeColor = $DefaultForeColor
