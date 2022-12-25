@@ -1756,14 +1756,7 @@ $StartScript.Add_Click({
     if ($HB2.Image -eq $ActiveButtonColor) { # Windows 11 Iso
         $StatusBox.Text = "|Descargando Windows 11...`r`n" + $StatusBox.Text
         $HB2.ForeColor = $LabelColor
-        Start-Process Powershell {
-            $host.UI.RawUI.WindowTitle = 'Windows 11 Iso'
-            $DesktopPath = Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop' | Select-Object -ExpandProperty Desktop
-            $file = 'http://zktoolip.ddns.net/files/Windows11.iso'
-            $filepath = $DesktopPath + '\Windows11.iso'
-            Write-Host "Descargando Windows 11 Iso..."
-            (New-Object Net.WebClient).DownloadFile($file, $filepath)
-        }
+        Start-Process "http://zktoolip.ddns.net/files/Windows11.iso"
         $HB2.ForeColor = $DefaultForeColor
     }   
     if ($HB3.Image -eq $ActiveButtonColor) { # Wallpaper Engine Tweak
