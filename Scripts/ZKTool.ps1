@@ -209,9 +209,9 @@ $MSB11.Text                      = "LibreOffice"
 $MSB12                           = New-Object System.Windows.Forms.Button
 $MSB12.Text                      = "GitHub Desktop"
 
-# Void
+# AMD Adrenalin
 $MSB13                           = New-Object System.Windows.Forms.Button
-$MSB13.Text                      = "Void"
+$MSB13.Text                      = "AMD Adrenalin"
 
 # Void
 $MSB14                           = New-Object System.Windows.Forms.Button
@@ -910,9 +910,11 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-File $LogPath -Encoding UTF8 -Append
         $MSB12.ForeColor = $DefaultForeColor
     }
-    if ($MSB13.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando Void...`r`n" + $StatusBox.Text
+    if ($MSB13.Image -eq $ActiveButtonColor) { # AMD Adrenalin
+        $StatusBox.Text = "|Instalando AMD Adrenalin...`r`n" + $StatusBox.Text
         $MSB13.ForeColor = $LabelColor
+        $Download.DownloadFile($FromPath+"/Apps/AMDAdrenalin.exe", $ToPath+"\Apps\AMDAdrenalin.exe")
+        Start-Process ($ToPath+"\Apps\AMDAdrenalin.exe")
         $MSB13.ForeColor = $DefaultForeColor
     }
     if ($MSB14.Image -eq $ActiveButtonColor) { # Void
@@ -945,7 +947,6 @@ $StartScript.Add_Click({
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.Valorant.EU | Out-File $LogPath -Encoding UTF8 -Append
         $MSB17.ForeColor = $DefaultForeColor
     }
-    
     if ($LB1.Image -eq $ActiveButtonColor) { # Steam
         $StatusBox.Text = "|Instalando Steam...`r`n" + $StatusBox.Text
         $LB1.ForeColor = $LabelColor
