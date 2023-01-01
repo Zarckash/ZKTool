@@ -1551,9 +1551,9 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
         Get-Service "GamingServices" | Stop-Service
-        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GamingServices\" -Name "Start" -Value 4
+        Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GamingServices\" -Recurse
         Get-Service "GamingServicesNet" | Stop-Service
-        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GamingServicesNet\" -Name "Start" -Value 4
+        Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GamingServicesNet\" -Recurse
         $TB9.ForeColor = $DefaultForeColor
     } 
     if ($TB10.Image -eq $ActiveButtonColor) { # ISLC + Timer Resolution
