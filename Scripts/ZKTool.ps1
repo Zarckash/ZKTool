@@ -1547,13 +1547,10 @@ $StartScript.Add_Click({
         Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage 
         Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage 
         Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
-        Get-AppxPackage "Microsoft.GamingApp" | Remove-AppxPackage 
+        Get-AppxPackage "Microsoft.GamingApp" | Remove-AppxPackage
+        Get-AppxPackage "Microsoft.GamingServices" | Remove-AppxPackage  
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
-        Get-Service "GamingServices" | Stop-Service
-        Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GamingServices\" -Recurse
-        Get-Service "GamingServicesNet" | Stop-Service
-        Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GamingServicesNet\" -Recurse
         $TB9.ForeColor = $DefaultForeColor
     } 
     if ($TB10.Image -eq $ActiveButtonColor) { # ISLC + Timer Resolution
