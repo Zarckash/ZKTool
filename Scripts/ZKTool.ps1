@@ -1380,6 +1380,8 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Estableciendo Modo Oscuro...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
+        $Download.DownloadFile($FromPath+"/Configs/BlackWindows11.jpg", "C:\Windows\Web\Wallpaper\spotlight\BlackWindows11.jpg")
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WallPaper" -Value "C:\Windows\Web\Wallpaper\spotlight\BlackWindows11.jpg"
     
         # Hide Recent Files And Folders In Explorer
         $StatusBox.Text = "|Ocultando Archivos Y Carpetas Recientes De Acceso Rapido...`r`n" + $StatusBox.Text
