@@ -329,15 +329,15 @@ $TPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*2
 $TPanel.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "STPanelBg.png"))
 $Form.Controls.Add($TPanel)
 
-# Essential Tweaks
+# Optimizations Tweaks
 $TB1                             = New-Object System.Windows.Forms.Button
-$TB1.Text                        = "Essential Tweaks"
+$TB1.Text                        = "Optimizations Tweaks"
 $TB1.Location                    = New-Object System.Drawing.Point(10,10)
 $TPanel.Controls.Add($TB1)
 
-# Extra Tweaks
+# Cleaning Tweaks
 $TB2                             = New-Object System.Windows.Forms.Button
-$TB2.Text                        = "Extra Tweaks"
+$TB2.Text                        = "Cleaning Tweaks"
 
 # Nvidia Settings
 $TB3                             = New-Object System.Windows.Forms.Button
@@ -1000,8 +1000,8 @@ $StartScript.Add_Click({
         &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\XboxApp.appx")} 
         $LB8.ForeColor = $DefaultForeColor
     }
-    if ($TB1.Image -eq $ActiveButtonColorBig) { # Essential Tweaks
-        $StatusBox.Text = "|AJUSTES ESENCIALES`r`n`r`n" + $StatusBox.Text
+    if ($TB1.Image -eq $ActiveButtonColorBig) { # Optimization Tweaks
+        $StatusBox.Text = "|AJUSTES DE OPTIMIZACION`r`n`r`n" + $StatusBox.Text
         $TB1.ForeColor = $LabelColorBig
 
         # Create Restore Point
@@ -1148,6 +1148,107 @@ $StartScript.Add_Click({
         # Disable Nearby Sharing
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP" -Name "CdpSessionUserAuthzPolicy" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP" -Name "RomeSdkChannelUserAuthzPolicy" -Type DWord -Value 0
+
+        # Show TaskBar Only In Main Screen
+        $StatusBox.Text = "|Desactivando Mostrar Barra De Tareas En Todos Los Monitores...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MMTaskbarEnabled" -Type DWord -Value 0
+
+        # Show More Pinned Items In Start Menu
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_Layout" -Type DWord -Value 1
+
+        # Hide Recent Files In Start Menu
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocks" -Type DWord -Value 0
+        $Download.DownloadFile($FromPath+"/Apps/StartMenu.reg", $ToPath+"\Apps\StartMenu.reg")
+        regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\StartMenu.reg
+
+        # Keep Windows From Creating DumpStack.log File
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
+
+        # Stop Microsoft Store From Updating Apps Automatically
+        $StatusBox.Text = "|Desactivando Actualizaciones Automaticas De Microsoft Store...`r`n" + $StatusBox.Text
+        New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "WindowsStore"
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -Name "AutoDownload" -Type DWord -Value 2
+    
+        # Hide TaskBar View Button
+        $StatusBox.Text = "|Ocultando Boton Vista De Tareas...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
+    
+        # Hide Cortana Button
+        $StatusBox.Text = "|Ocultando Boton De Cortana...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCortanaButton" -Type DWord -Value 0
+
+        # Hide Meet Now Button
+        $StatusBox.Text = "|Ocultando Boton De Reunirse Ahora...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Value 1
+    
+        # Hide Search Button
+        $StatusBox.Text = "|Ocultando Boton De Busqueda...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+
+        # Disable Web Search
+        $StatusBox.Text = "|Desactivando Busqueda En La Web Con Bing...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
+
+        # Hide Search Recomendations
+        $StatusBox.Text = "|Desactivando Recomendaciones De Busqueda...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
+
+        # Disable Microsoft Account In Windows Search
+        $StatusBox.Text = "|Desactivando Cuenta De Microsoft En Windows Search...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsMSACloudSearchEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsAADCloudSearchEnabled" -Type DWord -Value 0
+        
+        # Hide Chat Button
+        $StatusBox.Text = "|Ocultando Boton De Chats...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
+    
+        # Set Dark Theme
+        $StatusBox.Text = "|Estableciendo Modo Oscuro...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
+        $Download.DownloadFile($FromPath+"/Apps/SetWallpaper.ps1", $ToPath+"\Apps\SetWallpaper.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\SetWallpaper.ps1 ; exit"
+    
+        # Hide Recent Files And Folders In Explorer
+        $StatusBox.Text = "|Ocultando Archivos Y Carpetas Recientes De Acceso Rapido...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
+    
+        # Clipboard History
+        $StatusBox.Text = "|Activando El Historial Del Portapapeles...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
+    
+        # Change Computer Name
+        $pcname = $env:username.ToUpper() + "-PC"
+        $StatusBox.Text = "|Cambiando Nombre Del Equipo A " + $pcname + "...`r`n" + $StatusBox.Text
+        Rename-Computer -NewName $pcname
+    
+        # Set Private Network
+        $StatusBox.Text = "|Estableciendo Red Privada...`r`n" + $StatusBox.Text
+        Set-NetConnectionProfile -NetworkCategory Private
+    
+        # Show File Operations Details
+        $StatusBox.Text = "|Mostrando Detalles De Transferencias De Archivos...`r`n" + $StatusBox.Text
+        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "OperationStatusManager" | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" -Name "EnthusiastMode" -Type DWord -Value 1
+
+        # Sounds Communications Do Nothing
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Multimedia\Audio" -Name "UserDuckingPreference" -Type DWord -Value 3
+    
+        # Hide Buttons From Power Button
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "FlyoutMenuSettings" | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowHibernateOption" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowSleepOption" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowLockOption" -Type DWord -Value 0
+    
+        # Alt Tab Open Windows Only
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Type DWord -Value 3
+
+        # Set Desktop Icons Size To Small
+        $StatusBox.Text = "|Reduciendo El Tamaño De Los Iconos Del Escritorio...`r`n" + $StatusBox.Text
+        taskkill /f /im explorer.exe
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
+        explorer.exe
     
         # Disable Feedback
         $StatusBox.Text = "|Deshabilitando Feedback...`r`n" + $StatusBox.Text
@@ -1271,6 +1372,12 @@ $StartScript.Add_Click({
         Stop-Service "SysMain" -WarningAction SilentlyContinue
         Set-Service "SysMain" -StartupType Disabled
     
+        $TB1.ForeColor = $DefaultForeColorBig
+    }
+    if ($TB2.Image -eq $ActiveButtonColor) { # Cleaning Tweaks
+        $StatusBox.Text = "|Aplicando Cleaning Tweaks...`r`n`r`n" + $StatusBox.Text
+        $TB2.ForeColor = $LabelColor
+
         # Uninstall Microsoft Bloatware
         $StatusBox.Text = "|Desinstalando Microsoft Bloatware...`r`n" + $StatusBox.Text
         &{ $ProgressPreference = 'SilentlyContinue'
@@ -1318,94 +1425,6 @@ $StartScript.Add_Click({
         Get-AppxPackage -All "MicrosoftCorporationII.MicrosoftFamily" | Remove-AppxPackage
         Get-AppxPackage -All "Disney.37853FC22B2CE" | Remove-AppxPackage
         }
-        $TB1.ForeColor = $DefaultForeColorBig
-    }
-    if ($TB2.Image -eq $ActiveButtonColor) { # Extra Tweaks
-        $StatusBox.Text = "|Aplicando Extra Tweaks...`r`n`r`n" + $StatusBox.Text
-        $TB2.ForeColor = $LabelColor
-
-        # Show TaskBar Only In Main Screen
-        $StatusBox.Text = "|Desactivando Mostrar Barra De Tareas En Todos Los Monitores...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MMTaskbarEnabled" -Type DWord -Value 0
-
-        # Show More Pinned Items In Start Menu
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_Layout" -Type DWord -Value 1
-
-        # Hide Recent Files In Start Menu
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocks" -Type DWord -Value 0
-        $Download.DownloadFile($FromPath+"/Apps/StartMenu.reg", $ToPath+"\Apps\StartMenu.reg")
-        regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\StartMenu.reg
-
-        # Keep Windows From Creating DumpStack.log File
-        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
-
-        # Stop Microsoft Store From Updating Apps Automatically
-        $StatusBox.Text = "|Desactivando Actualizaciones Automaticas De Microsoft Store...`r`n" + $StatusBox.Text
-        New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "WindowsStore"
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -Name "AutoDownload" -Type DWord -Value 2
-    
-        # Hide TaskBar View Button
-        $StatusBox.Text = "|Ocultando Boton Vista De Tareas...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
-    
-        # Hide Cortana Button
-        $StatusBox.Text = "|Ocultando Boton De Cortana...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCortanaButton" -Type DWord -Value 0
-
-        # Hide Meet Now Button
-        $StatusBox.Text = "|Ocultando Boton De Reunirse Ahora...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Value 1
-    
-        # Hide Search Button
-        $StatusBox.Text = "|Ocultando Boton De Busqueda...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
-
-        # Disable Web Search
-        $StatusBox.Text = "|Desactivando Busqueda En La Web Con Bing...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
-
-        # Hide Search Recomendations
-        $StatusBox.Text = "|Desactivando Recomendaciones De Busqueda...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
-
-        # Disable Microsoft Account In Windows Search
-        $StatusBox.Text = "|Desactivando Cuenta De Microsoft En Windows Search...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsMSACloudSearchEnabled" -Type DWord -Value 0
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsAADCloudSearchEnabled" -Type DWord -Value 0
-        
-        # Hide Chat Button
-        $StatusBox.Text = "|Ocultando Boton De Chats...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
-    
-        # Set Dark Theme
-        $StatusBox.Text = "|Estableciendo Modo Oscuro...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
-        $Download.DownloadFile($FromPath+"/Apps/SetWallpaper.ps1", $ToPath+"\Apps\SetWallpaper.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\SetWallpaper.ps1 ; exit"
-    
-        # Hide Recent Files And Folders In Explorer
-        $StatusBox.Text = "|Ocultando Archivos Y Carpetas Recientes De Acceso Rapido...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
-    
-        # Clipboard History
-        $StatusBox.Text = "|Activando El Historial Del Portapapeles...`r`n" + $StatusBox.Text
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
-    
-        # Change Computer Name
-        $pcname = $env:username.ToUpper() + "-PC"
-        $StatusBox.Text = "|Cambiando Nombre Del Equipo A " + $pcname + "...`r`n" + $StatusBox.Text
-        Rename-Computer -NewName $pcname
-    
-        # Set Private Network
-        $StatusBox.Text = "|Estableciendo Red Privada...`r`n" + $StatusBox.Text
-        Set-NetConnectionProfile -NetworkCategory Private
-    
-        # Show File Operations Details
-        $StatusBox.Text = "|Mostrando Detalles De Transferencias De Archivos...`r`n" + $StatusBox.Text
-        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "OperationStatusManager" | Out-File $LogPath -Encoding UTF8 -Append
-        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" -Name "EnthusiastMode" -Type DWord -Value 1
 
         # Clean "New" In Context Menu
         New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath -Encoding UTF8 -Append
@@ -1420,18 +1439,6 @@ $StartScript.Add_Click({
         # Carpeta Comprimida En Zip
         Remove-ItemProperty -Path "HKCR:\.zip\CompressedFolder\ShellNew" -Name "Data"
         Remove-ItemProperty -Path "HKCR:\.zip\CompressedFolder\ShellNew" -Name "ItemName"
-    
-        # Sounds Communications Do Nothing
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Multimedia\Audio" -Name "UserDuckingPreference" -Type DWord -Value 3
-    
-        # Hide Buttons From Power Button
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "FlyoutMenuSettings" | Out-File $LogPath -Encoding UTF8 -Append
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowHibernateOption" -Type DWord -Value 0
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowSleepOption" -Type DWord -Value 0
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowLockOption" -Type DWord -Value 0
-    
-        # Alt Tab Open Windows Only
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Type DWord -Value 3
     
         # Uninstall Windows Optional Features
         &{ $ProgressPreference = 'SilentlyContinue'
@@ -1450,12 +1457,6 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Desinstalando Reconocedor Matematico...`r`n" + $StatusBox.Text
         DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         }
-
-        # Set Desktop Icons Size To Small
-        $StatusBox.Text = "|Reduciendo El Tamaño De Los Iconos Del Escritorio...`r`n" + $StatusBox.Text
-        taskkill /f /im explorer.exe
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
-        explorer.exe
 
         $TB2.ForeColor = $DefaultForeColor
     } 
