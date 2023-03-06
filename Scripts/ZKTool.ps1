@@ -749,7 +749,9 @@ $StartScript.Add_Click({
     if ($SB8.Image -eq $ActiveButtonColor) { # Logitech G HUB
         $StatusBox.Text = "|Instalando Logitech G HUB...`r`n" + $StatusBox.Text
         $SB8.ForeColor = $LabelColor
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Logitech.GHUB | Out-File $LogPath -Encoding UTF8 -Append
+        #winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Logitech.GHUB | Out-File $LogPath -Encoding UTF8 -Append
+        $Download.DownloadFile($FromPath+"/Apps/LogitechOMM.exe", $ToPath+"\Apps\LogitechOMM.exe")
+        Start-Process ($ToPath+"\Apps\LogitechOMM.exe")
         $SB8.ForeColor = $DefaultForeColor
     }
     if ($SB9.Image -eq $ActiveButtonColor) { # Razer Synapse
