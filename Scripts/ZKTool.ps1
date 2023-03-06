@@ -747,7 +747,7 @@ $StartScript.Add_Click({
         $SB7.ForeColor = $DefaultForeColor
     }
     if ($SB8.Image -eq $ActiveButtonColor) { # Logitech G HUB
-        $StatusBox.Text = "|Instalando Logitech G HUB...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "|Iniciando Logitech Onboard Memory Manager...`r`n" + $StatusBox.Text
         $SB8.ForeColor = $LabelColor
         #winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Logitech.GHUB | Out-File $LogPath -Encoding UTF8 -Append
         $Download.DownloadFile($FromPath+"/Apps/LogitechOMM.exe", $ToPath+"\Apps\LogitechOMM.exe")
@@ -1835,8 +1835,7 @@ $StartScript.Add_Click({
 
     $StatusBox.Text = "|Comprobando Instalaciones...`r`n" + $StatusBox.Text
 
-    $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB11,$SB12,$MSB1,$MSB4,$MSB5,$MSB6,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB17,$LB1,$LB2,$LB3,$LB5,
-    $LB7,$LB8,$HB5,$HB8)
+    $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB11,$SB12,$MSB1,$MSB5,$MSB6,$MSB9,$MSB10,$MSB11,$MSB12,$LB1,$LB2,$LB3,$LB5,$LB7,$LB8)
     foreach ($Button in $Buttons) {
         if ($Button.ForeColor -eq $LabelColor) {
             $WingetListCheck = Winget List $Button.Text | Select-String -Pattern $Button.Text | ForEach {$_.matches} | Select-Object -ExpandProperty Value
