@@ -1187,6 +1187,10 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Ocultando Boton De Busqueda...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
 
+        # Hide Widgets Button
+        $StatusBox.Text = "|Ocultando Boton De Widgets...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarDa" -Type DWord -Value 0
+
         # Disable Web Search
         $StatusBox.Text = "|Desactivando Busqueda En La Web Con Bing...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
