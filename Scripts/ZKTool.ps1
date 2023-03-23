@@ -1473,6 +1473,7 @@ $StartScript.Add_Click({
     if ($TB3.Image -eq $ActiveButtonColor) { # Nvidia Settings
         $StatusBox.Text = "|Aplicando Ajustes Al Panel De Control De Nvidia...`r`n" + $StatusBox.Text
         $TB3.ForeColor = $LabelColor
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
         $Download.DownloadFile($FromPath+"/Apps/ProfileInspector.exe", $ToPath+"\Apps\ProfileInspector.exe")
         $Download.DownloadFile($FromPath+"/Configs/NvidiaProfiles.nip", $ToPath+"\Configs\NvidiaProfiles.nip")
         Start-Process ($ToPath+"\Apps\ProfileInspector.exe")($ToPath+"\Configs\NvidiaProfiles.nip")
@@ -1738,11 +1739,16 @@ $StartScript.Add_Click({
             $StatusBox.Text = "|La Cantidad De Memoria RAM Es Superior A Los 16GB, No Se Realizara Ningun Cambio...`r`n" + $StatusBox.Text
         }
     }
-    if ($MTB14.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Instalando MSI Afterbuner Config...`r`n" + $StatusBox.Text
+    if ($MTB14.Image -eq $ActiveButtonColor) { # MSI Afterburner Config
+        $StatusBox.Text = "|Configurando MSI Afterbuner...`r`n" + $StatusBox.Text
         $MTB14.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Configs/Profiles.zip", $ToPath+"\Configs\Profiles.zip")
-        Expand-Archive -Path ($ToPath+"\Configs\Profiles.zip") -DestinationPath 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
+        $Download.DownloadFile($FromPath+"/Configs/MSIAfterburner.zip", $ToPath+"\Configs\MSIAfterburner.zip")
+        Expand-Archive -Path ($ToPath+"\Configs\MSIAfterburner.zip") -DestinationPath ($ToPath+"\Configs\MSIAfterburner") -Force
+        Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\MSIAfterburner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\MSI Afterburner\Profiles'
+        if (Test-Path -Path 'C:\Program Files (x86)\RivaTuner Statistics Server') {
+            Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\RivaTuner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles'
+            Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\RivaTuner Settings\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates'
+        }
         $MTB14.ForeColor = $DefaultForeColor
     }
     if ($MTB15.Image -eq $ActiveButtonColor) { # Void
