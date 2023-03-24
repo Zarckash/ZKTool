@@ -1467,7 +1467,6 @@ $StartScript.Add_Click({
         $StatusBox.Text = "|Desinstalando Reconocedor Matematico...`r`n" + $StatusBox.Text
         DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         }
-
         $TB2.ForeColor = $DefaultForeColor
     } 
     if ($TB3.Image -eq $ActiveButtonColor) { # Nvidia Settings
@@ -1558,12 +1557,14 @@ $StartScript.Add_Click({
     if ($TB9.Image -eq $ActiveButtonColor) { # Remove Xbox Game Bar
         $StatusBox.Text = "|Desinstalando Xbox Game Bar...`r`n" + $StatusBox.Text
         $TB9.ForeColor = $LabelColor
+        &{ $ProgressPreference = 'SilentlyContinue'
         Get-AppxPackage "Microsoft.XboxGamingOverlay" | Remove-AppxPackage 
         Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage 
         Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage 
         Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
         Get-AppxPackage "Microsoft.GamingApp" | Remove-AppxPackage
-        Get-AppxPackage "Microsoft.GamingServices" | Remove-AppxPackage  
+        Get-AppxPackage "Microsoft.GamingServices" | Remove-AppxPackage
+        }
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
         $TB9.ForeColor = $DefaultForeColor
