@@ -351,9 +351,9 @@ $TB4.Text                        = "Reduce Icons Spacing"
 $TB5                             = New-Object System.Windows.Forms.Button
 $TB5.Text                        = "Hide Shortcut Arrows"
 
-# Set Modern Cursor
+# Set W11 Cursor
 $TB6                             = New-Object System.Windows.Forms.Button
-$TB6.Text                        = "Set Modern Cursor"
+$TB6.Text                        = "Set W11 Cursor"
 
 # Disable Cortana
 $TB7                             = New-Object System.Windows.Forms.Button
