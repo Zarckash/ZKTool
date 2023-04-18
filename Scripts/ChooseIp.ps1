@@ -85,7 +85,7 @@ $InputBox.height                 = 40
 $InputBox.location               = New-Object System.Drawing.Point(5,192)
 $InputBox.Font                   = New-Object System.Drawing.Font('Segoe UI',12)
 $InputBox.AcceptsReturn          = $True
-$InputBox.Text                   = " " + (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10)
+$InputBox.Text                   = "" + (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10)
 $InputBox.BackColor              = $PanelBackColor
 $InputBox.ForeColor              = $DefaultForeColor
 $Form.Controls.Add($InputBox)
@@ -174,7 +174,7 @@ $Cancel.Add_Click({
 # Accept Button
 $Accept.Add_Click({
     $Accept.BackColor = $ProcessingColor
-    $IP = $InputBox.Text
+    $IP = ($InputBox.Lines).Substring(0,12)
     $StatusBox.text = "|Estableciendo IP Estatica A $IP...`r`n" + $StatusBox.text
 
     $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
