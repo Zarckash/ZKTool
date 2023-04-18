@@ -174,11 +174,11 @@ $Cancel.Add_Click({
 # Accept Button
 $Accept.Add_Click({
     $Accept.BackColor = $ProcessingColor
-    $IP = ($InputBox.Lines).Substring(0,12)
+    $IP = $InputBox.Text
     $StatusBox.text = "|Estableciendo IP Estatica A $IP...`r`n" + $StatusBox.text
 
     $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
-    Remove-NetIPAddress -InterfaceAlias $Interface
+    Remove-NetIPAddress -InterfaceAlias $Interface -Confirm:$False
     Remove-NetRoute -InterfaceAlias $Interface
     New-NetIPAddress -InterfaceAlias $Interface -AddressFamily IPv4 $IP -PrefixLength 24 -DefaultGateway $Gateway | Out-Null
     Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses 8.8.8.8, $Gateway
