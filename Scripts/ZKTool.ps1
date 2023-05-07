@@ -454,16 +454,16 @@ $MTB13.Text                      = "Set PageFile Size"
 $MTB14                           = New-Object System.Windows.Forms.Button
 $MTB14.Text                      = "MSI Afterburner Config"
 
-# Void
+# Adobe Cleaner
 $MTB15                           = New-Object System.Windows.Forms.Button
-$MTB15.Text                      = "Void"
+$MTB15.Text                      = "Adobe Cleaner"
 
 # AMD Undervolt Pack
 $MTB16                           = New-Object System.Windows.Forms.Button
 $MTB16.Text                      = "AMD Undervolt Pack"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13,$MTB14,$MTB16)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB11,$MTB13,$MTB14,$MTB15,$MTB16)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -791,20 +791,18 @@ $StartScript.Add_Click({
         $MSB2.ForeColor = $LabelColor
         Start-Process Powershell {
             $host.UI.RawUI.WindowTitle = 'Adobe Photoshop'
-            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/AdobePhotoshop.zip'
-            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePhotoshop.zip'
+            $file = 'http://zktoolip.ddns.net/files/AdobePhotoshop.iso'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePhotoshop.iso'
             Write-Host "Descargando Adobe Photoshop..."
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
-            Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Photoshop' -Force
-            Move-Item -Path 'C:\Program Files\Adobe\Photoshop\Photoshop.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
-            New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Name 'Adobe Photoshop' | Out-Null
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'DisplayIcon' -Value 'C:\Program Files\Adobe\Photoshop\Photoshop.exe'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'DisplayName' -Value 'Adobe Photoshop'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'NoModify' -Type DWord -Value 1
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'NoRepair' -Type DWord -Value 1
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'Publisher' -Value 'Adobe Systems Incorporated'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Photoshop' -Name 'UninstallString' -Value 'C:\Program Files\Adobe\Photoshop\UninstallPhotoshop.exe'
-            Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\Photoshop\UninstallPhotoshop.exe')
+            if (Test-Path -Path "H:\Apache24\htdocs\files\AdobePhotoshop.iso") {
+                Write-Host "Copiando Archivos..."
+                $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
+                Copy-Item "H:\Apache24\htdocs\files\AdobePhotoshop.iso"  $destination
+            }
+            $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
+            $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
+            Start-Process $AdobeInstall
         }
         $MSB2.ForeColor = $DefaultForeColor
     }
@@ -813,20 +811,18 @@ $StartScript.Add_Click({
         $MSB3.ForeColor = $LabelColor
         Start-Process Powershell {
             $host.UI.RawUI.WindowTitle = 'Adobe Premiere'
-            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/AdobePremiere.zip'
-            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePremiere.zip'
+            $file = 'http://zktoolip.ddns.net/files/AdobePremiere.iso'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePremiere.iso'
             Write-Host "Descargando Adobe Premiere..."
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
-            Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\Premiere' -Force
-            Move-Item -Path 'C:\Program Files\Adobe\Premiere\Premiere.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
-            New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Name 'Adobe Premiere' | Out-Null
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'DisplayIcon' -Value 'C:\Program Files\Adobe\Premiere\Premiere.exe'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'DisplayName' -Value 'Adobe Premiere'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'NoModifyLabelColor' -Type DWord -Value 1
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'NoRepair' -Type DWord -Value 1
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'Publisher' -Value 'Adobe Systems Incorporated'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Premiere' -Name 'UninstallString' -Value 'C:\Program Files\Adobe\Premiere\UninstallPremiere.exe'
-            Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\Premiere\UninstallPremiere.exe')
+            if (Test-Path -Path "H:\Apache24\htdocs\files\AdobePremiere.iso") {
+                Write-Host "Copiando Archivos..."
+                $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
+                Copy-Item "H:\Apache24\htdocs\files\AdobePremiere.iso"  $destination
+            }
+            $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
+            $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
+            Start-Process $AdobeInstall
         }
         $MSB3.ForeColor = $DefaultForeColor
     }
@@ -835,21 +831,18 @@ $StartScript.Add_Click({
         $MSB4.ForeColor = $LabelColor
         Start-Process Powershell {
             $host.UI.RawUI.WindowTitle = 'Adobe After Effects'
-            $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/AdobeAfterEffects.zip'
-            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobeAfterEffects.zip'
+            $file = 'http://zktoolip.ddns.net/files/AdobeAfterEffects.iso'
+            $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobeAfterEffects.iso'
             Write-Host "Descargando Adobe After Effects..."
             (New-Object Net.WebClient).DownloadFile($file, $filepath)
-            Expand-Archive -Path $filepath -DestinationPath 'C:\Program Files\Adobe\After Effects' -Force
-            Move-Item -Path 'C:\Program Files\Adobe\After Effects\After Effects.lnk' -Destination ($env:userprofile + '\AppData\Roaming\Microsoft\Windows\Start Menu\Programs')
-            Move-Item -Path 'C:\Program Files\Adobe\After Effects\Adobe' -Destination 'C:\Program Files (x86)\Common Files'
-            New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\' -Name 'Adobe After Effects' | Out-Null
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'DisplayIcon' -Value 'C:\Program Files\Adobe\After Effects\Support Files\AfterFX.exe'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'DisplayName' -Value 'Adobe After Effects'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'NoModify' -Type DWord -Value 1
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'NoRepair' -Type DWord -Value 1
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'Publisher' -Value 'Adobe Systems Incorporated'
-            Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adobe After Effects' -Name 'UninstallString' -Value 'C:\Program Files\Adobe\After Effects\UninstallAfterEffects.exe'
-            Add-MpPreference -ExclusionPath ($env:ProgramFiles + '\Adobe\After Effects\UninstallAfterEffects.exe')
+            if (Test-Path -Path "H:\Apache24\htdocs\files\AdobeAfterEffects.iso") {
+                Write-Host "Copiando Archivos..."
+                $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
+                Copy-Item "H:\Apache24\htdocs\files\AdobeAfterEffects.iso"  $destination
+            }
+            $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
+            $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
+            Start-Process $AdobeInstall
         }
         $MSB4.ForeColor = $DefaultForeColor
     }
@@ -1752,9 +1745,14 @@ $StartScript.Add_Click({
         }
         $MTB14.ForeColor = $DefaultForeColor
     }
-    if ($MTB15.Image -eq $ActiveButtonColor) { # Void
-        $StatusBox.Text = "|Void...`r`n" + $StatusBox.Text
+    if ($MTB15.Image -eq $ActiveButtonColor) { # Adobe Cleaner
+        $StatusBox.Text = "|Eliminando Procesos De Adobe...`r`n" + $StatusBox.Text
         $MTB15.ForeColor = $LabelColor
+        Rename-Item -Path "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exe" "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exeX"
+        Rename-Item -Path "C:\Program Files\Adobe\Adobe Creative Cloud Experience\CCXProcess.exe" "C:\Program Files\Adobe\Adobe Creative Cloud Experience\CCXProcess.exeX"
+        Rename-Item -Path "C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\ADS\Adobe Desktop Service.exe" "C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\ADS\Adobe Desktop Service.exeX"
+        Rename-Item -Path "C:\Program Files\Common Files\Adobe\Creative Cloud Libraries\CCLibrary.exe" "C:\Program Files\Common Files\Adobe\Creative Cloud Libraries\CCLibrary.exeX"
+
         $MTB15.ForeColor = $DefaultForeColor
     }
     if ($MTB16.Image -eq $ActiveButtonColor) { # AMD Undervolt Pack
