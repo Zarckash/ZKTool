@@ -1439,6 +1439,8 @@ $StartScript.Add_Click({
         Remove-ItemProperty -Path "HKCR:\.odp\LibreOffice.ImpressDocument.1\ShellNew" -Name "FileName"
         # Dibujo OpenDocument
         Remove-ItemProperty -Path "HKCR:\.odg\LibreOffice.DrawDocument.1\ShellNew" -Name "FileName"
+        # PSD File
+        Remove-Item -Path "HKCR:\.psd\ShellNew"
         # Carpeta Comprimida En Zip
         Remove-ItemProperty -Path "HKCR:\.zip\CompressedFolder\ShellNew" -Name "Data"
         Remove-ItemProperty -Path "HKCR:\.zip\CompressedFolder\ShellNew" -Name "ItemName"
