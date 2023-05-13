@@ -50,7 +50,7 @@ $Form.Controls.Add($Label)
 
 # Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
-$Panel.Height                    = 69 * 1
+$Panel.Height                    = 69 * 2
 $Panel.Width                     = 709 - 1
 $Panel.BackgroundImage           = [System.Drawing.Image]::FromFile(($ImageFolder + "PanelBgGS.png"))
 $Panel.Location                  = New-Object System.Drawing.Point(0,45)
@@ -74,7 +74,7 @@ $R1B4.Text                       = "Battlefield 2042"
 
 # Game
 $R2B1                            = New-Object System.Windows.Forms.Button
-$R2B1.Text                       = "1"
+$R2B1.Text                       = "CSGO"
 
 # Game
 $R2B2                            = New-Object System.Windows.Forms.Button
@@ -181,6 +181,15 @@ $R1B4.Add_Click({
     Expand-Archive -Path ($ToPath+"\Configs\Battlefield2042.zip") -DestinationPath ($DocumentsPath+"\Battlefield 2042\settings") -Force
     $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
+
+# CSGO
+$R2B1.Add_Click({
+    $Download.DownloadFile($FromPath+"/Configs/CSGO.zip", $ToPath+"\Configs\CSGO.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\CSGO.zip") -DestinationPath ($ToPath+"\Configs\") -Force
+    Get-ChildItem "C:\Program Files (x86)\Steam\userdata" | Foreach-Object {Copy-Item ($ToPath+"\Configs\730") -Recurse -Destination $_}
+    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+})
+
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
 foreach ($Button in $Buttons) {
