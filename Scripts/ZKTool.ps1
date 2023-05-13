@@ -1724,7 +1724,7 @@ $StartScript.Add_Click({
     if ($MTB13.Image -eq $ActiveButtonColor) { # Set PageFile Size
         $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1mb
         if ($RamCapacity -le 17000) {
-            $RamCapacity += $RamCapacity/2
+            $RamCapacity = $RamCapacity/2
             $StatusBox.Text = "|Estableciendo El Tamaño Del Archivo De Paginacion En $RamCapacity MB...`r`n" + $StatusBox.Text
             $MTB13.ForeColor = $LabelColor
             $PageFile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
