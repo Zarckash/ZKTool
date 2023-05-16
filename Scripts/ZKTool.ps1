@@ -1771,7 +1771,7 @@ $StartScript.Add_Click({
         $MTB16.ForeColor = $DefaultForeColor
     }
     if ($HB1.Image -eq $ActiveButtonColor) { # Game Settings
-        $StatusBox.Text = "|Abriendo Game Settings Options...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "|Abriendo Game Settings...`r`n" + $StatusBox.Text
         $HB1.ForeColor = $LabelColor
         iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
         $HB1.ForeColor = $DefaultForeColor
