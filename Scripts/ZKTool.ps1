@@ -410,9 +410,9 @@ $MTB2.Text                       = "Install Visual C++"
 $MTB3                            = New-Object System.Windows.Forms.Button
 $MTB3.Text                       = "Install TaskbarX"
 
-# Install HEVC + HEIF
+# Install FFMPEG
 $MTB4                            = New-Object System.Windows.Forms.Button
-$MTB4.Text                       = "Install HEVC + HEIF"
+$MTB4.Text                       = "Install FFMPEG"
 
 # Windows Terminal Fix
 $MTB5                            = New-Object System.Windows.Forms.Button
@@ -1655,12 +1655,19 @@ $StartScript.Add_Click({
         Start-Process "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\TaskbarX Configurator.lnk"
         $MTB3.ForeColor = $DefaultForeColor
     }  
-    if ($MTB4.Image -eq $ActiveButtonColor) { # Install HEVC + HEIF
-        $StatusBox.Text = "|Instalando Extensiones De Video HEVC Y HEIF... `r`n" + $StatusBox.Text
+    if ($MTB4.Image -eq $ActiveButtonColor) { # Install FFMPEG
+        $StatusBox.Text = "|Instalando FFMPEG... `r`n" + $StatusBox.Text
         $MTB4.ForeColor = $LabelColor
         $Download.DownloadFile($FromPath+"/Apps/HEVC.appx", $ToPath+"\Apps\HEVC.appx")
         $Download.DownloadFile($FromPath+"/Apps/HEIF.appx", $ToPath+"\Apps\HEIF.appx")
         &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\HEVC.appx"); Add-AppxPackage ($ToPath+"\Apps\HEIF.appx")}
+        $Download.DownloadFile($FromPath+"/Apps/ffmpeg.exe", "$env:ProgramFiles\ZKTool\ffmpeg.exe")
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\" -Name "Compress FFMPEG" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\Compress FFMPEG\" -Name "command" | Out-Null
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Compress FFMPEG\" -Name "Icon" -Value "C:\Program Files\ZKTool\ffmpeg.exe,0"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Compress FFMPEG\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ffmpeg.exe"
+        Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool\ffmpeg.exe"
         $MTB4.ForeColor = $DefaultForeColor
     }  
     if ($MTB5.Image -eq $ActiveButtonColor) { # Windows Terminal Fix
