@@ -1496,9 +1496,9 @@ $StartScript.Add_Click({
     if ($TB6.Image -eq $ActiveButtonColor) { # Set Modern Cursor
         $StatusBox.Text = "|Estableciendo Cursor Personalizado...`r`n" + $StatusBox.Text
         $TB6.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Configs/ModernCursor.zip", $ToPath+"\Configs\ModernCursor.zip")
-        Expand-Archive -Path ($ToPath+"\Configs\ModernCursor.zip") -DestinationPath 'C:\Windows\Cursors\Modern Cursor' -Force
-        $Download.DownloadFile($FromPath+"/Apps/ModernCursor.reg", $ToPath+"\Apps\ModernCursor.reg")
+        $Download.DownloadFile($FromPath+"/Configs/FluentCursor.zip", $ToPath+"\Configs\FluentCursor.zip")
+        Expand-Archive -Path ($ToPath+"\Configs\FluentCursor.zip") -DestinationPath 'C:\Windows\Cursors\Fluent Cursor' -Force
+        $Download.DownloadFile($FromPath+"/Apps/FluentCursor.reg", $ToPath+"\Apps\FluentCursor.reg")
         regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ModernCursor.reg
         $TB6.ForeColor = $DefaultForeColor
     } 
