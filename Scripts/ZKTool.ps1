@@ -351,9 +351,9 @@ $TB4.Text                        = "Reduce Icons Spacing"
 $TB5                             = New-Object System.Windows.Forms.Button
 $TB5.Text                        = "Hide Shortcut Arrows"
 
-# Set W11 Cursor
+# Set Fluent Cursor
 $TB6                             = New-Object System.Windows.Forms.Button
-$TB6.Text                        = "Set W11 Cursor"
+$TB6.Text                        = "Set Fluent Cursor"
 
 # Disable Cortana
 $TB7                             = New-Object System.Windows.Forms.Button
@@ -1493,13 +1493,13 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -Value "%windir%\System32\Blank.ico"
         $TB5.ForeColor = $DefaultForeColor
     } 
-    if ($TB6.Image -eq $ActiveButtonColor) { # Set Modern Cursor
+    if ($TB6.Image -eq $ActiveButtonColor) { # Set Fluent Cursor
         $StatusBox.Text = "|Estableciendo Cursor Personalizado...`r`n" + $StatusBox.Text
         $TB6.ForeColor = $LabelColor
         $Download.DownloadFile($FromPath+"/Configs/FluentCursor.zip", $ToPath+"\Configs\FluentCursor.zip")
         Expand-Archive -Path ($ToPath+"\Configs\FluentCursor.zip") -DestinationPath 'C:\Windows\Cursors\Fluent Cursor' -Force
         $Download.DownloadFile($FromPath+"/Apps/FluentCursor.reg", $ToPath+"\Apps\FluentCursor.reg")
-        regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ModernCursor.reg
+        regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\FluentCursor.reg
         $TB6.ForeColor = $DefaultForeColor
     } 
     if ($TB7.Image -eq $ActiveButtonColor) { # Disable Cortana
