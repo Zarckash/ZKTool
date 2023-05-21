@@ -1663,10 +1663,10 @@ $StartScript.Add_Click({
         &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\HEVC.appx"); Add-AppxPackage ($ToPath+"\Apps\HEIF.appx")}
         $Download.DownloadFile($FromPath+"/Apps/ffmpeg.exe", "$env:ProgramFiles\ZKTool\ffmpeg.exe")
         New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-        New-Item -Path "HKCR:\Directory\Background\shell\" -Name "Compress FFMPEG" | Out-Null
-        New-Item -Path "HKCR:\Directory\Background\shell\Compress FFMPEG\" -Name "command" | Out-Null
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Compress FFMPEG\" -Name "Icon" -Value "C:\Program Files\ZKTool\ffmpeg.exe,0"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Compress FFMPEG\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ffmpeg.exe"
+        New-Item -Path "HKCR:\Directory\Background\shell\" -Name "Compress" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\Compress\" -Name "command" | Out-Null
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Compress\" -Name "Icon" -Value "C:\Program Files\ZKTool\ffmpeg.exe,0"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Compress\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ffmpeg.exe"
         Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool\ffmpeg.exe"
         $MTB4.ForeColor = $DefaultForeColor
     }  
