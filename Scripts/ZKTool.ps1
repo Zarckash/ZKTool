@@ -549,9 +549,9 @@ $HB1                             = New-Object System.Windows.Forms.Button
 $HB1.Text                        = "Game Settings"
 $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
 
-# Windows 11 Iso
+# Experimental
 $HB2                             = New-Object System.Windows.Forms.Button
-$HB2.Text                        = "Windows 11"
+$HB2.Text                        = "Experimental"
 $HB2.Location                    = New-Object System.Drawing.Point(240,$Position)
 
 # Wallpaper Engine Tweak
@@ -1731,7 +1731,7 @@ $StartScript.Add_Click({
     if ($MTB13.Image -eq $ActiveButtonColor) { # Set PageFile Size
         $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1mb
         if ($RamCapacity -le 17000) {
-            $RamCapacity = $RamCapacity/2
+            #$RamCapacity = $RamCapacity/2
             $StatusBox.Text = "|Estableciendo El Tamaño Del Archivo De Paginacion En $RamCapacity MB...`r`n" + $StatusBox.Text
             $MTB13.ForeColor = $LabelColor
             $PageFile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
@@ -1783,10 +1783,15 @@ $StartScript.Add_Click({
         iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
         $HB1.ForeColor = $DefaultForeColor
     } 
-    if ($HB2.Image -eq $ActiveButtonColor) { # Windows 11 Iso
-        $StatusBox.Text = "|Descargando Windows 11...`r`n" + $StatusBox.Text
+    if ($HB2.Image -eq $ActiveButtonColor) { # Experimental
+        $StatusBox.Text = "|Experimental Tweaks...`r`n" + $StatusBox.Text
         $HB2.ForeColor = $LabelColor
-        Start-Process "http://zktoolip.ddns.net/files/Windows11.iso"
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
+        $Download.DownloadFile($FromPath+"/Apps/ProfileInspector.exe", $ToPath+"\Apps\ProfileInspector.exe")
+        $Download.DownloadFile($FromPath+"/Configs/NvidiaProfilesExperimental.nip", $ToPath+"\Configs\NvidiaProfilesExperimental.nip")
+        Start-Process ($ToPath+"\Apps\ProfileInspector.exe")($ToPath+"\Configs\NvidiaProfilesExperimental.nip")
+        Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse | Out-File $LogPath -Encoding UTF8 -Append
+        Remove-Item -Path "C:\Windows\System32\DriverStore\FileRepository\NvTelemetry64.dll" | Out-File $LogPath -Encoding UTF8 -Append
         $HB2.ForeColor = $DefaultForeColor
     }   
     if ($HB3.Image -eq $ActiveButtonColor) { # Wallpaper Engine Tweak
