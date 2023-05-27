@@ -181,7 +181,7 @@ $Accept.Add_Click({
     Remove-NetIPAddress -InterfaceAlias $Interface -Confirm:$False
     Remove-NetRoute -InterfaceAlias $Interface
     New-NetIPAddress -InterfaceAlias $Interface -AddressFamily IPv4 $IP -PrefixLength 24 -DefaultGateway $Gateway | Out-Null
-    Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses 8.8.8.8, $Gateway
+    Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses 1.1.1.1, 1.0.0.1
     Disable-NetAdapter -Name $Interface -Confirm:$False
     Enable-NetAdapter -Name $Interface -Confirm:$False
     Start-Sleep 5
