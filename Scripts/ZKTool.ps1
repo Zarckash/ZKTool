@@ -1791,7 +1791,17 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Configs/NvidiaProfilesExperimental.nip", $ToPath+"\Configs\NvidiaProfilesExperimental.nip")
         Start-Process ($ToPath+"\Apps\ProfileInspector.exe")($ToPath+"\Configs\NvidiaProfilesExperimental.nip")
         Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse | Out-File $LogPath -Encoding UTF8 -Append
-        Remove-Item -Path "C:\Windows\System32\DriverStore\FileRepository\NvTelemetry64.dll" | Out-File $LogPath -Encoding UTF8 -Append
+        Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "DoubleClickSpeed" -Value 200
+        Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "KeyboardDelay" -Value 0
+        New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\" -Name "Parameters" | Out-Null
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" -Name "MouseDataQueueSize" -Type DWord -Value 20
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters" -Name "KeyboardDataQueueSize" -Type DWord -Value 20
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" -Name "Win32PrioritySeparation" -Type DWord -Value 42
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\" -Name "csrss.exe" | Out-Null
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\" -Name "PerfOptions" | Out-Null
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" -Name "CpuPriorityClass" -Type DWord -Value 4
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" -Name "IoPriority" -Type DWord -Value 3
         $HB2.ForeColor = $DefaultForeColor
     }   
     if ($HB3.Image -eq $ActiveButtonColor) { # Wallpaper Engine Tweak
