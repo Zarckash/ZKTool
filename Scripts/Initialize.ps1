@@ -41,13 +41,11 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 
 # Check Winget
 Write-Host "`r`nComprobando Winget..."
-if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsBuildNumber) -lt 22000)) {
-    if (!(Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe)) {
-        Write-Host "    Instalando Winget..."
-        Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
-        $nid = (Get-Process AppInstaller).Id
-        Wait-Process -Id $nid
-    }
+if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsBuildNumber) -eq "Windows 11")) {
+    Write-Host "    Instalando Winget..."
+    Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
+    $WaitFor = (Get-Process AppInstaller).Id
+    Wait-Process -Id $WaitFor
 }
 
 Write-Host "`r`n        ###################" -ForegroundColor Green
