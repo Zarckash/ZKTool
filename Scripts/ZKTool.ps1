@@ -19,13 +19,13 @@ New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory
 Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
 Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ -Force
 
-$VersionFile = 2.1
+$VersionFile = 2.2
 
 # Update To Last Version
 if (!(Test-Path "$env:ProgramFiles\ZKTool\$VersionFile")) {
     New-Item -Path $env:ProgramFiles\ZKTool\$VersionFile | Out-File $LogPath -Encoding UTF8 -Append
     (Get-Item -Path $env:ProgramFiles\ZKTool\$VersionFile).Attributes += "Hidden"
-    Remove-Item -Path $env:ProgramFiles\ZKTool\2.0 -Force | Out-Null
+    Remove-Item -Path $env:ProgramFiles\ZKTool\2.1 -Force | Out-Null
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
         Write-Host "Actualizando ZKTool App..."
@@ -751,7 +751,13 @@ $StartScript.Add_Click({
         $SB8.ForeColor = $LabelColor
         #winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Logitech.GHUB | Out-File $LogPath -Encoding UTF8 -Append
         $Download.DownloadFile($FromPath+"/Apps/LogitechOMM.exe", $ToPath+"\Apps\LogitechOMM.exe")
-        Start-Process ($ToPath+"\Apps\LogitechOMM.exe")
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+        if ((Test-Path -Path "HKCR:\Directory\Background\shell\ZKTool\shell")) {
+            Move-Item -Path ($ToPath+"\Apps\LogitechOMM.exe") -Destination "C:\Program Files\ZKTool\LogitechOMM.exe"
+            Start-Process "C:\Program Files\ZKTool\LogitechOMM.exe"
+        } else {
+            Start-Process ($ToPath+"\Apps\LogitechOMM.exe")
+        }
         $SB8.ForeColor = $DefaultForeColor
     }
     if ($SB9.Image -eq $ActiveButtonColor) { # Razer Synapse
@@ -1786,12 +1792,16 @@ $StartScript.Add_Click({
     if ($HB2.Image -eq $ActiveButtonColor) { # Experimental
         $StatusBox.Text = "|Experimental Tweaks...`r`n" + $StatusBox.Text
         $HB2.ForeColor = $LabelColor
+
+        # Nvidia Drivers
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
         $Download.DownloadFile($FromPath+"/Apps/ProfileInspector.exe", $ToPath+"\Apps\ProfileInspector.exe")
         $Download.DownloadFile($FromPath+"/Configs/NvidiaProfilesExperimental.nip", $ToPath+"\Configs\NvidiaProfilesExperimental.nip")
         Start-Process ($ToPath+"\Apps\ProfileInspector.exe")($ToPath+"\Configs\NvidiaProfilesExperimental.nip")
         Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse | Out-File $LogPath -Encoding UTF8 -Append
         Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item | Out-File $LogPath -Encoding UTF8 -Append
+
+        # Input Lag
         Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "DoubleClickSpeed" -Value 200
         Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "KeyboardDelay" -Value 0
         New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\" -Name "Parameters" | Out-Null
@@ -1802,6 +1812,33 @@ $StartScript.Add_Click({
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\" -Name "PerfOptions" | Out-Null
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" -Name "CpuPriorityClass" -Type DWord -Value 4
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" -Name "IoPriority" -Type DWord -Value 3
+
+        # Context Menu Bufferbloat
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Subcommands" -Value ""
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "shell" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "01App" | Out-Null
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0"
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "MUIVerb" -Value "App"
+            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "command" | Out-Null
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\01App\command" -Name "(default)" -Value "C:\Program Files\ZKTool\ZKTool.exe"
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "02BufferbloatFixed" | Out-Null
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02BufferbloatFixed" -Name "Icon" -Value "inetcpl.cpl,20"
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02BufferbloatFixed" -Name "MUIVerb" -Value "Bufferbloat Fixed"
+            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02BufferbloatFixed" -Name "command" | Out-Null
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\02BufferbloatFixed\command" -Name "(default)" -Value 'powershell Start-Process powershell -WindowStyle Hidden -Verb RunAs {netsh int tcp set global autotuninglevel=disabled;netsh int ipv4 set subinterface Ethernet mtu=850 store=persistent;Disable-NetAdapter -Name Ethernet -Confirm:$False;Enable-NetAdapter -Name Ethernet -Confirm:$False}"'
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03BufferbloatDefault" | Out-Null
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatDefault" -Name "Icon" -Value "inetcpl.cpl,21"
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatDefault" -Name "MUIVerb" -Value "Bufferbloat Default"
+            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatDefault" -Name "command" | Out-Null
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatDefault\command" -Name "(default)" -Value 'powershell Start-Process powershell -WindowStyle Hidden -Verb RunAs {netsh int tcp set global autotuninglevel=normal;netsh int ipv4 set subinterface Ethernet mtu=1500 store=persistent;Disable-NetAdapter -Name Ethernet -Confirm:$False;Enable-NetAdapter -Name Ethernet -Confirm:$False}"'
+
+        # Context Menu LogitechOMM
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "021LogitechOMM" | Out-Null
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\021LogitechOMM" -Name "Icon" -Value "C:\Program Files\ZKTool\LogitechOMM.exe,0"
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\021LogitechOMM" -Name "MUIVerb" -Value "Logitech OMM"
+            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\021LogitechOMM" -Name "command" | Out-Null
+                Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\021LogitechOMM\command" -Name "(default)" -Value "C:\Program Files\ZKTool\LogitechOMM.exe"
         $HB2.ForeColor = $DefaultForeColor
     }   
     if ($HB3.Image -eq $ActiveButtonColor) { # Wallpaper Engine Tweak
