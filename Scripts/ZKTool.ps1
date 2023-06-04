@@ -1578,7 +1578,7 @@ $StartScript.Add_Click({
         $TB10.ForeColor = $LabelColor
         
         # Enable App Submenu
-        $Download.DownloadFile($FromPath+"/Apps/ContextMenuTweaks.zip", $ToPath+"Apps\ContextMenuTweaks.zip")
+        $Download.DownloadFile($FromPath+"/Apps/ContextMenuTweaks.zip", $ToPath+"\Apps\ContextMenuTweaks.zip")
         Expand-Archive -Path ($ToPath+"\Apps\ContextMenuTweaks.zip") -DestinationPath $AppsPath -Force
         Add-MpPreference -ExclusionPath ($AppsPath+"\CleanFiles.exe")
         New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
