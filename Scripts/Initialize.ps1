@@ -41,7 +41,7 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 
 # Check Winget
 Write-Host "`r`nComprobando Winget..."
-if (!((Get-ComputerInfo | Select-Object -ExpandProperty OsBuildNumber) -eq "Windows 11")) {
+if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10,10)) -eq "Windows 11")) {
     Write-Host "    Instalando Winget..."
     Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
     $WaitFor = (Get-Process AppInstaller).Id
