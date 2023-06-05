@@ -1850,7 +1850,7 @@ $StartScript.Add_Click({
     if ($HB3.Image -eq $ActiveButtonColor) { # Context Menu Handler
         $StatusBox.Text = "|Abriendo Context Menu Handler...`r`n" + $StatusBox.Text
         $HB3.ForeColor = $LabelColor
-        iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ChooseIp.ps1")))
+        iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ContextMenuHandler.ps1")))
         $HB3.ForeColor = $DefaultForeColor
     }   
     if ($HB4.Image -eq $ActiveButtonColor) { # Software RL
