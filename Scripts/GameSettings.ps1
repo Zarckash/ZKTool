@@ -158,28 +158,28 @@ $R1B1.Add_Click({
     $CodPath = $DocumentsPath+"\Call of Duty\players\" 
     $CodIDPath = ($CodPath + (Get-ChildItem $CodPath -Directory -Name 765*))
     Move-Item -Path ($ToPath+"\Configs\ModernWarfareII\settings.3.local.cod22.cst") -Destination $CodIDPath -Force
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 # Player Unknown Battlegrounds
 $R1B2.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/Pubg.zip", $ToPath+"\Configs\Pubg.zip")
     Expand-Archive -Path ($ToPath+"\Configs\Pubg.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 # Rogue Company
 $R1B3.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/RogueCompany.zip", $ToPath+"\Configs\RogueCompany.zip")
     Expand-Archive -Path ($ToPath+"\Configs\RogueCompany.zip") -DestinationPath "$env:userprofile\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 # Battlefield 2042
 $R1B4.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/Battlefield2042.zip", $ToPath+"\Configs\Battlefield2042.zip")
     Expand-Archive -Path ($ToPath+"\Configs\Battlefield2042.zip") -DestinationPath ($DocumentsPath+"\Battlefield 2042\settings") -Force
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 # CSGO
@@ -187,7 +187,7 @@ $R2B1.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/CSGO.zip", $ToPath+"\Configs\CSGO.zip")
     Expand-Archive -Path ($ToPath+"\Configs\CSGO.zip") -DestinationPath ($ToPath+"\Configs\") -Force
     Get-ChildItem "C:\Program Files (x86)\Steam\userdata" | Foreach-Object {Copy-Item ($ToPath+"\Configs\730") -Recurse -Destination $_}
-    $StatusBox.Text = "|Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 

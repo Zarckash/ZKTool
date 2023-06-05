@@ -207,7 +207,7 @@ $Cancel.Add_Click({
 
 # Accept Button
 $Accept.Add_Click({
-    $StatusBox.text = "|Creando Entrada En Context Menu...`r`n" + $StatusBox.text
+    $StatusBox.text = "| Creando Entrada En Context Menu...`r`n" + $StatusBox.text
     $Accept.BackColor = $ProcessingColor
     $Path = ($PathBox.Lines)
     $Name = ($NameBox.Lines)

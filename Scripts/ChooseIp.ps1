@@ -175,7 +175,7 @@ $Cancel.Add_Click({
 $Accept.Add_Click({
     $Accept.BackColor = $ProcessingColor
     $IP = ($InputBox.Lines).Substring(0,12)
-    $StatusBox.text = "|Estableciendo IP Estatica A $IP...`r`n" + $StatusBox.text
+    $StatusBox.text = "| Estableciendo IP Estatica A $IP...`r`n" + $StatusBox.text
 
     $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
     Remove-NetIPAddress -InterfaceAlias $Interface -Confirm:$False
