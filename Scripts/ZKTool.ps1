@@ -554,9 +554,9 @@ $HB2                             = New-Object System.Windows.Forms.Button
 $HB2.Text                        = "Experimental"
 $HB2.Location                    = New-Object System.Drawing.Point(240,$Position)
 
-# Wallpaper Engine Tweak
+# Context Menu Handler
 $HB3                             = New-Object System.Windows.Forms.Button
-$HB3.Text                        = "Wallpaper Engine Tweak"
+$HB3.Text                        = "Context Menu Handler"
 $HB3.Location                    = New-Object System.Drawing.Point(470,$Position)
 $Position += 49
 
@@ -1602,12 +1602,12 @@ $StartScript.Add_Click({
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed" -Name "Icon" -Value "inetcpl.cpl,20"
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed" -Name "MUIVerb" -Value "Bufferbloat Fixed"
             New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed" -Name "command" | Out-Null
-                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed\command" -Name "(default)" -Value 'powershell Start-Process powershell -WindowStyle Hidden -Verb RunAs {netsh int tcp set global autotuninglevel=disabled;netsh int ipv4 set subinterface Ethernet mtu=850 store=persistent;Disable-NetAdapter -Name Ethernet -Confirm:$False;Enable-NetAdapter -Name Ethernet -Confirm:$False}"'
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed\command" -Name "(default)" -Value 'powershell Start-Process powershell -WindowStyle Hidden -Verb RunAs {netsh int tcp set global autotuninglevel=disabled;netsh int ipv4 set subinterface Ethernet mtu=850 store=persistent;Disable-NetAdapter -Name Ethernet -Confirm:$False;Enable-NetAdapter -Name Ethernet -Confirm:$False}'
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04BufferbloatDefault" | Out-Null
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault" -Name "Icon" -Value "inetcpl.cpl,21"
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault" -Name "MUIVerb" -Value "Bufferbloat Default"
             New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault" -Name "command" | Out-Null
-                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault\command" -Name "(default)" -Value 'powershell Start-Process powershell -WindowStyle Hidden -Verb RunAs {netsh int tcp set global autotuninglevel=normal;netsh int ipv4 set subinterface Ethernet mtu=1500 store=persistent;Disable-NetAdapter -Name Ethernet -Confirm:$False;Enable-NetAdapter -Name Ethernet -Confirm:$False}"'
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault\command" -Name "(default)" -Value 'powershell Start-Process powershell -WindowStyle Hidden -Verb RunAs {netsh int tcp set global autotuninglevel=normal;netsh int ipv4 set subinterface Ethernet mtu=1500 store=persistent;Disable-NetAdapter -Name Ethernet -Confirm:$False;Enable-NetAdapter -Name Ethernet -Confirm:$False}'
         
         # Clean Standby List Memory
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "05EmptyStandbyList" | Out-Null
@@ -1847,20 +1847,10 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" -Name "IoPriority" -Type DWord -Value 3
         $HB2.ForeColor = $DefaultForeColor
     }   
-    if ($HB3.Image -eq $ActiveButtonColor) { # Wallpaper Engine Tweak
-        $StatusBox.Text = "|Aplicando Configuracion De Wallpaper Engine...`r`n" + $StatusBox.Text
+    if ($HB3.Image -eq $ActiveButtonColor) { # Context Menu Handler
+        $StatusBox.Text = "|Abriendo Context Menu Handler...`r`n" + $StatusBox.Text
         $HB3.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/WallpaperEngine.zip", $ToPath+"\Apps\WallpaperEngine.zip")
-        Expand-Archive -Path ($ToPath+"\Apps\WallpaperEngine.zip") -DestinationPath ($ToPath+"\Apps\WallpaperEngine") -Force
-        Move-Item -Path ($ToPath+"\Apps\WallpaperEngine\NextWallpaper.exe") -Destination "$env:windir\System32\NextWallpaper.exe"
-        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath -Encoding UTF8 -Append
-        New-Item -Path "HKCR:\Directory\Background\shell\" -Name "Siguiente Wallpaper"
-        New-Item -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\" -Name "command"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\" -Name "Icon" -Value "NextWallpaper.exe,0"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\Siguiente Wallpaper\command\" -Name "(default)" -Value "NextWallpaper.exe"
-        Move-Item -Path ($ToPath+"\Apps\WallpaperEngine\Wallpaper Engine.lnk") -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
-        Set-ItemProperty -Path "HKCU:\Software\WallpaperEngine" -Name "hideTrayIcon" -Type DWord -Value 1
-        Add-MpPreference -ExclusionPath "$env:windir\System32\NextWallpaper.exe"
+        iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ChooseIp.ps1")))
         $HB3.ForeColor = $DefaultForeColor
     }   
     if ($HB4.Image -eq $ActiveButtonColor) { # Software RL
