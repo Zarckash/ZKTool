@@ -27,8 +27,6 @@ $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $False
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(($ImageFolder +"ZKLogo.ico"))
 
-$ImageFolder = "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\"
-
 # Title Label
 $TweaksLabel                     = New-Object System.Windows.Forms.Label
 $TweaksLabel.Text                = "C O N T E X T    M E N U    H A N D L E R"
