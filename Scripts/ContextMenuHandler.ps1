@@ -27,13 +27,7 @@ $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $False
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(($ImageFolder +"ZKLogo.ico"))
 
-$LabelColor = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
-$DefaultForeColor = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
-$PanelBackColor = [System.Drawing.ColorTranslator]::FromHtml("#3D4351")
-$ActiveButtonColor = [System.Drawing.Image]::FromFile(($ImageFolder + "ActiveButtonColor.png"))
-$HoverButtonColor = [System.Drawing.Image]::FromFile(($ImageFolder + "HoverButtonColor.png"))
-$ActiveButtonColorBig = [System.Drawing.Image]::FromFile(($ImageFolder + "ActiveButtonColorBig.png"))
-$HoverButtonColorBig = [System.Drawing.Image]::FromFile(($ImageFolder + "HoverButtonColorBig.png"))
+$ImageFolder = "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\"
 
 # Title Label
 $TweaksLabel                     = New-Object System.Windows.Forms.Label
@@ -44,27 +38,28 @@ $TweaksLabel.Location            = New-Object System.Drawing.Point(5,5)
 $TweaksLabel.Font                = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $TweaksLabel.ForeColor           = $LabelColor
 $TweaksLabel.TextAlign           = [System.Drawing.ContentAlignment]::MiddleCenter
-$TweaksLabel.BackgroundImage     = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
+$TweaksLabel.BackgroundImage     = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelCMHBg.png"))
 $Form.Controls.Add($TweaksLabel)
 
 # Path Label
 $PathLabel                       = New-Object System.Windows.Forms.Label
-$PathLabel.Text                  = "Path"
-$PathLabel.Width                 = 105
+$PathLabel.Text                  = "  Path"
+$PathLabel.Width                 = 115
 $PathLabel.Height                = 30
 $PathLabel.Location              = New-Object System.Drawing.Point(5,48)
 $PathLabel.Font                  = New-Object System.Drawing.Font('Segoe UI',15)
 $PathLabel.ForeColor             = $LabelColor
 $PathLabel.TextAlign             = [System.Drawing.ContentAlignment]::MiddleLeft
-$PathLabel.BackgroundImage       = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
+$PathLabel.BackgroundImage       = [System.Drawing.Image]::FromFile(($ImageFolder + "CMHLabelsBg.png"))
 $Form.Controls.Add($PathLabel)
 
 # Path TextBox
 $PathBox                         = New-Object System.Windows.Forms.TextBox
-$PathBox.width                   = 490
+$PathBox.width                   = 480
 $PathBox.height                  = 40
-$PathBox.location                = New-Object System.Drawing.Point(110,48)
+$PathBox.location                = New-Object System.Drawing.Point(120,48)
 $PathBox.Font                    = New-Object System.Drawing.Font('Segoe UI',12)
+$PathBox.Text                    = "HKCR:"
 $PathBox.AcceptsReturn           = $True
 $PathBox.BackColor               = $PanelBackColor
 $PathBox.ForeColor               = $DefaultForeColor
@@ -72,21 +67,21 @@ $Form.Controls.Add($PathBox)
 
 # Name Label
 $NameLabel                       = New-Object System.Windows.Forms.Label
-$NameLabel.Text                  = "Name"
-$NameLabel.Width                 = 105
+$NameLabel.Text                  = "  Name"
+$NameLabel.Width                 = 115
 $NameLabel.Height                = 30
 $NameLabel.Location              = New-Object System.Drawing.Point(5,83)
 $NameLabel.Font                  = New-Object System.Drawing.Font('Segoe UI',15)
 $NameLabel.ForeColor             = $LabelColor
 $NameLabel.TextAlign             = [System.Drawing.ContentAlignment]::MiddleLeft
-$NameLabel.BackgroundImage       = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
+$NameLabel.BackgroundImage       = [System.Drawing.Image]::FromFile(($ImageFolder + "CMHLabelsBg.png"))
 $Form.Controls.Add($NameLabel)
 
 # Name TextBox
 $NameBox                         = New-Object System.Windows.Forms.TextBox
 $NameBox.width                   = 265
 $NameBox.height                  = 40
-$NameBox.location                = New-Object System.Drawing.Point(110,83)
+$NameBox.location                = New-Object System.Drawing.Point(120,83)
 $NameBox.Font                    = New-Object System.Drawing.Font('Segoe UI',12)
 $NameBox.AcceptsReturn           = $True
 $NameBox.BackColor               = $PanelBackColor
@@ -94,45 +89,45 @@ $NameBox.ForeColor               = $DefaultForeColor
 $Form.Controls.Add($NameBox)
 
 # MUIVerb Label
-$MUIVerbLabel                       = New-Object System.Windows.Forms.Label
-$MUIVerbLabel.Text                  = "MUIVerb"
-$MUIVerbLabel.Width                 = 105
-$MUIVerbLabel.Height                = 30
-$MUIVerbLabel.Location              = New-Object System.Drawing.Point(5,118)
-$MUIVerbLabel.Font                  = New-Object System.Drawing.Font('Segoe UI',15)
-$MUIVerbLabel.ForeColor             = $LabelColor
-$MUIVerbLabel.TextAlign             = [System.Drawing.ContentAlignment]::MiddleLeft
-$MUIVerbLabel.BackgroundImage       = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
+$MUIVerbLabel                    = New-Object System.Windows.Forms.Label
+$MUIVerbLabel.Text               = "  MUIVerb"
+$MUIVerbLabel.Width              = 115
+$MUIVerbLabel.Height             = 30
+$MUIVerbLabel.Location           = New-Object System.Drawing.Point(5,118)
+$MUIVerbLabel.Font               = New-Object System.Drawing.Font('Segoe UI',15)
+$MUIVerbLabel.ForeColor          = $LabelColor
+$MUIVerbLabel.TextAlign          = [System.Drawing.ContentAlignment]::MiddleLeft
+$MUIVerbLabel.BackgroundImage    = [System.Drawing.Image]::FromFile(($ImageFolder + "CMHLabelsBg.png"))
 $Form.Controls.Add($MUIVerbLabel)
 
 # MUIVerb TextBox
-$MUIVerbBox                         = New-Object System.Windows.Forms.TextBox
-$MUIVerbBox.width                   = 265
-$MUIVerbBox.height                  = 40
-$MUIVerbBox.location                = New-Object System.Drawing.Point(110,118)
-$MUIVerbBox.Font                    = New-Object System.Drawing.Font('Segoe UI',12)
-$MUIVerbBox.AcceptsReturn           = $True
-$MUIVerbBox.BackColor               = $PanelBackColor
-$MUIVerbBox.ForeColor               = $DefaultForeColor
+$MUIVerbBox                      = New-Object System.Windows.Forms.TextBox
+$MUIVerbBox.width                = 265
+$MUIVerbBox.height               = 40
+$MUIVerbBox.location             = New-Object System.Drawing.Point(120,118)
+$MUIVerbBox.Font                 = New-Object System.Drawing.Font('Segoe UI',12)
+$MUIVerbBox.AcceptsReturn        = $True
+$MUIVerbBox.BackColor            = $PanelBackColor
+$MUIVerbBox.ForeColor            = $DefaultForeColor
 $Form.Controls.Add($MUIVerbBox)
 
 # Icon Label
 $IconLabel                       = New-Object System.Windows.Forms.Label
-$IconLabel.Text                  = "Icon"
-$IconLabel.Width                 = 65
+$IconLabel.Text                  = "  Icon"
+$IconLabel.Width                 = 115
 $IconLabel.Height                = 30
 $IconLabel.Location              = New-Object System.Drawing.Point(5,153)
 $IconLabel.Font                  = New-Object System.Drawing.Font('Segoe UI',15)
 $IconLabel.ForeColor             = $LabelColor
 $IconLabel.TextAlign             = [System.Drawing.ContentAlignment]::MiddleLeft
-$IconLabel.BackgroundImage       = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
+$IconLabel.BackgroundImage       = [System.Drawing.Image]::FromFile(($ImageFolder + "CMHLabelsBg.png"))
 $Form.Controls.Add($IconLabel)
 
 # Icon TextBox
 $IconBox                         = New-Object System.Windows.Forms.TextBox
-$IconBox.width                   = 490
+$IconBox.width                   = 480
 $IconBox.height                  = 40
-$IconBox.location                = New-Object System.Drawing.Point(110,153)
+$IconBox.location                = New-Object System.Drawing.Point(120,153)
 $IconBox.Font                    = New-Object System.Drawing.Font('Segoe UI',12)
 $IconBox.AcceptsReturn           = $True
 $IconBox.BackColor               = $PanelBackColor
@@ -140,26 +135,26 @@ $IconBox.ForeColor               = $DefaultForeColor
 $Form.Controls.Add($IconBox)
 
 # Command Label
-$CommandLabel                      = New-Object System.Windows.Forms.Label
-$CommandLabel.Text                 = "Command"
-$CommandLabel.Width                = 105
-$CommandLabel.Height               = 30
-$CommandLabel.Location             = New-Object System.Drawing.Point(5,188)
-$CommandLabel.Font                 = New-Object System.Drawing.Font('Segoe UI',15)
-$CommandLabel.ForeColor            = $LabelColor
-$CommandLabel.TextAlign            = [System.Drawing.ContentAlignment]::MiddleLeft
-$CommandLabel.BackgroundImage      = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBg.png"))
+$CommandLabel                    = New-Object System.Windows.Forms.Label
+$CommandLabel.Text               = "  Command"
+$CommandLabel.Width              = 115
+$CommandLabel.Height             = 30
+$CommandLabel.Location           = New-Object System.Drawing.Point(5,188)
+$CommandLabel.Font               = New-Object System.Drawing.Font('Segoe UI',15)
+$CommandLabel.ForeColor          = $LabelColor
+$CommandLabel.TextAlign          = [System.Drawing.ContentAlignment]::MiddleLeft
+$CommandLabel.BackgroundImage    = [System.Drawing.Image]::FromFile(($ImageFolder + "CMHLabelsBg.png"))
 $Form.Controls.Add($CommandLabel)
 
 # Command TextBox
-$CommandBox                        = New-Object System.Windows.Forms.TextBox
-$CommandBox.width                  = 490
-$CommandBox.height                 = 40
-$CommandBox.location               = New-Object System.Drawing.Point(110,188)
-$CommandBox.Font                   = New-Object System.Drawing.Font('Segoe UI',12)
-$CommandBox.AcceptsReturn          = $True
-$CommandBox.BackColor              = $PanelBackColor
-$CommandBox.ForeColor              = $DefaultForeColor
+$CommandBox                      = New-Object System.Windows.Forms.TextBox
+$CommandBox.width                = 480
+$CommandBox.height               = 40
+$CommandBox.location             = New-Object System.Drawing.Point(120,188)
+$CommandBox.Font                 = New-Object System.Drawing.Font('Segoe UI',12)
+$CommandBox.AcceptsReturn        = $True
+$CommandBox.BackColor            = $PanelBackColor
+$CommandBox.ForeColor            = $DefaultForeColor
 $Form.Controls.Add($CommandBox)
 
 # Buttons Panel
@@ -167,7 +162,6 @@ $ButtonsPanel                    = New-Object System.Windows.Forms.Panel
 $ButtonsPanel.height             = 45
 $ButtonsPanel.width              = 255 - 2
 $ButtonsPanel.location           = New-Object System.Drawing.Point(178,218)
-$ButtonsPanel.BackgroundImage    = [System.Drawing.Image]::FromFile(($ImageFolder + "ChooseIPPanelBg.png"))
 $Form.Controls.Add($ButtonsPanel)
 
 # Cancel Button
@@ -189,6 +183,25 @@ $Accept.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolde
 $Accept.ForeColor                = $LabelColor
 $ButtonsPanel.Controls.Add($Accept)
 
+$Buttons = @($Cancel,$Accept)
+foreach ($Button in $Buttons) {
+    $Button.Font                 = New-Object System.Drawing.Font('Segoe UI',13)
+    $Button.FlatStyle            = "Flat"
+    $Button.FlatAppearance.BorderSize = 0
+    $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
+    $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
+    $Button.BackColor = $PanelBackColor
+    $Button.Image = $DefaultButtonColor
+
+    $Button.Add_MouseEnter({
+        $this.Image = [System.Drawing.Image]::FromFile(($ImageFolder + "HoverCancelAcceptButton.png"))
+    })
+
+    $Button.Add_MouseLeave({
+        $this.Image = $None
+    })
+}
+
 # Cancel Button
 $Cancel.Add_Click({
     $Form.Close()
@@ -207,7 +220,7 @@ $Accept.Add_Click({
 
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 
-    if (($PathBox.Text -eq "") -or ($NameBox.Text -eq "")) {
+    if (($PathBox.Text -eq "HKCR:") -or ($NameBox.Text -eq "")) {
         [System.Windows.Forms.MessageBox]::Show("Path and Name are required", "Missing Values", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Warning)
     } else {
         New-Item -Path "$Path" -Name "$Name" | Out-Null
