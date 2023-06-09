@@ -1177,6 +1177,16 @@ $StartScript.Add_Click({
         # Keep Windows From Creating DumpStack.log File
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
 
+        # Hide PerfLogs Folder
+        if (Test-Path -Path "C:\PerfLogs") {
+            $File = Get-Item "C:\PerfLogs"
+            $File.Attributes = 'Hidden'
+        } else {
+            New-Item "C:\PerfLogs" -ItemType Directory
+            $File = Get-Item "C:\PerfLogs"
+            $File.Attributes = 'Hidden'
+        }
+
         # Stop Microsoft Store From Updating Apps Automatically
         $StatusBox.Text = "| Desactivando Actualizaciones Automaticas De Microsoft Store...`r`n" + $StatusBox.Text
         New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "WindowsStore"
@@ -1398,49 +1408,56 @@ $StartScript.Add_Click({
         # Uninstall Microsoft Bloatware
         $StatusBox.Text = "| Desinstalando Microsoft Bloatware...`r`n" + $StatusBox.Text
         &{ $ProgressPreference = 'SilentlyContinue'
-        Get-AppxPackage -All "Microsoft.3DBuilder" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.AppConnector" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.BingFinance" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.BingNews" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.BingSports" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.BingTranslator" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.BingWeather" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.CommsPhone" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.ConnectivityStore" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.GetHelp" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.Getstarted" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.Messaging" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.Microsoft3DViewer" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.MicrosoftPowerBIForWindows" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.MicrosoftStickyNotes" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.NetworkSpeedTest" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.Office.OneNote" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.Office.Sway" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.OneConnect" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.People" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.Print3D" | Remove-AppxPackage
-        Get-AppxPackage -All "Microsoft.Paint" | Remove-AppxPackage  
-        Get-AppxPackage -All "Microsoft.Wallet" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.WindowsAlarms" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.WindowsCamera" | Remove-AppxPackage 
-        Get-AppxPackage -All "microsoft.windowscommunicationsapps" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.WindowsFeedbackHub" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.WindowsMaps" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.WindowsPhone" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.WindowsSoundRecorder" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.YourPhone" | Remove-AppxPackage 
-        Get-AppxPackage -All "MicrosoftWindows.Client.WebExperience" | Remove-AppxPackage 
-        Get-AppxPackage -All "MicrosoftTeams" | Remove-AppxPackage 
-        Get-AppxPackage -All "Microsoft.MSPaint" | Remove-AppxPackage
-        Get-AppxPackage -All "Microsoft.MixedReality.Portal" | Remove-AppxPackage
-        Get-AppxPackage -All "Clipchamp.Clipchamp" | Remove-AppxPackage
-        Get-AppxPackage -All "Microsoft.PowerAutomateDesktop" | Remove-AppxPackage
-        Get-AppxPackage -All "Microsoft.Todos" | Remove-AppxPackage
-        Get-AppxPackage -All "Microsoft.ZuneMusic" | Remove-AppxPackage
-        Get-AppxPackage -All "MicrosoftCorporationII.MicrosoftFamily" | Remove-AppxPackage
-        Get-AppxPackage -All "Disney.37853FC22B2CE" | Remove-AppxPackage
+        $bloatware = @(
+            "Microsoft.3DBuilder"
+            "Microsoft.AppConnector"
+            "Microsoft.BingFinance"
+            "Microsoft.BingNews"
+            "Microsoft.BingSports"
+            "Microsoft.BingTranslator"
+            "Microsoft.BingWeather"
+            "Microsoft.CommsPhone"
+            "Microsoft.ConnectivityStore"
+            "Microsoft.GetHelp"
+            "Microsoft.Getstarted"
+            "Microsoft.Messaging"
+            "Microsoft.Microsoft3DViewer"
+            "Microsoft.MicrosoftPowerBIForWindows"
+            "Microsoft.MicrosoftSolitaireCollection"
+            "Microsoft.MicrosoftStickyNotes"
+            "Microsoft.NetworkSpeedTest"
+            "Microsoft.MicrosoftOfficeHub"
+            "Microsoft.Office.OneNote"
+            "Microsoft.Office.Sway"
+            "Microsoft.OneConnect"
+            "Microsoft.People"
+            "Microsoft.Print3D"
+            "Microsoft.Paint"
+            "Microsoft.Wallet"
+            "Microsoft.WindowsAlarms"
+            "Microsoft.WindowsCamera"
+            "microsoft.windowscommunicationsapps"
+            "Microsoft.WindowsFeedbackHub"
+            "Microsoft.WindowsMaps"
+            "Microsoft.WindowsPhone"
+            "Microsoft.WindowsSoundRecorder"
+            "Microsoft.YourPhone"
+            "MicrosoftWindows.Client.WebExperience"
+            "MicrosoftTeams"
+            "Microsoft.MSPaint"
+            "Microsoft.MixedReality.Portal"
+            "Clipchamp.Clipchamp"
+            "Microsoft.PowerAutomateDesktop"
+            "Microsoft.Todos"
+            "Microsoft.ZuneMusic"
+            "MicrosoftCorporationII.MicrosoftFamily"
+            "Disney.37853FC22B2CE"
+        )
+        
+        foreach ($app in $bloatware) {
+            Get-AppxPackage -Name $app | Remove-AppxPackage
+        }
+
         }
 
         # Clean "New" In Context Menu
@@ -1703,6 +1720,7 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Apps/HEVC.appx", $ToPath+"\Apps\HEVC.appx")
         $Download.DownloadFile($FromPath+"/Apps/HEIF.appx", $ToPath+"\Apps\HEIF.appx")
         &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\HEVC.appx"); Add-AppxPackage ($ToPath+"\Apps\HEIF.appx")}
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File $LogPath -Encoding UTF8 -Append
         $Download.DownloadFile($FromPath+"/Apps/ffmpeg.exe", "$env:ProgramFiles\ZKTool\Apps\ffmpeg.exe")
         New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
         New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Compress" | Out-Null
@@ -1791,6 +1809,7 @@ $StartScript.Add_Click({
         Expand-Archive -Path ($ToPath+"\Configs\MSIAfterburner.zip") -DestinationPath ($ToPath+"\Configs\MSIAfterburner") -Force
         Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\MSIAfterburner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
         if (Test-Path -Path 'C:\Program Files (x86)\RivaTuner Statistics Server') {
+            New-Item -Path 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -ItemType Directory | Out-Null
             Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\RivaTuner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -Force
             Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\RivaTuner Settings\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates' -Force
         }
