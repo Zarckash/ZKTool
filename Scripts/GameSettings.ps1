@@ -78,7 +78,7 @@ $R2B1.Text                       = "CSGO"
 
 # Game
 $R2B2                            = New-Object System.Windows.Forms.Button
-$R2B2.Text                       = "2"
+$R2B2.Text                       = "Apex Legends"
 
 # Game
 $R2B3                            = New-Object System.Windows.Forms.Button
@@ -187,6 +187,13 @@ $R2B1.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/CSGO.zip", $ToPath+"\Configs\CSGO.zip")
     Expand-Archive -Path ($ToPath+"\Configs\CSGO.zip") -DestinationPath ($ToPath+"\Configs\") -Force
     Get-ChildItem "C:\Program Files (x86)\Steam\userdata" | Foreach-Object {Copy-Item ($ToPath+"\Configs\730") -Recurse -Destination $_}
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+})
+
+# Apex
+$R2B2.Add_Click({
+    $Download.DownloadFile($FromPath+"/Configs/CSGO.zip", $ToPath+"\Configs\CSGO.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\CSGO.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
