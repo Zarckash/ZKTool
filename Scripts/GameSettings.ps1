@@ -186,14 +186,14 @@ $R1B4.Add_Click({
 $R2B1.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/CSGO.zip", $ToPath+"\Configs\CSGO.zip")
     Expand-Archive -Path ($ToPath+"\Configs\CSGO.zip") -DestinationPath ($ToPath+"\Configs\") -Force
-    Get-ChildItem "C:\Program Files (x86)\Steam\userdata" | Foreach-Object {Copy-Item ($ToPath+"\Configs\730") -Recurse -Destination $_}
+    Get-ChildItem "C:\Program Files (x86)\Steam\userdata" | Foreach-Object {Copy-Item ($ToPath+"\Configs\730") -Recurse -Destination $_ -Force}
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
 # Apex
 $R2B2.Add_Click({
-    $Download.DownloadFile($FromPath+"/Configs/CSGO.zip", $ToPath+"\Configs\CSGO.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\CSGO.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
+    $Download.DownloadFile($FromPath+"/Configs/Apex.zip", $ToPath+"\Configs\Apex.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
