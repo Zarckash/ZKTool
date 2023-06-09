@@ -795,11 +795,12 @@ $StartScript.Add_Click({
             $file = 'http://zktoolip.ddns.net/files/AdobePhotoshop.iso'
             $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePhotoshop.iso'
             Write-Host "Descargando Adobe Photoshop..."
-            (New-Object Net.WebClient).DownloadFile($file, $filepath)
             if (Test-Path -Path "H:\Apache24\htdocs\files\AdobePhotoshop.iso") {
                 Write-Host "Copiando Archivos..."
                 $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
                 Copy-Item "H:\Apache24\htdocs\files\AdobePhotoshop.iso"  $destination
+            } else {
+                (New-Object Net.WebClient).DownloadFile($file, $filepath)
             }
             $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
             $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
@@ -815,11 +816,12 @@ $StartScript.Add_Click({
             $file = 'http://zktoolip.ddns.net/files/AdobePremiere.iso'
             $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePremiere.iso'
             Write-Host "Descargando Adobe Premiere..."
-            (New-Object Net.WebClient).DownloadFile($file, $filepath)
             if (Test-Path -Path "H:\Apache24\htdocs\files\AdobePremiere.iso") {
                 Write-Host "Copiando Archivos..."
                 $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
                 Copy-Item "H:\Apache24\htdocs\files\AdobePremiere.iso"  $destination
+            } else {
+                (New-Object Net.WebClient).DownloadFile($file, $filepath)
             }
             $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
             $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
@@ -835,11 +837,12 @@ $StartScript.Add_Click({
             $file = 'http://zktoolip.ddns.net/files/AdobeAfterEffects.iso'
             $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobeAfterEffects.iso'
             Write-Host "Descargando Adobe After Effects..."
-            (New-Object Net.WebClient).DownloadFile($file, $filepath)
             if (Test-Path -Path "H:\Apache24\htdocs\files\AdobeAfterEffects.iso") {
                 Write-Host "Copiando Archivos..."
                 $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
                 Copy-Item "H:\Apache24\htdocs\files\AdobeAfterEffects.iso"  $destination
+            } else {
+                (New-Object Net.WebClient).DownloadFile($file, $filepath)
             }
             $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
             $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
@@ -1786,10 +1789,10 @@ $StartScript.Add_Click({
         $MTB14.ForeColor = $LabelColor
         $Download.DownloadFile($FromPath+"/Configs/MSIAfterburner.zip", $ToPath+"\Configs\MSIAfterburner.zip")
         Expand-Archive -Path ($ToPath+"\Configs\MSIAfterburner.zip") -DestinationPath ($ToPath+"\Configs\MSIAfterburner") -Force
-        Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\MSIAfterburner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\MSI Afterburner\Profiles'
+        Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\MSIAfterburner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
         if (Test-Path -Path 'C:\Program Files (x86)\RivaTuner Statistics Server') {
-            Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\RivaTuner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles'
-            Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\RivaTuner Settings\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates'
+            Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\RivaTuner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -Force
+            Move-Item -Path ($ToPath+"\Configs\MSIAfterburner\RivaTuner Settings\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates' -Force
         }
         $MTB14.ForeColor = $DefaultForeColor
     }
