@@ -1479,6 +1479,9 @@ $StartScript.Add_Click({
     
         # Uninstall Windows Optional Features
         &{ $ProgressPreference = 'SilentlyContinue'
+        $StatusBox.Text = "| Instalando .NET Framework 3.5...`r`n" + $StatusBox.Text
+        Add-WindowsCapability -Online -Name NetFx3~~~~ -Source C:\sources\sxs | Out-File $LogPath -Encoding UTF8 -Append
+
         $StatusBox.Text = "| Desinstalando Servidor OpenSSH...`r`n" + $StatusBox.Text
         Get-WindowsPackage -Online | Where PackageName -like *SSH* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
         $StatusBox.Text = "| Desinstalando Rostro De Windows Hello...`r`n" + $StatusBox.Text
