@@ -1179,14 +1179,11 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
 
         # Hide PerfLogs Folder
-        if (Test-Path -Path "C:\PerfLogs") {
-            $File = Get-Item "C:\PerfLogs"
-            $File.Attributes = 'Hidden'
-        } else {
+        if (!(Test-Path -Path "C:\PerfLogs")) {
             New-Item "C:\PerfLogs" -ItemType Directory
-            $File = Get-Item "C:\PerfLogs"
-            $File.Attributes = 'Hidden'
         }
+        $File = Get-Item "C:\PerfLogs"
+        $File.Attributes = 'Hidden'
 
         # Stop Microsoft Store From Updating Apps Automatically
         $StatusBox.Text = "| Desactivando Actualizaciones Automaticas De Microsoft Store...`r`n" + $StatusBox.Text
@@ -1640,12 +1637,12 @@ $StartScript.Add_Click({
             New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05EmptyStandbyList" -Name "command" | Out-Null
                 Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05EmptyStandbyList\command" -Name "(default)" -Value "C:\Program Files\ZKTool\Apps\EmptyStandbyList.exe"
 
-        # Clan Files
+        # Clean Files
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "06CleanFiles" | Out-Null
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "Icon" -Value "SHELL32.dll,32"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "MUIVerb" -Value "Clean Files"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "command" | Out-Null
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles\command" -Name "(default)" -Value "C:\Program Files\ZKTool\Apps\CleanFiles.exe"
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "Icon" -Value "SHELL32.dll,32"
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "MUIVerb" -Value "Clean Files"
+            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "command" | Out-Null
+                Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles\command" -Name "(default)" -Value "C:\Program Files\ZKTool\Apps\CleanFiles.exe"
         $TB10.ForeColor = $DefaultForeColor
     } 
     if ($TB11.Image -eq $ActiveButtonColor) { # VisualFX Fix
@@ -1903,8 +1900,11 @@ $StartScript.Add_Click({
     if ($HB6.Image -eq $ActiveButtonColor) { # Z390 Lan Drivers
         $StatusBox.Text = "| Instalando Z390 Lan Drivers...`r`n" + $StatusBox.Text
         $HB6.ForeColor = $LabelColor
-        $Download.DownloadFile($FromPath+"/Apps/LanDrivers.exe", $ToPath+"\Apps\LanDrivers.exe")
-        Start-Process ($ToPath+"\Apps\LanDrivers.exe")
+        $Download.DownloadFile($FromPath+"/Apps/LanDrivers.zip", $ToPath+"\Apps\LanDrivers.zip")
+        Expand-Archive -Path ($ToPath+"\Apps\LanDrivers.zip") -DestinationPath ($ToPath+"\Apps\LanDrivers") -Force
+        pnputil /add-driver ($ToPath+"\Apps\LanDrivers\e1d68x64.inf") /install
+        $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where DeviceName -eq "Intel(R) Ethernet Connection (7) I219-V" | Select-Object -ExpandProperty InfName
+        pnputil /delete-driver $OldDriver /uninstall /force
         $HB6.ForeColor = $DefaultForeColor
     }
     if ($MTB8.Image -eq $ActiveButtonColor) { # Static IP + DNS
