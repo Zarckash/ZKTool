@@ -163,8 +163,8 @@ $R1B1.Add_Click({
 
 # Player Unknown Battlegrounds
 $R1B2.Add_Click({
-    $Download.DownloadFile($FromPath+"/Configs/Pubg.zip", $ToPath+"\Configs\Pubg.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\Pubg.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
+    $Download.DownloadFile($FromPath+"/Configs/PUBG.zip", $ToPath+"\Configs\PUBG.zip")
+    Expand-Archive -Path ($ToPath+"\Configs\PUBG.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
