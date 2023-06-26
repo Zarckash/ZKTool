@@ -186,7 +186,10 @@ $R1B4.Add_Click({
 $R2B1.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/CSGO.zip", $ToPath+"\Configs\CSGO.zip")
     Expand-Archive -Path ($ToPath+"\Configs\CSGO.zip") -DestinationPath ($ToPath+"\Configs\") -Force
-    Get-ChildItem "C:\Program Files (x86)\Steam\userdata" | Foreach-Object {Copy-Item ($ToPath+"\Configs\730") -Recurse -Destination $_ -Force}
+    $userids = Get-ChildItem "C:\Program Files (x86)\Steam\userdata" -Directory
+    foreach ($id in $userids.name) {
+        Copy-Item -Path ($ToPath+"\Configs\730") -Destination "C:\Program Files (x86)\Steam\userdata\$id" -Recurse -Force
+    }
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
 })
 
