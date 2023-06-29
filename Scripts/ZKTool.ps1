@@ -19,13 +19,13 @@ New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory
 Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
 Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ -Force
 
-$VersionFile = 2.2
+$VersionFile = 2.3
 
 # Update To Last Version
 if (!(Test-Path "$env:ProgramFiles\ZKTool\$VersionFile")) {
     New-Item -Path $env:ProgramFiles\ZKTool\$VersionFile | Out-File $LogPath -Encoding UTF8 -Append
     (Get-Item -Path $env:ProgramFiles\ZKTool\$VersionFile).Attributes += "Hidden"
-    Remove-Item -Path $env:ProgramFiles\ZKTool\2.1 -Force | Out-Null
+    Remove-Item -Path $env:ProgramFiles\ZKTool\2.2 -Force | Out-Null
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
         Write-Host "Actualizando ZKTool App..."
