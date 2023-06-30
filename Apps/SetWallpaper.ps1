@@ -1,5 +1,3 @@
-Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/BlackWindows11.jpg" -OutFile "$env:userprofile\BlackWindows11.jpg" | Out-Null
-
 Function Set-WallPaper {
 
 param (
@@ -31,4 +29,4 @@ public class Params
     $ret = [Params]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $Path, $fWinIni)
 }
 
-Set-WallPaper -Path "$env:userprofile\BlackWindows11.jpg"
+Set-WallPaper -Path "$env:ProgramFiles\ZKTool\Media\BlackW11Wallpaper.jpg"
