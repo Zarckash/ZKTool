@@ -1,3 +1,3 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 iex "& { $((iwr -useb 'https://raw.githubusercontent.com/amd64fox/SpotX/main/Install.ps1').Content) } -new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -block_update_on"
-Add-Content $env:userprofile\AppData\Roaming\Spotify\prefs "ui.hardware_acceleration=false`napp.autostart-mode=`"off`""
+Add-Content $env:userprofile\AppData\Roaming\Spotify\prefs "app.autostart-configured=true`nui.hardware_acceleration=false`napp.autostart-mode=`"off`""
