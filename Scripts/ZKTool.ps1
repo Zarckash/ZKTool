@@ -549,9 +549,9 @@ $HB1                             = New-Object System.Windows.Forms.Button
 $HB1.Text                        = "Game Settings"
 $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
 
-# Experimental
+# Dark Theme
 $HB2                             = New-Object System.Windows.Forms.Button
-$HB2.Text                        = "Experimental"
+$HB2.Text                        = "Dark Theme"
 $HB2.Location                    = New-Object System.Drawing.Point(240,$Position)
 
 # Context Menu Handler
@@ -1100,15 +1100,52 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoEndTasks" -Value 1
         Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "LowLevelHooksTimeout" -Value 1000
         Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WaitToKillServiceTimeout" -Value 2000
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "AppliedDPI" -Type DWord -Value 96
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "AutoGameModeEnabled" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "UseNexusForGameBarEnabled" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "ClearPageFileAtShutdown" -Type DWord -Value 0
         Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseHoverTime" -Value 200
         Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "HungAppTimeout" -ErrorAction SilentlyContinue
 
         # Games Performance Optimizations
         $StatusBox.Text = "| Optimizando Registros De Juegos...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Affinity" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Background Only" -Type String -Value "False"
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Clock Rate" -Type DWord -Value 10000
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "GPU Priority" -Type DWord -Value 8
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Priority" -Type DWord -Value 6
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Scheduling Category" -Type String -Value "High"
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "SFIO Priority" -Type String -Value "High"
+
+        # Edge Settings
+        $StatusBox.Text = "| Optimizando Edge...`r`n" + $StatusBox.Text
+        New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft" -Name "Edge" | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "BackgroundModeEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "HardwareAccelerationModeEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "ShowDownloadsToolbarButton" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "SleepingTabsEnabled" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "StartupBoostEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "EfficiencyModeEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "HubsSidebarEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "HideFirstRunExperience" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "PerformanceDetectorEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "QuickSearchShowMiniMenu" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "EdgeFollowEnabled" -Type DWord -Value 0
+        New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft" -Name "EdgeUpdate" | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -Name "UpdateDefault" -Type DWord -Value 2
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" -Name "Start" -Type DWord -Value 4
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate" -Name "Start" -Type DWord -Value 4
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem" -Name "Start" -Type DWord -Value 4
+
+        # Chrome Settings
+        $StatusBox.Text = "| Optimizando Chrome...`r`n" + $StatusBox.Text
+        New-Item -Path "HKLM:\SOFTWARE\Policies\Google" -Name "Chrome" | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Google\Chrome" -Name "BackgroundModeEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Google\Chrome" -Name "HardwareAccelerationModeEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Google\Chrome" -Name "StartupBoostEnabled" -Type DWord -Value 0
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" -Name "Start" -Type DWord -Value 4
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdate" -Name "Start" -Type DWord -Value 4
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdatem" -Name "Start" -Type DWord -Value 4
 
         # Disable VBS
         $StatusBox.Text = "| Desactivando Aislamiento Del Nucleo...`r`n" + $StatusBox.Text
@@ -1119,6 +1156,10 @@ $StartScript.Add_Click({
         $StatusBox.Text = "| Desactivando Aplicaciones En Segundo Plano...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Name "GlobalUserDisabled" -Type DWord -Value 1
 
+        # Disable Power Throttling
+        New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Power" -Name "PowerThrottling" | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" -Name "PowerThrottlingOff" -Type DWord -Value 1
+
         # Hide Keyboard Layout Icon
         $StatusBox.Text = "| Ocultando El Boton De Idioma Del Teclado...`r`n" + $StatusBox.Text
         Set-WinLanguageBarOption -UseLegacyLanguageBar
@@ -1127,7 +1168,7 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "Label" -Type DWord -Value 1
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ShowStatus" -Type DWord -Value 3
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "Transparency" -Type DWord -Value 255
-    
+
         # Disable Telemetry
         $StatusBox.Text = "| Deshabilitando Telemetria...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
@@ -1206,9 +1247,11 @@ $StartScript.Add_Click({
         $StatusBox.Text = "| Ocultando Boton De Busqueda...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
 
-        # Hide Widgets Button
-        $StatusBox.Text = "| Ocultando Boton De Widgets...`r`n" + $StatusBox.Text
+        # Disable Widgets
+        $StatusBox.Text = "| Desactivando Widgets...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarDa" -Type DWord -Value 0
+        New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "Dsh"
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests" -Type DWord -Value 0
 
         # Disable Web Search
         $StatusBox.Text = "| Desactivando Busqueda En La Web Con Bing...`r`n" + $StatusBox.Text
@@ -1231,8 +1274,6 @@ $StartScript.Add_Click({
         $StatusBox.Text = "| Estableciendo Modo Oscuro...`r`n" + $StatusBox.Text
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
-        $Download.DownloadFile($FromPath+"/Apps/SetWallpaper.ps1", $ToPath+"\Apps\SetWallpaper.ps1")
-        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\SetWallpaper.ps1 ; exit"
     
         # Hide Recent Files And Folders In Explorer
         $StatusBox.Text = "| Ocultando Archivos Y Carpetas Recientes De Acceso Rapido...`r`n" + $StatusBox.Text
@@ -1503,6 +1544,9 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Apps/ProfileInspector.exe", $ToPath+"\Apps\ProfileInspector.exe")
         $Download.DownloadFile($FromPath+"/Configs/NvidiaProfiles.nip", $ToPath+"\Configs\NvidiaProfiles.nip")
         Start-Process ($ToPath+"\Apps\ProfileInspector.exe")($ToPath+"\Configs\NvidiaProfiles.nip")
+        Set-ItemProperty -Path "HKCU:\Software\NVIDIA Corporation\NvTray" -Name "StartOnLogin" -Type DWord -Value 0
+        Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse | Out-File $LogPath -Encoding UTF8 -Append
+        Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item | Out-File $LogPath -Encoding UTF8 -Append
         $TB3.ForeColor = $DefaultForeColor
     } 
     if ($TB4.Image -eq $ActiveButtonColor) { # Reduce Icons Spacing
@@ -1846,29 +1890,51 @@ $StartScript.Add_Click({
         iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
         $HB1.ForeColor = $DefaultForeColor
     } 
-    if ($HB2.Image -eq $ActiveButtonColor) { # Experimental
-        $StatusBox.Text = "| Experimental Tweaks...`r`n" + $StatusBox.Text
+    if ($HB2.Image -eq $ActiveButtonColor) { # Dark Theme
+        $StatusBox.Text = "| Aplicando Tema Oscuro...`r`n" + $StatusBox.Text
         $HB2.ForeColor = $LabelColor
+        $Download.DownloadFile($FromPath+"/Configs/Media.zip", $ToPath+"\Configs\Media.zip")
+        Expand-Archive - ($ToPath+"\Configs\Media.zip") -DestinationPath ("$env:ProgramFiles\ZKTool\Media") -Force
+        $Download.DownloadFile($FromPath+"/Apps/SetWallpaper.ps1", $ToPath+"\Apps\SetWallpaper.ps1")
+        Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\SetWallpaper.ps1 ; exit"
 
-        # Nvidia Drivers
-        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
-        $Download.DownloadFile($FromPath+"/Apps/ProfileInspector.exe", $ToPath+"\Apps\ProfileInspector.exe")
-        $Download.DownloadFile($FromPath+"/Configs/NvidiaProfilesExperimental.nip", $ToPath+"\Configs\NvidiaProfilesExperimental.nip")
-        Start-Process ($ToPath+"\Apps\ProfileInspector.exe")($ToPath+"\Configs\NvidiaProfilesExperimental.nip")
-        Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse | Out-File $LogPath -Encoding UTF8 -Append
-        Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item | Out-File $LogPath -Encoding UTF8 -Append
+        # Accent Color
+        $Download.DownloadFile($FromPath+"/Apps/DarkTheme.reg", $ToPath+"\Apps\DarkTheme.reg")
+        regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\DarkTheme.reg
 
-        # Input Lag
-        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "DoubleClickSpeed" -Value 200
-        Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "KeyboardDelay" -Value 0
-        New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\" -Name "Parameters" | Out-Null
-        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" -Name "MouseDataQueueSize" -Type DWord -Value 20
-        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters" -Name "KeyboardDataQueueSize" -Type DWord -Value 20
-        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" -Name "Win32PrioritySeparation" -Type DWord -Value 42
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\" -Name "csrss.exe" | Out-Null
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\" -Name "PerfOptions" | Out-Null
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" -Name "CpuPriorityClass" -Type DWord -Value 4
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" -Name "IoPriority" -Type DWord -Value 3
+        # Black Edge
+        $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\ImplicitAppShortcuts\ccba5a5986c77e43\Microsoft Edge.lnk"
+        $IconLocation = "$env:ProgramFiles\ZKTool\Media\BlackEdge.ico"
+        $Shell = New-Object -ComObject ("WScript.Shell")
+        $Shortcut = $Shell.CreateShortcut($ShortcutPath)
+        $Shortcut.IconLocation = "$IconLocation, 0"
+        $Shortcut.Save()
+        Copy-Item -Path "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\ImplicitAppShortcuts\ccba5a5986c77e43\Microsoft Edge.lnk" -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
+
+        # Black Explorer
+        $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\File Explorer.lnk"
+        $IconLocation = "$env:ProgramFiles\ZKTool\Media\BlackExplorer.ico"
+        $Shell = New-Object -ComObject ("WScript.Shell")
+        $Shortcut = $Shell.CreateShortcut($ShortcutPath)
+        $Shortcut.IconLocation = "$IconLocation, 0"
+        $Shortcut.Save()
+
+        # Black Spotify
+        $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Spotify.lnk"
+        $IconLocation = "$env:ProgramFiles\ZKTool\Media\BlackSpotify.ico"
+        $Shell = New-Object -ComObject ("WScript.Shell")
+        $Shortcut = $Shell.CreateShortcut($ShortcutPath)
+        $Shortcut.IconLocation = "$IconLocation, 0"
+        $Shortcut.Save()
+        $HB2.ForeColor = $DefaultForeColor
+
+        # Black Discord
+        $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk"
+        $IconLocation = "$env:ProgramFiles\ZKTool\Media\BlackDiscord.ico"
+        $Shell = New-Object -ComObject ("WScript.Shell")
+        $Shortcut = $Shell.CreateShortcut($ShortcutPath)
+        $Shortcut.IconLocation = "$IconLocation, 0"
+        $Shortcut.Save()
         $HB2.ForeColor = $DefaultForeColor
     }   
     if ($HB3.Image -eq $ActiveButtonColor) { # Context Menu Handler
