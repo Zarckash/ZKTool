@@ -1903,13 +1903,12 @@ $StartScript.Add_Click({
         regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\DarkTheme.reg
 
         # Black Edge
-        $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\ImplicitAppShortcuts\ccba5a5986c77e43\Microsoft Edge.lnk"
+        $ShortcutPath = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
         $IconLocation = "$env:ProgramFiles\ZKTool\Media\BlackEdge.ico"
         $Shell = New-Object -ComObject ("WScript.Shell")
         $Shortcut = $Shell.CreateShortcut($ShortcutPath)
         $Shortcut.IconLocation = "$IconLocation, 0"
         $Shortcut.Save()
-        Copy-Item -Path "$env:userprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\ImplicitAppShortcuts\ccba5a5986c77e43\Microsoft Edge.lnk" -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
 
         # Black Explorer
         $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\File Explorer.lnk"
