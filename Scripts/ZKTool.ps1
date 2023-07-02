@@ -1121,7 +1121,6 @@ $StartScript.Add_Click({
         $StatusBox.Text = "| Optimizando Edge...`r`n" + $StatusBox.Text
         New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft" -Name "Edge" | Out-File $LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "BackgroundModeEnabled" -Type DWord -Value 0
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "HardwareAccelerationModeEnabled" -Type DWord -Value 0
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "ShowDownloadsToolbarButton" -Type DWord -Value 1
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "SleepingTabsEnabled" -Type DWord -Value 1
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "StartupBoostEnabled" -Type DWord -Value 0
@@ -1896,6 +1895,10 @@ $StartScript.Add_Click({
         $Download.DownloadFile($FromPath+"/Configs/Media.zip", $ToPath+"\Configs\Media.zip")
         Expand-Archive -Path ($ToPath+"\Configs\Media.zip") -DestinationPath ("$env:ProgramFiles\ZKTool\Media") -Force
         $Download.DownloadFile($FromPath+"/Apps/SetWallpaper.ps1", $ToPath+"\Apps\SetWallpaper.ps1")
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value "C:\Program Files\ZKTool\Media\BlackW11Wallpaper.jpg"
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value "C:\Program Files\ZKTool\Media\BlackW11Wallpaper.jpg"
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
         Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\SetWallpaper.ps1 ; exit"
 
         # Accent Color
