@@ -999,7 +999,7 @@ $StartScript.Add_Click({
         &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\XboxApp.appx")} 
         $LB8.ForeColor = $DefaultForeColor
     }
-    if ($TB1.Image -eq $ActiveButtonColorBig) { # Optimization Tweaks
+    if ($TB1.Image -eq $ActiveButtonColorBig) { # Optimizations Tweaks
         $StatusBox.Text = "| AJUSTES DE OPTIMIZACION`r`n`r`n" + $StatusBox.Text
         $TB1.ForeColor = $LabelColorBig
 
@@ -1060,6 +1060,16 @@ $StartScript.Add_Click({
         Set-Location -Path "C:\Program Files\Set Timer Resolution Service"
         .\SetTimerResolutionService.exe -install | Out-File $LogPath -Encoding UTF8 -Append
         Set-Location -Path $GoBack
+
+        # Windows Defender
+        $StatusBox.Text = "| Aplicando Exclusiones A Windows Defender...`r`n" + $StatusBox.Text
+        $ActiveDrives = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty "Root" | Where-Object {$_.Length -eq 3}
+        foreach ($Drive in $ActiveDrives) {
+            if (Test-Path ($Drive + "Games")) {
+                Add-MpPreference -ExclusionPath ($Drive + "Games")
+            }
+        }
+        Add-MpPreference -ExclusionPath "C:\Program Files\Windows Defender"
     
         # Show File Extensions
         $StatusBox.Text = "| Activando Extensiones De Archivos...`r`n" + $StatusBox.Text
@@ -1145,6 +1155,15 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" -Name "Start" -Type DWord -Value 4
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdate" -Name "Start" -Type DWord -Value 4
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdatem" -Name "Start" -Type DWord -Value 4
+
+        # Force 100% Monitor Scaling
+        $StatusBox.Text = "| Forzando 100% De Escala En Todos Los Monitores...`r`n" + $StatusBox.Text
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "LogPixels" -Type DWord -Value 96
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "Win8DpiScaling" -Type DWord -Value 96
+        Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "AppliedDPI" -Type DWord -Value 96
+        if (Test-Path "HKCU:\Control Panel\Desktop\PerMonitorSettings") {
+            Remove-Item "HKCU:\Control Panel\Desktop\PerMonitorSettings" -Recurse -Force
+        }
 
         # Disable VBS
         $StatusBox.Text = "| Desactivando Aislamiento Del Nucleo...`r`n" + $StatusBox.Text
@@ -1644,7 +1663,6 @@ $StartScript.Add_Click({
         # Enable App Submenu
         $Download.DownloadFile($FromPath+"/Apps/ContextMenuTweaks.zip", $ToPath+"\Apps\ContextMenuTweaks.zip")
         Expand-Archive -Path ($ToPath+"\Apps\ContextMenuTweaks.zip") -DestinationPath $AppsPath -Force
-        Add-MpPreference -ExclusionPath ($AppsPath+"\CleanFiles.exe")
         New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Subcommands" -Value ""
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "shell" | Out-Null
@@ -1772,7 +1790,6 @@ $StartScript.Add_Click({
         Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Icon" -Value "C:\Program Files\ZKTool\Apps\ffmpeg.exe,0"
         Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Position" -Value "Bottom"
         Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\ffmpeg.exe"'
-        Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool\Apps\ffmpeg.exe"
         $MTB4.ForeColor = $DefaultForeColor
     }  
     if ($MTB5.Image -eq $ActiveButtonColor) { # Windows Terminal Fix
