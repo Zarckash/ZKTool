@@ -184,6 +184,7 @@ $Accept.Add_Click({
     Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses 1.1.1.1, 1.0.0.1
     Disable-NetAdapter -Name $Interface -Confirm:$False
     Enable-NetAdapter -Name $Interface -Confirm:$False
+    Set-NetConnectionProfile -NetworkCategory Private
     Start-Sleep 5
     $Form.Close()
 })
