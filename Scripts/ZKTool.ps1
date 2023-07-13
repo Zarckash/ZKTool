@@ -19,17 +19,15 @@ New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory
 Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
 Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ -Force
 
-$VersionFile = 2.3
+$AppVersion = 2.4
 
 # Update To Last Version
-if (!(Test-Path "$env:ProgramFiles\ZKTool\$VersionFile")) {
-    New-Item -Path $env:ProgramFiles\ZKTool\$VersionFile | Out-File $LogPath -Encoding UTF8 -Append
-    (Get-Item -Path $env:ProgramFiles\ZKTool\$VersionFile).Attributes += "Hidden"
-    Remove-Item -Path $env:ProgramFiles\ZKTool\2.2 -Force | Out-Null
+if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $AppVersion)) {
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" -Value $AppVersion
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
         Write-Host "Actualizando ZKTool App..."
-        Start-Sleep 3
+        Start-Sleep 2
         Start-Process Powershell -WindowStyle Hidden {Iex (Iwr -useb "https://rb.gy/8shezm")}
     }
     Exit
@@ -697,7 +695,7 @@ $StartScript.Add_Click({
     $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
     $ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path
     $LogPath  = "$env:userprofile\AppData\Local\Temp\1ZKTool.log" # Script Log Path
-    $AppsPath = "$env:ProgramFiles\ZKTool\Apps" # Installed App Path
+    $AppPath = "$env:ProgramFiles\ZKTool" # Installed App Path
     
     $Download = New-Object net.webclient
 
@@ -1662,7 +1660,7 @@ $StartScript.Add_Click({
         
         # Enable App Submenu
         $Download.DownloadFile($FromPath+"/Apps/ContextMenuTweaks.zip", $ToPath+"\Apps\ContextMenuTweaks.zip")
-        Expand-Archive -Path ($ToPath+"\Apps\ContextMenuTweaks.zip") -DestinationPath $AppsPath -Force
+        Expand-Archive -Path ($ToPath+"\Apps\ContextMenuTweaks.zip") -DestinationPath $AppPath -Force
         New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Subcommands" -Value ""
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "shell" | Out-Null
@@ -1679,17 +1677,19 @@ $StartScript.Add_Click({
             New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "command" | Out-Null
                 Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM\command" -Name "(default)" -Value "C:\Program Files\ZKTool\Apps\LogitechOMM.exe"
 
-        # Bufferbloat Tweaks
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03BufferbloatFixed" | Out-Null
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed" -Name "Icon" -Value "inetcpl.cpl,20"
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed" -Name "MUIVerb" -Value "Bufferbloat Fixed"
-            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed" -Name "command" | Out-Null
-                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFixed\command" -Name "(default)" -Value 'powershell Start-Process powershell -WindowStyle Hidden -Verb RunAs {netsh int tcp set global autotuninglevel=disabled;netsh int ipv4 set subinterface Ethernet mtu=850 store=persistent;Disable-NetAdapter -Name Ethernet -Confirm:$False;Enable-NetAdapter -Name Ethernet -Confirm:$False}'
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04BufferbloatDefault" | Out-Null
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault" -Name "Icon" -Value "inetcpl.cpl,21"
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault" -Name "MUIVerb" -Value "Bufferbloat Default"
-            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault" -Name "command" | Out-Null
-                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\04BufferbloatDefault\command" -Name "(default)" -Value 'powershell Start-Process powershell -WindowStyle Hidden -Verb RunAs {netsh int tcp set global autotuninglevel=normal;netsh int ipv4 set subinterface Ethernet mtu=1500 store=persistent;Disable-NetAdapter -Name Ethernet -Confirm:$False;Enable-NetAdapter -Name Ethernet -Confirm:$False}'
+        # Bufferbloat
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03BufferbloatFix" | Out-Null
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "Icon" -Value "inetcpl.cpl,20"
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "MUIVerb" -Value "Bufferbloat Enable"
+            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "command" | Out-Null
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix\command" -Name "(default)" -Value 'powershell -file "C:\Program Files\ZKTool\Scripts\Bufferbloat.ps1"'
+        
+        # SteamBlock
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04SteamBlock" | Out-Null
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "Icon" -Value "C:\Program Files (x86)\Steam\steam.exe,0"
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "MUIVerb" -Value "Disable Steam"
+            New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "command" | Out-Null
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock\command" -Name "(default)" -Value 'powershell -file "C:\Program Files\ZKTool\Scripts\BlockSteam.ps1"'
         
         # Clean Standby List Memory
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "05EmptyStandbyList" | Out-Null

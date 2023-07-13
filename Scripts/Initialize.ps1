@@ -27,6 +27,7 @@ Expand-Archive -Path "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip
 Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
 New-Item $env:ProgramFiles\ZKTool\Apps\ -ItemType Directory | Out-Null
 New-Item $env:ProgramFiles\ZKTool\Media\ -ItemType Directory | Out-Null
+New-Item $env:ProgramFiles\ZKTool\Scripts\ -ItemType Directory | Out-Null
 New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
