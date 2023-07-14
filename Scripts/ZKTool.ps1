@@ -1682,14 +1682,14 @@ $StartScript.Add_Click({
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "Icon" -Value "inetcpl.cpl,20"
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "MUIVerb" -Value "Bufferbloat Enable"
             New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "command" | Out-Null
-                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix\command" -Name "(default)" -Value 'powershell -file "C:\Program Files\ZKTool\Scripts\Bufferbloat.ps1"'
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix\command" -Name "(default)" -Value 'powershell -windowstyle hidden -file "C:\Program Files\ZKTool\Scripts\Bufferbloat.ps1"'
         
         # SteamBlock
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04SteamBlock" | Out-Null
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "Icon" -Value "C:\Program Files (x86)\Steam\steam.exe,0"
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "MUIVerb" -Value "Disable Steam"
             New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "command" | Out-Null
-                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock\command" -Name "(default)" -Value 'powershell -file "C:\Program Files\ZKTool\Scripts\BlockSteam.ps1"'
+                Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock\command" -Name "(default)" -Value 'powershell -windowstyle hidden -file "C:\Program Files\ZKTool\Scripts\BlockSteam.ps1"'
         
         # Clean Standby List Memory
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "05EmptyStandbyList" | Out-Null
