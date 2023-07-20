@@ -1702,7 +1702,7 @@ function Tweaks-In-Context-Menu {
     
     # Enable App Submenu
     $Download.DownloadFile($FromPath+"/Apps/ContextMenuTweaks.zip", $ToPath+"\Apps\ContextMenuTweaks.zip")
-    Expand-Archive -Path ($ToPath+"\Apps\ContextMenuTweaks.zip") -DestinationPath $AppPath -Force
+    Expand-Archive -Path ($ToPath+"\Apps\ContextMenuTweaks.zip") -DestinationPath ($AppPath + "\Apps") -Force
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Subcommands" -Value ""
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "shell" | Out-Null
