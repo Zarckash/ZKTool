@@ -24,7 +24,7 @@ Write-Host "Instalando ZKTool App..."
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip"
 Expand-Archive -Path "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool"
-Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
+Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
 New-Item $env:ProgramFiles\ZKTool\Apps\ -ItemType Directory | Out-Null
 New-Item $env:ProgramFiles\ZKTool\Media\ -ItemType Directory | Out-Null
 New-Item $env:ProgramFiles\ZKTool\Scripts\ -ItemType Directory | Out-Null
