@@ -57,7 +57,7 @@ $PathBox.width                   = 480
 $PathBox.height                  = 40
 $PathBox.location                = New-Object System.Drawing.Point(120,48)
 $PathBox.Font                    = New-Object System.Drawing.Font('Segoe UI',12)
-$PathBox.Text                    = "HKCR:"
+$PathBox.Text                    = "HKCR:\Directory\Background\shell"
 $PathBox.AcceptsReturn           = $True
 $PathBox.BackColor               = $PanelBackColor
 $PathBox.ForeColor               = $DefaultForeColor
@@ -218,7 +218,10 @@ $Accept.Add_Click({
 
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 
-    if (($PathBox.Text -eq "HKCR:") -or ($NameBox.Text -eq "")) {
+    if (($PathBox.Text -ne "HKCR:\Directory\Background\shell") -and ($PathBox.Text -ne "") -and ($NameBox.Text -eq "")) {
+        Set-ItemProperty -Path "$Path" -Name "Subcommands" -Value ""
+        New-Item -Path "$Path" -Name "shell"
+    } elseif ((($PathBox.Text -ne "HKCR:\Directory\Background\shell") -and ($PathBox.Text -eq "")) -or ($NameBox.Text -eq "")) {
         [System.Windows.Forms.MessageBox]::Show("Path and Name are required", "Missing Values", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Warning)
     } else {
         New-Item -Path "$Path" -Name "$Name" | Out-Null
@@ -226,7 +229,15 @@ $Accept.Add_Click({
         Set-ItemProperty -Path "$Path2" -Name "MUIVerb" -Value "$MUIVerb"
         New-Item -Path "$Path2" -Name "command" | Out-Null
         Set-ItemProperty -Path ("$Path2" + "\command") -Name "(default)" -Value "$Command"
-    }  
+    }
+
+    Start-Sleep 1
+
+    $PathBox.Text = "HKCR:\Directory\Background\shell"
+    $NameBox.Text = ""
+    $MUIVerbBox.Text = ""
+    $IconBox.Text = ""
+    $CommandBox.Text = ""
 })
 
 
