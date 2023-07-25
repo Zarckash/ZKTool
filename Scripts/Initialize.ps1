@@ -44,7 +44,7 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
 
 # Create Monthly Scheduled Task
-($Output = "Creando Tarea Programada...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
+($Output = "`r`nCreando Tarea Programada...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
 $Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
 $Trigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Monday -At 10am
 Register-ScheduledTask -TaskName "ZKToolUpdater" -Action $Action -Trigger $Trigger | Out-Null
@@ -52,7 +52,7 @@ Register-ScheduledTask -TaskName "ZKToolUpdater" -Action $Action -Trigger $Trigg
 # Check Winget
 ($Output = "`r`nComprobando Winget...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
 if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10,10)) -eq "Windows 11")) {
-    ($Output = "    Instalando Winget...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
+    ($Output = "`r`n    Instalando Winget...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
     Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
     $WaitFor = (Get-Process AppInstaller).Id
     Wait-Process -Id $WaitFor
