@@ -20,7 +20,7 @@ if (!(Test-Path -Path "$env:ProgramFiles\ZKTool\ZKTool.exe")) {
 }
 
 # Install ZKTool
-Write-Host "Instalando ZKTool App..."
+($Output = "Instalando ZKTool App...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip"
 Expand-Archive -Path "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool"
@@ -44,14 +44,15 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
 
 # Create Monthly Scheduled Task
+($Output = "Creando Tarea Programada...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
 $Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
 $Trigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Monday -At 10am
 Register-ScheduledTask -TaskName "ZKToolUpdater" -Action $Action -Trigger $Trigger | Out-Null
 
 # Check Winget
-Write-Host "`r`nComprobando Winget..."
+($Output = "`r`nComprobando Winget...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
 if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10,10)) -eq "Windows 11")) {
-    Write-Host "    Instalando Winget..."
+    ($Output = "    Instalando Winget...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
     Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
     $WaitFor = (Get-Process AppInstaller).Id
     Wait-Process -Id $WaitFor
