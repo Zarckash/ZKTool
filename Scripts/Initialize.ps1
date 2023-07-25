@@ -43,6 +43,11 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "Publisher" -Value "Zarckash"
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
 
+# Create Monthly Scheduled Task
+$Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
+$Trigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Monday -At 10am
+Register-ScheduledTask -TaskName "ZKToolUpdater" -Action $Action -Trigger $Trigger | Out-Null
+
 # Check Winget
 Write-Host "`r`nComprobando Winget..."
 if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10,10)) -eq "Windows 11")) {
