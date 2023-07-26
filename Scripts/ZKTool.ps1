@@ -10,7 +10,7 @@ $LogPath  = "$env:userprofile\AppData\Local\Temp\1ZKTool.log"
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
-Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
+Invoke-WebRequest "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
 Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ -Force
 
 $AppVersion = 2.5
@@ -29,7 +29,7 @@ if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVers
         $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
         Write-Host "Actualizando ZKTool App..."
         Start-Sleep 2
-        Start-Process Powershell -WindowStyle Hidden {Iex (Iwr -useb "https://rb.gy/8shezm")}
+        Start-Process Powershell -WindowStyle Hidden {Invoke-Expression (Invoke-WebRequest -useb "https://rb.gy/8shezm")}
     }
     Exit
 }
@@ -402,9 +402,9 @@ $MTPanel.Controls.Add($MTB1)
 $MTB2                            = New-Object System.Windows.Forms.Button
 $MTB2.Text                       = "Visual C Runtimes"
 
-# Void
+# Enable MSI Mode
 $MTB3                            = New-Object System.Windows.Forms.Button
-$MTB3.Text                       = "Void"
+$MTB3.Text                       = "Enable MSI Mode"
 
 # FFMPEG
 $MTB4                            = New-Object System.Windows.Forms.Button
@@ -459,7 +459,7 @@ $MTB16                           = New-Object System.Windows.Forms.Button
 $MTB16.Text                      = "AMD Undervolt Pack"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB4,$MTB5,$MTB8,$MTB9,$MTB15,$MTB16)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB15,$MTB16)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -648,7 +648,7 @@ foreach ($Button in $Buttons) {
 }
 
 $TLabel.Add_Click({
-    Iwr "https://github.com/Zarckash/ZKTool/raw/main/Configs/Info.txt" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
+    Invoke-WebRequest "https://github.com/Zarckash/ZKTool/raw/main/Configs/Info.txt" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
     Start-Process "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
 })
 
@@ -682,14 +682,14 @@ $LogPath  = "$env:userprofile\AppData\Local\Temp\1ZKTool.log" # Script Log Path
 $AppPath  = "$env:ProgramFiles\ZKTool"                        # App Path
 $Download = New-Object net.webclient
 
-function Google-Chrome {
+function GoogleChrome {
     $StatusBox.Text = "| Instalando Google Chrome...`r`n" + $StatusBox.Text
     $SB1.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Google.Chrome | Out-File $LogPath -Encoding UTF8 -Append
     $SB1.ForeColor = $DefaultForeColor
 }
 
-function GeForce-Experience {
+function GeForceExperience {
     $StatusBox.Text = "| Instalando Google Chrome...`r`n" + $StatusBox.Text
     $SB1.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Google.Chrome | Out-File $LogPath -Encoding UTF8 -Append
@@ -718,7 +718,7 @@ function HWMonitor {
     $SB5.ForeColor = $DefaultForeColor
 }
 
-function MSI-Afterburner {
+function MSIAfterburner {
     $StatusBox.Text = "| Instalando MSI Afterburner...`r`n" + $StatusBox.Text
     $SB6.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/MSIAfterburner.zip", $ToPath+"\Apps\MSIAfterburner.zip")
@@ -728,14 +728,14 @@ function MSI-Afterburner {
     $SB6.ForeColor = $DefaultForeColor
 }
 
-function Corsair-iCue {
+function CorsairiCue {
     $StatusBox.Text = "| Instalando Corsair iCue...`r`n" + $StatusBox.Text
     $SB7.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Corsair.iCUE.4 | Out-File $LogPath -Encoding UTF8 -Append
     $SB7.ForeColor = $DefaultForeColor
 }
 
-function Logitech-OMM {
+function LogitechOMM {
     $StatusBox.Text = "| Iniciando Logitech Onboard Memory Manager...`r`n" + $StatusBox.Text
     $SB8.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/LogitechOMM.exe", $ToPath+"\Apps\LogitechOMM.exe")
@@ -743,7 +743,7 @@ function Logitech-OMM {
     $SB8.ForeColor = $DefaultForeColor
 }
 
-function Razer-Synapse {
+function RazerSynapse {
     $StatusBox.Text = "| Instalando Razer Synapse...`r`n" + $StatusBox.Text
     $SB9.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/RazerSynapse.exe", $ToPath+"\Apps\RazerSynapse.exe")
@@ -751,7 +751,7 @@ function Razer-Synapse {
     $SB9.ForeColor = $DefaultForeColor
 }
 
-function uTorrent-Web {
+function uTorrentWeb {
     $StatusBox.Text = "| Instalando uTorrent Web...`r`n" + $StatusBox.Text
     $SB10.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/uTorrentWeb.exe", $ToPath+"\Apps\uTorrentWeb.exe")
@@ -766,21 +766,21 @@ function NanaZip {
     $SB11.ForeColor = $DefaultForeColor
 }
 
-function Visual-Studio-Code {
+function VisualStudioCode {
     $StatusBox.Text = "| Instalando Visual Studio Code...`r`n" + $StatusBox.Text
     $SB11.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-File $LogPath -Encoding UTF8 -Append
     $SB12.ForeColor = $DefaultForeColor
 }
 
-function OBS-Studio {
+function OBSStudio {
     $StatusBox.Text = "| Instalando OBS Studio...`r`n" + $StatusBox.Text
     $MSB1.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id OBSProject.OBSStudio | Out-File $LogPath -Encoding UTF8 -Append
     $MSB1.ForeColor = $DefaultForeColor
 }
 
-function Adobe-Photoshop {
+function AdobePhotoshop {
     $StatusBox.Text = "| Instalando Adobe Photoshop...`r`n" + $StatusBox.Text
     $MSB2.ForeColor = $LabelColor
     Start-Process Powershell {
@@ -802,7 +802,7 @@ function Adobe-Photoshop {
     $MSB2.ForeColor = $DefaultForeColor
 }
 
-function Adobe-Premiere {
+function AdobePremiere {
     $StatusBox.Text = "| Instalando Adobe Premiere...`r`n" + $StatusBox.Text
     $MSB3.ForeColor = $LabelColor
     Start-Process Powershell {
@@ -824,7 +824,7 @@ function Adobe-Premiere {
     $MSB3.ForeColor = $DefaultForeColor
 }
 
-function Adobe-After-Effects {
+function AdobeAfterEffects {
     $StatusBox.Text = "| Instalando Adobe After Effects...`r`n" + $StatusBox.Text
     $MSB4.ForeColor = $LabelColor
     Start-Process Powershell {
@@ -854,7 +854,7 @@ function Netflix {
     $MSB5.ForeColor = $DefaultForeColor
 }
 
-function Prime-Video {
+function PrimeVideo {
     $StatusBox.Text = "| Instalando Prime Video...`r`n" + $StatusBox.Text
     $MSB6.ForeColor = $LabelColor
     Start-Process Powershell {
@@ -868,7 +868,7 @@ function Prime-Video {
     $MSB6.ForeColor = $DefaultForeColor
 }
 
-function VLC-Media-Player {
+function VLCMediaPlayer {
     $StatusBox.Text = "| Instalando VLC Media Player...`r`n" + $StatusBox.Text
     $MSB7.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/VLCMediaPlayer.exe", $ToPath+"\Apps\VLCMediaPlayer.exe")
@@ -907,14 +907,14 @@ function LibreOffice {
     $MSB11.ForeColor = $DefaultForeColor
 }
 
-function GitHub-Desktop {
+function GitHubDesktop {
     $StatusBox.Text = "| Instalando GitHub Desktop...`r`n" + $StatusBox.Text
     $MSB12.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-File $LogPath -Encoding UTF8 -Append
     $MSB12.ForeColor = $DefaultForeColor
 }
 
-function AMD-Adrenalin {
+function AMDAdrenalin {
     $StatusBox.Text = "| Instalando AMD Adrenalin...`r`n" + $StatusBox.Text
     $MSB13.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/AMDAdrenalin.exe", $ToPath+"\Apps\AMDAdrenalin.exe")
@@ -922,7 +922,7 @@ function AMD-Adrenalin {
     $MSB13.ForeColor = $DefaultForeColor
 }
 
-function Tarkov-Launcher {
+function TarkovLauncher {
     $StatusBox.Text = "| Instalando Tarkov Launcher...`r`n" + $StatusBox.Text
     $MSB15.ForeColor = $LabelColor
     Start-Process Powershell {
@@ -936,7 +936,7 @@ function Tarkov-Launcher {
     $MSB15.ForeColor = $DefaultForeColor
 }
 
-function League-of-Legends {
+function LeagueofLegends {
     $StatusBox.Text = "| Instalando League of Legends...`r`n" + $StatusBox.Text
     $MSB16.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-File $LogPath -Encoding UTF8 -Append
@@ -957,14 +957,14 @@ function Steam {
     $LB1.ForeColor = $DefaultForeColor
 }
 
-function EA-App {
+function EAApp {
     $StatusBox.Text = "| Instalando EA Desktop...`r`n" + $StatusBox.Text
     $LB2.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id ElectronicArts.EADesktop | Out-File $LogPath -Encoding UTF8 -Append
     $LB2.ForeColor = $DefaultForeColor
 }
 
-function Ubisoft-Connect {
+function UbisoftConnect {
     $StatusBox.Text = "| Instalando Ubisoft Connect...`r`n" + $StatusBox.Text
     $LB3.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Ubisoft.Connect | Out-File $LogPath -Encoding UTF8 -Append
@@ -980,14 +980,14 @@ function Battle.Net {
     $LB4.ForeColor = $DefaultForeColor
 }
 
-function GOG-Galaxy {
+function GOGGalaxy {
     $StatusBox.Text = "| Instalando GOG Galaxy...`r`n" + $StatusBox.Text
     $LB5.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GOG.Galaxy | Out-File $LogPath -Encoding UTF8 -Append
     $LB5.ForeColor = $DefaultForeColor
 }
 
-function Rockstar-Games {
+function RockstarGames {
     $StatusBox.Text = "| Instalando Rockstar Games Launcher...`r`n" + $StatusBox.Text
     $LB6.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/RockstarGamesLauncher.exe", $ToPath+"\Apps\RockstarGamesLauncher.exe")
@@ -995,7 +995,7 @@ function Rockstar-Games {
     $LB6.ForeColor = $DefaultForeColor
 }
 
-function Epic-Games-Launcher {
+function EpicGamesLauncher {
     $StatusBox.Text = "| Instalando Epic Games Launcher...`r`n" + $StatusBox.Text
     $LB7.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id EpicGames.EpicGamesLauncher | Out-File $LogPath -Encoding UTF8 -Append
@@ -1010,7 +1010,7 @@ function Xbox {
     $LB8.ForeColor = $DefaultForeColor
 }
 
-function Optimization-Tweaks {
+function OptimizationTweaks {
     $StatusBox.Text = "| AJUSTES DE OPTIMIZACION`r`n`r`n" + $StatusBox.Text
     $TB1.ForeColor = $LabelColorBig
 
@@ -1083,10 +1083,10 @@ function Optimization-Tweaks {
     $Download.DownloadFile($FromPath+"/Apps/SetTimerResolutionService.exe", $ToPath+"\Apps\SetTimerResolutionService.exe")
     New-Item 'C:\Program Files\Set Timer Resolution Service\' -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
     Move-Item -Path ($ToPath+"\Apps\SetTimerResolutionService.exe") -Destination 'C:\Program Files\Set Timer Resolution Service\'
-    $GoBack = Get-Location
+    Push-Location
     Set-Location -Path "C:\Program Files\Set Timer Resolution Service"
     .\SetTimerResolutionService.exe -install | Out-File $LogPath -Encoding UTF8 -Append
-    Set-Location -Path $GoBack
+    Pop-Location
 
     # Windows Defender
     $StatusBox.Text = "| Aplicando Exclusiones A Windows Defender...`r`n" + $StatusBox.Text
@@ -1122,6 +1122,15 @@ function Optimization-Tweaks {
     Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Language Hotkey" -Value 3
     Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Layout Hotkey" -Value 3
     
+    # Disable Error Reporting
+    $StatusBox.Text = "| Desactivando Informar De Errores`r`n" + $StatusBox.Text
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-Null
+
+    # 100% Wallpaper Quality
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "JPEGImportQuality" -Type DWord -Value 100
+    
     # Network Optimizations
     $StatusBox.Text = "| Optimizando Registros De Red...`r`n" + $StatusBox.Text
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "IRPStackSize" -Type DWord -Value 20
@@ -1152,7 +1161,15 @@ function Optimization-Tweaks {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Priority" -Type DWord -Value 6
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Scheduling Category" -Type String -Value "High"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "SFIO Priority" -Type String -Value "High"
+
+    # Disable Full Screen Optimization For All Games
     Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_FSEBehaviorMode" -Type DWord -Value 2
+	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_HonorUserFSEBehaviorMode" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_FSEBehavior" -Type DWord -Value 2
+	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_DXGIHonorFSEWindowsCompatible" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_EFSEFeatureFlags" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_DSEBehavior" -Type DWord -Value 2
+	Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
 
     # Edge Settings
     $StatusBox.Text = "| Optimizando Edge...`r`n" + $StatusBox.Text
@@ -1461,7 +1478,7 @@ function Optimization-Tweaks {
     $TB1.ForeColor = $DefaultForeColorBig
 }
 
-function Cleaning-Tweaks {
+function CleaningTweaks {
     $StatusBox.Text = "| Aplicando Cleaning Tweaks...`r`n`r`n" + $StatusBox.Text
     $TB2.ForeColor = $LabelColor
 
@@ -1540,9 +1557,9 @@ function Cleaning-Tweaks {
     Add-WindowsCapability -Online -Name NetFx3~~~~ -Source C:\sources\sxs | Out-File $LogPath -Encoding UTF8 -Append
 
     $StatusBox.Text = "| Desinstalando Servidor OpenSSH...`r`n" + $StatusBox.Text
-    Get-WindowsPackage -Online | Where PackageName -like *SSH* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
+    Get-WindowsPackage -Online | Where-Object PackageName -like *SSH* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
     $StatusBox.Text = "| Desinstalando Rostro De Windows Hello...`r`n" + $StatusBox.Text
-    Get-WindowsPackage -Online | Where PackageName -like *Hello-Face* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
+    Get-WindowsPackage -Online | Where-Object PackageName -like *Hello-Face* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
     $StatusBox.Text = "| Desinstalando Grabacion De Acciones Del Usuario...`r`n" + $StatusBox.Text
     DISM /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
     $StatusBox.Text = "| Desinstalando Modo De Internet Explorer...`r`n" + $StatusBox.Text
@@ -1557,7 +1574,7 @@ function Cleaning-Tweaks {
     $TB2.ForeColor = $DefaultForeColor
 }
 
-function Nvidia-Setting {
+Function NvidiaSettings {
     $StatusBox.Text = "| Aplicando Ajustes Al Panel De Control De Nvidia...`r`n" + $StatusBox.Text
     $TB3.ForeColor = $LabelColor
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
@@ -1570,14 +1587,14 @@ function Nvidia-Setting {
     $TB3.ForeColor = $DefaultForeColor
 }
 
-function Reduce-Icons-Spacing {
+Function ReduceIconsSpacing {
     $StatusBox.Text = "| Reduciendo Espacio Entre Iconos...`r`n" + $StatusBox.Text
     $TB4.ForeColor = $LabelColor
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "IconSpacing" -Value -900
     $TB4.ForeColor = $DefaultForeColor
 }
 
-function Hide-Shortcut-Arrows {
+Function HideShortcutArrows {
     $StatusBox.Text = "| Ocultando Flechas De Acceso Directo...`r`n" + $StatusBox.Text
     $TB5.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Configs/Blank.ico", $ToPath+"\Configs\Blank.ico")
@@ -1592,7 +1609,7 @@ function Hide-Shortcut-Arrows {
     $TB5.ForeColor = $DefaultForeColor
 }
 
-function Set-Fluent-Cursor {
+Function SetFluentCursor {
     $StatusBox.Text = "| Estableciendo Cursor Personalizado...`r`n" + $StatusBox.Text
     $TB6.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Configs/FluentCursor.zip", $ToPath+"\Configs\FluentCursor.zip")
@@ -1602,7 +1619,7 @@ function Set-Fluent-Cursor {
     $TB6.ForeColor = $DefaultForeColor
 }
 
-function Disable-Cortana {
+Function DisableCortana {
     $StatusBox.Text = "| Deshabilitando Cortana...`r`n" + $StatusBox.Text
     $TB7.ForeColor = $LabelColor
     If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings")) {
@@ -1625,7 +1642,7 @@ function Disable-Cortana {
     $TB7.ForeColor = $DefaultForeColor
 }
 
-function Remove-OneDrive {
+Function RemoveOneDrive {
     $StatusBox.Text = "| Desinstalando One Drive...`r`n" + $StatusBox.Text
     $TB8.ForeColor = $LabelColor
     Stop-Process -Name "OneDrive" -ErrorAction SilentlyContinue
@@ -1649,7 +1666,7 @@ function Remove-OneDrive {
     $TB8.ForeColor = $DefaultForeColor
 }
 
-function Remove-Xbox-Game-Bar {
+Function RemoveXboxGameBar {
     $StatusBox.Text = "| Desinstalando Xbox Game Bar...`r`n" + $StatusBox.Text
     $TB9.ForeColor = $LabelColor
     &{ $ProgressPreference = 'SilentlyContinue'
@@ -1665,7 +1682,7 @@ function Remove-Xbox-Game-Bar {
     $TB9.ForeColor = $DefaultForeColor
 }
 
-function Tweaks-In-Context-Menu {
+Function TweaksInContextMenu {
     $StatusBox.Text = "| Activando Tweaks En Context Menu...`r`n" + $StatusBox.Text
     $TB10.ForeColor = $LabelColor
     
@@ -1718,7 +1735,7 @@ function Tweaks-In-Context-Menu {
     $TB10.ForeColor = $DefaultForeColor
 }
 
-function VisualFX-Fix {
+Function VisualFXFix {
     $StatusBox.Text = "| Ajustando Animaciones De Windows...`r`n" + $StatusBox.Text
     $TB11.ForeColor = $LabelColor
 
@@ -1734,12 +1751,12 @@ function VisualFX-Fix {
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "FontSmoothing" -Value 2
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewShadow" -Type DWord -Value 0
     $MaskValue = "90,12,07,80,12,01,00,00"
-    $MaskValueToHex = $MaskValue.Split(',') | % { "0x$_"}
+    $MaskValueToHex = $MaskValue.Split(',') | ForEach-Object { "0x$_"}
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]]$MaskValueToHex)
     $TB11.ForeColor = $DefaultForeColor
 }
 
-function Activate-Windows-Pro {
+Function ActivateWindowsPro {
     $StatusBox.Text = "| Activando Windows Pro...`r`n" + $StatusBox.Text
     $MTB1.ForeColor = $LabelColorBig
     cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
@@ -1748,7 +1765,7 @@ function Activate-Windows-Pro {
     $MTB1.ForeColor = $DefaultForeColorBig
 }
 
-function Visual-C-Runtimes {
+Function VisualCRuntimes {
     $StatusBox.Text = "| Instalando Todas Las Versiones De Visual C++...`r`n" + $StatusBox.Text
     $MTB2.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x64 | Out-File $LogPath -Encoding UTF8 -Append
@@ -1766,7 +1783,18 @@ function Visual-C-Runtimes {
     $MTB2.ForeColor = $DefaultForeColor
 }
 
-function FFMPEG {
+function EnableMSIMode {
+    $GPUIDS = @((wmic path win32_VideoController get PNPDeviceID | Select-Object -Skip 2 | Format-List | Out-String).Trim())
+    foreach ($GPUID in $GPUIDS) {
+        $GPUName = Get-ItemPropertyValue -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID" -Name "DeviceDesc"
+    }
+    if (($GPUName -like "*GTX*") -or ($GPUName -like "*RTX*")) {
+        New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management" -Name "MessageSignaledInterruptProperties" | Out-File $LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" -Name "MSISupported" -Type DWord -Value 1
+    }
+}
+
+Function FFMPEG {
     $StatusBox.Text = "| Instalando FFMPEG... `r`n" + $StatusBox.Text
     $MTB4.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/HEVC.appx", $ToPath+"\Apps\HEVC.appx")
@@ -1783,7 +1811,7 @@ function FFMPEG {
     $MTB4.ForeColor = $DefaultForeColor
 }
 
-function Windows-Terminal-Fix {
+Function WindowsTerminalFix {
     $StatusBox.Text = "| Aplicando Ajustes A Windows Terminal...`r`n" + $StatusBox.Text
     $MTB5.ForeColor = $LabelColor
     if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\SourceCodePro*)) {
@@ -1799,14 +1827,14 @@ function Windows-Terminal-Fix {
     $MTB5.ForeColor = $DefaultForeColor 
 }
 
-function Network-Config {
+Function NetworkConfig {
     $StatusBox.Text = "| Abriendo Configuracion De Red...`r`n" + $StatusBox.Text
     $MTB8.ForeColor = $LabelColor
-    iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/NetConfig.ps1")))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/NetConfig.ps1")))
     $MTB8.ForeColor = $DefaultForeColor
 }
 
-function Autoruns {
+Function Autoruns {
     $StatusBox.Text = "| Abriendo Autoruns...`r`n" + $StatusBox.Text
     $MTB9.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/Autoruns.exe", $ToPath+"\Apps\Autoruns.exe")
@@ -1814,7 +1842,7 @@ function Autoruns {
     $MTB9.ForeColor = $DefaultForeColor
 }
 
-function Adobe-Cleaner {
+Function AdobeCleaner {
     $StatusBox.Text = "| Eliminando Procesos De Adobe...`r`n" + $StatusBox.Text
     $MTB15.ForeColor = $LabelColor
     Rename-Item -Path "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exe" "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exeX"
@@ -1824,7 +1852,7 @@ function Adobe-Cleaner {
     $MTB15.ForeColor = $DefaultForeColor
 }
 
-function AMD-Undervolt-Pack {
+Function AMDUndervoltPack {
     $StatusBox.Text = "| Descargando AMD Undervolt Pack...`r`n" + $StatusBox.Text
     $MTB16.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/AMDUndervoltPack.zip", $ToPath+"\Apps\AMDUndervoltPack.zip")
@@ -1838,14 +1866,14 @@ function AMD-Undervolt-Pack {
     $MTB16.ForeColor = $DefaultForeColor
 }
 
-function Game-Settings {
+Function GameSettings {
     $StatusBox.Text = "| Abriendo Game Settings...`r`n" + $StatusBox.Text
     $HB1.ForeColor = $LabelColor
-    iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
     $HB1.ForeColor = $DefaultForeColor
 }
 
-function Dark-Theme{
+Function DarkTheme {
     $StatusBox.Text = "| Aplicando Tema Oscuro...`r`n" + $StatusBox.Text
     $HB2.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Configs/Media.zip", $ToPath+"\Configs\Media.zip")
@@ -1899,14 +1927,14 @@ function Dark-Theme{
     $HB2.ForeColor = $DefaultForeColor
 }
 
-function Context-Menu-Handler {
+Function ContextMenuHandler {
     $StatusBox.Text = "| Abriendo Context Menu Handler...`r`n" + $StatusBox.Text
     $HB3.ForeColor = $LabelColor
-    iex ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ContextMenuHandler.ps1")))
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ContextMenuHandler.ps1")))
     $HB3.ForeColor = $DefaultForeColor
 }
 
-function MSI-Afterburner-Settings {
+Function MSIAfterburnerSettings {
     $StatusBox.Text = "| Configurando MSI Afterbuner...`r`n" + $StatusBox.Text
     $MTB14.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Configs/MSIAfterburner.zip", $ToPath+"\Configs\MSIAfterburner.zip")
@@ -1920,7 +1948,7 @@ function MSI-Afterburner-Settings {
     $MTB14.ForeColor = $DefaultForeColor
 }
 
-function Remove-Realtek {
+Function RemoveRealtek {
     $StatusBox.Text = "| Quitando Realtek Audio Service...`r`n" + $StatusBox.Text
     $MTB11.ForeColor = $LabelColor
     pwsh.exe -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
@@ -1933,13 +1961,13 @@ function Remove-Realtek {
     $MTB11.ForeColor = $DefaultForeColor
 }
 
-function Z390-Lan-Drivers {
+Function Z390LanDrivers {
     $StatusBox.Text = "| Instalando Z390 Lan Drivers...`r`n" + $StatusBox.Text
     $HB6.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/LanDrivers.zip", $ToPath+"\Apps\LanDrivers.zip")
     Expand-Archive -Path ($ToPath+"\Apps\LanDrivers.zip") -DestinationPath ($ToPath+"\Apps\LanDrivers") -Force
     pnputil /add-driver ($ToPath+"\Apps\LanDrivers\e1d68x64.inf") /install
-    $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where DeviceName -eq "Intel(R) Ethernet Connection (7) I219-V" | Select-Object -ExpandProperty InfName
+    $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Intel(R) Ethernet Connection (7) I219-V" | Select-Object -ExpandProperty InfName
     pnputil /delete-driver $OldDriver /uninstall /force
     $HB6.ForeColor = $DefaultForeColor
 }
@@ -1966,7 +1994,7 @@ $StartScript.Add_Click({
 
     foreach ($ActiveButton in $ActiveButtons) {
         if (($ActiveButton.Image -eq $ActiveButtonColor) -or ($ActiveButton.Image -eq $ActiveButtonColorBig)) {
-            $Functions += ($ActiveButton.Text -replace " ","-")
+            $Functions += ($ActiveButton.Text -replace " ","")
         }
     }
 
@@ -1990,7 +2018,7 @@ $StartScript.Add_Click({
     $Installations = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB11,$SB12,$MSB1,$MSB5,$MSB6,$MSB9,$MSB10,$MSB11,$MSB12,$LB1,$LB2,$LB3,$LB5,$LB7,$LB8)
     foreach ($Installation in $Installations) {
         if ($Installation.ForeColor -eq $LabelColor) {
-            $WingetListCheck = Winget List $Installation.Text | Select-String -Pattern $Installation.Text | ForEach {$_.matches} | Select-Object -ExpandProperty Value
+            $WingetListCheck = Winget List $Installation.Text | Select-String -Pattern $Installation.Text | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
             if (!($WingetListCheck -eq $Installation.Text)) {
                 $Installation.ForeColor = "Red"
             }
