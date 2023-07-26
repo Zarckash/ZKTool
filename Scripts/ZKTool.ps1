@@ -1018,7 +1018,7 @@ function Optimization-Tweaks {
     $StatusBox.Text = "| Creando Punto De Restauracion...`r`n" + $StatusBox.Text
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
     Enable-ComputerRestore -Drive "C:\"
-    &{$ProgressPreference = 'SilentlyContinue'; Checkpoint-Computer -Description "Pre Optimizacion" -RestorePointType "MODIFY_SETTINGS"} 
+    &{$ProgressPreference = 'SilentlyContinue'; Checkpoint-Computer -Description "Pre Optimizacion ZKTool" -RestorePointType "MODIFY_SETTINGS"} 
     
     # Disable UAC
     $StatusBox.Text = "| Desactivando UAC Para Administradores...`r`n" + $StatusBox.Text
