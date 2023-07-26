@@ -10,6 +10,15 @@ Set-ExecutionPolicy RemoteSigned
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
+function TypeWriteHost([string]$s = '',[string]$TextColor = 'Cyan'){
+    $s -split '' | ForEach-Object {
+        Write-Host $_ -NoNewline -ForegroundColor $TextColor
+        Start-Sleep -Milliseconds 20
+    }
+    Start-Sleep -Milliseconds 20
+    Write-Host ''
+}
+
 # Remove Old Path
 if (!(Test-Path -Path "$env:ProgramFiles\ZKTool\ZKTool.exe")) {
     Remove-Item -Path $env:windir\System32\ZKTool.exe -Force | Out-Null
@@ -20,7 +29,7 @@ if (!(Test-Path -Path "$env:ProgramFiles\ZKTool\ZKTool.exe")) {
 }
 
 # Install ZKTool
-($Output = "Instalando ZKTool App...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
+TypeWriteHost "Instalando ZKTool App..."
 New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip"
 Expand-Archive -Path "$env:userprofile\AppData\Local\Temp\ZKTool\Apps\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool"
@@ -44,21 +53,21 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
 
 # Create Monthly Scheduled Task
-($Output = "`r`nCreando Tarea Programada...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
+TypeWriteHost "`r`nCreando Tarea Programada..."
 $Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
 $Trigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Monday -At 10am
 Register-ScheduledTask -TaskName "ZKToolUpdater" -Action $Action -Trigger $Trigger | Out-Null
 
 # Check Winget
-($Output = "`r`nComprobando Winget...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
+TypeWriteHost "`r`nComprobando Winget..."
 if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10,10)) -eq "Windows 11")) {
-    ($Output = "`r`n    Instalando Winget...") -split '' | ForEach-Object {Write-Host $_ -NoNewline; Start-Sleep -Milliseconds 20}
+    TypeWriteHost "`r`n    Instalando Winget..."
     Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
     $WaitFor = (Get-Process AppInstaller).Id
     Wait-Process -Id $WaitFor
 }
 
-Write-Host "`r`n        ###################" -ForegroundColor Green
+Write-Host "`r`n`r`n        ###################" -ForegroundColor Green
 Write-Host "        #####  READY  #####" -ForegroundColor Green
 Write-Host "        ###################" -ForegroundColor Green
 Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe
