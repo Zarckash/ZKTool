@@ -88,52 +88,30 @@ $Form.Controls.Add($SPanel)
 
 $Position                        = 10 # Sets Each Button Position
 
-# Google Chrome
-$SB1                             = New-Object System.Windows.Forms.Button
+$Buttons = @('SB1','SB2','SB3','SB4','SB5','SB6','SB7','SB8','SB9','SB10','SB11','SB12','MSB1','MSB2','MSB3','MSB4','MSB5','MSB6','MSB7','MSB8','MSB9','MSB10','MSB11','MSB12','MSB13','MSB14','MSB15','MSB16',
+'MSB17','LB1','LB2','LB3','LB4','LB5','LB6','LB7','LB8','TB1','TB2','TB3','TB4','TB5','TB6','TB7','TB8','TB9','TB10','TB11','MTB1','MTB2','MTB3','MTB4','MTB5','MTB6','MTB7','MTB8','MTB9','MTB10','MTB11','MTB12',
+'MTB13','MTB14','MTB15','MTB16','HB1','HB2','HB3','HB4','HB5','HB6')
+
+foreach ($Button in $Buttons) {
+    Get-Variable -Name $Button | Remove-Variable
+}
+
+$Buttons | ForEach-Object {
+    $NewButton          = New-Object System.Windows.Forms.Button
+    New-Variable "$_" $NewButton
+}
+
 $SB1.Text                        = "Google Chrome"
-
-# GeForce Experience
-$SB2                             = New-Object System.Windows.Forms.Button
 $SB2.Text                        = "GeForce Experience"
-
-# Discord
-$SB3                             = New-Object System.Windows.Forms.Button
 $SB3.Text                        = "Discord"
-
-# Spotify
-$SB4                             = New-Object System.Windows.Forms.Button
 $SB4.Text                        = "Spotify"
-
-# HWMonitor
-$SB5                             = New-Object System.Windows.Forms.Button
 $SB5.Text                        = "HWMonitor"
-
-# MSI Afterburner
-$SB6                             = New-Object System.Windows.Forms.Button
 $SB6.Text                        = "MSI Afterburner"
-
-# Corsair iCue
-$SB7                             = New-Object System.Windows.Forms.Button
 $SB7.Text                        = "Corsair iCue"
-
-# Logitech OMM
-$SB8                             = New-Object System.Windows.Forms.Button
 $SB8.Text                        = "Logitech OMM"
-
-# Razer Synapse
-$SB9                             = New-Object System.Windows.Forms.Button
 $SB9.Text                        = "Razer Synapse"
-
-# uTorrent Web
-$SB10                            = New-Object System.Windows.Forms.Button
 $SB10.Text                       = "uTorrent Web"
-
-# NanaZip
-$SB11                            = New-Object System.Windows.Forms.Button
 $SB11.Text                       = "NanaZip"
-
-# Visual Studio Code
-$SB12                            = New-Object System.Windows.Forms.Button
 $SB12.Text                       = "Visual Studio Code"
 
 $Position = 10
@@ -157,72 +135,22 @@ $MSPanel.Width                   = $PanelSize
 $MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),49)
 $MSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile(($ImageFolder + "MSMTPanelBg.png"))
 
-# OBS Studio
-$MSB1                            = New-Object System.Windows.Forms.Button
 $MSB1.Text                       = "OBS Studio"
-
-# Adobe Photoshop
-$MSB2                            = New-Object System.Windows.Forms.Button
 $MSB2.Text                       = "Adobe Photoshop"
-
-# Adobe Premiere
-$MSB3                            = New-Object System.Windows.Forms.Button
 $MSB3.Text                       = "Adobe Premiere"
-
-# Adobe After Effects
-$MSB4                            = New-Object System.Windows.Forms.Button
 $MSB4.Text                       = "Adobe After Effects"
-
-# Netflix
-$MSB5                            = New-Object System.Windows.Forms.Button
 $MSB5.Text                       = "Netflix"
-
-# Prime Video
-$MSB6                            = New-Object System.Windows.Forms.Button
 $MSB6.Text                       = "Prime Video"
-
-# VLC Media Player
-$MSB7                            = New-Object System.Windows.Forms.Button
 $MSB7.Text                       = "VLC Media Player"
-
-# Rufus
-$MSB8                            = New-Object System.Windows.Forms.Button
 $MSB8.Text                       = "Rufus"
-
-# WinRAR
-$MSB9                            = New-Object System.Windows.Forms.Button
 $MSB9.Text                       = "WinRAR"
-
-# MegaSync
-$MSB10                           = New-Object System.Windows.Forms.Button
 $MSB10.Text                      = "MegaSync"
-
-# LibreOffice
-$MSB11                           = New-Object System.Windows.Forms.Button
 $MSB11.Text                      = "LibreOffice"
-
-# GitHub Desktop
-$MSB12                           = New-Object System.Windows.Forms.Button
 $MSB12.Text                      = "GitHub Desktop"
-
-# AMD Adrenalin
-$MSB13                           = New-Object System.Windows.Forms.Button
 $MSB13.Text                      = "AMD Adrenalin"
-
-# Void
-$MSB14                           = New-Object System.Windows.Forms.Button
 $MSB14.Text                      = "Void"
-
-# Tarkov Launcher
-$MSB15                           = New-Object System.Windows.Forms.Button
 $MSB15.Text                      = "Tarkov Launcher"
-
-# League of Legends
-$MSB16                           = New-Object System.Windows.Forms.Button
 $MSB16.Text                      = "League of Legends"
-
-# Valorant
-$MSB17                           = New-Object System.Windows.Forms.Button
 $MSB17.Text                      = "Valorant"
 
 $Position = 10
@@ -259,36 +187,13 @@ $LPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*1
 $LPanel.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "LPanelBg.png"))
 $Form.Controls.Add($LPanel)
 
-# Steam
-$LB1                             = New-Object System.Windows.Forms.Button
 $LB1.Text                        = "Steam"
-
-# EA App
-$LB2                             = New-Object System.Windows.Forms.Button
 $LB2.Text                        = "EA App"
-
-# Ubisoft Connect
-$LB3                             = New-Object System.Windows.Forms.Button
 $LB3.Text                        = "Ubisoft Connect"
-
-# Battle.Net
-$LB4                             = New-Object System.Windows.Forms.Button
 $LB4.Text                        = "Battle.Net"
-
-# GOG Galaxy
-$LB5                             = New-Object System.Windows.Forms.Button
 $LB5.Text                        = "GOG Galaxy"
-
-# Rockstar Games
-$LB6                             = New-Object System.Windows.Forms.Button
 $LB6.Text                        = "Rockstar Games"
-
-# Epic Games Launcher
-$LB7                             = New-Object System.Windows.Forms.Button
 $LB7.Text                        = "Epic Games Launcher"
-
-# Xbox
-$LB8                             = New-Object System.Windows.Forms.Button
 $LB8.Text                        = "Xbox"
 
 $Position = 10
@@ -325,50 +230,16 @@ $TPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*2
 $TPanel.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "STPanelBg.png"))
 $Form.Controls.Add($TPanel)
 
-# Optimization Tweaks
-$TB1                             = New-Object System.Windows.Forms.Button
 $TB1.Text                        = "Optimization Tweaks"
-$TB1.Location                    = New-Object System.Drawing.Point(10,10)
-$TPanel.Controls.Add($TB1)
-
-# Cleaning Tweaks
-$TB2                             = New-Object System.Windows.Forms.Button
 $TB2.Text                        = "Cleaning Tweaks"
-
-# Nvidia Settings
-$TB3                             = New-Object System.Windows.Forms.Button
 $TB3.Text                        = "Nvidia Settings"
-
-# Reduce Icons Spacing
-$TB4                             = New-Object System.Windows.Forms.Button
 $TB4.Text                        = "Reduce Icons Spacing"
-
-# Hide Shortcut Arrows
-$TB5                             = New-Object System.Windows.Forms.Button
 $TB5.Text                        = "Hide Shortcut Arrows"
-
-# Set Fluent Cursor
-$TB6                             = New-Object System.Windows.Forms.Button
 $TB6.Text                        = "Set Fluent Cursor"
-
-# Disable Cortana
-$TB7                             = New-Object System.Windows.Forms.Button
 $TB7.Text                        = "Disable Cortana"
-
-# Remove OneDrive
-$TB8                             = New-Object System.Windows.Forms.Button
 $TB8.Text                        = "Remove OneDrive"
-
-# Remove Xbox Game Bar
-$TB9                             = New-Object System.Windows.Forms.Button
 $TB9.Text                        = "Remove Xbox Game Bar"
-
-# Tweaks In Context Menu
-$TB10                            = New-Object System.Windows.Forms.Button
 $TB10.Text                       = "Tweaks In Context Menu"
-
-# VisualFX Fix
-$TB11                            = New-Object System.Windows.Forms.Button
 $TB11.Text                       = "VisualFX Fix"
 
 $Position = 40*2+10
@@ -378,6 +249,8 @@ foreach ($Button in $Buttons) {
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
     $Position+=40
 }
+$TB1.Location                    = New-Object System.Drawing.Point(10,10)
+$TPanel.Controls.Add($TB1)
 
 
             ##################################
@@ -392,70 +265,21 @@ $MTPanel.Width                   = $PanelSize - 3
 $MTPanel.BackgroundImage         = [System.Drawing.Image]::FromFile(($ImageFolder + "MSMTPanelBg.png"))
 $MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),49)
 
-# Activate Windows Pro
-$MTB1                            = New-Object System.Windows.Forms.Button
 $MTB1.Text                       = "Activate Windows Pro"
-$MTB1.Location                   = New-Object System.Drawing.Point(10,10)
-$MTPanel.Controls.Add($MTB1)
-
-# Visual C Runtimes
-$MTB2                            = New-Object System.Windows.Forms.Button
 $MTB2.Text                       = "Visual C Runtimes"
-
-# Enable MSI Mode
-$MTB3                            = New-Object System.Windows.Forms.Button
 $MTB3.Text                       = "Enable MSI Mode"
-
-# FFMPEG
-$MTB4                            = New-Object System.Windows.Forms.Button
 $MTB4.Text                       = "FFMPEG"
-
-# Windows Terminal Fix
-$MTB5                            = New-Object System.Windows.Forms.Button
 $MTB5.Text                       = "Windows Terminal Fix"
-
-# Void
-$MTB6                            = New-Object System.Windows.Forms.Button
 $MTB6.Text                       = "Void"
-
-# Void
-$MTB7                            = New-Object System.Windows.Forms.Button
 $MTB7.Text                       = "Void"
-
-# Network Config
-$MTB8                            = New-Object System.Windows.Forms.Button
 $MTB8.Text                       = "Network Config"
-
-# Autoruns
-$MTB9                            = New-Object System.Windows.Forms.Button
 $MTB9.Text                       = "Autoruns"
-
-# Void
-$MTB10                           = New-Object System.Windows.Forms.Button
 $MTB10.Text                      = "Void"
-
-# Void
-$MTB11                           = New-Object System.Windows.Forms.Button
 $MTB11.Text                      = "Void"
-
-# Void
-$MTB12                           = New-Object System.Windows.Forms.Button
 $MTB12.Text                      = "Void"
-
-# Void
-$MTB13                           = New-Object System.Windows.Forms.Button
 $MTB13.Text                      = "Void"
-
-# Void      
-$MTB14                           = New-Object System.Windows.Forms.Button
 $MTB14.Text                      = "Void"
-
-# Adobe Cleaner
-$MTB15                           = New-Object System.Windows.Forms.Button
 $MTB15.Text                      = "Adobe Cleaner"
-
-# AMD Undervolt Pack
-$MTB16                           = New-Object System.Windows.Forms.Button
 $MTB16.Text                      = "AMD Undervolt Pack"
 
 $Position = 40*2+10
@@ -465,6 +289,8 @@ foreach ($Button in $Buttons) {
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
     $Position+=40
 }
+$MTB1.Location                   = New-Object System.Drawing.Point(10,10)
+$MTPanel.Controls.Add($MTB1)
 
 
             ##################################
@@ -540,34 +366,24 @@ $HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),
 $HPanel.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "HPanelBg.png"))
 
 $Position = 5
-# Game Settings
-$HB1                             = New-Object System.Windows.Forms.Button
+
 $HB1.Text                        = "Game Settings"
 $HB1.Location                    = New-Object System.Drawing.Point(10,$Position)
 
-# Dark Theme
-$HB2                             = New-Object System.Windows.Forms.Button
 $HB2.Text                        = "Dark Theme"
 $HB2.Location                    = New-Object System.Drawing.Point(240,$Position)
 
-# Context Menu Handler
-$HB3                             = New-Object System.Windows.Forms.Button
 $HB3.Text                        = "Context Menu Handler"
 $HB3.Location                    = New-Object System.Drawing.Point(470,$Position)
+
 $Position += 49
 
-# MSI Afterburner Settings
-$HB4                             = New-Object System.Windows.Forms.Button
 $HB4.Text                        = "MSI Afterburner Settings"
 $HB4.Location                    = New-Object System.Drawing.Point(10,$Position)
 
-# Remove Realtek
-$HB5                             = New-Object System.Windows.Forms.Button
 $HB5.Text                        = "Remove Realtek"
 $HB5.Location                    = New-Object System.Drawing.Point(240,$Position)
 
-# Z390 Lan Drivers
-$HB6                             = New-Object System.Windows.Forms.Button
 $HB6.Text                        = "Z390 Lan Drivers"
 $HB6.Location                    = New-Object System.Drawing.Point(470,$Position)
 $Position += 40
@@ -647,11 +463,6 @@ foreach ($Button in $Buttons) {
     })
 }
 
-$TLabel.Add_Click({
-    Invoke-WebRequest "https://github.com/Zarckash/ZKTool/raw/main/Configs/Info.txt" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
-    Start-Process "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Info.txt"
-})
-
 $LogoBox.Text = "Unlocked"
 $LogoBox.Add_Click({
     if ($LogoBox.Text -eq "Unlocked") {
@@ -683,28 +494,28 @@ $AppPath  = "$env:ProgramFiles\ZKTool"                        # App Path
 $Download = New-Object net.webclient
 
 function GoogleChrome {
-    $StatusBox.Text = "| Instalando Google Chrome...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Google Chrome..."
     $SB1.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Google.Chrome | Out-File $LogPath -Encoding UTF8 -Append
     $SB1.ForeColor = $DefaultForeColor
 }
 
 function GeForceExperience {
-    $StatusBox.Text = "| Instalando Google Chrome...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando GeForce Experience..."
     $SB1.ForeColor = $LabelColor
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Google.Chrome | Out-File $LogPath -Encoding UTF8 -Append
+    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Nvidia.GeForceExperience | Out-File $LogPath -Encoding UTF8 -Append
     $SB1.ForeColor = $DefaultForeColor
 }
 
 function Discord {
-    $StatusBox.Text = "| Instalando Discord...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Discord..."
     $SB3.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Discord.Discord | Out-File $LogPath -Encoding UTF8 -Append
     $SB3.ForeColor = $DefaultForeColor
 }
 
 function Spotify {
-    $StatusBox.Text = "| Instalando Spotify...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Spotify..."
     $SB4.ForeColor = LabelColor
     $Download.DownloadFile($FromPath+"/Apps/Spotify.ps1", $ToPath+"\Apps\Spotify.ps1")
     Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Spotify.ps1 ; exit"
@@ -712,14 +523,14 @@ function Spotify {
 }
 
 function HWMonitor {
-    $StatusBox.Text = "| Instalando HWMonitor...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando HWMonitor..."
     $SB5.ForeColor = LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id CPUID.HWMonitor | Out-File $LogPath -Encoding UTF8 -Append
     $SB5.ForeColor = $DefaultForeColor
 }
 
 function MSIAfterburner {
-    $StatusBox.Text = "| Instalando MSI Afterburner...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando MSI Afterburner..."
     $SB6.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/MSIAfterburner.zip", $ToPath+"\Apps\MSIAfterburner.zip")
     Expand-Archive -Path ($ToPath+"\Apps\MSIAfterburner.zip") -DestinationPath ($ToPath+"\Apps\MSIAfterburner") -Force
@@ -729,14 +540,14 @@ function MSIAfterburner {
 }
 
 function CorsairiCue {
-    $StatusBox.Text = "| Instalando Corsair iCue...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Corsair iCue..."
     $SB7.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Corsair.iCUE.4 | Out-File $LogPath -Encoding UTF8 -Append
     $SB7.ForeColor = $DefaultForeColor
 }
 
 function LogitechOMM {
-    $StatusBox.Text = "| Iniciando Logitech Onboard Memory Manager...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Iniciando Logitech Onboard Memory Manager..."
     $SB8.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/LogitechOMM.exe", $ToPath+"\Apps\LogitechOMM.exe")
     Start-Process ($ToPath+"\Apps\LogitechOMM.exe")
@@ -744,7 +555,7 @@ function LogitechOMM {
 }
 
 function RazerSynapse {
-    $StatusBox.Text = "| Instalando Razer Synapse...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Razer Synapse..."
     $SB9.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/RazerSynapse.exe", $ToPath+"\Apps\RazerSynapse.exe")
     Start-Process ($ToPath+"\Apps\RazerSynapse.exe")
@@ -752,7 +563,7 @@ function RazerSynapse {
 }
 
 function uTorrentWeb {
-    $StatusBox.Text = "| Instalando uTorrent Web...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando uTorrent Web..."
     $SB10.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/uTorrentWeb.exe", $ToPath+"\Apps\uTorrentWeb.exe")
     Start-Process ($ToPath+"\Apps\uTorrentWeb.exe")
@@ -760,42 +571,42 @@ function uTorrentWeb {
 }
 
 function NanaZip {
-    $StatusBox.Text = "| Instalando NanaZip...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando NanaZip..."
     $SB11.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id M2Team.NanaZip | Out-File $LogPath -Encoding UTF8 -Append
     $SB11.ForeColor = $DefaultForeColor
 }
 
 function VisualStudioCode {
-    $StatusBox.Text = "| Instalando Visual Studio Code...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Visual Studio Code..."
     $SB11.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VisualStudioCode | Out-File $LogPath -Encoding UTF8 -Append
     $SB12.ForeColor = $DefaultForeColor
 }
 
 function OBSStudio {
-    $StatusBox.Text = "| Instalando OBS Studio...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando OBS Studio..."
     $MSB1.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id OBSProject.OBSStudio | Out-File $LogPath -Encoding UTF8 -Append
     $MSB1.ForeColor = $DefaultForeColor
 }
 
 function AdobePhotoshop {
-    $StatusBox.Text = "| Instalando Adobe Photoshop...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Adobe Photoshop..."
     $MSB2.ForeColor = $LabelColor
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe Photoshop'
-        $file = 'http://zktoolip.ddns.net/files/AdobePhotoshop.iso'
-        $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePhotoshop.iso'
-        Write-Host "Descargando Adobe Photoshop..."
-        if (Test-Path -Path "H:\Apache24\htdocs\files\AdobePhotoshop.iso") {
-            Write-Host "Copiando Archivos..."
-            $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
-            Copy-Item "H:\Apache24\htdocs\files\AdobePhotoshop.iso"  $destination
+        $File = 'http://zktoolip.ddns.net/files/AdobePhotoshop.iso'
+        $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePhotoshop.iso'
+        Write-Host 'Descargando Adobe Photoshop...'
+        if (Test-Path -Path 'H:\Apache24\htdocs\files\AdobePhotoshop.iso') {
+            Write-Host 'Copiando Archivos...'
+            $Destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
+            Copy-Item -Path 'H:\Apache24\htdocs\files\AdobePhotoshop.iso' -Destination $Destination
         } else {
-            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+            (New-Object Net.WebClient).DownloadFile($File, $FilePath)
         }
-        $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
+        $AdobePath = Mount-DiskImage $Filepath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
     }
@@ -803,19 +614,19 @@ function AdobePhotoshop {
 }
 
 function AdobePremiere {
-    $StatusBox.Text = "| Instalando Adobe Premiere...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Adobe Premiere..."
     $MSB3.ForeColor = $LabelColor
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe Premiere'
-        $file = 'http://zktoolip.ddns.net/files/AdobePremiere.iso'
-        $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePremiere.iso'
-        Write-Host "Descargando Adobe Premiere..."
-        if (Test-Path -Path "H:\Apache24\htdocs\files\AdobePremiere.iso") {
-            Write-Host "Copiando Archivos..."
-            $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
-            Copy-Item "H:\Apache24\htdocs\files\AdobePremiere.iso"  $destination
+        $File = 'http://zktoolip.ddns.net/files/AdobePremiere.iso'
+        $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePremiere.iso'
+        Write-Host 'Descargando Adobe Premiere...'
+        if (Test-Path -Path 'H:\Apache24\htdocs\files\AdobePremiere.iso') {
+            Write-Host 'Copiando Archivos...'
+            $Destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
+            Copy-Item -Path 'H:\Apache24\htdocs\files\AdobePremiere.iso' -Destination $Destination
         } else {
-            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+            (New-Object Net.WebClient).DownloadFile($File, $FilePath)
         }
         $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
@@ -825,19 +636,19 @@ function AdobePremiere {
 }
 
 function AdobeAfterEffects {
-    $StatusBox.Text = "| Instalando Adobe After Effects...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Adobe After Effects..."
     $MSB4.ForeColor = $LabelColor
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe After Effects'
-        $file = 'http://zktoolip.ddns.net/files/AdobeAfterEffects.iso'
-        $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobeAfterEffects.iso'
-        Write-Host "Descargando Adobe After Effects..."
+        $File = 'http://zktoolip.ddns.net/files/AdobeAfterEffects.iso'
+        $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobeAfterEffects.iso'
+        Write-Host 'Descargando Adobe After Effects...'
         if (Test-Path -Path "H:\Apache24\htdocs\files\AdobeAfterEffects.iso") {
-            Write-Host "Copiando Archivos..."
-            $destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
-            Copy-Item "H:\Apache24\htdocs\files\AdobeAfterEffects.iso"  $destination
+            Write-Host 'Copiando Archivos...'
+            $Destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
+            Copy-Item -Path 'H:\Apache24\htdocs\files\AdobeAfterEffects.iso' -Destination $Destination
         } else {
-            (New-Object Net.WebClient).DownloadFile($file, $filepath)
+            (New-Object Net.WebClient).DownloadFile($File, $FilePath)
         }
         $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
@@ -847,7 +658,7 @@ function AdobeAfterEffects {
 }
 
 function Netflix {
-    $StatusBox.Text = "| Instalando Netflix...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Netflix..."
     $MSB5.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/Netflix.appx", $ToPath+"\Apps\Netflix.appx")
     &{ $ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\Netflix.appx") }
@@ -855,13 +666,13 @@ function Netflix {
 }
 
 function PrimeVideo {
-    $StatusBox.Text = "| Instalando Prime Video...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Prime Video..."
     $MSB6.ForeColor = $LabelColor
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Amazon Prime Video'
         $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/PrimeVideo.appx'
         $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\PrimeVideo.appx'
-        Write-Host "Descargando Amazon Prime Video..."
+        Write-Host 'Descargando Amazon Prime Video...'
         (New-Object Net.WebClient).DownloadFile($file, $filepath)
         Add-AppxPackage $filepath
     }
@@ -869,7 +680,7 @@ function PrimeVideo {
 }
 
 function VLCMediaPlayer {
-    $StatusBox.Text = "| Instalando VLC Media Player...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando VLC Media Player..."
     $MSB7.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/VLCMediaPlayer.exe", $ToPath+"\Apps\VLCMediaPlayer.exe")
     Start-Process ($ToPath+"\Apps\VLCMediaPlayer.exe")
@@ -877,7 +688,7 @@ function VLCMediaPlayer {
 }
 
 function Rufus {
-    $StatusBox.Text = "| Iniciando Rufus...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Iniciando Rufus..."
     $MSB8.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/Rufus.exe", $ToPath+"\Apps\Rufus.exe")
     Start-Process ($ToPath+"\Apps\Rufus.exe")
@@ -887,35 +698,35 @@ function Rufus {
 }
 
 function WinRAR {
-    $StatusBox.Text = "| Instalando WinRAR...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando WinRAR..."
     $MSB9.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RARLab.WinRAR | Out-File $LogPath -Encoding UTF8 -Append
     $MSB9.ForeColor = $DefaultForeColor
 }
 
 function MegaSync {
-    $StatusBox.Text = "| Instalando MegaSync...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando MegaSync..."
     $MSB10.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Mega.MEGASync | Out-File $LogPath -Encoding UTF8 -Append
     $MSB10.ForeColor = $DefaultForeColor
 }
 
 function LibreOffice {
-    $StatusBox.Text = "| Instalando LibreOffice...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando LibreOffice..."
     $MSB11.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id TheDocumentFoundation.LibreOffice | Out-File $LogPath -Encoding UTF8 -Append
     $MSB11.ForeColor = $DefaultForeColor
 }
 
 function GitHubDesktop {
-    $StatusBox.Text = "| Instalando GitHub Desktop...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando GitHub Desktop..."
     $MSB12.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GitHub.GitHubDesktop | Out-File $LogPath -Encoding UTF8 -Append
     $MSB12.ForeColor = $DefaultForeColor
 }
 
 function AMDAdrenalin {
-    $StatusBox.Text = "| Instalando AMD Adrenalin...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando AMD Adrenalin..."
     $MSB13.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/AMDAdrenalin.exe", $ToPath+"\Apps\AMDAdrenalin.exe")
     Start-Process ($ToPath+"\Apps\AMDAdrenalin.exe")
@@ -923,13 +734,13 @@ function AMDAdrenalin {
 }
 
 function TarkovLauncher {
-    $StatusBox.Text = "| Instalando Tarkov Launcher...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Tarkov Launcher..."
     $MSB15.ForeColor = $LabelColor
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Tarkov Launcher'
         $file = 'https://github.com/Zarckash/ZKTool/releases/download/BIGFILES/TarkovLauncher.exe'
         $filepath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\TarkovLauncher.exe'
-        Write-Host "Descargando Tarkov Launcher..."
+        Write-Host 'Descargando Tarkov Launcher...'
         (New-Object Net.WebClient).DownloadFile($file, $filepath)
         Start-Process $filepath
     }
@@ -937,42 +748,42 @@ function TarkovLauncher {
 }
 
 function LeagueofLegends {
-    $StatusBox.Text = "| Instalando League of Legends...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando League of Legends..."
     $MSB16.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.LeagueOfLegends.EUW | Out-File $LogPath -Encoding UTF8 -Append
     $MSB16.ForeColor = $DefaultForeColor
 }
 
 function Valorant {
-    $StatusBox.Text = "| Instalando Valorant...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Valorant..."
     $MSB17.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id RiotGames.Valorant.EU | Out-File $LogPath -Encoding UTF8 -Append
     $MSB17.ForeColor = $DefaultForeColor
 }
 
 function Steam {
-    $StatusBox.Text = "| Instalando Steam...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Steam..."
     $LB1.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Valve.Steam | Out-File $LogPath -Encoding UTF8 -Append
     $LB1.ForeColor = $DefaultForeColor
 }
 
 function EAApp {
-    $StatusBox.Text = "| Instalando EA Desktop...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando EA Desktop..."
     $LB2.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id ElectronicArts.EADesktop | Out-File $LogPath -Encoding UTF8 -Append
     $LB2.ForeColor = $DefaultForeColor
 }
 
 function UbisoftConnect {
-    $StatusBox.Text = "| Instalando Ubisoft Connect...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Ubisoft Connect..."
     $LB3.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Ubisoft.Connect | Out-File $LogPath -Encoding UTF8 -Append
     $LB3.ForeColor = $DefaultForeColor
 }
 
 function Battle.Net {
-    $StatusBox.Text = "| Instalando Battle.Net...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Battle.Net..."
     $LB4.ForeColor = $LabelColor
     $TempFile = "https://www.battle.net/download/getInstallerForGame?os=win&gameProgram=BATTLENET_APP&version=Live&id=undefined"
     $Download.DownloadFile($TempFile, $ToPath+"\Apps\BattleNet.exe")
@@ -981,14 +792,14 @@ function Battle.Net {
 }
 
 function GOGGalaxy {
-    $StatusBox.Text = "| Instalando GOG Galaxy...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando GOG Galaxy..."
     $LB5.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id GOG.Galaxy | Out-File $LogPath -Encoding UTF8 -Append
     $LB5.ForeColor = $DefaultForeColor
 }
 
 function RockstarGames {
-    $StatusBox.Text = "| Instalando Rockstar Games Launcher...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Rockstar Games Launcher..."
     $LB6.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/RockstarGamesLauncher.exe", $ToPath+"\Apps\RockstarGamesLauncher.exe")
     Start-Process ($ToPath+"\Apps\RockstarGamesLauncher.exe")
@@ -996,14 +807,14 @@ function RockstarGames {
 }
 
 function EpicGamesLauncher {
-    $StatusBox.Text = "| Instalando Epic Games Launcher...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Epic Games Launcher..."
     $LB7.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id EpicGames.EpicGamesLauncher | Out-File $LogPath -Encoding UTF8 -Append
     $LB7.ForeColor = $DefaultForeColor
 }
 
 function Xbox {
-    $StatusBox.Text = "| Instalando Xbox App...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Xbox App..."
     $LB8.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/XboxApp.appx", $ToPath+"\Apps\XboxApp.appx")
     &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ($ToPath+"\Apps\XboxApp.appx")} 
@@ -1011,30 +822,30 @@ function Xbox {
 }
 
 function OptimizationTweaks {
-    $StatusBox.Text = "| AJUSTES DE OPTIMIZACION`r`n`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| AJUSTES DE OPTIMIZACION`r`n"
     $TB1.ForeColor = $LabelColorBig
 
     # Create Restore Point
-    $StatusBox.Text = "| Creando Punto De Restauracion...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Creando Punto De Restauracion..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
     Enable-ComputerRestore -Drive "C:\"
     &{$ProgressPreference = 'SilentlyContinue'; Checkpoint-Computer -Description "Pre Optimizacion ZKTool" -RestorePointType "MODIFY_SETTINGS"} 
     
     # Disable UAC
-    $StatusBox.Text = "| Desactivando UAC Para Administradores...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando UAC Para Administradores..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
     # Disable Device Set Up Suggestions
-    $StatusBox.Text = "| Desactivando Sugerencias De Configuracion De Dispositivo...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Sugerencias De Configuracion De Dispositivo..."
     New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "UserProfileEngagement"
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement" -Name "ScoobeSystemSettingEnabled" -Type DWord -Value 0
     
     # Disable Fast Boot
-    $StatusBox.Text = "| Desactivando Fast Boot...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Fast Boot..."
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Type DWord -Value 0
 
     # Enable Hardware Acceleration
-    $StatusBox.Text = "| Activando Aceleracion De Hardware...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Activando Aceleracion De Hardware..."
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
 
     # Enable Borderless Optimizations
@@ -1049,35 +860,28 @@ function OptimizationTweaks {
     # Set-PageFile Size
     $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1mb
     if ($RamCapacity -le 17000) {
-        #$RamCapacity = $RamCapacity/2
-        $StatusBox.Text = "| Estableciendo El Tamaño Del Archivo De Paginacion En $RamCapacity MB...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "| Estableciendo El Tamaño Del Archivo De Paginacion En $RamCapacity MB..."
         $MTB13.ForeColor = $LabelColor
         $PageFile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
         $PageFile.AutomaticManagedPagefile = $false
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "PagingFiles" -Value "c:\pagefile.sys $RamCapacity $RamCapacity"
         $MTB13.ForeColor = $DefaultForeColor
     }else {
-        $StatusBox.Text = "| La Cantidad De Memoria RAM Es Superior A Los 16GB, No Se Realizara Ningun Cambio...`r`n" + $StatusBox.Text
+        $StatusBox.Text = "| La Cantidad De Memoria RAM Es Superior A Los 16GB, No Se Realizara Ningun Cambio..."
     }
 
-    # Set High Performance Profile
-    $StatusBox.Text = "| Estableciendo Perfil De Alto Rendimiento...`r`n" + $StatusBox.Text
+    # Energy Profile Settings
+    $StatusBox.Text = "| Estableciendo Perfil De Alto Rendimiento..."
     powercfg.exe -SETACTIVE 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
-
-    # Set Sleep Timeout Timer
-    $StatusBox.Text = "| Estableciendo Sleep Timeout...`r`n" + $StatusBox.Text
-    powercfg /X monitor-timeout-ac 15
-    powercfg /X monitor-timeout-dc 15
-    powercfg /X standby-timeout-ac 0
-    powercfg /X standby-timeout-dc 0
+    powercfg /Change monitor-timeout-ac 15
+    powercfg /Change standby-timeout-ac 0
 
     # Rebuild Performance Counters
-    $StatusBox.Text = "| Reconstruyendo Contadores De Rendimiento...`r`n" + $StatusBox.Text
-    lodctr /r
+    $StatusBox.Text = "| Reconstruyendo Contadores De Rendimiento..."
     lodctr /r
 
     # Install Timer Resolution Service
-    $StatusBox.Text = "| Instalando Set Timer Resolution Service...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Set Timer Resolution Service..."
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2013.x64 | Out-File $LogPath -Encoding UTF8 -Append
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2013.x86 | Out-File $LogPath -Encoding UTF8 -Append
     $Download.DownloadFile($FromPath+"/Apps/SetTimerResolutionService.exe", $ToPath+"\Apps\SetTimerResolutionService.exe")
@@ -1089,7 +893,7 @@ function OptimizationTweaks {
     Pop-Location
 
     # Windows Defender
-    $StatusBox.Text = "| Aplicando Exclusiones A Windows Defender...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Aplicando Exclusiones A Windows Defender..."
     $ActiveDrives = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty "Root" | Where-Object {$_.Length -eq 3}
     foreach ($Drive in $ActiveDrives) {
         if (Test-Path ($Drive + "Games")) {
@@ -1099,31 +903,31 @@ function OptimizationTweaks {
     Add-MpPreference -ExclusionPath "C:\Program Files\Windows Defender"
 
     # Show File Extensions
-    $StatusBox.Text = "| Activando Extensiones De Archivos...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Activando Extensiones De Archivos..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
     
     # Open File Explorer In This PC Page
-    $StatusBox.Text = "| Estableciendo Abrir El Explorador De Archivos En La Pagina Este Equipo...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Estableciendo Abrir El Explorador De Archivos En La Pagina Este Equipo..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
 
     # Reduce svchost Process Amount
-    $StatusBox.Text = "| Reduciendo Los Procesos De Windows A La Mitad...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Reduciendo Los Procesos De Windows A La Mitad..."
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value 4294967295
 
     # Disable Mouse Acceleration
-    $StatusBox.Text = "| Desactivando Aceleracion Del Raton...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Aceleracion Del Raton..."
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSpeed" -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold1" -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold2" -Value 0
 
     # Disable Keyboard Layout Shortcut
-    $StatusBox.Text = "| Desactivando Cambio De Idioma Del Teclado...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Cambio De Idioma Del Teclado..."
     Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Hotkey" -Value 3
     Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Language Hotkey" -Value 3
     Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Layout Hotkey" -Value 3
     
     # Disable Error Reporting
-    $StatusBox.Text = "| Desactivando Informar De Errores`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Informar De Errores"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
     Disable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-Null
@@ -1132,12 +936,12 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "JPEGImportQuality" -Type DWord -Value 100
     
     # Network Optimizations
-    $StatusBox.Text = "| Optimizando Registros De Red...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Optimizando Registros De Red..."
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "IRPStackSize" -Type DWord -Value 20
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -Name "NetworkThrottlingIndex" -Type DWord -Value 4294967295
 
     # Performance Optimizations
-    $StatusBox.Text = "| Optimizando Registros De Rendimiento...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Optimizando Registros De Rendimiento..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" -Name "SearchOrderConfig" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -Name "SystemResponsiveness" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "WaitToKillServiceTimeout" -Value 2000
@@ -1153,7 +957,7 @@ function OptimizationTweaks {
     Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "HungAppTimeout" -ErrorAction SilentlyContinue
 
     # Games Performance Optimizations
-    $StatusBox.Text = "| Optimizando Registros De Juegos...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Optimizando Registros De Juegos..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Affinity" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Background Only" -Type String -Value "False"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Clock Rate" -Type DWord -Value 10000
@@ -1172,7 +976,7 @@ function OptimizationTweaks {
 	Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
 
     # Edge Settings
-    $StatusBox.Text = "| Optimizando Edge...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Optimizando Edge..."
     New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft" -Name "Edge" | Out-File $LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "BackgroundModeEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "ShowDownloadsToolbarButton" -Type DWord -Value 1
@@ -1191,7 +995,7 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem" -Name "Start" -Type DWord -Value 4
 
     # Chrome Settings
-    $StatusBox.Text = "| Optimizando Chrome...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Optimizando Chrome..."
     New-Item -Path "HKLM:\SOFTWARE\Policies\Google" -Name "Chrome" | Out-File $LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Google\Chrome" -Name "BackgroundModeEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Google\Chrome" -Name "HardwareAccelerationModeEnabled" -Type DWord -Value 0
@@ -1201,7 +1005,7 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdatem" -Name "Start" -Type DWord -Value 4
 
     # Force 100% Monitor Scaling
-    $StatusBox.Text = "| Forzando 100% De Escala En Todos Los Monitores...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Forzando 100% De Escala En Todos Los Monitores..."
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "LogPixels" -Type DWord -Value 96
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "Win8DpiScaling" -Type DWord -Value 96
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "AppliedDPI" -Type DWord -Value 96
@@ -1210,12 +1014,12 @@ function OptimizationTweaks {
     }
 
     # Disable VBS
-    $StatusBox.Text = "| Desactivando Aislamiento Del Nucleo...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Aislamiento Del Nucleo..."
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard" -Name "EnableVirtualizationBasedSecurity" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "Enabled" -Type DWord -Value 0
 
     # Disable Background Apps
-    $StatusBox.Text = "| Desactivando Aplicaciones En Segundo Plano...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Aplicaciones En Segundo Plano..."
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Name "GlobalUserDisabled" -Type DWord -Value 1
 
     # Disable Power Throttling
@@ -1223,7 +1027,7 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" -Name "PowerThrottlingOff" -Type DWord -Value 1
 
     # Hide Keyboard Layout Icon
-    $StatusBox.Text = "| Ocultando El Boton De Idioma Del Teclado...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ocultando El Boton De Idioma Del Teclado..."
     Set-WinLanguageBarOption -UseLegacyLanguageBar
     New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-File $LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ExtraIconsOnMinimized" -Type DWord -Value 0
@@ -1232,7 +1036,7 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "Transparency" -Type DWord -Value 255
 
     # Disable Telemetry
-    $StatusBox.Text = "| Deshabilitando Telemetria...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Deshabilitando Telemetria..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
     Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-File $LogPath -Encoding UTF8 -Append
@@ -1243,7 +1047,7 @@ function OptimizationTweaks {
     Disable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-File $LogPath -Encoding UTF8 -Append
 
     # Disable Aplication Sugestions
-    $StatusBox.Text = "| Deshabilitando Sugerencias De Aplicaciones...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Deshabilitando Sugerencias De Aplicaciones..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "ContentDeliveryAllowed" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "OemPreInstalledAppsEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "PreInstalledAppsEnabled" -Type DWord -Value 0
@@ -1256,7 +1060,7 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SystemPaneSuggestionsEnabled" -Type DWord -Value 0
 
     # Disable Activity History
-    $StatusBox.Text = "| Deshabilitando Historial De Actividad...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Deshabilitando Historial De Actividad..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities" -Type DWord -Value 0
@@ -1267,7 +1071,7 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP" -Name "RomeSdkChannelUserAuthzPolicy" -Type DWord -Value 0
 
     # Show TaskBar Only In Main Screen
-    $StatusBox.Text = "| Desactivando Mostrar Barra De Tareas En Todos Los Monitores...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Mostrar Barra De Tareas En Todos Los Monitores..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MMTaskbarEnabled" -Type DWord -Value 0
 
     # Show More Pinned Items In Start Menu
@@ -1275,88 +1079,83 @@ function OptimizationTweaks {
 
     # Hide Recent Files In Start Menu
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocks" -Type DWord -Value 0
-    $Download.DownloadFile($FromPath+"/Apps/StartMenu.reg", $ToPath+"\Apps\StartMenu.reg")
-    regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\StartMenu.reg
 
-    # Keep Windows From Creating DumpStack.log File
+    # Hide Windows Files
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
-
-    # Hide PerfLogs Folder
     if (!(Test-Path -Path "C:\PerfLogs")) {
         New-Item "C:\PerfLogs" -ItemType Directory
     }
-    $File = Get-Item "C:\PerfLogs"
-    $File.Attributes = 'Hidden'
+    (Get-Item "C:\PerfLogs").Attributes = 'Hidden'
 
     # Stop Microsoft Store From Updating Apps Automatically
-    $StatusBox.Text = "| Desactivando Actualizaciones Automaticas De Microsoft Store...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Actualizaciones Automaticas De Microsoft Store..."
     New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "WindowsStore"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -Name "AutoDownload" -Type DWord -Value 2
 
     # Hide TaskBar View Button
-    $StatusBox.Text = "| Ocultando Boton Vista De Tareas...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ocultando Boton Vista De Tareas..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
 
     # Hide Cortana Button
-    $StatusBox.Text = "| Ocultando Boton De Cortana...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ocultando Boton De Cortana..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCortanaButton" -Type DWord -Value 0
 
     # Hide Meet Now Button
-    $StatusBox.Text = "| Ocultando Boton De Reunirse Ahora...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ocultando Boton De Reunirse Ahora..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Value 1
 
     # Hide Search Button
-    $StatusBox.Text = "| Ocultando Boton De Busqueda...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ocultando Boton De Busqueda..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
 
     # Disable Widgets
-    $StatusBox.Text = "| Desactivando Widgets...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Widgets..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarDa" -Type DWord -Value 0
     New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "Dsh"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests" -Type DWord -Value 0
 
     # Disable Web Search
-    $StatusBox.Text = "| Desactivando Busqueda En La Web Con Bing...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Busqueda En La Web Con Bing..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
 
     # Hide Search Recomendations
-    $StatusBox.Text = "| Desactivando Recomendaciones De Busqueda...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Recomendaciones De Busqueda..."
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
 
     # Disable Microsoft Account In Windows Search
-    $StatusBox.Text = "| Desactivando Cuenta De Microsoft En Windows Search...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desactivando Cuenta De Microsoft En Windows Search..."
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsMSACloudSearchEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsAADCloudSearchEnabled" -Type DWord -Value 0
     
     # Hide Chat Button
-    $StatusBox.Text = "| Ocultando Boton De Chats...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ocultando Boton De Chats..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
 
     # Set Dark Theme
-    $StatusBox.Text = "| Estableciendo Modo Oscuro...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Estableciendo Modo Oscuro..."
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
 
     # Hide Recent Files And Folders In Explorer
-    $StatusBox.Text = "| Ocultando Archivos Y Carpetas Recientes De Acceso Rapido...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ocultando Archivos Y Carpetas Recientes De Acceso Rapido..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
 
     # Clipboard History
-    $StatusBox.Text = "| Activando El Historial Del Portapapeles...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Activando El Historial Del Portapapeles..."
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
 
     # Change Computer Name
     $pcname = $env:username.ToUpper() + "-PC"
-    $StatusBox.Text = "| Cambiando Nombre Del Equipo A " + $pcname + "...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Cambiando Nombre Del Equipo A " + $pcname + "..."
     Rename-Computer -NewName $pcname
 
     # Set Private Network
-    $StatusBox.Text = "| Estableciendo Red Privada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Estableciendo Red Privada..."
     Set-NetConnectionProfile -NetworkCategory Private
 
     # Show File Operations Details
-    $StatusBox.Text = "| Mostrando Detalles De Transferencias De Archivos...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Mostrando Detalles De Transferencias De Archivos..."
     New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "OperationStatusManager" | Out-File $LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" -Name "EnthusiastMode" -Type DWord -Value 1
 
@@ -1373,13 +1172,13 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Type DWord -Value 3
 
     # Set Desktop Icons Size To Small
-    $StatusBox.Text = "| Reduciendo El Tamaño De Los Iconos Del Escritorio...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Reduciendo El Tamaño De Los Iconos Del Escritorio..."
     taskkill /f /im explorer.exe
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
     explorer.exe
 
     # Disable Feedback
-    $StatusBox.Text = "| Deshabilitando Feedback...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Deshabilitando Feedback..."
     If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules")) {
         New-Item -Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules" -Force | Out-File $LogPath -Encoding UTF8 -Append
     }
@@ -1389,7 +1188,7 @@ function OptimizationTweaks {
     Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" -ErrorAction SilentlyContinue | Out-File $LogPath -Encoding UTF8 -Append
 
     # Service Tweaks To Manual 
-    $StatusBox.Text = "| Deshabilitando Servicios...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Deshabilitando Servicios..."
     $Services = @(
         "ALG"                                          # Application Layer Gateway Service(Provides support for 3rd party protocol plug-ins for Internet Connection Sharing)
         "AJRouter"                                     # Needed for AllJoyn Router Service
@@ -1453,7 +1252,6 @@ function OptimizationTweaks {
         "vmictimesync"
         "vmicvmsession"
     )
-
     foreach ($Service in $Services) {
         Get-Service -Name $Service -ErrorAction SilentlyContinue | Set-Service -StartupType Manual
     }
@@ -1479,11 +1277,11 @@ function OptimizationTweaks {
 }
 
 function CleaningTweaks {
-    $StatusBox.Text = "| Aplicando Cleaning Tweaks...`r`n`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Aplicando Cleaning Tweaks...`r`n"
     $TB2.ForeColor = $LabelColor
 
     # Uninstall Microsoft Bloatware
-    $StatusBox.Text = "| Desinstalando Microsoft Bloatware...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando Microsoft Bloatware..."
     $Bloat = @(
         "Microsoft.3DBuilder"
         "Microsoft.AppConnector"
@@ -1553,29 +1351,28 @@ function CleaningTweaks {
 
     # Uninstall Windows Optional Features
     &{ $ProgressPreference = 'SilentlyContinue'
-    $StatusBox.Text = "| Instalando .NET Framework 3.5...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando .NET Framework 3.5..."
     Add-WindowsCapability -Online -Name NetFx3~~~~ -Source C:\sources\sxs | Out-File $LogPath -Encoding UTF8 -Append
-
-    $StatusBox.Text = "| Desinstalando Servidor OpenSSH...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando Servidor OpenSSH..."
     Get-WindowsPackage -Online | Where-Object PackageName -like *SSH* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
-    $StatusBox.Text = "| Desinstalando Rostro De Windows Hello...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando Rostro De Windows Hello..."
     Get-WindowsPackage -Online | Where-Object PackageName -like *Hello-Face* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
-    $StatusBox.Text = "| Desinstalando Grabacion De Acciones Del Usuario...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando Grabacion De Acciones Del Usuario..."
     DISM /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
-    $StatusBox.Text = "| Desinstalando Modo De Internet Explorer...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando Modo De Internet Explorer..."
     DISM /Online /Remove-Capability /CapabilityName:Browser.InternetExplorer~~~~0.0.11.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
-    $StatusBox.Text = "| Desinstalando WordPad...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando WordPad..."
     DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.WordPad~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
-    $StatusBox.Text = "| Desinstalando Windows Powershell ISE...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando Windows Powershell ISE..."
     DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
-    $StatusBox.Text = "| Desinstalando Reconocedor Matematico...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando Reconocedor Matematico..."
     DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
     }
     $TB2.ForeColor = $DefaultForeColor
 }
 
 Function NvidiaSettings {
-    $StatusBox.Text = "| Aplicando Ajustes Al Panel De Control De Nvidia...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Aplicando Ajustes Al Panel De Control De Nvidia..."
     $TB3.ForeColor = $LabelColor
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
     $Download.DownloadFile($FromPath+"/Apps/ProfileInspector.exe", $ToPath+"\Apps\ProfileInspector.exe")
@@ -1588,14 +1385,14 @@ Function NvidiaSettings {
 }
 
 Function ReduceIconsSpacing {
-    $StatusBox.Text = "| Reduciendo Espacio Entre Iconos...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Reduciendo Espacio Entre Iconos..."
     $TB4.ForeColor = $LabelColor
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "IconSpacing" -Value -900
     $TB4.ForeColor = $DefaultForeColor
 }
 
 Function HideShortcutArrows {
-    $StatusBox.Text = "| Ocultando Flechas De Acceso Directo...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ocultando Flechas De Acceso Directo..."
     $TB5.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Configs/Blank.ico", $ToPath+"\Configs\Blank.ico")
     Unblock-File ($ToPath+"\Configs\Blank.ico")
@@ -1610,7 +1407,7 @@ Function HideShortcutArrows {
 }
 
 Function SetFluentCursor {
-    $StatusBox.Text = "| Estableciendo Cursor Personalizado...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Estableciendo Cursor Personalizado..."
     $TB6.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Configs/FluentCursor.zip", $ToPath+"\Configs\FluentCursor.zip")
     Expand-Archive -Path ($ToPath+"\Configs\FluentCursor.zip") -DestinationPath 'C:\Windows\Cursors\Fluent Cursor' -Force
@@ -1620,7 +1417,7 @@ Function SetFluentCursor {
 }
 
 Function DisableCortana {
-    $StatusBox.Text = "| Deshabilitando Cortana...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Deshabilitando Cortana..."
     $TB7.ForeColor = $LabelColor
     If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings")) {
         New-Item -Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings" -Force | Out-File $LogPath -Encoding UTF8 -Append
@@ -1643,7 +1440,7 @@ Function DisableCortana {
 }
 
 Function RemoveOneDrive {
-    $StatusBox.Text = "| Desinstalando One Drive...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando One Drive..."
     $TB8.ForeColor = $LabelColor
     Stop-Process -Name "OneDrive" -ErrorAction SilentlyContinue
     Start-Sleep -s 2
@@ -1667,7 +1464,7 @@ Function RemoveOneDrive {
 }
 
 Function RemoveXboxGameBar {
-    $StatusBox.Text = "| Desinstalando Xbox Game Bar...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Desinstalando Xbox Game Bar..."
     $TB9.ForeColor = $LabelColor
     &{ $ProgressPreference = 'SilentlyContinue'
     Get-AppxPackage "Microsoft.XboxGamingOverlay" | Remove-AppxPackage 
@@ -1683,7 +1480,7 @@ Function RemoveXboxGameBar {
 }
 
 Function TweaksInContextMenu {
-    $StatusBox.Text = "| Activando Tweaks En Context Menu...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Activando Tweaks En Context Menu..."
     $TB10.ForeColor = $LabelColor
     
     # Enable App Submenu
@@ -1736,10 +1533,8 @@ Function TweaksInContextMenu {
 }
 
 Function VisualFXFix {
-    $StatusBox.Text = "| Ajustando Animaciones De Windows...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Ajustando Animaciones De Windows..."
     $TB11.ForeColor = $LabelColor
-
-    # Custom
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAnimations" -Type DWord -Value 1
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "MinAnimate" -Value 1
@@ -1757,7 +1552,7 @@ Function VisualFXFix {
 }
 
 Function ActivateWindowsPro {
-    $StatusBox.Text = "| Activando Windows Pro...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Activando Windows Pro..."
     $MTB1.ForeColor = $LabelColorBig
     cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
     cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /skms kms.digiboy.ir
@@ -1766,7 +1561,7 @@ Function ActivateWindowsPro {
 }
 
 Function VisualCRuntimes {
-    $StatusBox.Text = "| Instalando Todas Las Versiones De Visual C++...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Todas Las Versiones De Visual C++..."
     $MTB2.ForeColor = $LabelColor
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x64 | Out-File $LogPath -Encoding UTF8 -Append
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x86 | Out-File $LogPath -Encoding UTF8 -Append
@@ -1784,6 +1579,7 @@ Function VisualCRuntimes {
 }
 
 function EnableMSIMode {
+    $StatusBox.Text = "| Estableciendo GPU En Modo MSI..."
     $GPUIDS = @((wmic path win32_VideoController get PNPDeviceID | Select-Object -Skip 2 | Format-List | Out-String).Trim())
     foreach ($GPUID in $GPUIDS) {
         $GPUName = Get-ItemPropertyValue -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID" -Name "DeviceDesc"
@@ -1795,7 +1591,7 @@ function EnableMSIMode {
 }
 
 Function FFMPEG {
-    $StatusBox.Text = "| Instalando FFMPEG... `r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando FFMPEG... "
     $MTB4.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/HEVC.appx", $ToPath+"\Apps\HEVC.appx")
     $Download.DownloadFile($FromPath+"/Apps/HEIF.appx", $ToPath+"\Apps\HEIF.appx")
@@ -1812,7 +1608,7 @@ Function FFMPEG {
 }
 
 Function WindowsTerminalFix {
-    $StatusBox.Text = "| Aplicando Ajustes A Windows Terminal...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Aplicando Ajustes A Windows Terminal..."
     $MTB5.ForeColor = $LabelColor
     if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\SourceCodePro*)) {
         $Download.DownloadFile($FromPath+"/Configs/FontSourceCodePro.zip", $ToPath+"\Configs\FontSourceCodePro.zip")
@@ -1828,14 +1624,14 @@ Function WindowsTerminalFix {
 }
 
 Function NetworkConfig {
-    $StatusBox.Text = "| Abriendo Configuracion De Red...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Abriendo Configuracion De Red..."
     $MTB8.ForeColor = $LabelColor
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/NetConfig.ps1")))
     $MTB8.ForeColor = $DefaultForeColor
 }
 
 Function Autoruns {
-    $StatusBox.Text = "| Abriendo Autoruns...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Abriendo Autoruns..."
     $MTB9.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/Autoruns.exe", $ToPath+"\Apps\Autoruns.exe")
     Start-Process ($ToPath+"\Apps\Autoruns.exe")
@@ -1843,7 +1639,7 @@ Function Autoruns {
 }
 
 Function AdobeCleaner {
-    $StatusBox.Text = "| Eliminando Procesos De Adobe...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Eliminando Procesos De Adobe..."
     $MTB15.ForeColor = $LabelColor
     Rename-Item -Path "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exe" "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exeX"
     Rename-Item -Path "C:\Program Files\Adobe\Adobe Creative Cloud Experience\CCXProcess.exe" "C:\Program Files\Adobe\Adobe Creative Cloud Experience\CCXProcess.exeX"
@@ -1853,7 +1649,7 @@ Function AdobeCleaner {
 }
 
 Function AMDUndervoltPack {
-    $StatusBox.Text = "| Descargando AMD Undervolt Pack...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Descargando AMD Undervolt Pack..."
     $MTB16.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/AMDUndervoltPack.zip", $ToPath+"\Apps\AMDUndervoltPack.zip")
     Expand-Archive -Path ($ToPath+"\Apps\AMDUndervoltPack.zip") -DestinationPath ($ToPath+"\Apps\AMD Undervolt Pack") -Force
@@ -1867,14 +1663,14 @@ Function AMDUndervoltPack {
 }
 
 Function GameSettings {
-    $StatusBox.Text = "| Abriendo Game Settings...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Abriendo Game Settings..."
     $HB1.ForeColor = $LabelColor
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
     $HB1.ForeColor = $DefaultForeColor
 }
 
 Function DarkTheme {
-    $StatusBox.Text = "| Aplicando Tema Oscuro...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Aplicando Tema Oscuro..."
     $HB2.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Configs/Media.zip", $ToPath+"\Configs\Media.zip")
     Expand-Archive -Path ($ToPath+"\Configs\Media.zip") -DestinationPath ("$env:ProgramFiles\ZKTool\Media") -Force
@@ -1928,14 +1724,14 @@ Function DarkTheme {
 }
 
 Function ContextMenuHandler {
-    $StatusBox.Text = "| Abriendo Context Menu Handler...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Abriendo Context Menu Handler..."
     $HB3.ForeColor = $LabelColor
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ContextMenuHandler.ps1")))
     $HB3.ForeColor = $DefaultForeColor
 }
 
 Function MSIAfterburnerSettings {
-    $StatusBox.Text = "| Configurando MSI Afterbuner...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configurando MSI Afterbuner..."
     $MTB14.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Configs/MSIAfterburner.zip", $ToPath+"\Configs\MSIAfterburner.zip")
     Expand-Archive -Path ($ToPath+"\Configs\MSIAfterburner.zip") -DestinationPath ($ToPath+"\Configs\MSIAfterburner") -Force
@@ -1949,7 +1745,7 @@ Function MSIAfterburnerSettings {
 }
 
 Function RemoveRealtek {
-    $StatusBox.Text = "| Quitando Realtek Audio Service...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Quitando Realtek Audio Service..."
     $MTB11.ForeColor = $LabelColor
     pwsh.exe -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
     pwsh.exe -command {sc stop RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
@@ -1962,7 +1758,7 @@ Function RemoveRealtek {
 }
 
 Function Z390LanDrivers {
-    $StatusBox.Text = "| Instalando Z390 Lan Drivers...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Instalando Z390 Lan Drivers..."
     $HB6.ForeColor = $LabelColor
     $Download.DownloadFile($FromPath+"/Apps/LanDrivers.zip", $ToPath+"\Apps\LanDrivers.zip")
     Expand-Archive -Path ($ToPath+"\Apps\LanDrivers.zip") -DestinationPath ($ToPath+"\Apps\LanDrivers") -Force
@@ -1981,7 +1777,7 @@ $StartScript.Add_MouseLeave({
 })
 
 $StartScript.Add_Click({
-    $StatusBox.Text = "| Iniciando Script...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Iniciando Script..."
     $StartScript.Image = [System.Drawing.Image]::FromFile(($ImageFolder + "SSProcessing.png"))
     $StartScript.ForeColor = "Black"
     Start-Sleep 1
@@ -1998,9 +1794,7 @@ $StartScript.Add_Click({
         }
     }
 
-    foreach ($Function in $Functions) {
-        & $Function
-    }
+    foreach ($Function in $Functions) {& $Function}
 
     foreach ($ActiveButton in $ActiveButtons) {
         if ($ActiveButton.Image -eq $ActiveButtonColor) {
@@ -2013,7 +1807,7 @@ $StartScript.Add_Click({
         }
     }
 
-    $StatusBox.Text = "| Comprobando Instalaciones...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Comprobando Instalaciones..."
 
     $Installations = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB11,$SB12,$MSB1,$MSB5,$MSB6,$MSB9,$MSB10,$MSB11,$MSB12,$LB1,$LB2,$LB3,$LB5,$LB7,$LB8)
     foreach ($Installation in $Installations) {
@@ -2027,12 +1821,12 @@ $StartScript.Add_Click({
 
     $StartScript.Image = [System.Drawing.Image]::FromFile(($ImageFolder + "SSDefault.png"))
     $StartScript.ForeColor = $LabelColor
-    $StatusBox.Text = "| Script Finalizado`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Script Finalizado"
 
     if ($TB1.ForeColor -eq $LabelColor) {
         $MessageBox = [System.Windows.Forms.MessageBox]::Show("El equipo requiere reiniciarse para aplicar los cambios`r`nReiniciar equipo ahora?", "Reiniciar equipo", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Information)
         if ($MessageBox -ne [System.Windows.Forms.DialogResult]::No) {
-            $StatusBox.Text = "| Reiniciando El Equipo En 5 Segundos...`r`n" + $StatusBox.Text
+            $StatusBox.Text = "| Reiniciando El Equipo En 5 Segundos..."
             Start-Sleep 5
             Remove-Item -Path "$env:userprofile\AppData\Local\Temp\ZKTool" -Recurse
             Restart-Computer
