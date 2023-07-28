@@ -10,7 +10,7 @@ Set-ExecutionPolicy RemoteSigned
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
-function TypeWriteHost([string]$s = '',[string]$TextColor = 'Cyan'){
+function TypeWriteHost ([string]$s = '',[string]$TextColor = 'Cyan') {
     $s -split '' | ForEach-Object {
         Write-Host $_ -NoNewline -ForegroundColor $TextColor
         Start-Sleep -Milliseconds 20

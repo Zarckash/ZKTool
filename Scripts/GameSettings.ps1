@@ -158,28 +158,28 @@ $R1B1.Add_Click({
     $CodPath = $DocumentsPath+"\Call of Duty\players\" 
     $CodIDPath = ($CodPath + (Get-ChildItem $CodPath -Directory -Name 765*))
     Move-Item -Path ($ToPath+"\Configs\ModernWarfareII\settings.3.local.cod22.cst") -Destination $CodIDPath -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Player Unknown Battlegrounds
 $R1B2.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/PUBG.zip", $ToPath+"\Configs\PUBG.zip")
     Expand-Archive -Path ($ToPath+"\Configs\PUBG.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Rogue Company
 $R1B3.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/RogueCompany.zip", $ToPath+"\Configs\RogueCompany.zip")
     Expand-Archive -Path ($ToPath+"\Configs\RogueCompany.zip") -DestinationPath "$env:userprofile\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Battlefield 2042
 $R1B4.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/Battlefield2042.zip", $ToPath+"\Configs\Battlefield2042.zip")
     Expand-Archive -Path ($ToPath+"\Configs\Battlefield2042.zip") -DestinationPath ($DocumentsPath+"\Battlefield 2042\settings") -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # CSGO
@@ -190,14 +190,14 @@ $R2B1.Add_Click({
     foreach ($id in $userids.name) {
         Copy-Item -Path ($ToPath+"\Configs\730") -Destination "C:\Program Files (x86)\Steam\userdata\$id" -Recurse -Force
     }
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Apex
 $R2B2.Add_Click({
     $Download.DownloadFile($FromPath+"/Configs/Apex.zip", $ToPath+"\Configs\Apex.zip")
     Expand-Archive -Path ($ToPath+"\Configs\Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada...`r`n" + $StatusBox.Text
+    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 
