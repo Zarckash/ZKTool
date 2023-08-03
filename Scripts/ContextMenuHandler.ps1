@@ -207,7 +207,6 @@ $Cancel.Add_Click({
 
 # Accept Button
 $Accept.Add_Click({
-    $StatusBox.text = "| Creando Entrada En Context Menu..."
     $Accept.BackColor = $ProcessingColor
     $Path = ($PathBox.Lines)
     $Name = ($NameBox.Lines)
@@ -224,6 +223,7 @@ $Accept.Add_Click({
     } elseif ((($PathBox.Text -ne "HKCR:\Directory\Background\shell") -and ($PathBox.Text -eq "")) -or ($NameBox.Text -eq "")) {
         [System.Windows.Forms.MessageBox]::Show("Path and Name are required", "Missing Values", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Warning)
     } else {
+        $StatusBox.Text = "| Creando Entrada En Context Menu..."
         New-Item -Path "$Path" -Name "$Name" | Out-Null
         Set-ItemProperty -Path "$Path2" -Name "Icon" -Value "$Icon"
         Set-ItemProperty -Path "$Path2" -Name "MUIVerb" -Value "$MUIVerb"
@@ -240,6 +240,9 @@ $Accept.Add_Click({
     $CommandBox.Text = ""
 })
 
-
+$Form.Add_Closing({
+    $HB3.Image = $DefaultButtonColor
+    $HB3.ForeColor = $LabelColor
+})
 
 [void]$Form.ShowDialog()

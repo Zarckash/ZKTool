@@ -210,4 +210,9 @@ foreach ($Button in $Buttons) {
     })
 }
 
+$Form.Add_Closing({
+    $HB1.Image = $DefaultButtonColor
+    $HB1.ForeColor = $LabelColor
+})
+
 [void]$Form.ShowDialog()

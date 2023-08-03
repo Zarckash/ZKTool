@@ -189,4 +189,9 @@ $Accept.Add_Click({
     $Form.Close()
 })
 
+$Form.Add_Closing({
+    $MTB8.Image = $DefaultButtonColor
+    $MTB8.ForeColor = $LabelColor
+})
+
 [void]$Form.ShowDialog()
