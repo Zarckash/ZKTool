@@ -274,7 +274,7 @@ $MTB6.Text                       = "Void"
 $MTB7.Text                       = "Void"
 $MTB8.Text                       = "Network Config"
 $MTB9.Text                       = "Autoruns"
-$MTB10.Text                      = "Void"
+$MTB10.Text                      = "Move User Folder"
 $MTB11.Text                      = "Void"
 $MTB12.Text                      = "Void"
 $MTB13.Text                      = "Void"
@@ -283,7 +283,7 @@ $MTB15.Text                      = "Adobe Cleaner"
 $MTB16.Text                      = "AMD Undervolt Pack"
 
 $Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB15,$MTB16)
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB15,$MTB16)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -599,13 +599,7 @@ function AdobePhotoshop {
         $File = 'http://zktoolip.ddns.net/files/AdobePhotoshop.iso'
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePhotoshop.iso'
         Write-Host 'Descargando Adobe Photoshop...'
-        if (Test-Path -Path 'H:\Apache24\htdocs\files\AdobePhotoshop.iso') {
-            Write-Host 'Copiando Archivos...'
-            $Destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
-            Copy-Item -Path 'H:\Apache24\htdocs\files\AdobePhotoshop.iso' -Destination $Destination
-        } else {
-            (New-Object Net.WebClient).DownloadFile($File, $FilePath)
-        }
+        (New-Object Net.WebClient).DownloadFile($File, $FilePath)
         $AdobePath = Mount-DiskImage $Filepath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
@@ -621,13 +615,7 @@ function AdobePremiere {
         $File = 'http://zktoolip.ddns.net/files/AdobePremiere.iso'
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobePremiere.iso'
         Write-Host 'Descargando Adobe Premiere...'
-        if (Test-Path -Path 'H:\Apache24\htdocs\files\AdobePremiere.iso') {
-            Write-Host 'Copiando Archivos...'
-            $Destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
-            Copy-Item -Path 'H:\Apache24\htdocs\files\AdobePremiere.iso' -Destination $Destination
-        } else {
-            (New-Object Net.WebClient).DownloadFile($File, $FilePath)
-        }
+        (New-Object Net.WebClient).DownloadFile($File, $FilePath)
         $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
@@ -643,13 +631,7 @@ function AdobeAfterEffects {
         $File = 'http://zktoolip.ddns.net/files/AdobeAfterEffects.iso'
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\AdobeAfterEffects.iso'
         Write-Host 'Descargando Adobe After Effects...'
-        if (Test-Path -Path "H:\Apache24\htdocs\files\AdobeAfterEffects.iso") {
-            Write-Host 'Copiando Archivos...'
-            $Destination = $env:userprofile + '\AppData\Local\Temp\ZKTool\Apps\'
-            Copy-Item -Path 'H:\Apache24\htdocs\files\AdobeAfterEffects.iso' -Destination $Destination
-        } else {
-            (New-Object Net.WebClient).DownloadFile($File, $FilePath)
-        }
+        (New-Object Net.WebClient).DownloadFile($File, $FilePath)
         $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
@@ -905,6 +887,21 @@ function OptimizationTweaks {
     # Show File Extensions
     $StatusBox.Text = "| Activando Extensiones De Archivos..."
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
+
+    # File Association Fix
+    $Download.DownloadFile($FromPath+"/Apps/SetUserFTA.exe", $ToPath+"\Apps\SetUserFTA.exe")
+    Push-Location
+    Set-Location ($ToPath+"\Apps")
+    $DefaultBrowser = .\SetUserFTA.exe get | Select-String -Pattern 'https' |  ForEach-Object { $_.Line.Substring(7,$_.Line.Length - 7) }
+    .\SetUserFTA.exe del .url
+    .\SetUserFTA.exe .url InternetShortcut
+    .\SetUserFTA.exe .iso Windows.IsoFile
+    .\SetUserFTA.exe .mp3 $DefaultBrowser
+    .\SetUserFTA.exe .ogg $DefaultBrowser
+    .\SetUserFTA.exe .wav $DefaultBrowser
+    .\SetUserFTA.exe .aac $DefaultBrowser
+    .\SetUserFTA.exe .flac $DefaultBrowser
+    Pop-Location
     
     # Open File Explorer In This PC Page
     $StatusBox.Text = "| Estableciendo Abrir El Explorador De Archivos En La Pagina Este Equipo..."
@@ -1623,12 +1620,12 @@ Function WindowsTerminalFix {
     $MTB5.ForeColor = $DefaultForeColor 
 }
 
-Function NetworkConfig {
+$MTB8.Add_Click({ #NetConfig
     $StatusBox.Text = "| Abriendo Configuracion De Red..."
     $MTB8.ForeColor = $LabelColor
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/NetConfig.ps1")))
     $MTB8.ForeColor = $DefaultForeColor
-}
+})
 
 Function Autoruns {
     $StatusBox.Text = "| Abriendo Autoruns..."
@@ -1637,6 +1634,12 @@ Function Autoruns {
     Start-Process ($ToPath+"\Apps\Autoruns.exe")
     $MTB9.ForeColor = $DefaultForeColor
 }
+
+$MTB10.Add_Click({ #MoveUserFolder
+    $MTB10.ForeColor = $LabelColor
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/MoveUserFolder.ps1")))
+    $MTB10.ForeColor = $DefaultForeColor
+})
 
 Function AdobeCleaner {
     $StatusBox.Text = "| Eliminando Procesos De Adobe..."
@@ -1662,12 +1665,12 @@ Function AMDUndervoltPack {
     $MTB16.ForeColor = $DefaultForeColor
 }
 
-Function GameSettings {
+$HB1.Add_Click({ # GameSettings
     $StatusBox.Text = "| Abriendo Game Settings..."
     $HB1.ForeColor = $LabelColor
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/GameSettings.ps1")))
     $HB1.ForeColor = $DefaultForeColor
-}
+})
 
 Function DarkTheme {
     $StatusBox.Text = "| Aplicando Tema Oscuro..."
@@ -1723,12 +1726,12 @@ Function DarkTheme {
     $HB2.ForeColor = $DefaultForeColor
 }
 
-Function ContextMenuHandler {
+$HB3.Add_Click({
     $StatusBox.Text = "| Abriendo Context Menu Handler..."
     $HB3.ForeColor = $LabelColor
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(($FromPath+"/Scripts/ContextMenuHandler.ps1")))
     $HB3.ForeColor = $DefaultForeColor
-}
+})
 
 Function MSIAfterburnerSettings {
     $StatusBox.Text = "| Configurando MSI Afterbuner..."
@@ -1785,8 +1788,8 @@ $StartScript.Add_Click({
     $Functions = @()
 
     $ActiveButtons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
-    $MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
-    $MTB13,$MTB14,$MTB15,$MTB16,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6)
+    $MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB9,$MTB11,$MTB12,
+    $MTB13,$MTB14,$MTB15,$MTB16,$HB2,$HB4,$HB5,$HB6)
 
     foreach ($ActiveButton in $ActiveButtons) {
         if (($ActiveButton.Image -eq $ActiveButtonColor) -or ($ActiveButton.Image -eq $ActiveButtonColorBig)) {
