@@ -86,7 +86,15 @@ foreach ($Drive in $Drives) {
     Get-Variable -Name $Drive | Remove-Variable
 }
 
+
+$Disks = @('Disk1','Disk2','Disk3','Disk4','Disk5')
+
+foreach ($Disk in $Disks) {
+    Get-Variable -Name $Disk | Remove-Variable
+}
+
 $Position = 10
+$i = 1
 $Drives | ForEach-Object {
     $NewRadioButton = New-Object System.Windows.Forms.RadioButton
     $NewRadioButton.Text = ("Disco $_" + ":")
@@ -96,7 +104,8 @@ $Drives | ForEach-Object {
     $NewRadioButton.Location = New-Object System.Drawing.Point($Position,120)
     $Position += 105
     $Form.Controls.Add($NewRadioButton)
-    New-Variable "$_" $NewRadioButton
+    New-Variable "Disk$i" $NewRadioButton
+    $i++
 }
 
 # Buttons Panel
@@ -222,18 +231,16 @@ $Accept.Add_Click({
     $Accept.BackColor = $ProcessingColor
     $StatusBox.Text = "| Moviendo Carpetas De Usuario..."
 
-    $DrivesVariables = @()
+    $DrivesVariables = @($Disk1,$Disk2,$Disk3,$Disk4,$Disk5)
     $CheckBoxes      = @($Desktop,$Downloads,$Documents,$Pictures,$Videos,$Music)
     $CheckBoxNames   = @('Desktop','Downloads','Documents','Pictures','Videos','Music')
 
-    $Drives | ForEach-Object {$DrivesVariables += ("$" + $_)}
-
+    $i = 0
     foreach ($Disk in $DrivesVariables) {
-        foreach ($Drive in $Drives) {
-            if ($Disk.Checked -ne $True) {
-                $SelectedDisk = $Drive
-            }
+        if ($Disk.Checked -eq $True) {
+            $SelectedDisk = $Drives[$i]
         }
+        $i++
     }
 
     $i = 0
