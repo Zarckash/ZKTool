@@ -1279,7 +1279,7 @@ function CleaningTweaks {
 
     # Uninstall Microsoft Bloatware
     $StatusBox.Text = "| Desinstalando Microsoft Bloatware..."
-    $Bloat = @(
+    $Bloatware = @(
         "Microsoft.3DBuilder"
         "Microsoft.AppConnector"
         "Microsoft.BingFinance"
