@@ -1699,6 +1699,7 @@ Function DarkTheme {
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
     $Shortcut.IconLocation = "$IconLocation, 0"
     $Shortcut.Save()
+    Copy-Item -Path $IconLocation -Destination "$env:userprofile\AppData\Local\Microsoft\Edge\User Data\Default\Edge Profile.ico" -Force
 
     # Black Explorer
     $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\File Explorer.lnk"
