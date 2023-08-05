@@ -1348,8 +1348,9 @@ function CleaningTweaks {
 
     # Uninstall Windows Optional Features
     &{ $ProgressPreference = 'SilentlyContinue'
-    $StatusBox.Text = "| Instalando .NET Framework 3.5..."
-    Add-WindowsCapability -Online -Name NetFx3~~~~ -Source C:\sources\sxs | Out-File $LogPath -Encoding UTF8 -Append
+    $StatusBox.Text = "| Instalando .NET Framework 3.5 y 4.8..."
+    Enable-WindowsOptionalFeature -Online -FeatureName NetFx3 -All -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
+    Enable-WindowsOptionalFeature -Online -FeatureName NetFx4-AdvSrvs -All -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
     $StatusBox.Text = "| Desinstalando Servidor OpenSSH..."
     Get-WindowsPackage -Online | Where-Object PackageName -like *SSH* | Remove-WindowsPackage -Online -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
     $StatusBox.Text = "| Desinstalando Rostro De Windows Hello..."
@@ -1788,7 +1789,7 @@ $StartScript.Add_Click({
     $Functions = @()
 
     $ActiveButtons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
-    $MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB9,$MTB11,$MTB12,
+    $MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB9,$MTB11,$MTB12,
     $MTB13,$MTB14,$MTB15,$MTB16,$HB2,$HB4,$HB5,$HB6)
 
     foreach ($ActiveButton in $ActiveButtons) {
