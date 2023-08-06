@@ -861,6 +861,7 @@ function OptimizationTweaks {
     # Rebuild Performance Counters
     $StatusBox.Text = "| Reconstruyendo Contadores De Rendimiento..."
     lodctr /r
+    lodctr /r
 
     # Install Timer Resolution Service
     $StatusBox.Text = "| Instalando Set Timer Resolution Service..."
