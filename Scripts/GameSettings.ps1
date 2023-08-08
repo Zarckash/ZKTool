@@ -202,21 +202,23 @@ $R2B2.Add_Click({
 
 # Export
 $R2B3.Add_Click({
-    $StatusBox.Text = "| Exportando configuración"
+    $StatusBox.Text = "| Exportando configuración..."
     $Download.DownloadFile($FromPath+"/Apps/ImportExport.ps1", $ToPath+"\Apps\ImportExport.ps1")
     Push-Location
     Set-Location "$ToPath\Apps"
-    .\ImportExport.ps1 -Function "Export"
+    .\ImportExport.ps1 -Export
     Pop-Location
 })
 
 # Import
 $R2B4.Add_Click({
-    $StatusBox.Text = "| Importando configuración"
+    $StatusBox.Text = "| Importando configuración..."
+    $Download.DownloadFile($FromPath+"/Apps/ImportExport.ps1", $ToPath+"\Apps\ImportExport.ps1")
+    Push-Location
+    Set-Location "$ToPath\Apps"
+    .\ImportExport.ps1 -Import
+    Pop-Location
 })
-
-
-
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
 foreach ($Button in $Buttons) {
