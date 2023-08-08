@@ -203,7 +203,7 @@ $R2B2.Add_Click({
 # Export
 $R2B3.Add_Click({
     $StatusBox.Text = "| Exportando configuración"
-    $Download.DownloadFile($FromPath+"/Apps/ImportExport.zip", $ToPath+"\Apps\ImportExport.zip")
+    $Download.DownloadFile($FromPath+"/Apps/ImportExport.ps1", $ToPath+"\Apps\ImportExport.ps1")
     Push-Location
     Set-Location "$ToPath\Apps"
     .\ImportExport.ps1 -Function "Export"
