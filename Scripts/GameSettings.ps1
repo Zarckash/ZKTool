@@ -10,8 +10,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Exit
 }
 
-$HoverGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\HoverGameButtonColor.png")
-$ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ProcessingGameButtonColor.png")
+$HoverGameButtonColor = [System.Drawing.Image]::FromFile("$env:temp\ZKTool\Configs\Images\HoverGameButtonColor.png")
+$ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$env:temp\ZKTool\Configs\Images\ProcessingGameButtonColor.png")
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
@@ -28,7 +28,7 @@ $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $False
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ZKLogo.ico")
+$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:temp\ZKTool\Configs\Images\ZKLogo.ico")
 
 
             ##################################
@@ -82,11 +82,11 @@ $R2B2.Text                       = "Apex Legends"
 
 # Game
 $R2B3                            = New-Object System.Windows.Forms.Button
-$R2B3.Text                       = "3"
+$R2B3.Text                       = "Export"
 
 # Game
 $R2B4                            = New-Object System.Windows.Forms.Button
-$R2B4.Text                       = "4"
+$R2B4.Text                       = "Import"
 
 # Game
 $R3B1                            = New-Object System.Windows.Forms.Button
@@ -146,8 +146,8 @@ foreach ($Button in $Buttons) {
 }
 
 $FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
-$ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"  # Folder Structure Path
-$DocumentsPath = Get-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal" | Select-Object -ExpandProperty Personal
+$ToPath   = "$env:temp\ZKTool"  # Folder Structure Path
+$DocumentsPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
 $Download = New-Object net.webclient
 
 # Modern Warfare II
@@ -199,6 +199,23 @@ $R2B2.Add_Click({
     Expand-Archive -Path ($ToPath+"\Configs\Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
+
+# Export
+$R2B3.Add_Click({
+    $StatusBox.Text = "| Exportando configuración"
+    $Download.DownloadFile($FromPath+"/Apps/ImportExport.zip", $ToPath+"\Apps\ImportExport.zip")
+    Push-Location
+    Set-Location "$ToPath\Apps"
+    .\ImportExport.ps1 -Function "Export"
+    Pop-Location
+})
+
+# Import
+$R2B4.Add_Click({
+    $StatusBox.Text = "| Importando configuración"
+})
+
+
 
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
