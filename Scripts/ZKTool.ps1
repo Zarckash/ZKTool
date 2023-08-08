@@ -4,14 +4,14 @@
 $ErrorActionPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-Remove-Item $env:userprofile\AppData\Local\Temp\1ZKTool.log | Out-Null
-$LogPath  = "$env:userprofile\AppData\Local\Temp\1ZKTool.log"
+Remove-Item $env:temp\1ZKTool.log | Out-Null
+$LogPath  = "$env:temp\1ZKTool.log"
 
-New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Configs\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
-New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Apps\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
-New-Item $env:userprofile\AppData\Local\Temp\ZKTool\Scripts\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
-Invoke-WebRequest "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
-Expand-Archive -Path $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images.zip -DestinationPath $env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\ -Force
+New-Item $env:temp\ZKTool\Configs\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+New-Item $env:temp\ZKTool\Apps\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+New-Item $env:temp\ZKTool\Scripts\ -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+Invoke-WebRequest "https://github.com/Zarckash/ZKTool/raw/main/Configs/Images.zip" -OutFile "$env:temp\ZKTool\Configs\Images.zip" | Out-File $LogPath -Encoding UTF8 -Append
+Expand-Archive -Path $env:temp\ZKTool\Configs\Images.zip -DestinationPath $env:temp\ZKTool\Configs\Images\ -Force
 
 $AppVersion = 2.5
 
@@ -34,7 +34,7 @@ if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVers
     Exit
 }
 
-$ImageFolder = "$env:userprofile\AppData\Local\Temp\ZKTool\Configs\Images\"
+$ImageFolder = "$env:temp\ZKTool\Configs\Images\"
 
 $LabelColor = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
 $DefaultForeColor = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
@@ -488,8 +488,8 @@ $LogoBox.Add_Click({
 })
 
 $FromPath = "https://github.com/Zarckash/ZKTool/raw/main"     # GitHub Downloads URL
-$ToPath   = "$env:userprofile\AppData\Local\Temp\ZKTool"      # Folder Structure Path
-$LogPath  = "$env:userprofile\AppData\Local\Temp\1ZKTool.log" # Script Log Path
+$ToPath   = "$env:temp\ZKTool"      # Folder Structure Path
+$LogPath  = "$env:temp\1ZKTool.log" # Script Log Path
 $AppPath  = "$env:ProgramFiles\ZKTool"                        # App Path
 $Download = New-Object net.webclient
 
@@ -518,7 +518,7 @@ function Spotify {
     $StatusBox.Text = "| Instalando Spotify..."
     $SB4.ForeColor = LabelColor
     $Download.DownloadFile($FromPath+"/Apps/Spotify.ps1", $ToPath+"\Apps\Spotify.ps1")
-    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\Spotify.ps1 ; exit"
+    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Apps\Spotify.ps1 ; exit"
     $SB4.ForeColor = $DefaultForeColor
 }
 
@@ -1411,7 +1411,7 @@ Function SetFluentCursor {
     $Download.DownloadFile($FromPath+"/Configs/FluentCursor.zip", $ToPath+"\Configs\FluentCursor.zip")
     Expand-Archive -Path ($ToPath+"\Configs\FluentCursor.zip") -DestinationPath 'C:\Windows\Cursors\Fluent Cursor' -Force
     $Download.DownloadFile($FromPath+"/Apps/FluentCursor.reg", $ToPath+"\Apps\FluentCursor.reg")
-    regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\FluentCursor.reg
+    regedit /s $env:temp\ZKTool\Apps\FluentCursor.reg
     $TB6.ForeColor = $DefaultForeColor
 }
 
@@ -1659,7 +1659,7 @@ Function AMDUndervoltPack {
     $Download.DownloadFile($FromPath+"/Apps/AMDUndervoltPack.zip", $ToPath+"\Apps\AMDUndervoltPack.zip")
     Expand-Archive -Path ($ToPath+"\Apps\AMDUndervoltPack.zip") -DestinationPath ($ToPath+"\Apps\AMD Undervolt Pack") -Force
     Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\AMD Undervolt") -Destination 'C:\Program Files\'
-    $DesktopPath = Get-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop" | Select-Object -ExpandProperty Desktop
+    $DesktopPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop"
     Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\CPU Undervolt.lnk") -Destination $DesktopPath
     Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\Prime95") -Destination $DesktopPath
     Move-Item -Path ($ToPath+"\Apps\AMD Undervolt Pack\CPUZ.exe") -Destination $DesktopPath
@@ -1687,11 +1687,11 @@ Function DarkTheme {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value "C:\Program Files\ZKTool\Media\BlackW11Wallpaper.jpg"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value "C:\Program Files\ZKTool\Media\BlackW11Wallpaper.jpg"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
-    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:userprofile\AppData\Local\Temp\ZKTool\Apps\SetWallpaper.ps1 ; exit"
+    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Apps\SetWallpaper.ps1 ; exit"
 
     # Accent Color
     $Download.DownloadFile($FromPath+"/Apps/DarkTheme.reg", $ToPath+"\Apps\DarkTheme.reg")
-    regedit /s $env:userprofile\AppData\Local\Temp\ZKTool\Apps\DarkTheme.reg
+    regedit /s $env:temp\ZKTool\Apps\DarkTheme.reg
 
     # Black Edge
     $ShortcutPath = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
@@ -1834,7 +1834,7 @@ $StartScript.Add_Click({
         if ($MessageBox -ne [System.Windows.Forms.DialogResult]::No) {
             $StatusBox.Text = "| Reiniciando El Equipo En 5 Segundos..."
             Start-Sleep 5
-            Remove-Item -Path "$env:userprofile\AppData\Local\Temp\ZKTool" -Recurse
+            Remove-Item -Path "$env:temp\ZKTool" -Recurse
             Restart-Computer
         }
     }
@@ -1843,7 +1843,7 @@ $StartScript.Add_Click({
 $Form.Add_Closing({
     Start-Process Powershell -WindowStyle Hidden {
         Start-Sleep 2
-        Remove-Item -Path "$env:userprofile\AppData\Local\Temp\ZKTool" -Recurse
+        Remove-Item -Path "$env:temp\ZKTool" -Recurse
     }
 })
 
