@@ -1,5 +1,6 @@
 ﻿param (
-    [string]$Function
+    [switch]$Export,
+    [switch]$Import
 )
 
 $Path = @{
@@ -56,8 +57,8 @@ function ImportSettings {
     Start-Sleep 10
 }
 
-if ($Function -eq "Export") {
+if ($Export.IsPresent) {
     ExportSettings
-}else {
+}elseif ($Import.IsPresent) {
     ImportSettings
-}
+} 
