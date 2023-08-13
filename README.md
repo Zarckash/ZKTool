@@ -11,7 +11,7 @@ Start Date: July 7 2021
 ## Usage
 
 ```powershell
-Iex (Iwr -useb "https://rb.gy/8shezm")
+Iex (Iwr -useb "https://t.ly/ZKTool")
 ```
 
 
