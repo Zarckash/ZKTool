@@ -4,28 +4,19 @@
 $ErrorActionPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-# Run Script As Administrator
-If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
-	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-	Exit
-}
-
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "Move User Folder"
 $Form.StartPosition              = "CenterScreen"
-$Form.TopMost                    = $False
+$Form.TopMost                    = $false
 $Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
-$Form.AutoScaleDimensions        = '192, 192'
-$Form.AutoScaleMode              = "Dpi"
-$Form.AutoSize                   = $True
-$Form.ClientSize                 = "1050, 700"
+$Form.AutoSize                   = $true
 $Form.FormBorderStyle            = "FixedSingle"
 $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $DefaultForeColor
-$Form.MaximizeBox                = $False
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(($ImageFolder +"ZKLogo.ico"))
+$Form.MaximizeBox                = $false
+$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
 
 # Title Label
 $TitleLabel                      = New-Object System.Windows.Forms.Label
@@ -36,7 +27,7 @@ $TitleLabel.Location             = New-Object System.Drawing.Point(5,5)
 $TitleLabel.Font                 = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $TitleLabel.ForeColor            = $LabelColor
 $TitleLabel.TextAlign            = [System.Drawing.ContentAlignment]::MiddleCenter
-$TitleLabel.BackgroundImage      = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelMUFBg.png"))
+$TitleLabel.BackgroundImage      = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelMUFBg.png")
 $Form.Controls.Add($TitleLabel)
 
 $CheckBoxes = @('SelectAll','Desktop','Downloads','Documents','Pictures','Videos','Music')
@@ -54,13 +45,13 @@ $CheckBoxes | ForEach-Object {
     New-Variable "$_" $NewCheckBox
 }
 
-$SelectAll.Text = 'Todo'
-$Desktop.Text = 'Escritorio'
-$Downloads.Text = 'Descargas'
-$Documents.Text = 'Documentos'
-$Pictures.Text = 'Imágenes'
-$Videos.Text = 'Vídeos'
-$Music.Text = 'Música'
+$SelectAll.Text  = 'Todo'
+$Desktop.Text    = 'Escritorio'
+$Downloads.Text  = 'Descargas'
+$Documents.Text  = 'Documentos'
+$Pictures.Text   = 'Imágenes'
+$Videos.Text     = 'Vídeos'
+$Music.Text      = 'Música'
 
 $CheckBoxes = @($SelectAll,$Desktop,$Downloads,$Documents,$Pictures)
 
@@ -121,7 +112,7 @@ $Cancel.text                     = "Cancelar"
 $Cancel.width                    = 117
 $Cancel.height                   = 35
 $Cancel.location                 = New-Object System.Drawing.Point(5,5)
-$Cancel.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "CancelAcceptButton.png"))
+$Cancel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\CancelAcceptButton.png")
 $ButtonsPanel.Controls.Add($Cancel)
 
 # Accept Button
@@ -130,7 +121,7 @@ $Accept.text                     = "Aceptar"
 $Accept.width                    = 117
 $Accept.height                   = 35
 $Accept.location                 = New-Object System.Drawing.Point(128,5)
-$Accept.BackgroundImage          = [System.Drawing.Image]::FromFile(($ImageFolder + "CancelAcceptButton.png"))
+$Accept.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\CancelAcceptButton.png")
 $Accept.ForeColor                = $LabelColor
 $ButtonsPanel.Controls.Add($Accept)
 
@@ -145,7 +136,7 @@ foreach ($Button in $Buttons) {
     $Button.Image = $DefaultButtonColor
 
     $Button.Add_MouseEnter({
-        $this.Image = [System.Drawing.Image]::FromFile(($ImageFolder + "HoverCancelAcceptButton.png"))
+        $this.Image = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCancelAcceptButton.png")
     })
 
     $Button.Add_MouseLeave({
@@ -155,13 +146,13 @@ foreach ($Button in $Buttons) {
 
 $CheckBoxes = @($Desktop,$Downloads,$Documents,$Pictures,$Videos,$Music)
 $SelectAll.Add_Click({
-    if ($SelectAll.Checked -eq $True) {
+    if ($SelectAll.Checked -eq $true) {
         foreach ($CheckBox in $CheckBoxes) {
-            $CheckBox.Checked = $True
+            $CheckBox.Checked = $true
         }
     } else {
         foreach ($CheckBox in $CheckBoxes) {
-            $CheckBox.Checked = $False
+            $CheckBox.Checked = $false
         }
     }
 })
@@ -237,7 +228,7 @@ $Accept.Add_Click({
 
     $i = 0
     foreach ($Disk in $DrivesVariables) {
-        if ($Disk.Checked -eq $True) {
+        if ($Disk.Checked -eq $true) {
             $SelectedDisk = $Drives[$i]
         }
         $i++
@@ -245,7 +236,7 @@ $Accept.Add_Click({
 
     $i = 0
     foreach ($CheckBox in $CheckBoxes) {
-        if ($CheckBox.Checked -eq $True) {
+        if ($CheckBox.Checked -eq $true) {
             $Path = "$SelectedDisk" + ":\Users\$env:username\" + $CheckBoxNames[$i]
             SetKnownFolderPath -KnownFolder $CheckBoxNames[$i] -Path $Path
         }

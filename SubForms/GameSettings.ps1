@@ -4,14 +4,8 @@
 $ErrorActionPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-# Run Script As Administrator
-If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
-	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-	Exit
-}
-
-$HoverGameButtonColor = [System.Drawing.Image]::FromFile("$env:temp\ZKTool\Configs\Images\HoverGameButtonColor.png")
-$ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$env:temp\ZKTool\Configs\Images\ProcessingGameButtonColor.png")
+$HoverGameButtonColor = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverGameButtonColor.png")
+$ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$ImagesFolder\ProcessingGameButtonColor.png")
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
@@ -19,16 +13,13 @@ $Form.Text                       = "Game Settings"
 $Form.StartPosition              = "CenterScreen"
 $Form.TopMost                    = $false
 $Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
-$Form.AutoScaleDimensions        = '192, 192'
-$Form.AutoScaleMode              = "Dpi"
-$Form.AutoSize                   = $True
-$Form.ClientSize                 = "1050, 700"
+$Form.AutoSize                   = $true
 $Form.FormBorderStyle            = "FixedSingle"
 $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $DefaultForeColor
-$Form.MaximizeBox                = $False
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:temp\ZKTool\Configs\Images\ZKLogo.ico")
+$Form.MaximizeBox                = $false
+$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
 
 
             ##################################
@@ -45,14 +36,14 @@ $Label.Location                  = New-Object System.Drawing.Point(0,5)
 $Label.Font                      = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $Label.ForeColor                 = $LabelColor
 $Label.TextAlign                 = [System.Drawing.ContentAlignment]::MiddleCenter
-$Label.BackgroundImage           = [System.Drawing.Image]::FromFile(($ImageFolder + "LabelBgGS.png"))
+$Label.BackgroundImage           = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBgGS.png")
 $Form.Controls.Add($Label)
 
 # Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
 $Panel.Height                    = 69 * 2
 $Panel.Width                     = 709 - 1
-$Panel.BackgroundImage           = [System.Drawing.Image]::FromFile(($ImageFolder + "PanelBgGS.png"))
+$Panel.BackgroundImage           = [System.Drawing.Image]::FromFile("$ImagesFolder\PanelBgGS.png")
 $Panel.Location                  = New-Object System.Drawing.Point(0,45)
 $Form.Controls.Add($Panel)
 
