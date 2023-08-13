@@ -1,26 +1,18 @@
 ﻿{
     "GameSettings": {
         "Name": "Game Settings",
-        "Path": "GameSettings.ps1",
-        "Output": "Abriendo ",
-        "Source": "Web"
+        "Path": "GameSettings.ps1"
     },
     "ContextMenuHandler": {
         "Name": "Context Menu Handler",
-        "Path": "ContextMenuHandler.ps1",
-        "Output": "Abriendo ",
-        "Source": "Web"
+        "Path": "ContextMenuHandler.ps1"
     },
     "NetworkConfig": {
         "Name": "Network Config",
-        "Path": "NetworkConfig.ps1",
-        "Output": "Abriendo ",
-        "Source": "Web"
+        "Path": "NetworkConfig.ps1"
     },
     "MoveUserFolder": {
         "Name": "Move User Folder",
-        "Path": "MoveUserFolder.ps1",
-        "Output": "Abriendo ",
-        "Source": "Web"
+        "Path": "MoveUserFolder.ps1"
     }
 }
