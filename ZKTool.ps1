@@ -62,10 +62,10 @@ $ImagesFolder          = "$TempPath\Resources\Images"
 $LabelColor            = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
 $DefaultForeColor      = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
 $PanelBackColor        = [System.Drawing.ColorTranslator]::FromHtml("#3D4351")
-$ActiveButtonColor     = [System.Drawing.Image]::FromFile(("$ImagesFolder\ActiveButtonColor.png"))
-$HoverButtonColor      = [System.Drawing.Image]::FromFile(("$ImagesFolder\HoverButtonColor.png"))
-$ActiveButtonColorBig  = [System.Drawing.Image]::FromFile(("$ImagesFolder\ActiveButtonColorBig.png"))
-$HoverButtonColorBig   = [System.Drawing.Image]::FromFile(("$ImagesFolder\HoverButtonColorBig.png"))
+$ActiveButtonColor     = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColor.png")
+$HoverButtonColor      = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColor.png")
+$ActiveButtonColorBig  = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColorBig.png")
+$HoverButtonColorBig   = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColorBig.png")
 
 $PanelSize = 230 # Sets Each Panel Location
 
@@ -81,7 +81,7 @@ $Form.Width                      = $objImage.Width
 $Form.Height                     = $objImage.Height
 $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $false
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(("$ImagesFolder\ZKLogo.ico"))
+$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
 
 
             ##################################
@@ -98,7 +98,7 @@ $SLabel.Location                 = New-Object System.Drawing.Point(($PanelSize*0
 $SLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $SLabel.ForeColor                = $LabelColor
 $SLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
-$SLabel.BackgroundImage          = [System.Drawing.Image]::FromFile(("$ImagesFolder\LabelBg.png"))
+$SLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
 $Form.Controls.Add($SLabel)
 
 # Software Panel
@@ -106,7 +106,7 @@ $SPanel                          = New-Object System.Windows.Forms.Panel
 $SPanel.Height                   = 491
 $SPanel.Width                    = $PanelSize
 $SPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),49)
-$SPanel.BackgroundImage          = [System.Drawing.Image]::FromFile(("$ImagesFolder\STPanelBg.png"))
+$SPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\STPanelBg.png")
 $Form.Controls.Add($SPanel)
 
 $Position  = 10 # Sets Each Button Position
@@ -156,7 +156,7 @@ $MSPanel                         = New-Object system.Windows.Forms.Panel
 $MSPanel.Height                  = 491 + 195 + 9
 $MSPanel.Width                   = $PanelSize
 $MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),49)
-$MSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile(("$ImagesFolder\MSMTPanelBg.png"))
+$MSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\MSMTPanelBg.png")
 
 $MSB1.Text   = "OBS Studio"
 $MSB2.Text   = "Adobe Photoshop"
@@ -198,7 +198,7 @@ $LLabel.Height                   = 38
 $LLabel.Location                 = New-Object System.Drawing.Point($PanelSize,5)
 $LLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $LLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
-$LLabel.BackgroundImage          = [System.Drawing.Image]::FromFile(("$ImagesFolder\LabelBg.png"))
+$LLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
 $LLabel.ForeColor                = $LabelColor
 $Form.Controls.Add($LLabel)
 
@@ -207,7 +207,7 @@ $LPanel                          = New-Object System.Windows.Forms.Panel
 $LPanel.Height                   = 344
 $LPanel.Width                    = $PanelSize
 $LPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*1),49)
-$LPanel.BackgroundImage          = [System.Drawing.Image]::FromFile(("$ImagesFolder\LPanelBg.png"))
+$LPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LPanelBg.png")
 $Form.Controls.Add($LPanel)
 
 $LB1.Text  = "Steam"
@@ -241,7 +241,7 @@ $TLabel.Height                   = 38
 $TLabel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),5)
 $TLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $TLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
-$TLabel.BackgroundImage          = [System.Drawing.Image]::FromFile(("$ImagesFolder\LabelBg.png"))
+$TLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
 $TLabel.ForeColor                = $LabelColor
 $Form.Controls.Add($TLabel)
 
@@ -250,7 +250,7 @@ $TPanel                          = New-Object System.Windows.Forms.Panel
 $TPanel.Height                   = 491
 $TPanel.Width                    = $PanelSize - 3
 $TPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),49)
-$TPanel.BackgroundImage          = [System.Drawing.Image]::FromFile(("$ImagesFolder\STPanelBg.png"))
+$TPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\STPanelBg.png")
 $Form.Controls.Add($TPanel)
 
 $TB1.Text   = "Optimization Tweaks"
@@ -285,7 +285,7 @@ $TPanel.Controls.Add($TB1)
 $MTPanel                         = New-Object System.Windows.Forms.Panel
 $MTPanel.Height                  = 491 + 195 + 9
 $MTPanel.Width                   = $PanelSize - 3
-$MTPanel.BackgroundImage         = [System.Drawing.Image]::FromFile(("$ImagesFolder\MSMTPanelBg.png"))
+$MTPanel.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\MSMTPanelBg.png")
 $MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),49)
 
 $MTB1.Text   = "Activate Windows Pro"
@@ -327,7 +327,7 @@ $LogoBox.Width                   = $PanelSize
 $LogoBox.Height                  = 152
 $LogoBox.Location                = New-Object System.Drawing.Point($PanelSize,388)
 $LogoBox.SizeMode                = "Zoom"
-$LogoBox.BackgroundImage         = [System.Drawing.Image]::FromFile(("$ImagesFolder\PictureBox.png"))
+$LogoBox.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\PictureBox.png")
 $Form.Controls.Add($LogoBox)
 
 
@@ -341,7 +341,7 @@ $SSPanel                         = New-Object System.Windows.Forms.Panel
 $SSPanel.Height                  = 83
 $SSPanel.Width                   = $PanelSize*3 - 3
 $SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),552)
-$SSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile(("$ImagesFolder\SSPanelBg.png"))
+$SSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\SSPanelBg.png")
 $Form.Controls.Add($SSPanel)
 
 # Start Script Button
@@ -386,7 +386,7 @@ $HPanel                          = New-Object System.Windows.Forms.Panel
 $HPanel.Height                   = 95
 $HPanel.Width                    = $PanelSize*3 - 3
 $HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),552)
-$HPanel.BackgroundImage          = [System.Drawing.Image]::FromFile(("$ImagesFolder\HPanelBg.png"))
+$HPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\HPanelBg.png")
 
 $Position = 5
 
@@ -494,13 +494,13 @@ $LogoBox.Add_Click({
         $Form.Left              -= $PanelSize 
         $Form.Top               -= 50
         $SLabel.Width            = $PanelSize * 2 - 3
-        $SLabel.BackgroundImage  = [System.Drawing.Image]::FromFile(("$ImagesFolder\LabelBigBg.png"))
+        $SLabel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBigBg.png")
         $SPanel.Left            += $PanelSize
         $LLabel.Left            += $PanelSize
         $LPanel.Left            += $PanelSize
         $TLabel.Left            += $PanelSize
         $TLabel.Width            = $PanelSize * 2 - 3
-        $TLabel.BackgroundImage  = [System.Drawing.Image]::FromFile(("$ImagesFolder\LabelBigBg.png"))
+        $TLabel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBigBg.png")
         $TPanel.Left            += $PanelSize
         $LogoBox.Left           += $PanelSize
         $SSPanel.Left           += $PanelSize
@@ -1588,7 +1588,7 @@ $StartScript.Add_Click({
         }
     }
 
-    $StartScript.Image = [System.Drawing.Image]::FromFile(("$ImagesFolder\SSDefault.png"))
+    $StartScript.Image = [System.Drawing.Image]::FromFile("$ImagesFolder\SSDefault.png")
     $StartScript.ForeColor = $LabelColor
     $StatusBox.Text = "| Script Finalizado"
 })
