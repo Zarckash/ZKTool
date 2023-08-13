@@ -19,24 +19,12 @@ function TypeWriteHost ([string]$s = '',[string]$TextColor = 'Cyan') {
     Write-Host ''
 }
 
-# Remove Old Path
-if (!(Test-Path -Path "$env:ProgramFiles\ZKTool\ZKTool.exe")) {
-    Remove-Item -Path $env:windir\System32\ZKTool.exe -Force | Out-Null
-    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-    Remove-Item -Path "HKCR:\Directory\Background\shell\ZKTool" -Recurse -Force | Out-Null
-    Remove-Item -Path "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk"
-    Remove-MpPreference -ExclusionPath "$env:windir\System32\ZKTool.exe"
-}
-
 # Install ZKTool
 TypeWriteHost "Instalando ZKTool App..."
-New-Item $env:temp\ZKTool\Apps\ -ItemType Directory | Out-Null
-Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Apps/ZKTool.zip" -OutFile "$env:temp\ZKTool\Apps\ZKTool.zip"
-Expand-Archive -Path "$env:temp\ZKTool\Apps\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool"
+New-Item $env:temp\ZKTool\Resources\ -ItemType Directory | Out-Null
+Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip" -OutFile "$env:temp\ZKTool\Resources\ZKTool.zip"
+Expand-Archive -Path "$env:temp\ZKTool\Resources\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool"
 Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
-New-Item $env:ProgramFiles\ZKTool\Apps\ -ItemType Directory | Out-Null
-New-Item $env:ProgramFiles\ZKTool\Media\ -ItemType Directory | Out-Null
-New-Item $env:ProgramFiles\ZKTool\Scripts\ -ItemType Directory | Out-Null
 New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
