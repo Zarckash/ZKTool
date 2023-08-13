@@ -1,0 +1,224 @@
+﻿{
+    "GoogleChrome": {
+        "Name": "Google Chrome",
+        "Installer": "Google.Chrome",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "GeForceExperience": {
+        "Name": "GeForce Experience",
+        "Installer": "Nvidia.GeForceExperience",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "Discord": {
+        "Name": "Discord",
+        "Installer": "Discord.Discord",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "Spotify": {
+        "Name": "Spotify",
+        "Installer": "Spotify.ps1",
+        "Output": "Instalando ",
+        "Source": "Script"
+    },
+    "HWMonitor": {
+        "Name": "HW Monitor",
+        "Installer": "CPUID.HWMonitor",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "MSIAfterburner": {
+        "Name": "MSI Afterburner",
+        "Installer": "MSIAfterburner.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "CorsairiCue": {
+        "Name": "Corsair iCue",
+        "Installer": "Corsair.iCUE.4",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "LogitechOMM": {
+        "Name": "Logitech Onboard Memory Manager",
+        "Installer": "LogitechOMM.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "RazerSynapse": {
+        "Name": "Razer Synapse",
+        "Installer": "RazerSynapse.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "uTorrentWeb": {
+        "Name": "uTorrent Web",
+        "Installer": "uTorrentWeb.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "NanaZip": {
+        "Name": "NanaZip",
+        "Installer": "M2Team.NanaZip",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "VisualStudioCode": {
+        "Name": "Visual Studio Code",
+        "Installer": "Microsoft.VisualStudioCode",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "OBSStudio": {
+        "Name": "OBS Studio",
+        "Installer": "OBSProject.OBSStudio",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "AdobePhotoshop": {
+        "Name": "Adobe Photoshop",
+        "Installer": "AdobePhotoshop.iso",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".iso"
+    },
+    "AdobePremiere": {
+        "Name": "Adobe Premiere",
+        "Installer": "AdobePremiere.iso",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".iso"
+    },
+    "AdobeAfterEffects": {
+        "Name": "Adobe After Effects",
+        "Installer": "AdobeAfterEffects.iso",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".iso"
+    },
+    "Netflix": {
+        "Name": "Netflix",
+        "Installer": "Netflix.appx",
+        "Output": "Instalando ",
+        "Source": ".appx"
+    },
+    "PrimeVideo": {
+        "Name": "Prime Video",
+        "Installer": "PrimeVideo.appx",
+        "Output": "Instalando ",
+        "Source": ".appx"
+    },
+    "VLCMediaPlayer": {
+        "Name": "VLC Media Player",
+        "Installer": "VLCMediaPlayer.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "Rufus": {
+        "Name": "Rufus",
+        "Installer": "Rufus.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "WinRAR": {
+        "Name": "WinRAR",
+        "Installer": "RARLab.WinRAR",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "MegaSync": {
+        "Name": "MegaSync",
+        "Installer": "Mega.MEGASync",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "LibreOffice": {
+        "Name": "Libre Office",
+        "Installer": "TheDocumentFoundation.LibreOffice",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "GitHubDesktop": {
+        "Name": "GitHub Desktop",
+        "Installer": "GitHub.GitHubDesktop",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "AMDAdrenalin": {
+        "Name": "AMD Adrenalin",
+        "Installer": "AMDAdrenalin.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "TarkovLauncher": {
+        "Name": "Tarkov Launcher",
+        "Installer": "TarkovLauncher.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "LeagueofLegends": {
+        "Name": "League Of Legends",
+        "Installer": "RiotGames.LeagueOfLegends.EUW",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "Valorant": {
+        "Name": "Valorant",
+        "Installer": "RiotGames.Valorant.EU",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "Steam": {
+        "Name": "Steam",
+        "Installer": "Valve.Steam",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "EAApp": {
+        "Name": "EA Desktop App",
+        "Installer": "ElectronicArts.EADesktop",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "UbisoftConnect": {
+        "Name": "Ubisoft Connect",
+        "Installer": "Ubisoft.Connect",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "Battle.Net": {
+        "Name": "Battle.Net",
+        "Installer": "Battle.Net.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "GOGGalaxy": {
+        "Name": "GOG Galaxy",
+        "Installer": "GOG.Galaxy",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "RockstarGames": {
+        "Name": "Rockstar Games",
+        "Installer": "RockstarGamesLauncher.exe",
+        "Output": "Instalando ",
+        "Source": ".exe"
+    },
+    "EpicGamesLauncher": {
+        "Name": "Epic Games Launcher",
+        "Installer": "EpicGames.EpicGamesLauncher",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "Xbox": {
+        "Name": "Xbox App",
+        "Installer": "XboxApp.appx",
+        "Output": "Instalando ",
+        "Source": ".appx"
+    },
+    "Autoruns": {
+        "Name": "Autoruns",
+        "Installer": "Autoruns.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    }
+}
