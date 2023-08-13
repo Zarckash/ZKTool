@@ -116,7 +116,7 @@
     "Rufus": {
         "Name": "Rufus",
         "Installer": "Rufus.exe",
-        "Output": "Instalando ",
+        "Output": "Abriendo ",
         "Source": ".exe"
     },
     "WinRAR": {
