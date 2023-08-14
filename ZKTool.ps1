@@ -527,7 +527,7 @@ function AdobePhotoshop {
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Files\AdobePhotoshop.iso'
         Write-Host 'Descargando Adobe Photoshop...'
         (New-Object Net.WebClient).DownloadFile($File, $FilePath)
-        $AdobePath = Mount-DiskImage $Filepath | Get-DiskImage | Get-Volume
+        $AdobePath = Mount-DiskImage $FilePath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
     }
@@ -543,7 +543,7 @@ function AdobePremiere {
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Files\AdobePremiere.iso'
         Write-Host 'Descargando Adobe Premiere...'
         (New-Object Net.WebClient).DownloadFile($File, $FilePath)
-        $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
+        $AdobePath = Mount-DiskImage $FilePath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
     }
@@ -559,7 +559,7 @@ function AdobeAfterEffects {
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Files\AdobeAfterEffects.iso'
         Write-Host 'Descargando Adobe After Effects...'
         (New-Object Net.WebClient).DownloadFile($File, $FilePath)
-        $AdobePath = Mount-DiskImage $filepath | Get-DiskImage | Get-Volume
+        $AdobePath = Mount-DiskImage $FilePath | Get-DiskImage | Get-Volume
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
     }
