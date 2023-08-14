@@ -1558,14 +1558,16 @@ $StartScript.Add_Click({
     }
 
     # Checking Installed Apps With Winget
-    Write-UserOutput "Comprobando Instalaciones"
     $Installations = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB11,$SB12,$MSB1,$MSB5,$MSB6,$MSB9,$MSB10,$MSB11,$MSB12,$LB1,$LB2,$LB3,$LB5,$LB7,$LB8)
+    $i = 1
     foreach ($Installation in $Installations) {
         if ($Installation.ForeColor -eq $LabelColor) {
+            Write-UserOutput -Message "Comprobando Instalaciones"  -Progress ("$i de " + $Installations.Count) -DisableType
             $WingetListCheck = Winget List $Installation.Text | Select-String -Pattern $Installation.Text | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
             if (!($WingetListCheck -eq $Installation.Text)) {
                 $Installation.ForeColor = "Red"
             }
+            $i++
         }
     }
 
