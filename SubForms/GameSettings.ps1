@@ -7,6 +7,9 @@ $ConfirmPreference = 'None'
 $HoverGameButtonColor = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverGameButtonColor.png")
 $ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$ImagesFolder\ProcessingGameButtonColor.png")
 
+$Download.DownloadFile("$GitHubPath/Functions/Import-Export.ps1", "$TempPath\Functions\Import-Export.ps1")
+. "$TempPath\Functions\Import-Export.ps1"
+
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "Game Settings"
@@ -191,21 +194,13 @@ $R2B2.Add_Click({
 # Export
 $R2B3.Add_Click({
     Write-UserOutput "Exportando configuración"
-    $Download.DownloadFile("$GitHubPath/Functions/Import-Export.ps1", "$TempPath\Functions\Import-Export.ps1")
-    Push-Location
-    Set-Location "$TempPath\Functions"
-    .\Import-Export.ps1 -Export
-    Pop-Location
+    Import-Export.ps1 -Export
 })
 
 # Import
 $R2B4.Add_Click({
     Write-UserOutput "Importando configuración"
-    $Download.DownloadFile("$GitHubPath/Files/Import-Export.ps1", "$TempPath\Files\Import-Export.ps1")
-    Push-Location
-    Set-Location "$TempPath\Functions"
-    .\Import-Export.ps1 -Import
-    Pop-Location
+    Import-Export.ps1 -Import
 })
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
