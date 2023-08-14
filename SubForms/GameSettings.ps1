@@ -194,13 +194,13 @@ $R2B2.Add_Click({
 # Export
 $R2B3.Add_Click({
     Write-UserOutput "Exportando configuración"
-    Import-Export.ps1 -Export
+    Import-Export -Export
 })
 
 # Import
 $R2B4.Add_Click({
     Write-UserOutput "Importando configuración"
-    Import-Export.ps1 -Import
+    Import-Export -Import
 })
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
