@@ -1,23 +1,30 @@
 ﻿function Write-UserOutput {
     param (
         [string]$Message,
-        [string]$Progress
+        [string]$Progress,
+        [switch]$DisableType
     )
 
     $Message = $Message + "..."
     $MaxLength = 66 - $Progress.Length - 3
+    $AddSpaces = ""
+    $AddSpacesDynamic = ""
 
-    if ($Progress.Length -gt 0) {
-        $AddSpaces = ""
-        $Message.Length..$MaxLength | ForEach-Object {
-            $AddSpaces += " "
-        }
+    $Message.Length..$MaxLength | ForEach-Object {
+        $AddSpaces += " "
+    }
 
-        $AddSpacesDynamic = ""
-        0..$Message.Length | ForEach-Object {
-            $AddSpacesDynamic += " "
-        }
+    0..$Message.Length | ForEach-Object {
+        $AddSpacesDynamic += " "
+    }
 
+    if ($DisableType.IsPresent) {
+        $StatusBox.Text = "| $Message..."
+    }
+    elseif ($DisableType.IsPresent -and ($Progress.Length -gt 0)) {
+        $StatusBox.Text = "| $Message" + $AddSpaces + $Progress
+    }
+    elseif ($Progress.Length -gt 0) {
         $i = $Message.Length
         $MessageChar = ""
         $Message -split '' | ForEach-Object {
@@ -36,6 +43,4 @@
             Start-Sleep -Milliseconds 20
         }
     }
-
-    Start-Sleep -Milliseconds 500
 }
