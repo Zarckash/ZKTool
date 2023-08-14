@@ -5,7 +5,7 @@
 
 $ErrorActionPreference = 'SilentlyContinue'
 
-New-Item -Path "$env:temp\ZKTool\Files\Compress" -ItemType Directory | Out-Null
+New-Item -Path "$env:temp\ZKTool\Files\Compress" -ItemType Directory -Force | Out-Null
 
 function Export-Settings {
     Start-Process Powershell {
