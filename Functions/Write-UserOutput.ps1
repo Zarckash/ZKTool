@@ -18,14 +18,13 @@
         $AddSpacesDynamic += " "
     }
 
-    if ($DisableType.IsPresent -and ($Progress.Length -gt 0)) {
+    if ($DisableType.IsPresent -and ($Progress.Length -eq 0)) {
+        $StatusBox.Text = "| $Message"
+    }
+    elseif ($DisableType.IsPresent -and ($Progress.Length -gt 0)) {
         $StatusBox.Text = "| $Message" + $AddSpaces + $Progress
-        
     }
-    elseif ($DisableType.IsPresent) {
-        $StatusBox.Text = "| $Message..."
-    }
-    elseif ((!($DisableType.IsPresent)) -and ($Progress.Length -gt 0)) {
+    elseif ($Progress.Length -gt 0) {
         $i = $Message.Length
         $MessageChar = ""
         $Message -split '' | ForEach-Object {
