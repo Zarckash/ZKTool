@@ -6,8 +6,6 @@
 New-Item -Path "$TempPath\Files\Compress" -ItemType Directory | Out-Null
 
 function Export-Settings {
-    Write-UserOutput -Message "Exportando Configuraciones"
-
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Settings Exporter'
         $Path = @{
@@ -77,8 +75,6 @@ function Export-Settings {
 }
 
 function Import-Settings {
-    Write-UserOutput -Message "Importando Configuraciones"
-
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Settings Importer'
         $Path = @{
