@@ -17,7 +17,7 @@
         $SetPath = "$TempPath\Files\"  + $AppsList.$App.Installer
 
         if ($AppsList.$App.Source -eq "Winget") {
-            #winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $AppsList.$App.Installer | Out-File $LogPath -Encoding UTF8 -Append
+            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $AppsList.$App.Installer | Out-File $LogPath -Encoding UTF8 -Append
         }
         elseif ($AppsList.$App.Source -eq ".exe") {
             $Download.DownloadFile($GetPath, $SetPath)
