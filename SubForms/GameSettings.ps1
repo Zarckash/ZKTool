@@ -194,7 +194,7 @@ $R2B3.Add_Click({
     $Download.DownloadFile("$GitHubPath/Functions/Import-Export.ps1", "$TempPath\Functions\Import-Export.ps1")
     Push-Location
     Set-Location "$TempPath\Functions"
-    .\ImportExport.ps1 -Export
+    .\Import-Export.ps1 -Export
     Pop-Location
 })
 
@@ -203,7 +203,7 @@ $R2B4.Add_Click({
     Write-UserOutput "Importando configuración"
     $Download.DownloadFile("$GitHubPath/Files/Import-Export.ps1", "$TempPath\Files\Import-Export.ps1")
     Push-Location
-    Set-Location "$TempPath\Files"
+    Set-Location "$TempPath\Functions"
     .\Import-Export.ps1 -Import
     Pop-Location
 })
