@@ -138,7 +138,6 @@ foreach ($Button in $Buttons) {
 
 $DocumentsPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
 
-
 # Modern Warfare II
 $R1B1.Add_Click({
     $Download.DownloadFile("$GitHubPath/Files/.zip/ModernWarfareII.zip", "$TempPath\Files\ModernWarfareII.zip")
@@ -147,28 +146,28 @@ $R1B1.Add_Click({
     $CodPath = "$DocumentsPath\Call of Duty\players\" 
     $CodIDPath = ($CodPath + (Get-ChildItem $CodPath -Directory -Name 765*))
     Move-Item -Path ("$TempPath\Files\ModernWarfareII\settings.3.local.cod22.cst") -Destination $CodIDPath -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
+    Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
 # Player Unknown Battlegrounds
 $R1B2.Add_Click({
     $Download.DownloadFile("$GitHubPath/Files/.zip/PUBG.zip", "$TempPath\Files\PUBG.zip")
     Expand-Archive -Path ("$TempPath\Files\PUBG.zip") -DestinationPath "$env:localappdata\TslGame\Saved\Config\WindowsNoEditor" -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
+    Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
 # Rogue Company
 $R1B3.Add_Click({
     $Download.DownloadFile("$GitHubPath/Files/.zip/RogueCompany.zip", "$TempPath\Files\RogueCompany.zip")
     Expand-Archive -Path ("$TempPath\Files\RogueCompany.zip") -DestinationPath "$env:localappdata\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
+    Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
 # Battlefield 2042
 $R1B4.Add_Click({
     $Download.DownloadFile("$GitHubPath/Files/.zip/Battlefield2042.zip", "$TempPath\Files\Battlefield2042.zip")
     Expand-Archive -Path ("$TempPath\Files\Battlefield2042.zip") -DestinationPath ("$DocumentsPath\Battlefield 2042\settings") -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
+    Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
 # CSGO
@@ -179,29 +178,29 @@ $R2B1.Add_Click({
     foreach ($Id in $UserIds.name) {
         Copy-Item -Path ("$TempPath\Files\730") -Destination "C:\Program Files (x86)\Steam\userdata\$Id" -Recurse -Force
     }
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
+    Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
 # Apex
 $R2B2.Add_Click({
     $Download.DownloadFile("$GitHubPath/Files/.zip/Apex.zip", "$TempPath\Files\Apex.zip")
     Expand-Archive -Path ("$TempPath\Files\Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
-    $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
+    Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
 # Export
 $R2B3.Add_Click({
-    $StatusBox.Text = "| Exportando configuración..."
-    $Download.DownloadFile("$GitHubPath/Files/ImportExport.ps1", "$TempPath\Files\ImportExport.ps1")
+    Write-UserOutput "Exportando configuración"
+    $Download.DownloadFile("$GitHubPath/Functions/Import-Export.ps1", "$TempPath\Functions\Import-Export.ps1")
     Push-Location
-    Set-Location "$TempPath\Files"
+    Set-Location "$TempPath\Functions"
     .\ImportExport.ps1 -Export
     Pop-Location
 })
 
 # Import
 $R2B4.Add_Click({
-    $StatusBox.Text = "| Importando configuración..."
+    Write-UserOutput "Importando configuración"
     $Download.DownloadFile("$GitHubPath/Files/Import-Export.ps1", "$TempPath\Files\Import-Export.ps1")
     Push-Location
     Set-Location "$TempPath\Files"
