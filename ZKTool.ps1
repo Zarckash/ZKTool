@@ -1562,7 +1562,7 @@ $StartScript.Add_Click({
     $i = 1
     foreach ($Installation in $Installations) {
         if ($Installation.ForeColor -eq $LabelColor) {
-            Write-UserOutput -Message "Comprobando Instalaciones"  -Progress ("$i de " + $Installations.Count) -DisableType
+            Write-UserOutput -Message "Comprobando Instalaciones"  -Progress ("     $i") -DisableType
             $WingetListCheck = Winget List $Installation.Text | Select-String -Pattern $Installation.Text | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
             if (!($WingetListCheck -eq $Installation.Text)) {
                 $Installation.ForeColor = "Red"
