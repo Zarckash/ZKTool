@@ -136,67 +136,65 @@ foreach ($Button in $Buttons) {
     })
 }
 
-$FromPath = "https://github.com/Zarckash/ZKTool/raw/main" # GitHub Downloads URL
-$ToPath   = "$env:temp\ZKTool"  # Folder Structure Path
 $DocumentsPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
-$Download = New-Object net.webclient
+
 
 # Modern Warfare II
 $R1B1.Add_Click({
-    $Download.DownloadFile($FromPath+"/Configs/ModernWarfareII.zip", $ToPath+"\Configs\ModernWarfareII.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\ModernWarfareII.zip") -DestinationPath ($ToPath+"\Configs\ModernWarfareII") -Force
-    Move-Item -Path ($ToPath+"\Configs\ModernWarfareII\options.3.cod22.cst") -Destination ($DocumentsPath+"\Call of Duty\players") -Force
-    $CodPath = $DocumentsPath+"\Call of Duty\players\" 
+    $Download.DownloadFile("$GitHubPath/Files/.zip/ModernWarfareII.zip", "$TempPath\Files\ModernWarfareII.zip")
+    Expand-Archive -Path ("$TempPath\Files\ModernWarfareII.zip") -DestinationPath ("$TempPath\Files\ModernWarfareII") -Force
+    Move-Item -Path ("$TempPath\Files\ModernWarfareII\options.3.cod22.cst") -Destination ("$DocumentsPath\Call of Duty\players") -Force
+    $CodPath = "$DocumentsPath\Call of Duty\players\" 
     $CodIDPath = ($CodPath + (Get-ChildItem $CodPath -Directory -Name 765*))
-    Move-Item -Path ($ToPath+"\Configs\ModernWarfareII\settings.3.local.cod22.cst") -Destination $CodIDPath -Force
+    Move-Item -Path ("$TempPath\Files\ModernWarfareII\settings.3.local.cod22.cst") -Destination $CodIDPath -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Player Unknown Battlegrounds
 $R1B2.Add_Click({
-    $Download.DownloadFile($FromPath+"/Configs/PUBG.zip", $ToPath+"\Configs\PUBG.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\PUBG.zip") -DestinationPath "$env:userprofile\AppData\Local\TslGame\Saved\Config\WindowsNoEditor" -Force
+    $Download.DownloadFile("$GitHubPath/Files/.zip/PUBG.zip", "$TempPath\Files\PUBG.zip")
+    Expand-Archive -Path ("$TempPath\Files\PUBG.zip") -DestinationPath "$env:localappdata\TslGame\Saved\Config\WindowsNoEditor" -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Rogue Company
 $R1B3.Add_Click({
-    $Download.DownloadFile($FromPath+"/Configs/RogueCompany.zip", $ToPath+"\Configs\RogueCompany.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\RogueCompany.zip") -DestinationPath "$env:userprofile\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
+    $Download.DownloadFile("$GitHubPath/Files/.zip/RogueCompany.zip", "$TempPath\Files\RogueCompany.zip")
+    Expand-Archive -Path ("$TempPath\Files\RogueCompany.zip") -DestinationPath "$env:localappdata\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Battlefield 2042
 $R1B4.Add_Click({
-    $Download.DownloadFile($FromPath+"/Configs/Battlefield2042.zip", $ToPath+"\Configs\Battlefield2042.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\Battlefield2042.zip") -DestinationPath ($DocumentsPath+"\Battlefield 2042\settings") -Force
+    $Download.DownloadFile("$GitHubPath/Files/.zip/Battlefield2042.zip", "$TempPath\Files\Battlefield2042.zip")
+    Expand-Archive -Path ("$TempPath\Files\Battlefield2042.zip") -DestinationPath ("$DocumentsPath\Battlefield 2042\settings") -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # CSGO
 $R2B1.Add_Click({
-    $Download.DownloadFile($FromPath+"/Configs/CSGO.zip", $ToPath+"\Configs\CSGO.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\CSGO.zip") -DestinationPath ($ToPath+"\Configs\") -Force
-    $userids = Get-ChildItem "C:\Program Files (x86)\Steam\userdata" -Directory
-    foreach ($id in $userids.name) {
-        Copy-Item -Path ($ToPath+"\Configs\730") -Destination "C:\Program Files (x86)\Steam\userdata\$id" -Recurse -Force
+    $Download.DownloadFile("$GitHubPath/Files/.zip/CSGO.zip", "$TempPath\Files\CSGO.zip")
+    Expand-Archive -Path ("$TempPath\Files\CSGO.zip") -DestinationPath ("$TempPath\Files\") -Force
+    $UserIds = Get-ChildItem "C:\Program Files (x86)\Steam\userdata" -Directory
+    foreach ($Id in $UserIds.name) {
+        Copy-Item -Path ("$TempPath\Files\730") -Destination "C:\Program Files (x86)\Steam\userdata\$Id" -Recurse -Force
     }
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Apex
 $R2B2.Add_Click({
-    $Download.DownloadFile($FromPath+"/Configs/Apex.zip", $ToPath+"\Configs\Apex.zip")
-    Expand-Archive -Path ($ToPath+"\Configs\Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
+    $Download.DownloadFile("$GitHubPath/Files/.zip/Apex.zip", "$TempPath\Files\Apex.zip")
+    Expand-Archive -Path ("$TempPath\Files\Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
     $StatusBox.Text = "| Configuracion De " + $this.Text + " Aplicada..."
 })
 
 # Export
 $R2B3.Add_Click({
     $StatusBox.Text = "| Exportando configuración..."
-    $Download.DownloadFile($FromPath+"/Apps/ImportExport.ps1", $ToPath+"\Apps\ImportExport.ps1")
+    $Download.DownloadFile("$GitHubPath/Files/ImportExport.ps1", "$TempPath\Files\ImportExport.ps1")
     Push-Location
-    Set-Location "$ToPath\Apps"
+    Set-Location "$TempPath\Files"
     .\ImportExport.ps1 -Export
     Pop-Location
 })
@@ -204,19 +202,19 @@ $R2B3.Add_Click({
 # Import
 $R2B4.Add_Click({
     $StatusBox.Text = "| Importando configuración..."
-    $Download.DownloadFile($FromPath+"/Apps/ImportExport.ps1", $ToPath+"\Apps\ImportExport.ps1")
+    $Download.DownloadFile("$GitHubPath/Files/Import-Export.ps1", "$TempPath\Files\Import-Export.ps1")
     Push-Location
-    Set-Location "$ToPath\Apps"
-    .\ImportExport.ps1 -Import
+    Set-Location "$TempPath\Files"
+    .\Import-Export.ps1 -Import
     Pop-Location
 })
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
 foreach ($Button in $Buttons) {
     $Button.Add_Click({
-        Start-Sleep 2
         $this.Image = $DefaultGameButtonColor
         $this.ForeColor = $LabelColor
+        Start-Sleep 2
     })
 }
 
