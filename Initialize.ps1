@@ -10,7 +10,7 @@ Set-ExecutionPolicy RemoteSigned
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
-function TypeWriteHost ([string]$s = '',[string]$TextColor = 'Cyan') {
+function Write-TypeHost ([string]$s = '',[string]$TextColor = 'Cyan') {
     $s -split '' | ForEach-Object {
         Write-Host $_ -NoNewline -ForegroundColor $TextColor
         Start-Sleep -Milliseconds 20
@@ -20,7 +20,7 @@ function TypeWriteHost ([string]$s = '',[string]$TextColor = 'Cyan') {
 }
 
 # Install ZKTool
-TypeWriteHost "Instalando ZKTool App..."
+Write-TypeHost "Instalando ZKTool App..."
 New-Item $env:temp\ZKTool\Resources\ -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip" -OutFile "$env:temp\ZKTool\Resources\ZKTool.zip"
 Expand-Archive -Path "$env:temp\ZKTool\Resources\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool"
@@ -41,15 +41,15 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
 
 # Create Monthly Scheduled Task
-TypeWriteHost "`r`nCreando Tarea Programada..."
+Write-TypeHost "`r`nCreando Tarea Programada..."
 $Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
 $Trigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Monday -At 10am
 Register-ScheduledTask -TaskName "ZKToolUpdater" -Action $Action -Trigger $Trigger | Out-Null
 
 # Check Winget
-TypeWriteHost "`r`nComprobando Winget..."
+Write-TypeHost "`r`nComprobando Winget..."
 if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10,10)) -eq "Windows 11")) {
-    TypeWriteHost "`r`n    Instalando Winget..."
+    Write-TypeHost "`r`n    Instalando Winget..."
     Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
     $WaitFor = (Get-Process AppInstaller).Id
     Wait-Process -Id $WaitFor
