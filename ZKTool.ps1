@@ -170,14 +170,14 @@ $MSB9.Text   = "WinRAR"
 $MSB10.Text  = "MegaSync"
 $MSB11.Text  = "LibreOffice"
 $MSB12.Text  = "GitHub Desktop"
-$MSB13.Text  = "AMD Adrenalin"
-$MSB14.Text  = "Void"
+$MSB13.Text  = "Node JS"
+$MSB14.Text  = "AMD Adrenalin"
 $MSB15.Text  = "Tarkov Launcher"
 $MSB16.Text  = "League of Legends"
 $MSB17.Text  = "Valorant"
 
 $Position = 10
-$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB15,$MSB16,$MSB17)
+$Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,$MSB17)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
     $Button.Location             = New-Object System.Drawing.Point(10,$Position)
@@ -523,7 +523,7 @@ function AdobePhotoshop {
     Write-UserOutput "Instalando Adobe Photoshop"
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe Photoshop'
-        $File = 'http://zktoolip.ddns.net/files/AdobePhotoshop.iso'
+        $File = 'http://zktool.ddns.net/files/AdobePhotoshop.iso'
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Files\AdobePhotoshop.iso'
         Write-Host 'Descargando Adobe Photoshop...'
         (New-Object Net.WebClient).DownloadFile($File, $FilePath)
@@ -539,7 +539,7 @@ function AdobePremiere {
     Write-UserOutput "Instalando Adobe Premiere"
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe Premiere'
-        $File = 'http://zktoolip.ddns.net/files/AdobePremiere.iso'
+        $File = 'http://zktool.ddns.net/files/AdobePremiere.iso'
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Files\AdobePremiere.iso'
         Write-Host 'Descargando Adobe Premiere...'
         (New-Object Net.WebClient).DownloadFile($File, $FilePath)
@@ -555,7 +555,7 @@ function AdobeAfterEffects {
     Write-UserOutput "Instalando Adobe After Effects"
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe After Effects'
-        $File = 'http://zktoolip.ddns.net/files/AdobeAfterEffects.iso'
+        $File = 'http://zktool.ddns.net/files/AdobeAfterEffects.iso'
         $FilePath = $env:userprofile + '\AppData\Local\Temp\ZKTool\Files\AdobeAfterEffects.iso'
         Write-Host 'Descargando Adobe After Effects...'
         (New-Object Net.WebClient).DownloadFile($File, $FilePath)
@@ -1360,7 +1360,7 @@ Function FFMPEG {
     $Download.DownloadFile("$GitHubPath/Files/.appx/HEIF.appx", "$TempPath\Files\HEIF.appx")
     &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ("$TempPath\Files\HEVC.appx"); Add-AppxPackage ("$TempPath\Files\HEIF.appx")}
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File $LogPath -Encoding UTF8 -Append
-    $Download.DownloadFile("$GitHubPath/Files/.exe/ffmpeg.exe", "$TempPath\Files\ffmpeg.exe")
+    $Download.DownloadFile("$GitHubPath/Files/.exe/ffmpeg.exe", "$ZKToolPath\Apps\ffmpeg.exe")
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Compress" | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "command" | Out-Null

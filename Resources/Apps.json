@@ -143,6 +143,12 @@
         "Output": "Instalando ",
         "Source": "Winget"
     },
+    "NodeJS":{
+        "Name": "Node JS",
+        "Installer": "OpenJS.NodeJS",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
     "AMDAdrenalin": {
         "Name": "AMD Adrenalin",
         "Installer": "AMDAdrenalin.exe",
