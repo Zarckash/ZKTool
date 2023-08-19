@@ -11,6 +11,7 @@
             $ErrorActionPreference = 'SilentlyContinue'
             $host.UI.RawUI.WindowTitle = 'Settings Exporter'
             $Path = @{
+                File       = 'https://github.com/Zarckash/ZKTool/raw/main/Files/.exe/MEGAcmdSetup64.exe'
                 Temp       = ($env:temp + '\ZKTool\Files')
                 Documents  = Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Personal'
                 SavedGames = ($env:userprofile + '\Saved Games')
@@ -73,6 +74,11 @@
         
             Write-TypeHost 'Comprimiendo Settings...'
             Get-ChildItem -Path ($Path.Compressed) | Compress-Archive -CompressionLevel NoCompression -DestinationPath ($Path.Temp + '\SettingsBackup.zip')
+            (New-Object System.Net.WebClient).DownloadFile($Path.File,($Path.Temp + '\MEGAcmdSetup64.exe'))
+            Start-Process ($Path.Temp + '\MEGAcmdSetup64.exe') /S
+            Set-Location ($env:localappdata + '\MEGAcmd')
+            mega-login zktoolapp@gmail.com zktoolbackup
+            mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
         }
     }
     elseif ($Import.IsPresent) {
