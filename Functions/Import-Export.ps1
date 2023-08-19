@@ -84,6 +84,7 @@
             Set-Location ($env:localappdata + '\MEGAcmd')
             .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
             .\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
+            .\mega-logout
             .\uninst
         }
     }
@@ -113,9 +114,18 @@
                 Start-Sleep -Milliseconds 20
                 Write-Host ''
             }
-    
-            Write-TypeHost 'Descargando Archivos...'
-            (New-Object System.Net.WebClient).DownloadFile($Path.File)
+
+            Write-TypeHost 'Instalando MEGA...'
+            (New-Object System.Net.WebClient).DownloadFile($Path.File,($Path.Temp + '\MEGAcmdSetup64.exe'))
+            Start-Process ($Path.Temp + '\MEGAcmdSetup64.exe') /S
+            Start-Sleep 10
+
+            Write-TypeHost 'Descargando Archivo...'
+            Set-Location ($env:localappdata + '\MEGAcmd')
+            .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
+            .\mega-get ('/Backup/' + $env:username + 'Backup.zip') ($Path.Temp + '\SettingsBackup.zip')
+            .\mega-logout
+            .\uninst
         }
     }
 }
