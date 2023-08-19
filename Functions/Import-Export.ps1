@@ -91,11 +91,12 @@
 
             Write-TypeHost 'Desinstalando MEGA...'
             .\mega-logout
+            Start-Sleep 3
             Get-Process 'MEGAcmdServer' | Stop-Process
-            Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse
-            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse
+            Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
-            Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse
+            Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
         }
     }
     elseif ($Import.IsPresent) {
@@ -137,8 +138,9 @@
 
             Write-TypeHost 'Desinstalando MEGA...'
             .\mega-logout
+            Start-Sleep 3
             Get-Process 'MEGAcmdServer' | Stop-Process
-            Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse
+            Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse
