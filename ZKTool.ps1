@@ -1267,34 +1267,27 @@ function TweaksInContextMenu {
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "MUIVerb" -Value "Logitech OMM"
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "command" | Out-Null
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM\command" -Name "(default)" -Value "$ZKToolPath\Apps\LogitechOMM.exe"
-
-    # Bufferbloat
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03BufferbloatFix" | Out-Null
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "Icon" -Value "inetcpl.cpl,20"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "MUIVerb" -Value "Bufferbloat Enable"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix" -Name "command" | Out-Null
-            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03BufferbloatFix\command" -Name "(default)" -Value "$ZKToolPath\Apps\Bufferbloat.exe"
     
     # SteamBlock
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04SteamBlock" | Out-Null
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "Icon" -Value "C:\Program Files (x86)\Steam\steam.exe,0"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "MUIVerb" -Value "Disable Steam"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock" -Name "command" | Out-Null
-            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\04SteamBlock\command" -Name "(default)" -Value "$ZKToolPath\Apps\BlockSteam.exe"
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03SteamBlock" | Out-Null
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "Icon" -Value "C:\Program Files (x86)\Steam\steam.exe,0"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "MUIVerb" -Value "Disable Steam"
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "command" | Out-Null
+            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock\command" -Name "(default)" -Value "$ZKToolPath\Apps\BlockSteam.exe"
     
     # Clean Standby List Memory
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "05EmptyStandbyList" | Out-Null
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05EmptyStandbyList" -Name "Icon" -Value "SHELL32.dll,12"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05EmptyStandbyList" -Name "MUIVerb" -Value "Clear RAM"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05EmptyStandbyList" -Name "command" | Out-Null
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05EmptyStandbyList\command" -Name "(default)" -Value "$ZKToolPath\Apps\EmptyStandbyList.exe"
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04EmptyStandbyList" | Out-Null
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "Icon" -Value "SHELL32.dll,12"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "MUIVerb" -Value "Clear RAM"
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "command" | Out-Null
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList\command" -Name "(default)" -Value "$ZKToolPath\Apps\EmptyStandbyList.exe"
 
     # Clean Files
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "06CleanFiles" | Out-Null
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "Icon" -Value "SHELL32.dll,32"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "MUIVerb" -Value "Clean Files"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles" -Name "command" | Out-Null
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\06CleanFiles\command" -Name "(default)" -Value "$ZKToolPath\Apps\CleanFiles.exe"
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "05CleanFiles" | Out-Null
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "Icon" -Value "SHELL32.dll,32"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "MUIVerb" -Value "Clean Files"
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "command" | Out-Null
+            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles\command" -Name "(default)" -Value "$ZKToolPath\Apps\CleanFiles.exe"
     $TB10.ForeColor = $DefaultForeColor
 }
 
