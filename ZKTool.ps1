@@ -636,15 +636,18 @@ function OptimizationTweaks {
     .\SetTimerResolutionService.exe -install | Out-File $LogPath -Encoding UTF8 -Append
     Pop-Location
 
-    # Windows Defender
+    # Windows Defender Exclusions
     Write-UserOutput "Aplicando Exclusiones A Windows Defender"
     $ActiveDrives = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty "Root" | Where-Object {$_.Length -eq 3}
     foreach ($Drive in $ActiveDrives) {
-        if (Test-Path ($Drive + "Games")) {
-            Add-MpPreference -ExclusionPath ($Drive + "Games")
+        if (Test-Path ("$Drive\Games")) {
+            Add-MpPreference -ExclusionPath ("$Drive\Games")
         }
     }
-    Add-MpPreference -ExclusionPath "C:\Program Files\Windows Defender"
+    Add-MpPreference -ExclusionPath "$env:ProgramFiles\Windows Defender"
+    Add-MpPreference -ExclusionPath "$env:windir\security\database"
+    Add-MpPreference -ExclusionPath "$env:windir\SoftwareDistribution\DataStore"
+    Add-MpPreference -ExclusionPath "$env:temp\NVIDIA Corporation\NV_Cache"
 
     # Show File Extensions
     Write-UserOutput "Activando Extensiones De Archivos"
@@ -907,7 +910,7 @@ function OptimizationTweaks {
 
     # Change Computer Name
     $PCName = $env:username.ToUpper() + "-PC"
-    Write-UserOutput "Cambiando Nombre Del Equipo A " + $PCName + ""
+    Write-UserOutput "Cambiando Nombre Del Equipo A $PCName"
     Rename-Computer -NewName $PCName
 
     # Set Private Network
@@ -950,54 +953,56 @@ function OptimizationTweaks {
     # Service Tweaks To Manual 
     Write-UserOutput "Deshabilitando Servicios"
     $Services = @(
-        "ALG"                                          # Application Layer Gateway Service(Provides support for 3rd party protocol plug-ins for Internet Connection Sharing)
-        "AJRouter"                                     # Needed for AllJoyn Router Service
-        "BcastDVRUserService_48486de"                  # GameDVR and Broadcast is used for Game Recordings and Live Broadcasts
-        "Browser"                                      # Let users browse and locate shared resources in neighboring computers
-        "diagnosticshub.standardcollector.service"     # Microsoft (R) Diagnostics Hub Standard Collector Service
-        "DiagTrack"                                    # Diagnostics Tracking Service
-        "dmwappushservice"                             # WAP Push Message Routing Service
-        "DPS"                                          # Diagnostic Policy Service (Detects and Troubleshoots Potential Problems)
-        "edgeupdate"                                   # Edge Update Service
-        "edgeupdatem"                                  # Another Update Service
-        "Fax"                                          # Fax Service
-        "fhsvc"                                        # Fax History
-        "FontCache"                                    # Windows font cache
-        "gupdate"                                      # Google Update
-        "gupdatem"                                     # Another Google Update Service
-        "iphlpsvc"                                     # ipv6(Most websites use ipv4 instead)
-        "lfsvc"                                        # Geolocation Service
-        "lmhosts"                                      # TCP/IP NetBIOS Helper
-        "MapsBroker"                                   # Downloaded Maps Manager
-        "MicrosoftEdgeElevationService"                # Another Edge Update Service
-        "MSDTC"                                        # Distributed Transaction Coordinator
-        "NahimicService"                               # Nahimic Service
-        "NetTcpPortSharing"                            # Net.Tcp Port Sharing Service
-        "PcaSvc"                                       # Program Compatibility Assistant Service
-        "PerfHost"                                     # Remote users and 64-bit processes to query performance.
-        "PhoneSvc"                                     # Phone Service(Manages the telephony state on the device)
-        "RemoteAccess"                                 # Routing and Remote Access
-        "RemoteRegistry"                               # Remote Registry
-        "RetailDemo"                                   # Demo Mode for Store Display
-        "RtkBtManServ"                                 # Realtek Bluetooth Device Manager Service
-        "SCardSvr"                                     # Windows Smart Card Service
-        "seclogon"                                     # Secondary Logon (Disables other credentials only password will work)
-        "SEMgrSvc"                                     # Payments and NFC/SE Manager (Manages payments and Near Field Communication (NFC) based secure elements)
-        "SharedAccess"                                 # Internet Connection Sharing (ICS)
-        "Spooler"                                      # Printing
-        "stisvc"                                       # Windows Image Acquisition (WIA)
-        "SysMain"                                      # Analyses System Usage and Improves Performance
-        "TrkWks"                                       # Distributed Link Tracking Client
-        "WbioSrvc"                                     # Windows Biometric Service (required for Fingerprint reader / facial detection)
-        "WerSvc"                                       # Windows error reporting
-        "wisvc"                                        # Windows Insider program(Windows Insider will not work if Disabled)
-        "WMPNetworkSvc"                                # Windows Media Player Network Sharing Service
-        "WpcMonSvc"                                    # Parental Controls
-        "WPDBusEnum"                                   # Portable Device Enumerator Service
-        "XblAuthManager"                               # Xbox Live Auth Manager (Disabling Breaks Xbox Live Games)
-        "XblGameSave"                                  # Xbox Live Game Save Service (Disabling Breaks Xbox Live Games)
-        "XboxNetApiSvc"                                # Xbox Live Networking Service (Disabling Breaks Xbox Live Games)
-        "XboxGipSvc"                                   # Xbox Accessory Management Service
+        "ALG"                                       # Application Layer Gateway Service(Provides support for 3rd party protocol plug-ins for Internet Connection Sharing)
+        "AJRouter"                                  # Needed for AllJoyn Router Service
+        "BcastDVRUserService_48486de"               # GameDVR and Broadcast is used for Game Recordings and Live Broadcasts
+        "Browser"                                   # Let users browse and locate shared resources in neighboring computers
+        "diagnosticshub.standardcollector.service"  # Microsoft (R) Diagnostics Hub Standard Collector Service
+        "DiagTrack"                                 # Diagnostics Tracking Service
+        "dmwappushservice"                          # WAP Push Message Routing Service
+        "DPS"                                       # Diagnostic Policy Service (Detects and Troubleshoots Potential Problems)
+        "edgeupdate"                                # Edge Update Service
+        "edgeupdatem"                               # Another Update Service
+        "Fax"                                       # Fax Service
+        "fhsvc"                                     # Fax History
+        "FontCache"                                 # Windows font cache
+        "gupdate"                                   # Google Update
+        "gupdatem"                                  # Another Google Update Service
+        "iphlpsvc"                                  # ipv6(Most websites use ipv4 instead)
+        "lfsvc"                                     # Geolocation Service
+        "lmhosts"                                   # TCP/IP NetBIOS Helper
+        "MapsBroker"                                # Downloaded Maps Manager
+        "MicrosoftEdgeElevationService"             # Another Edge Update Service
+        "MSDTC"                                     # Distributed Transaction Coordinator
+        "NahimicService"                            # Nahimic Service
+        "NetTcpPortSharing"                         # Net.Tcp Port Sharing Service
+        "PcaSvc"                                    # Program Compatibility Assistant Service
+        "PerfHost"                                  # Remote users and 64-bit processes to query performance.
+        "PhoneSvc"                                  # Phone Service(Manages the telephony state on the device)
+        "RemoteAccess"                              # Routing and Remote Access
+        "RemoteRegistry"                            # Remote Registry
+        "RetailDemo"                                # Demo Mode for Store Display
+        "RtkBtManServ"                              # Realtek Bluetooth Device Manager Service
+        "SCardSvr"                                  # Windows Smart Card Service
+        "seclogon"                                  # Secondary Logon (Disables other credentials only password will work)
+        "SEMgrSvc"                                  # Payments and NFC/SE Manager (Manages payments and Near Field Communication (NFC) based secure elements)
+        "SharedAccess"                              # Internet Connection Sharing (ICS)
+        "Spooler"                                   # Printing
+        "stisvc"                                    # Windows Image Acquisition (WIA)
+        "SysMain"                                   # Analyses System Usage and Improves Performance
+        "TrkWks"                                    # Distributed Link Tracking Client
+        "WbioSrvc"                                  # Windows Biometric Service (required for Fingerprint reader / facial detection)
+        "WerSvc"                                    # Windows error reporting
+        "wisvc"                                     # Windows Insider program(Windows Insider will not work if Disabled)
+        "WMPNetworkSvc"                             # Windows Media Player Network Sharing Service
+        "WpcMonSvc"                                 # Parental Controls
+        "WPDBusEnum"                                # Portable Device Enumerator Service
+        "XblAuthManager"                            # Xbox Live Auth Manager (Disabling Breaks Xbox Live Games)
+        "XblGameSave"                               # Xbox Live Game Save Service (Disabling Breaks Xbox Live Games)
+        "XboxNetApiSvc"                             # Xbox Live Networking Service (Disabling Breaks Xbox Live Games)
+        "XboxGipSvc"                                # Xbox Accessory Management Service
+        "tzautoupdate"                              # Automatically sets the system time zone
+        "PimIndexMaintenanceSvc"                    # Disable Contacts in search    
         "HPAppHelperCap"
         "HPDiagsCap"
         "HPNetworkCap"
@@ -1132,7 +1137,7 @@ function CleaningTweaks {
     $TB2.ForeColor = $DefaultForeColor
 }
 
-Function NvidiaSettings {
+function NvidiaSettings {
     $TB3.ForeColor = $LabelColor
     Write-UserOutput "Aplicando Ajustes Al Panel De Control De Nvidia"
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
@@ -1145,14 +1150,14 @@ Function NvidiaSettings {
     $TB3.ForeColor = $DefaultForeColor
 }
 
-Function ReduceIconsSpacing {
+function ReduceIconsSpacing {
     $TB4.ForeColor = $LabelColor
     Write-UserOutput "Reduciendo Espacio Entre Iconos"
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "IconSpacing" -Value -900
     $TB4.ForeColor = $DefaultForeColor
 }
 
-Function HideShortcutArrows {
+function HideShortcutArrows {
     $TB5.ForeColor = $LabelColor
     Write-UserOutput "Ocultando Flechas De Acceso Directo"
     $Download.DownloadFile("$GitHubPath/Files/Blank.ico", "$TempPath\Files\Blank.ico")
@@ -1167,7 +1172,7 @@ Function HideShortcutArrows {
     $TB5.ForeColor = $DefaultForeColor
 }
 
-Function SetFluentCursor {
+function SetFluentCursor {
     $TB6.ForeColor = $LabelColor
     Write-UserOutput "Estableciendo Cursor Personalizado"
     $Download.DownloadFile("$GitHubPath/Files/.zip/FluentCursor.zip", "$TempPath\Files\FluentCursor.zip")
@@ -1177,7 +1182,7 @@ Function SetFluentCursor {
     $TB6.ForeColor = $DefaultForeColor
 }
 
-Function DisableCortana {
+function DisableCortana {
     $TB7.ForeColor = $LabelColor
     Write-UserOutput "Deshabilitando Cortana"
     If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings")) {
@@ -1200,7 +1205,7 @@ Function DisableCortana {
     $TB7.ForeColor = $DefaultForeColor
 }
 
-Function RemoveOneDrive {
+function RemoveOneDrive {
     $TB8.ForeColor = $LabelColor
     Write-UserOutput "Desinstalando Xbox Game Bar"
     Stop-Process -Name "OneDrive" -ErrorAction SilentlyContinue
@@ -1224,7 +1229,7 @@ Function RemoveOneDrive {
     $TB8.ForeColor = $DefaultForeColor
 }
 
-Function RemoveXboxGameBar {
+function RemoveXboxGameBar {
     $TB9.ForeColor = $LabelColor
     Write-UserOutput "Desinstalando Xbox Game Bar"
     &{ $ProgressPreference = 'SilentlyContinue'
@@ -1240,7 +1245,7 @@ Function RemoveXboxGameBar {
     $TB9.ForeColor = $DefaultForeColor
 }
 
-Function TweaksInContextMenu {
+function TweaksInContextMenu {
     $TB10.ForeColor = $LabelColor
     Write-UserOutput "Activando Tweaks En Context Menu"
     
@@ -1293,7 +1298,7 @@ Function TweaksInContextMenu {
     $TB10.ForeColor = $DefaultForeColor
 }
 
-Function VisualFXFix {
+function VisualFXFix {
     $TB11.ForeColor = $LabelColor
     Write-UserOutput "Ajustando Animaciones De Windows"
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
@@ -1312,7 +1317,7 @@ Function VisualFXFix {
     $TB11.ForeColor = $DefaultForeColor
 }
 
-Function ActivateWindowsPro {
+function ActivateWindowsPro {
     $MTB1.ForeColor = $LabelColorBig
     Write-UserOutput "Activando Windows Pro"
     cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
@@ -1321,7 +1326,7 @@ Function ActivateWindowsPro {
     $MTB1.ForeColor = $DefaultForeColorBig
 }
 
-Function VisualCRuntimes {
+function VisualCRuntimes {
     $MTB2.ForeColor = $LabelColor
     Write-UserOutput "Instalando Todas Las Versiones De Visual C++"
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x64 | Out-File $LogPath -Encoding UTF8 -Append
@@ -1353,7 +1358,7 @@ function EnableMSIMode {
     $MTB3.ForeColor = $DefaultForeColor
 }
 
-Function FFMPEG {
+function FFMPEG {
     $MTB4.ForeColor = $LabelColor
     Write-UserOutput "Instalando FFMPEG"
     $Download.DownloadFile("$GitHubPath/Files/.appx/HEVC.appx", "$TempPath\Files\HEVC.appx")
@@ -1370,7 +1375,7 @@ Function FFMPEG {
     $MTB4.ForeColor = $DefaultForeColor
 }
 
-Function WindowsTerminalFix {
+function WindowsTerminalFix {
     $MTB5.ForeColor = $LabelColor
     Write-UserOutput "Aplicando Ajustes A Windows Terminal"
     if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\SourceCodePro*)) {
@@ -1386,7 +1391,7 @@ Function WindowsTerminalFix {
     $MTB5.ForeColor = $DefaultForeColor 
 }
 
-Function AdobeCleaner {
+function AdobeCleaner {
     $MTB15.ForeColor = $LabelColor
     Write-UserOutput "Eliminando Procesos De Adobe"
     Rename-Item -Path "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exe" "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exeX"
@@ -1396,13 +1401,14 @@ Function AdobeCleaner {
     $MTB15.ForeColor = $DefaultForeColor
 }
 
-Function AMDUndervoltPack {
+function AMDUndervoltPack {
     $MTB16.ForeColor = $LabelColor
     Write-UserOutput "Descargando AMD Undervolt Pack"
     $Download.DownloadFile("$GitHubPath/Files/.zip/AMDUndervoltPack.zip", "$TempPath\Files\AMDUndervoltPack.zip")
     Expand-Archive -Path ("$TempPath\Files\AMDUndervoltPack.zip") -DestinationPath ("$TempPath\Files\AMD Undervolt Pack") -Force
     Move-Item -Path ("$TempPath\Files\AMD Undervolt Pack\AMD Undervolt") -Destination 'C:\Program Files\'
-    $DesktopPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop"
+    $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop") + "\AMD Undervolt"
+    New-Item -Path $DesktopPath -ItemType Directory -Force | Out-Null
     Move-Item -Path ("$TempPath\Files\AMD Undervolt Pack\CPU Undervolt.lnk") -Destination $DesktopPath
     Move-Item -Path ("$TempPath\Files\AMD Undervolt Pack\Prime95") -Destination $DesktopPath
     Move-Item -Path ("$TempPath\Files\AMD Undervolt Pack\CPUZ.exe") -Destination $DesktopPath
@@ -1410,7 +1416,7 @@ Function AMDUndervoltPack {
     $MTB16.ForeColor = $DefaultForeColor
 }
 
-Function DarkTheme {
+function DarkTheme {
     $HB2.ForeColor = $LabelColor
     Write-UserOutput "Aplicando Tema Oscuro"
     $Download.DownloadFile("$GitHubPath/Files/.zip/Media.zip", "$TempPath\Files\Media.zip")
@@ -1440,7 +1446,7 @@ Function DarkTheme {
     Copy-Item -Path $IconLocation -Destination "$env:userprofile\AppData\Local\Microsoft\Edge\User Data\Default\Edge Profile.ico" -Force
 
     # Black Explorer
-    $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\File Explorer.lnk"
+    $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\File Explorer.lnk"
     $IconLocation = "$ZKToolPath\Media\BlackExplorer.ico"
     $Shell = New-Object -ComObject ("WScript.Shell")
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
@@ -1448,7 +1454,7 @@ Function DarkTheme {
     $Shortcut.Save()
 
     # Black Spotify
-    $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Spotify.lnk"
+    $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Spotify.lnk"
     $IconLocation = "$ZKToolPath\Media\BlackSpotify.ico"
     $Shell = New-Object -ComObject ("WScript.Shell")
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
@@ -1456,7 +1462,7 @@ Function DarkTheme {
     $Shortcut.Save()
 
     # Black Discord
-    $ShortcutPath = "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk"
+    $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk"
     $IconLocation = "$ZKToolPath\Media\BlackDiscord.ico"
     $Shell = New-Object -ComObject ("WScript.Shell")
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
@@ -1466,7 +1472,7 @@ Function DarkTheme {
     $HB2.ForeColor = $DefaultForeColor
 }
 
-Function MSIAfterburnerSettings {
+function MSIAfterburnerSettings {
     $MTB14.ForeColor = $LabelColor
     Write-UserOutput "Configurando MSI Afterbuner"
     $Download.DownloadFile("$GitHubPath/Files/.zip/MSIAfterburner.zip", "$TempPath\Files\MSIAfterburner.zip")
@@ -1480,7 +1486,7 @@ Function MSIAfterburnerSettings {
     $MTB14.ForeColor = $DefaultForeColor
 }
 
-Function RemoveRealtek {
+function RemoveRealtek {
     $MTB11.ForeColor = $LabelColor
     Write-UserOutput "Quitando Realtek Audio Service"
     pwsh.exe -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
@@ -1493,7 +1499,7 @@ Function RemoveRealtek {
     $MTB11.ForeColor = $DefaultForeColor
 }
 
-Function Z390LanDrivers {
+function Z390LanDrivers {
     $HB6.ForeColor = $LabelColor
     Write-UserOutput "Instalando Z390 Lan Drivers"
     $Download.DownloadFile("$GitHubPath/Files/.zip/LanDrivers.zip", "$TempPath\Files\LanDrivers.zip")
@@ -1521,9 +1527,9 @@ $StartScript.Add_Click({
     $MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
     $MTB13,$MTB14,$MTB15,$MTB16,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6)
 
-    $AppsToInstall = @()
-    $FormsToInvoke = @()
-    $FunctionsToRun = @()
+    $AppsToInstall   = @()
+    $FormsToInvoke   = @()
+    $FunctionsToRun  = @()
 
     foreach ($Button in $AllButtons) {
         if (($Button.Image -eq $ActiveButtonColor) -or ($Button.Image -eq $ActiveButtonColorBig)) {
@@ -1562,7 +1568,7 @@ $StartScript.Add_Click({
     $i = 1
     foreach ($Installation in $Installations) {
         if ($Installation.ForeColor -eq $LabelColor) {
-            Write-UserOutput -Message "Comprobando Instalaciones"  -Progress ("     $i") -DisableType
+            Write-UserOutput -Message "Comprobando Instalaciones"  -Progress "     $i" -DisableType
             $WingetListCheck = Winget List $Installation.Text | Select-String -Pattern $Installation.Text | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
             if (!($WingetListCheck -eq $Installation.Text)) {
                 $Installation.ForeColor = "Red"
