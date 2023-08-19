@@ -62,7 +62,7 @@
                 foreach ($ID in $SteamIDs.Name) {
                     if (Test-Path ($Path.CSGO + '\' + $ID + '\730\local\cfg\*')) {
                         New-Item -Path ($Path.Temp + '\CSGOFolders\' + $ID + '\730\local\cfg') -ItemType Directory -Force | Out-Null
-                        Copy-Item -Path ($Path.CSGO + '\' + $ID + '\730\local\cfg\*') -Destination ($Path.Temp + '\CSGOFolders\$ID\730\local\cfg') -Force
+                        Copy-Item -Path ($Path.CSGO + '\' + $ID + '\730\local\cfg\') -Recurse -Destination ($Path.Temp + '\CSGOFolders\$ID\730\local\cfg') -Force
                     }
                 }
                 Compress-Archive -Path ($Path.Temp + '\CSGOFolders\*') -DestinationPath ($Path.Compressed + '\CSGO.zip')
@@ -88,16 +88,17 @@
             Set-Location ($env:localappdata + '\MEGAcmd')
             .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
             .\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
+            .\mega-logout
 
             Write-TypeHost 'Desinstalando MEGA...'
-            .\mega-logout
-            Start-Sleep 3
-            Get-Process 'MEGAcmdServer' | Stop-Process
-            Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
-            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
-            Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
-            Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
-            Pause
+            Start-Process Powershell -WindowStyle Minimized {
+                Get-Process 'MEGAcmdServer' | Stop-Process
+                Start-Sleep 10
+                Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
+                Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
+                Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
+                Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
+            }
         }
     }
     elseif ($Import.IsPresent) {
