@@ -84,8 +84,14 @@
             Set-Location ($env:localappdata + '\MEGAcmd')
             .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
             .\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
+
+            Write-TypeHost 'Desinstalando MEGA...'
             .\mega-logout
-            .\uninst
+            Get-Process 'MEGAcmdServer' | Stop-Process
+            Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse
+            Remove-Item -Path "$env:appdata\Microsoft\Windows\Start Menu\Programs\MEGAcmd" -Recurse
+            Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
+            Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse
         }
     }
     elseif ($Import.IsPresent) {
@@ -124,9 +130,17 @@
             Set-Location ($env:localappdata + '\MEGAcmd')
             .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
             .\mega-get ('/Backup/' + $env:username + 'Backup.zip') ($Path.Temp + '\' + $env:username + 'Backup.zip')
+
+            Write-TypeHost 'Desinstalando MEGA...'
             .\mega-logout
-            .\uninst
-            Expand-Archive -Path ($Path.Temp + '\' + $env:username + 'Backup.zip') -DestinationPath $Path.Backup
+            Get-Process 'MEGAcmdServer' | Stop-Process
+            Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse
+            Remove-Item -Path "$env:appdata\Microsoft\Windows\Start Menu\Programs\MEGAcmd" -Recurse
+            Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
+            Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse
+
+            Write-TypeHost 'Descomprimiendo Archivo...'
+            Expand-Archive -Path ($Path.Temp + '\' + $env:username + 'Backup.zip') -DestinationPath $Path.Backup -Force
         }
     }
 }
