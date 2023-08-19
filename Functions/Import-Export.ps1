@@ -93,7 +93,7 @@
             .\mega-logout
             Get-Process 'MEGAcmdServer' | Stop-Process
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse
-            Remove-Item -Path "$env:appdata\Microsoft\Windows\Start Menu\Programs\MEGAcmd" -Recurse
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse
         }
@@ -139,7 +139,7 @@
             .\mega-logout
             Get-Process 'MEGAcmdServer' | Stop-Process
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse
-            Remove-Item -Path "$env:appdata\Microsoft\Windows\Start Menu\Programs\MEGAcmd" -Recurse
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse
 
