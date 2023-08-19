@@ -33,9 +33,13 @@
                 Write-Host ''
             }
     
-            Write-TypeHost 'Exportando Documentos...'
-            #Compress-Archive -Path ($Path.Documents + '\*') -CompressionLevel NoCompression -DestinationPath ($Path.Compressed + '\Documents.zip')
-    
+            Write-TypeHost 'Exportando Documentos...'            
+            Get-ChildItem -Path ($Path.Documents) -Name | ForEach-Object {New-Item -Path ($Path.Temp + '\Documents\' + $_) -ItemType Directory | Out-Null}
+
+            $ExcludeList = @('*.mcache','*.PcDx12','*.bin','*.dat','*.cache','*.png','*.jpg','*jpeg','*.dds','*.wav','*.ogg','library_0x*','*.js','*.db','*.mdmp','*?????????????????','*.html')        
+            Get-ChildItem -Path ($Path.Documents) | ForEach-Object {$_ | Copy-Item -Destination ($Path.Temp + '\Documents\') -Recurse -Force -Exclude $ExcludeList}
+            Compress-Archive -Path ($Path.Temp + '\Documents\*') -CompressionLevel NoCompression -DestinationPath ($Path.Compressed + '\Documents.zip')
+
             if (Test-Path ($Path.SavedGames + '\*')) {
                 Write-TypeHost 'Exportando Juegos Guardados...'
                 Get-ChildItem -Path $Path.SavedGames | Compress-Archive -DestinationPath ($Path.Compressed + '\SavedGames.zip')
