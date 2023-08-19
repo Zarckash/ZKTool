@@ -123,9 +123,10 @@
             Write-TypeHost 'Descargando Archivo...'
             Set-Location ($env:localappdata + '\MEGAcmd')
             .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
-            .\mega-get ('/Backup/' + $env:username + 'Backup.zip') ($Path.Temp + '\SettingsBackup.zip')
+            .\mega-get ('/Backup/' + $env:username + 'Backup.zip') ($Path.Temp + '\' + $env:username + 'Backup.zip')
             .\mega-logout
             .\uninst
+            Expand-Archive -Path ($Path.Temp + '\' + $env:username + 'Backup.zip') -DestinationPath $Path.Backup
         }
     }
 }
