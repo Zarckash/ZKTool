@@ -88,17 +88,15 @@
             Set-Location ($env:localappdata + '\MEGAcmd')
             .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
             .\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
-            .\mega-logout
-
+            
             Write-TypeHost 'Desinstalando MEGA...'
-            Start-Process Powershell -WindowStyle Minimized {
-                Get-Process 'MEGAcmdServer' | Stop-Process
-                Start-Sleep 10
-                Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
-                Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
-                Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
-                Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
-            }
+            .\mega-logout
+            .\mega-quit
+            Get-Process 'MEGAcmdServer' | Stop-Process
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
+            Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
+            Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
+            Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
         }
     }
     elseif ($Import.IsPresent) {
@@ -140,12 +138,12 @@
 
             Write-TypeHost 'Desinstalando MEGA...'
             .\mega-logout
-            Start-Sleep 3
+            .\mega-quit
             Get-Process 'MEGAcmdServer' | Stop-Process
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
-            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
-            Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse
+            Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
 
             Write-TypeHost 'Descomprimiendo Archivo...'
             Expand-Archive -Path ($Path.Temp + '\' + $env:username + 'Backup.zip') -DestinationPath $Path.Backup -Force
