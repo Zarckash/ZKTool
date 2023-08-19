@@ -8,7 +8,7 @@
 
     if ($Export.IsPresent) {
         Start-Process Powershell {
-            $ErrorActionPreference = 'SilentlyContinue'
+            $ErrorActionPreference = 'Continue'
             $host.UI.RawUI.WindowTitle = 'Settings Exporter'
             $Path = @{
                 File       = 'https://github.com/Zarckash/ZKTool/raw/main/Files/.exe/MEGAcmdSetup64.exe'
@@ -97,6 +97,7 @@
             Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
+            Pause
         }
     }
     elseif ($Import.IsPresent) {
