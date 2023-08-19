@@ -1145,8 +1145,8 @@ function NvidiaSettings {
     $Download.DownloadFile("$GitHubPath/Files/NvidiaProfiles.nip", "$TempPath\Files\NvidiaProfiles.nip")
     Start-Process ("$TempPath\Files\ProfileInspector.exe")("$TempPath\Files\NvidiaProfiles.nip")
     Set-ItemProperty -Path "HKCU:\Software\NVIDIA Corporation\NvTray" -Name "StartOnLogin" -Type DWord -Value 0
-    Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse | Out-File $LogPath -Encoding UTF8 -Append
-    Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item | Out-File $LogPath -Encoding UTF8 -Append
+    Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse -Force | Out-File $LogPath -Encoding UTF8 -Append
+    Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item -Force | Out-File $LogPath -Encoding UTF8 -Append
     $TB3.ForeColor = $DefaultForeColor
 }
 
@@ -1379,7 +1379,7 @@ function WindowsTerminalFix {
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-File $LogPath -Encoding UTF8 -Append
     }
     $Download.DownloadFile("$GitHubPath/Files/.zip/WindowsTerminalFix.zip", "$TempPath\Files\WindowsTerminalFix.zip")
-    Remove-Item -Path $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+    Remove-Item -Path $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
     Expand-Archive -Path ("$TempPath\Files\WindowsTerminalFix.zip") -DestinationPath $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
     $MTB5.ForeColor = $DefaultForeColor 
 }
@@ -1571,7 +1571,7 @@ $StartScript.Add_Click({
     }
 
     if ($MSB8.ForeColor -eq $LabelColor) {
-        Remove-Item -Path .\rufus.com
+        Remove-Item -Path .\rufus.com -Force
     }
 
     # Checking Restart
@@ -1584,7 +1584,7 @@ $StartScript.Add_Click({
                 $StatusBox.Text = "| Reiniciando El Equipo En $_ Segundos..."
                 Start-Sleep 1
             }
-            Remove-Item -Path "$env:temp\ZKTool" -Recurse
+            Remove-Item -Path "$env:temp\ZKTool" -Recurse -Force
             Restart-Computer
         }
     }
@@ -1597,7 +1597,7 @@ $StartScript.Add_Click({
 $Form.Add_Closing({
     Start-Process Powershell -WindowStyle Hidden {
         Start-Sleep 2
-        Remove-Item -Path "$env:temp\ZKTool" -Recurse
+        Remove-Item -Path "$env:temp\ZKTool" -Recurse -Force
     }
 })
 
