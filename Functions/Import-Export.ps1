@@ -81,8 +81,8 @@
 
             Write-TypeHost 'Subiendo Archivo...'
             Set-Location ($env:localappdata + '\MEGAcmd')
-            .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
-            .\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
+            .\mega-login.bat 'zktoolapp@gmail.com' 'zktoolbackup'
+            .\mega-put.bat ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
         }
     }
     elseif ($Import.IsPresent) {
