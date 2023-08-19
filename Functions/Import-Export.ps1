@@ -78,11 +78,13 @@
             Write-TypeHost 'Instalando MEGA...'
             (New-Object System.Net.WebClient).DownloadFile($Path.File,($Path.Temp + '\MEGAcmdSetup64.exe'))
             Start-Process ($Path.Temp + '\MEGAcmdSetup64.exe') /S
+            Start-Sleep 10
 
             Write-TypeHost 'Subiendo Archivo...'
             Set-Location ($env:localappdata + '\MEGAcmd')
-            .\mega-login.bat 'zktoolapp@gmail.com' 'zktoolbackup'
-            .\mega-put.bat ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
+            .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
+            .\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
+            .\uninst
         }
     }
     elseif ($Import.IsPresent) {
