@@ -62,7 +62,7 @@
                 foreach ($ID in $SteamIDs.Name) {
                     if (Test-Path ($Path.CSGO + '\' + $ID + '\730\local\cfg\*')) {
                         New-Item -Path ($Path.Temp + '\CSGOFolders\' + $ID + '\730\local\cfg') -ItemType Directory -Force | Out-Null
-                        Copy-Item -Path ($Path.CSGO + '\' + $ID + '\730\local\cfg\') -Recurse -Destination ($Path.Temp + '\CSGOFolders\$ID\730\local\cfg') -Force
+                        Copy-Item -Path ($Path.CSGO + '\' + $ID + '\730\local\cfg\') -Recurse -Destination ($Path.Temp + '\CSGOFolders\' + $ID + '\730\local') -Force
                     }
                 }
                 Compress-Archive -Path ($Path.Temp + '\CSGOFolders\*') -DestinationPath ($Path.Compressed + '\CSGO.zip')
