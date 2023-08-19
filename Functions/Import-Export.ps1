@@ -74,11 +74,15 @@
         
             Write-TypeHost 'Comprimiendo Settings...'
             Get-ChildItem -Path ($Path.Compressed) | Compress-Archive -CompressionLevel NoCompression -DestinationPath ($Path.Temp + '\SettingsBackup.zip')
+
+            Write-TypeHost 'Instalando MEGA...'
             (New-Object System.Net.WebClient).DownloadFile($Path.File,($Path.Temp + '\MEGAcmdSetup64.exe'))
             Start-Process ($Path.Temp + '\MEGAcmdSetup64.exe') /S
+
+            Write-TypeHost 'Subiendo Archivo...'
             Set-Location ($env:localappdata + '\MEGAcmd')
-            mega-login zktoolapp@gmail.com zktoolbackup
-            mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
+            .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
+            .\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
         }
     }
     elseif ($Import.IsPresent) {
