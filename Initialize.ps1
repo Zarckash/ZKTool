@@ -40,6 +40,17 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "Publisher" -Value "Zarckash"
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
 
+# Install Font
+Write-TypeHost "Instalando Fuente..."
+Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Resources/HaskligFont.zip" -OutFile "$env:temp\ZKTool\Resources\HaskligFont.zip"
+Expand-Archive -Path "$env:temp\ZKTool\Resources\HaskligFont.zip" -DestinationPath "$env:temp\ZKTool\Resources\HaskligFont"
+Get-ChildItem -Path "$env:temp\ZKTool\Resources\HaskligFont" | ForEach-Object {
+    $FontName = $_.Name.Replace('-',' ').Replace('It',' Italic').Replace('  ',' ').Replace('.ttf',' (True Type)')
+    $FontPath = "$env:localappdata\Microsoft\Windows\Fonts\" + $_.Name
+    Copy-Item -Path $_ -Destination $FontPath -Force
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -Name $FontName -Value $FontPath
+}
+
 # Create Monthly Scheduled Task
 Write-TypeHost "`r`nCreando Tarea Programada..."
 $Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
