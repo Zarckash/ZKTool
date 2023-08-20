@@ -1372,16 +1372,10 @@ function FFMPEG {
 function WindowsTerminalFix {
     $MTB5.ForeColor = $LabelColor
     Write-UserOutput "Aplicando Ajustes A Windows Terminal"
-    if (!(Test-Path -Path $env:userprofile\AppData\Local\Microsoft\Windows\Fonts\SourceCodePro*)) {
-        $Download.DownloadFile("$GitHubPath/Files/.zip/FontSourceCodePro.zip", "$TempPath\Files\FontSourceCodePro.zip")
-        Expand-Archive -Path ("$TempPath\Files\FontSourceCodePro.zip") -DestinationPath ("$TempPath\Files\FontSourceCodePro") -Force
-        Start-Process ("$TempPath\Files\FontSourceCodePro\Install.exe")
-        Wait-Process -Name "Install"
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-File $LogPath -Encoding UTF8 -Append
-    }
-    $Download.DownloadFile("$GitHubPath/Files/.zip/WindowsTerminalFix.zip", "$TempPath\Files\WindowsTerminalFix.zip")
+    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-File $LogPath -Encoding UTF8 -Append
+    $Download.DownloadFile("$GitHubPath/Files/.zip/WindowsTerminalSettings.zip", "$TempPath\Files\WindowsTerminalSettings.zip")
     Remove-Item -Path $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
-    Expand-Archive -Path ("$TempPath\Files\WindowsTerminalFix.zip") -DestinationPath $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
+    Expand-Archive -Path ("$TempPath\Files\WindowsTerminalSettings.zip") -DestinationPath $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
     $MTB5.ForeColor = $DefaultForeColor 
 }
 
