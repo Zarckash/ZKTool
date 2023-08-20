@@ -8,7 +8,7 @@
 
     if ($Export.IsPresent) {
         Start-Process Powershell {
-            $ErrorActionPreference = 'Continue'
+            $ErrorActionPreference = 'SilentlyContinue'
             $host.UI.RawUI.WindowTitle = 'Settings Exporter'
             $Path = @{
                 File       = 'https://github.com/Zarckash/ZKTool/raw/main/Files/.exe/MEGAcmdSetup64.exe'
@@ -136,9 +136,9 @@
             Start-Sleep 10
 
             Write-TypeHost 'Descargando Archivo...'
-            Set-Location ($env:localappdata + '\MEGAcmd')
-            .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
-            .\mega-get ('/Backup/' + $env:username + 'Backup.zip') ($Path.Temp + '\' + $env:username + 'Backup.zip')
+            Set-Location $env:localappdata
+            .\MEGAcmd\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
+            .\MEGAcmd\mega-get ('/Backup/' + $env:username + 'Backup.zip') ($Path.Temp + '\' + $env:username + 'Backup.zip')
 
             Write-TypeHost 'Desinstalando MEGA...'
             .\MEGAcmd\mega-logout
