@@ -19,6 +19,8 @@
                 PUBG       = ($env:localappdata + '\TslGame\Saved\Config\WindowsNoEditor')
                 Spotify    = ($env:appdata + '\Spotify')
                 CSGO       = (${env:ProgramFiles(x86)} + '\Steam\userdata')
+                Valorant   = ($env:localappdata + '\VALORANT\Saved\Config')
+                LoL        = ($env:HOMEDRIVE + '\Riot Games\League of Legends\Config') 
                 MSIAfterburner = (${env:ProgramFiles(x86)} + '\MSI Afterburner\Profiles')
                 RivaTuner  = (${env:ProgramFiles(x86)} + '\RivaTuner Statistics Server')
                 Compressed = ($env:temp + '\ZKTool\Files\Compress')
@@ -30,7 +32,7 @@
                     Start-Sleep -Milliseconds 20
                 }
                 Start-Sleep -Milliseconds 20
-                Write-Host ''
+                Write-Host `n
             }
     
             Write-TypeHost 'Exportando Documentos...'            
@@ -58,14 +60,29 @@
             }
             if (Test-Path ($Path.CSGO + '\*\730')) {
                 Write-TypeHost 'Exportando CSGO...'
-                $SteamIDs = Get-ChildItem -Path $Path.CSGO -Directory
-                foreach ($ID in $SteamIDs.Name) {
+                $SteamIDs = Get-ChildItem -Path $Path.CSGO -Directory -Name
+                foreach ($ID in $SteamIDs) {
                     if (Test-Path ($Path.CSGO + '\' + $ID + '\730\local\cfg\*')) {
                         New-Item -Path ($Path.Temp + '\CSGOFolders\' + $ID + '\730\local\cfg') -ItemType Directory -Force | Out-Null
                         Copy-Item -Path ($Path.CSGO + '\' + $ID + '\730\local\cfg\') -Recurse -Destination ($Path.Temp + '\CSGOFolders\' + $ID + '\730\local') -Force
                     }
                 }
                 Compress-Archive -Path ($Path.Temp + '\CSGOFolders\*') -DestinationPath ($Path.Compressed + '\CSGO.zip')
+            }
+            if (Test-Path ($Path.Valorant + '\*\Windows')) {
+                Write-TypeHost 'Exportando Valorant...'
+                $ValorantIDs = Get-ChildItem -Path $Path.Valorant -Directory -Name
+                foreach ($ID in $ValorantIDs) {
+                    if (Test-Path ($Path.Valorant + '\' + $ID + '\Windows\GameUserSettings.ini')) {
+                        New-Item -Path ($Path.Temp + '\ValorantFolders\' + $ID + '\Windows') -ItemType Directory -Force | Out-Null
+                        Copy-Item -Path ($Path.Valorant + '\' + $ID + '\Windows\') -Recurse -Destination ($Path.Temp + '\ValorantFolders\' + $ID + '\Windows') -Force
+                    }
+                }
+                Compress-Archive -Path ($Path.Temp + '\ValorantFolders\*') -DestinationPath ($Path.Compressed + '\Valorant.zip')
+            }
+            if (Test-Path $Path.LoL) {
+                Write-TypeHost 'Exportando League of Legends...'
+                Compress-Archive -Path ($Path.LoL + '\game.cfg'),($Path.LoL + '\PersistedSettings.json') -DestinationPath ($Path.Compressed + 'LoL.zip')
             }
             if (Test-Path $Path.MSIAfterburner) {
                 Write-TypeHost 'Exportando MSIAfterburner...'
@@ -116,6 +133,8 @@
                 PUBG       = ($env:localappdata + '\TslGame\Saved\Config\WindowsNoEditor')
                 Spotify    = ($env:appdata + '\Spotify')
                 CSGO       = (${env:ProgramFiles(x86)} + '\Steam\userdata')
+                Valorant   = ($env:localappdata + '\VALORANT\Saved\Config')
+                LoL        = ($env:HOMEDRIVE + '\Riot Games\League of Legends\Config')
                 MSIAfterburner = (${env:ProgramFiles(x86)} + '\MSI Afterburner\Profiles')
                 RivaTuner  = (${env:ProgramFiles(x86)} + '\RivaTuner Statistics Server')
                 Backup     = ($env:temp + '\ZKTool\Files\SettingsBackup')
@@ -127,7 +146,7 @@
                     Start-Sleep -Milliseconds 20
                 }
                 Start-Sleep -Milliseconds 20
-                Write-Host ''
+                Write-Host `n
             }
 
             Write-TypeHost 'Instalando MEGA...'
@@ -153,30 +172,14 @@
             Write-TypeHost 'Descomprimiendo Archivo...'
             Expand-Archive -Path ($Path.Temp + '\' + $env:username + 'Backup.zip') -DestinationPath $Path.Backup -Force
 
-            Write-TypeHost 'Importando Documentos...'
-            Expand-Archive -Path ($Path.Backup + '\Documents.zip') -DestinationPath $Path.Documents -Force
+            Get-ChildItem -Path $Path.Backup | ForEach-Object {
+                Write-TypeHost ('Importando' + $_.BaseName.Replace('Documents','Documentos').Replace('SavedGames','Juegos Guardados') + '...')
+                Expand-Archive -Path $_ -DestinationPath $Path.($_.BaseName) -Force
+            }
 
-            Write-TypeHost 'Importando Juegos Guardados...'
-            Expand-Archive -Path ($Path.Backup + '\SavedGames.zip') -DestinationPath $Path.SavedGames -Force
-
-            Write-TypeHost 'Importando OBS...'
-            Expand-Archive -Path ($Path.Backup + '\OBS.zip') -DestinationPath $Path.OBS -Force
-
-            Write-TypeHost 'Importando PUBG...'
-            Expand-Archive -Path ($Path.Backup + '\PUBG.zip') -DestinationPath $Path.PUBG -Force
-
-            Write-TypeHost 'Importando Spotify...'
-            Expand-Archive -Path ($Path.Backup + '\Spotify.zip') -DestinationPath $Path.Spotify -Force
-
-            Write-TypeHost 'Importando CSGO...'
-            Expand-Archive -Path ($Path.Backup + '\CSGO.zip') -DestinationPath $Path.CSGO -Force
-
-            Write-TypeHost 'Importando MSIAfterburner...'
-            Expand-Archive -Path ($Path.Backup + '\MSIAfterburner.zip') -DestinationPath $Path.MSIAfterburner -Force
-
-            Write-TypeHost 'Importando RivaTuner...'
-            Expand-Archive -Path ($Path.Backup + '\RivaTuner.zip') -DestinationPath $Path.RivaTuner -Force
-            Move-Item -Path ($Path.RivaTuner + '\Config') -Destination ($Path.RivaTuner + '\ProfileTemplates') -Force
+            if (Test-Path ($Path.Backup + 'RivaTuner.zip')) {
+                Move-Item -Path ($Path.RivaTuner + '\Config') -Destination ($Path.RivaTuner + '\ProfileTemplates') -Force
+            }
 
             Write-TypeHost '- - - TODAS LAS CONFIGURACIONES HAN SIDO IMPORTADAS - - -'
             Start-Sleep 1
