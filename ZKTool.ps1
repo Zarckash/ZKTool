@@ -1379,11 +1379,14 @@ function FFMPEG {
 function WindowsTerminalFix {
     $MTB5.ForeColor = $LabelColor
     Write-UserOutput "Aplicando Ajustes A Windows Terminal"
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell | Out-File $LogPath -Encoding UTF8 -Append
+    $PWSH = 'Microsoft.Powershell'
+    if (!($PWSH -eq (Winget list $PWSH | Select-String -Pattern $PWSH | ForEach-Object {$_.Matches} | Select-Object -ExpandProperty Value))) {
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell  | Out-File $LogPath -Encoding UTF8 -Append
+    }
     $Download.DownloadFile("$GitHubPath/Files/.zip/WindowsTerminalSettings.zip", "$TempPath\Files\WindowsTerminalSettings.zip")
     Remove-Item -Path $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
     Expand-Archive -Path ("$TempPath\Files\WindowsTerminalSettings.zip") -DestinationPath $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
-    $MTB5.ForeColor = $DefaultForeColor 
+    $MTB5.ForeColor = $DefaultForeColor
 }
 
 function AdobeCleaner {
