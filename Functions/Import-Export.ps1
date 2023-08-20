@@ -16,15 +16,15 @@
                 Documents  = Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Personal'
                 SavedGames = ($env:userprofile + '\Saved Games')
                 OBS        = ($env:appdata + '\obs-studio')
-                PUBG       = ($env:localappdata + '\TslGame')
+                PUBG       = ($env:localappdata + '\TslGame\Saved\Config\WindowsNoEditor')
                 Spotify    = ($env:appdata + '\Spotify')
                 CSGO       = (${env:ProgramFiles(x86)} + '\Steam\userdata')
-                MSIAfterburner = (${env:ProgramFiles(x86)} + '\MSI Afterburner')
-                RivaTuner  = (${env:ProgramFiles(x86)} + 'RivaTuner Statistics Server')
+                MSIAfterburner = (${env:ProgramFiles(x86)} + '\MSI Afterburner\Profiles')
+                RivaTuner  = (${env:ProgramFiles(x86)} + '\RivaTuner Statistics Server')
                 Compressed = ($env:temp + '\ZKTool\Files\Compress')
             }
     
-            function Write-TypeHost ([string]$s = '',[string]$TextColor = 'Cyan') {
+            function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
                 $s -split '' | ForEach-Object {
                     Write-Host $_ -NoNewline -ForegroundColor $TextColor
                     Start-Sleep -Milliseconds 20
@@ -50,7 +50,7 @@
             }
             if (Test-Path $Path.PUBG) {
                 Write-TypeHost 'Exportando PUBG...'
-                Compress-Archive -Path ($Path.PUBG + '\Saved\Config\WindowsNoEditor\*') -DestinationPath ($Path.Compressed + '\PUBG.zip')
+                Compress-Archive -Path ($Path.PUBG + '\*') -DestinationPath ($Path.Compressed + '\PUBG.zip')
             }
             if (Test-Path $Path.Spotify) {
                 Write-TypeHost 'Exportando Spotify...'
@@ -69,11 +69,11 @@
             }
             if (Test-Path $Path.MSIAfterburner) {
                 Write-TypeHost 'Exportando MSIAfterburner...'
-                Compress-Archive -Path ($Path.MSIAfterburner + '\Profiles\*') -DestinationPath ($Path.Compressed + '\MSIAfterburner.zip')
+                Compress-Archive -Path ($Path.MSIAfterburner + '\*') -DestinationPath ($Path.Compressed + '\MSIAfterburner.zip')
             }
             if (Test-Path $Path.RivaTuner) {
                 Write-TypeHost 'Exportando RivaTuner...'
-                Compress-Archive -Path ($Path.RivaTuner + '\Profiles\*'),($Path.RivaTuner + '\ProfileTemplates\Config') -DestinationPath ($Path.Compressed + '\RivaTuner.zip')
+                Compress-Archive -Path ($Path.RivaTuner + '\Profiles'),($Path.RivaTuner + '\ProfileTemplates\Config') -DestinationPath ($Path.Compressed + '\RivaTuner.zip')
             }
         
             Write-TypeHost 'Comprimiendo Settings...'
@@ -85,19 +85,22 @@
             Start-Sleep 10
 
             Write-TypeHost 'Subiendo Archivo...'
-            Set-Location ($env:localappdata + '\MEGAcmd')
-            .\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
-            .\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
+            Set-Location $env:localappdata
+            .\MEGAcmd\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
+            .\MEGAcmd\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
             
             Write-TypeHost 'Desinstalando MEGA...'
-            .\mega-logout
-            .\mega-quit
+            .\MEGAcmd\mega-logout
+            .\MEGAcmd\mega-quit
+            Start-Sleep 3
             Get-Process 'MEGAcmdServer' | Stop-Process
-            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
-            Pause
+
+            Write-TypeHost '- - - TODAS LAS CONFIGURACIONES HAN SIDO EXPORTADAS - - -'
+            Start-Sleep 1
         }
     }
     elseif ($Import.IsPresent) {
@@ -105,20 +108,20 @@
             $ErrorActionPreference = 'SilentlyContinue'
             $host.UI.RawUI.WindowTitle = 'Settings Importer'
             $Path = @{
-                File       = 'http://'
+                File       = 'https://github.com/Zarckash/ZKTool/raw/main/Files/.exe/MEGAcmdSetup64.exe'
                 Temp       = ($env:temp + '\ZKTool\Files')
                 Documents  = Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Personal'
                 SavedGames = ($env:userprofile + '\Saved Games')
                 OBS        = ($env:appdata + '\obs-studio')
-                PUBG       = ($env:localappdata + '\TslGame')
+                PUBG       = ($env:localappdata + '\TslGame\Saved\Config\WindowsNoEditor')
                 Spotify    = ($env:appdata + '\Spotify')
                 CSGO       = (${env:ProgramFiles(x86)} + '\Steam\userdata')
-                MSIAfterburner = (${env:ProgramFiles(x86)} + '\MSI Afterburner')
-                RivaTuner  = (${env:ProgramFiles(x86)} + 'RivaTuner Statistics Server')
+                MSIAfterburner = (${env:ProgramFiles(x86)} + '\MSI Afterburner\Profiles')
+                RivaTuner  = (${env:ProgramFiles(x86)} + '\RivaTuner Statistics Server')
                 Backup     = ($env:temp + '\ZKTool\Files\SettingsBackup')
             }
     
-            function Write-TypeHost ([string]$s = '',[string]$TextColor = 'Cyan') {
+            function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
                 $s -split '' | ForEach-Object {
                     Write-Host $_ -NoNewline -ForegroundColor $TextColor
                     Start-Sleep -Milliseconds 20
@@ -138,16 +141,45 @@
             .\mega-get ('/Backup/' + $env:username + 'Backup.zip') ($Path.Temp + '\' + $env:username + 'Backup.zip')
 
             Write-TypeHost 'Desinstalando MEGA...'
-            .\mega-logout
-            .\mega-quit
+            .\MEGAcmd\mega-logout
+            .\MEGAcmd\mega-quit
+            Start-Sleep 3
             Get-Process 'MEGAcmdServer' | Stop-Process
-            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
 
             Write-TypeHost 'Descomprimiendo Archivo...'
             Expand-Archive -Path ($Path.Temp + '\' + $env:username + 'Backup.zip') -DestinationPath $Path.Backup -Force
+
+            Write-TypeHost 'Importando Documentos...'
+            Expand-Archive -Path ($Path.Backup + '\Documents.zip') -DestinationPath $Path.Documents -Force
+
+            Write-TypeHost 'Importando Juegos Guardados...'
+            Expand-Archive -Path ($Path.Backup + '\SavedGames.zip') -DestinationPath $Path.SavedGames -Force
+
+            Write-TypeHost 'Importando OBS...'
+            Expand-Archive -Path ($Path.Backup + '\OBS.zip') -DestinationPath $Path.OBS -Force
+
+            Write-TypeHost 'Importando PUBG...'
+            Expand-Archive -Path ($Path.Backup + '\PUBG.zip') -DestinationPath $Path.PUBG -Force
+
+            Write-TypeHost 'Importando Spotify...'
+            Expand-Archive -Path ($Path.Backup + '\Spotify.zip') -DestinationPath $Path.Spotify -Force
+
+            Write-TypeHost 'Importando CSGO...'
+            Expand-Archive -Path ($Path.Backup + '\CSGO.zip') -DestinationPath $Path.CSGO -Force
+
+            Write-TypeHost 'Importando MSIAfterburner...'
+            Expand-Archive -Path ($Path.Backup + '\MSIAfterburner.zip') -DestinationPath $Path.MSIAfterburner -Force
+
+            Write-TypeHost 'Importando RivaTuner...'
+            Expand-Archive -Path ($Path.Backup + '\RivaTuner.zip') -DestinationPath $Path.RivaTuner -Force
+            Move-Item -Path ($Path.RivaTuner + '\Config') -Destination ($Path.RivaTuner + '\ProfileTemplates') -Force
+
+            Write-TypeHost '- - - TODAS LAS CONFIGURACIONES HAN SIDO IMPORTADAS - - -'
+            Start-Sleep 1
         }
     }
 }
