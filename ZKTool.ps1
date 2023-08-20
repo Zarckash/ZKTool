@@ -1293,8 +1293,8 @@ function TweaksInContextMenu {
 
     # Bufferbloat
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "99BufferbloatFix" | Out-Null
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "Icon" -Value "inetcpl.cpl,20"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "MUIVerb" -Value "Bufferbloat Enable"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "Icon" -Value "inetcpl.cpl,21"
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "MUIVerb" -Value "Bufferbloat Fix Disabled"
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "command" | Out-Null
             Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix\command" -Name "(default)" -Value "$ZKToolPath\Apps\Bufferbloat.exe"
     $TB10.ForeColor = $DefaultForeColor
