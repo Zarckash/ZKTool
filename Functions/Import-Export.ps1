@@ -97,6 +97,7 @@
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
+            Pause
         }
     }
     elseif ($Import.IsPresent) {
