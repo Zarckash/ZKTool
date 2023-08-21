@@ -59,6 +59,7 @@ $Download.DownloadFile("$GitHubPath/Functions/Write-UserOutput.ps1","$TempPath\F
 . "$TempPath\Functions\Write-UserOutput.ps1"
 
 $ImagesFolder          = "$TempPath\Resources\Images"
+$FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $LabelColor            = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
 $DefaultForeColor      = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
 $PanelBackColor        = [System.Drawing.ColorTranslator]::FromHtml("#3D4351")
