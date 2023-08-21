@@ -60,7 +60,7 @@ $Download.DownloadFile("$GitHubPath/Functions/Write-UserOutput.ps1","$TempPath\F
 
 $ImagesFolder          = "$TempPath\Resources\Images"
 $FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
-$LabelColor            = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
+$AccentColor           = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
 $DefaultForeColor      = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
 $PanelBackColor        = [System.Drawing.ColorTranslator]::FromHtml("#3D4351")
 $ActiveButtonColor     = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColor.png")
@@ -97,7 +97,7 @@ $SLabel.Width                    = $PanelSize
 $SLabel.Height                   = 38
 $SLabel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),5)
 $SLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
-$SLabel.ForeColor                = $LabelColor
+$SLabel.ForeColor                = $AccentColor
 $SLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
 $SLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
 $Form.Controls.Add($SLabel)
@@ -200,7 +200,7 @@ $LLabel.Location                 = New-Object System.Drawing.Point($PanelSize,5)
 $LLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $LLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
 $LLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
-$LLabel.ForeColor                = $LabelColor
+$LLabel.ForeColor                = $AccentColor
 $Form.Controls.Add($LLabel)
 
 # Launchers Panel
@@ -243,7 +243,7 @@ $TLabel.Location                 = New-Object System.Drawing.Point(($PanelSize*2
 $TLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $TLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
 $TLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
-$TLabel.ForeColor                = $LabelColor
+$TLabel.ForeColor                = $AccentColor
 $Form.Controls.Add($TLabel)
 
 # Tweaks Panel
@@ -353,7 +353,7 @@ $StartScript.Height              = 44
 $StartScript.Location            = New-Object System.Drawing.Point(10,0)
 $StartScript.Font                = New-Object System.Drawing.Font('Segoe UI Semibold',20)
 $StartScript.BackColor           = $PanelBackColor
-$StartScript.ForeColor           = $LabelColor
+$StartScript.ForeColor           = $AccentColor
 $StartScript.FlatStyle           = "Flat"
 $StartScript.FlatAppearance.BorderSize = 0
 $StartScript.FlatAppearance.MouseOverBackColor = $PanelBackColor
@@ -512,7 +512,7 @@ $LogoBox.Add_Click({
 })
 
 function Spotify {
-    $SB4.ForeColor = LabelColor
+    $SB4.ForeColor = AccentColor
     Write-UserOutput "Instalando Spotify"
     $Download.DownloadFile("$GitHubPath/Files/Spotify.ps1", "$TempPath\Files\Spotify.ps1")
     Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\Spotify.ps1 ; exit"
@@ -520,7 +520,7 @@ function Spotify {
 }
 
 function AdobePhotoshop {
-    $MSB2.ForeColor = $LabelColor
+    $MSB2.ForeColor = $AccentColor
     Write-UserOutput "Instalando Adobe Photoshop"
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe Photoshop'
@@ -536,7 +536,7 @@ function AdobePhotoshop {
 }
 
 function AdobePremiere {
-    $MSB3.ForeColor = $LabelColor
+    $MSB3.ForeColor = $AccentColor
     Write-UserOutput "Instalando Adobe Premiere"
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe Premiere'
@@ -552,7 +552,7 @@ function AdobePremiere {
 }
 
 function AdobeAfterEffects {
-    $MSB4.ForeColor = $LabelColor
+    $MSB4.ForeColor = $AccentColor
     Write-UserOutput "Instalando Adobe After Effects"
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe After Effects'
@@ -568,7 +568,7 @@ function AdobeAfterEffects {
 }
 
 function OptimizationTweaks {
-    $TB1.ForeColor = $LabelColorBig
+    $TB1.ForeColor = $AccentColorBig
     Write-UserOutput "Iniciando Optimización"
 
     # Create Restore Point
@@ -1045,7 +1045,7 @@ function OptimizationTweaks {
 }
 
 function CleaningTweaks {
-    $TB2.ForeColor = $LabelColor
+    $TB2.ForeColor = $AccentColor
     Write-UserOutput "Aplicando Cleaning Tweaks"
 
     # Uninstall Microsoft Bloatware
@@ -1141,7 +1141,7 @@ function CleaningTweaks {
 }
 
 function NvidiaSettings {
-    $TB3.ForeColor = $LabelColor
+    $TB3.ForeColor = $AccentColor
     Write-UserOutput "Aplicando Ajustes Al Panel De Control De Nvidia"
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
     $Download.DownloadFile("$GitHubPath/Files/.exe/ProfileInspector.exe", "$TempPath\Files\ProfileInspector.exe")
@@ -1154,14 +1154,14 @@ function NvidiaSettings {
 }
 
 function ReduceIconsSpacing {
-    $TB4.ForeColor = $LabelColor
+    $TB4.ForeColor = $AccentColor
     Write-UserOutput "Reduciendo Espacio Entre Iconos"
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "IconSpacing" -Value -900
     $TB4.ForeColor = $DefaultForeColor
 }
 
 function HideShortcutArrows {
-    $TB5.ForeColor = $LabelColor
+    $TB5.ForeColor = $AccentColor
     Write-UserOutput "Ocultando Flechas De Acceso Directo"
     $Download.DownloadFile("$GitHubPath/Files/Blank.ico", "$TempPath\Files\Blank.ico")
     Unblock-File ("$TempPath\Files\Blank.ico")
@@ -1176,7 +1176,7 @@ function HideShortcutArrows {
 }
 
 function SetFluentCursor {
-    $TB6.ForeColor = $LabelColor
+    $TB6.ForeColor = $AccentColor
     Write-UserOutput "Estableciendo Cursor Personalizado"
     $Download.DownloadFile("$GitHubPath/Files/.zip/FluentCursor.zip", "$TempPath\Files\FluentCursor.zip")
     Expand-Archive -Path ("$TempPath\Files\FluentCursor.zip") -DestinationPath 'C:\Windows\Cursors\Fluent Cursor' -Force
@@ -1186,7 +1186,7 @@ function SetFluentCursor {
 }
 
 function DisableCortana {
-    $TB7.ForeColor = $LabelColor
+    $TB7.ForeColor = $AccentColor
     Write-UserOutput "Deshabilitando Cortana"
     If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings")) {
         New-Item -Path "HKCU:\SOFTWARE\Microsoft\Personalization\Settings" -Force | Out-File $LogPath -Encoding UTF8 -Append
@@ -1209,7 +1209,7 @@ function DisableCortana {
 }
 
 function RemoveOneDrive {
-    $TB8.ForeColor = $LabelColor
+    $TB8.ForeColor = $AccentColor
     Write-UserOutput "Desinstalando Xbox Game Bar"
     Stop-Process -Name "OneDrive" -ErrorAction SilentlyContinue
     Start-Sleep -s 2
@@ -1233,7 +1233,7 @@ function RemoveOneDrive {
 }
 
 function RemoveXboxGameBar {
-    $TB9.ForeColor = $LabelColor
+    $TB9.ForeColor = $AccentColor
     Write-UserOutput "Desinstalando Xbox Game Bar"
     &{ $ProgressPreference = 'SilentlyContinue'
     Get-AppxPackage "Microsoft.XboxGamingOverlay" | Remove-AppxPackage 
@@ -1249,7 +1249,7 @@ function RemoveXboxGameBar {
 }
 
 function TweaksInContextMenu {
-    $TB10.ForeColor = $LabelColor
+    $TB10.ForeColor = $AccentColor
     Write-UserOutput "Activando Tweaks En Context Menu"
     
     # Enable App Submenu
@@ -1302,7 +1302,7 @@ function TweaksInContextMenu {
 }
 
 function VisualFXFix {
-    $TB11.ForeColor = $LabelColor
+    $TB11.ForeColor = $AccentColor
     Write-UserOutput "Ajustando Animaciones De Windows"
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAnimations" -Type DWord -Value 1
@@ -1321,7 +1321,7 @@ function VisualFXFix {
 }
 
 function ActivateWindowsPro {
-    $MTB1.ForeColor = $LabelColorBig
+    $MTB1.ForeColor = $AccentColorBig
     Write-UserOutput "Activando Windows Pro"
     cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
     cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /skms kms.digiboy.ir
@@ -1330,7 +1330,7 @@ function ActivateWindowsPro {
 }
 
 function VisualCRuntimes {
-    $MTB2.ForeColor = $LabelColor
+    $MTB2.ForeColor = $AccentColor
     Write-UserOutput "Instalando Todas Las Versiones De Visual C++"
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x64 | Out-File $LogPath -Encoding UTF8 -Append
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x86 | Out-File $LogPath -Encoding UTF8 -Append
@@ -1348,7 +1348,7 @@ function VisualCRuntimes {
 }
 
 function EnableMSIMode {
-    $MTB3.ForeColor = $LabelColor
+    $MTB3.ForeColor = $AccentColor
     Write-UserOutput "Estableciendo GPU En Modo MSI"
     $GPUID = (Get-PnpDevice -Class Display).InstanceId
     $GPUName = Get-ItemPropertyValue -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID" -Name "DeviceDesc"
@@ -1361,7 +1361,7 @@ function EnableMSIMode {
 }
 
 function FFMPEG {
-    $MTB4.ForeColor = $LabelColor
+    $MTB4.ForeColor = $AccentColor
     Write-UserOutput "Instalando FFMPEG"
     $Download.DownloadFile("$GitHubPath/Files/.appx/HEVC.appx", "$TempPath\Files\HEVC.appx")
     $Download.DownloadFile("$GitHubPath/Files/.appx/HEIF.appx", "$TempPath\Files\HEIF.appx")
@@ -1378,7 +1378,7 @@ function FFMPEG {
 }
 
 function WindowsTerminalFix {
-    $MTB5.ForeColor = $LabelColor
+    $MTB5.ForeColor = $AccentColor
     Write-UserOutput "Aplicando Ajustes A Windows Terminal"
     $PWSH = 'Microsoft.Powershell'
     if (!($PWSH -eq (Winget list $PWSH | Select-String -Pattern $PWSH | ForEach-Object {$_.Matches} | Select-Object -ExpandProperty Value))) {
@@ -1391,7 +1391,7 @@ function WindowsTerminalFix {
 }
 
 function AdobeCleaner {
-    $MTB15.ForeColor = $LabelColor
+    $MTB15.ForeColor = $AccentColor
     Write-UserOutput "Eliminando Procesos De Adobe"
     Rename-Item -Path "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exe" "C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\CoreSync.exeX"
     Rename-Item -Path "C:\Program Files\Adobe\Adobe Creative Cloud Experience\CCXProcess.exe" "C:\Program Files\Adobe\Adobe Creative Cloud Experience\CCXProcess.exeX"
@@ -1401,7 +1401,7 @@ function AdobeCleaner {
 }
 
 function AMDUndervoltPack {
-    $MTB16.ForeColor = $LabelColor
+    $MTB16.ForeColor = $AccentColor
     Write-UserOutput "Descargando AMD Undervolt Pack"
     $Download.DownloadFile("$GitHubPath/Files/.zip/AMDUndervoltPack.zip", "$TempPath\Files\AMDUndervoltPack.zip")
     Expand-Archive -Path ("$TempPath\Files\AMDUndervoltPack.zip") -DestinationPath ("$TempPath\Files\AMD Undervolt Pack") -Force
@@ -1416,7 +1416,7 @@ function AMDUndervoltPack {
 }
 
 function DarkTheme {
-    $HB2.ForeColor = $LabelColor
+    $HB2.ForeColor = $AccentColor
     Write-UserOutput "Aplicando Tema Oscuro"
     $Download.DownloadFile("$GitHubPath/Files/.zip/Media.zip", "$TempPath\Files\Media.zip")
     Expand-Archive -Path ("$TempPath\Files\Media.zip") -DestinationPath ("$ZKToolPath\Media") -Force
@@ -1472,7 +1472,7 @@ function DarkTheme {
 }
 
 function MSIAfterburnerSettings {
-    $MTB14.ForeColor = $LabelColor
+    $MTB14.ForeColor = $AccentColor
     Write-UserOutput "Configurando MSI Afterbuner"
     $Download.DownloadFile("$GitHubPath/Files/.zip/MSIAfterburner.zip", "$TempPath\Files\MSIAfterburner.zip")
     Expand-Archive -Path ("$TempPath\Files\MSIAfterburner.zip") -DestinationPath ("$TempPath\Files\MSIAfterburner") -Force
@@ -1486,7 +1486,7 @@ function MSIAfterburnerSettings {
 }
 
 function RemoveRealtek {
-    $MTB11.ForeColor = $LabelColor
+    $MTB11.ForeColor = $AccentColor
     Write-UserOutput "Quitando Realtek Audio Service"
     pwsh.exe -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
     pwsh.exe -command {sc stop RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
@@ -1499,7 +1499,7 @@ function RemoveRealtek {
 }
 
 function Z390LanDrivers {
-    $HB6.ForeColor = $LabelColor
+    $HB6.ForeColor = $AccentColor
     Write-UserOutput "Instalando Z390 Lan Drivers"
     $Download.DownloadFile("$GitHubPath/Files/.zip/LanDrivers.zip", "$TempPath\Files\LanDrivers.zip")
     Expand-Archive -Path ("$TempPath\Files\LanDrivers.zip") -DestinationPath ("$TempPath\Files\LanDrivers") -Force
@@ -1554,11 +1554,11 @@ $StartScript.Add_Click({
     foreach ($Button in $AllButtons) {
         if ($Button.Image -eq $ActiveButtonColor) {
             $Button.Image = $DefaultButtonColor
-            $Button.ForeColor = $LabelColor
+            $Button.ForeColor = $AccentColor
         }
         elseif ($Button.Image -eq $ActiveButtonColorBig) {
             $Button.Image = $DefaultButtonColorBig
-            $Button.ForeColor = $LabelColor
+            $Button.ForeColor = $AccentColor
         }
     }
 
@@ -1566,7 +1566,7 @@ $StartScript.Add_Click({
     $Installations = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB11,$SB12,$MSB1,$MSB5,$MSB6,$MSB9,$MSB10,$MSB11,$MSB12,$LB1,$LB2,$LB3,$LB5,$LB7,$LB8)
     $i = 1
     foreach ($Installation in $Installations) {
-        if ($Installation.ForeColor -eq $LabelColor) {
+        if ($Installation.ForeColor -eq $AccentColor) {
             Write-UserOutput -Message "Comprobando Instalaciones"  -Progress "     $i" -DisableType
             $WingetListCheck = Winget List $Installation.Text | Select-String -Pattern $Installation.Text | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
             if (!($WingetListCheck -eq $Installation.Text)) {
@@ -1576,12 +1576,12 @@ $StartScript.Add_Click({
         }
     }
 
-    if ($MSB8.ForeColor -eq $LabelColor) {
+    if ($MSB8.ForeColor -eq $AccentColor) {
         Remove-Item -Path .\rufus.com -Force
     }
 
     # Checking Restart
-    if ($TB1.ForeColor -eq $LabelColor) {
+    if ($TB1.ForeColor -eq $AccentColor) {
         $StatusBox.Text = "| Reinicio Necesario"
         $MessageBox = [System.Windows.Forms.MessageBox]::Show("El equipo requiere reiniciarse para aplicar los cambios`r`nReiniciar equipo ahora?", "Reiniciar equipo", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Information)
         if ($MessageBox -ne [System.Windows.Forms.DialogResult]::No) {
@@ -1596,7 +1596,7 @@ $StartScript.Add_Click({
     }
 
     $StartScript.Image = [System.Drawing.Image]::FromFile("$ImagesFolder\SSDefault.png")
-    $StartScript.ForeColor = $LabelColor
+    $StartScript.ForeColor = $AccentColor
     $StatusBox.Text = "| Script Finalizado"
 })
 
