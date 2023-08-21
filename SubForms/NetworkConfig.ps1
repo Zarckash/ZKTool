@@ -9,92 +9,104 @@ $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "Seleccionar IP"
 $Form.StartPosition              = "CenterScreen"
 $Form.TopMost                    = $false
-$Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
-$Form.AutoSize                   = $true
-$Form.FormBorderStyle            = "FixedSingle"
-$Form.Width                      = $objImage.Width
-$Form.Height                     = $objImage.Height
+$Form.FormBorderStyle            = "None"
+$Form.Width                      = 265
+$Form.Height                     = 282
 $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $false
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
+$Form.BackColor                  = 'LimeGreen'
+$Form.TransparencyKey            = 'LimeGreen'
+
+$FormPanel                       = New-Object System.Windows.Forms.Panel
+$FormPanel.Width                 = 265
+$FormPanel.Height                = 282
+$FormPanel.Location              = '0,0'
+$FormPanel.BackgroundImage       = [System.Drawing.Image]::FromFile("$ImagesFolder\NetworkConfigBg.png")
+$Form.Controls.Add($FormPanel)
 
 # Search IPs Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
-$Panel.height                    = 45
-$Panel.width                     = 260 - 2
-$Panel.location                  = New-Object System.Drawing.Point(0,5)
+$Panel.height                    = 46
+$Panel.width                     = 251
+$Panel.location                  = New-Object System.Drawing.Point(7,7)
+$Panel.BackColor                 = $FormBackColor
 $Panel.BackgroundImage           = [System.Drawing.Image]::FromFile("$ImagesFolder\SearchIPPanelBg.png")
-
-$Form.Controls.Add($Panel)
+$FormPanel.Controls.Add($Panel)
 
 # Search IPs Button
 $SearchIP                        = New-Object System.Windows.Forms.Button
 $SearchIP.text                   = "Buscar IPs"
 $SearchIP.width                  = 240
 $SearchIP.height                 = 35
-$SearchIP.location               = New-Object System.Drawing.Point(10,5)
+$SearchIP.location               = New-Object System.Drawing.Point(5,5)
+$SearchIP.BackColor              = $FormBackColor
 $Panel.Controls.Add($SearchIP)
 
 # Avaible IPs Label
 $AvaibleIPsLabel                 = New-Object System.Windows.Forms.Label
 $AvaibleIPsLabel.text            = "IPs Disponibles:"
-$AvaibleIPsLabel.width           = 260 - 2
+$AvaibleIPsLabel.width           = 251
 $AvaibleIPsLabel.height          = 30
-$AvaibleIPsLabel.location        = New-Object System.Drawing.Point(0,58)
+$AvaibleIPsLabel.location        = New-Object System.Drawing.Point(7,60)
 $AvaibleIPsLabel.Font            = New-Object System.Drawing.Font('Segoe UI Semibold',13)
 $AvaibleIPsLabel.ForeColor       = $LabelColor
-$AvaibleIPsLabel.Padding         = "10, 0, 0, 0"
+$AvaibleIPsLabel.Padding         = "5, 0, 0, 0"
+$AvaibleIPsLabel.BackColor       = $FormBackColor
 $AvaibleIPsLabel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\AvaibleIPLabelBg.png")
-$Form.Controls.Add($AvaibleIPsLabel)
+$FormPanel.Controls.Add($AvaibleIPsLabel)
 
 # Avaible IPs
 $AvaibleIPs                      = New-Object System.Windows.Forms.Label
-$AvaibleIPs.width                = 260 - 2
+$AvaibleIPs.width                = 251
 $AvaibleIPs.height               = 75
-$AvaibleIPs.location             = New-Object System.Drawing.Point(0,81)
-$AvaibleIPs.Font                 = New-Object System.Drawing.Font('Segoe UI',13)
-$AvaibleIPs.Padding              = "10, 0, 0, 0"
+$AvaibleIPs.location             = New-Object System.Drawing.Point(7,85)
+$AvaibleIPs.Font                 = New-Object System.Drawing.Font('Segoe UI',12)
+$AvaibleIPs.Padding              = "5, 0, 0, 0"
+$AvaibleIPs.BackColor            = $FormBackColor
 $AvaibleIPs.BackgroundImage      = [System.Drawing.Image]::FromFile("$ImagesFolder\AvaibleIPBg.png")
-$Form.Controls.Add($AvaibleIPs)
+$FormPanel.Controls.Add($AvaibleIPs)
 
 # Choose IP Label
 $ChooseIPLabel                   = New-Object System.Windows.Forms.Label
 $ChooseIPLabel.text              = "Seleccionar IP:"
-$ChooseIPLabel.width             = 260 - 2
+$ChooseIPLabel.width             = 251
 $ChooseIPLabel.height            = 30
-$ChooseIPLabel.location          = New-Object System.Drawing.Point(0,163)
+$ChooseIPLabel.location          = New-Object System.Drawing.Point(7,167)
 $ChooseIPLabel.Font              = New-Object System.Drawing.Font('Segoe UI Semibold',13)
 $ChooseIPLabel.ForeColor         = $LabelColor
-$ChooseIPLabel.Padding           = "10, 0, 0, 0"
+$ChooseIPLabel.Padding           = "5, 0, 0, 0"
+$ChooseIPLabel.BackColor         = $FormBackColor
 $ChooseIPLabel.BackgroundImage   = [System.Drawing.Image]::FromFile("$ImagesFolder\AvaibleIPLabelBg.png")
-$Form.Controls.Add($ChooseIPLabel)
+$FormPanel.Controls.Add($ChooseIPLabel)
 
 # Input TextBox
 $InputBox                        = New-Object System.Windows.Forms.TextBox
-$InputBox.width                  = 250
+$InputBox.width                  = 251
 $InputBox.height                 = 40
-$InputBox.location               = New-Object System.Drawing.Point(5,192)
+$InputBox.location               = New-Object System.Drawing.Point(7,197)
 $InputBox.Font                   = New-Object System.Drawing.Font('Segoe UI',12)
 $InputBox.AcceptsReturn          = $true
-$InputBox.Text                   = "" + (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10)
+$InputBox.Text                   = " " + (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10)
 $InputBox.BackColor              = $PanelBackColor
 $InputBox.ForeColor              = $DefaultForeColor
-$Form.Controls.Add($InputBox)
+$FormPanel.Controls.Add($InputBox)
 
 # Choose IP Panel
 $Panel2                          = New-Object System.Windows.Forms.Panel
-$Panel2.height                   = 83
-$Panel2.width                    = 260 - 2
-$Panel2.location                 = New-Object System.Drawing.Point(0,193)
+$Panel2.height                   = 49
+$Panel2.width                    = 251
+$Panel2.location                 = New-Object System.Drawing.Point(7,226)
+$Panel2.BackColor                = $FormBackColor
 $Panel2.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\ChooseIPPanelBg.png")
-$Form.Controls.Add($Panel2)
+$FormPanel.Controls.Add($Panel2)
 
 # Cancel Button
 $Cancel                          = New-Object System.Windows.Forms.Button
 $Cancel.text                     = "Cancelar"
 $Cancel.width                    = 117
 $Cancel.height                   = 35
-$Cancel.location                 = New-Object System.Drawing.Point(10,40)
+$Cancel.location                 = New-Object System.Drawing.Point(6,7)
 $Cancel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\CancelAcceptButton.png")
 $Panel2.Controls.Add($Cancel)
 
@@ -103,7 +115,7 @@ $Accept                          = New-Object System.Windows.Forms.Button
 $Accept.text                     = "Aceptar"
 $Accept.width                    = 117
 $Accept.height                   = 35
-$Accept.location                 = New-Object System.Drawing.Point(133,40)
+$Accept.location                 = New-Object System.Drawing.Point(128,7)
 $Accept.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\CancelAcceptButton.png")
 $Accept.ForeColor                = $LabelColor
 $Panel2.Controls.Add($Accept)
@@ -146,7 +158,7 @@ $SearchIP.Add_Click({
         for ($i.Width; $Found -lt 6 -and $i.Width -lt 100; $i.Width++) {
             $TestIP = $Gateway.Substring(0,10) + $i.Width
             if (!(Test-Connection $TestIP -Count 1 -Quiet)) {
-                $AvaibleIPs.Text += "$TestIP        "
+                $AvaibleIPs.Text += "$TestIP            "
                 $Found++
             }
         }
@@ -165,7 +177,7 @@ $Cancel.Add_Click({
 # Accept Button
 $Accept.Add_Click({
     $Accept.BackColor = $ProcessingColor
-    $IP = ($InputBox.Lines).Substring(0,12)
+    $IP = ($InputBox.Lines).Replace(' ','').Substring(0,12)
     $StatusBox.text = "| Estableciendo IP Estatica A $IP..."
 
     $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
