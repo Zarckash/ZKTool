@@ -10,45 +10,103 @@ $ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$ImagesFolder\Pro
 $Download.DownloadFile("$GitHubPath/Functions/Import-Export.ps1", "$TempPath\Functions\Import-Export.ps1")
 . "$TempPath\Functions\Import-Export.ps1"
 
+$FormSize = '721,182'
+
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "Game Settings"
 $Form.StartPosition              = "CenterScreen"
 $Form.TopMost                    = $false
-$Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
-$Form.AutoSize                   = $true
-$Form.FormBorderStyle            = "FixedSingle"
-$Form.Width                      = $objImage.Width
-$Form.Height                     = $objImage.Height
+$Form.FormBorderStyle            = "None"
+$Form.Size                       = $FormSize
 $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $false
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
+$Form.BackColor                  = "LimeGreen"
+$Form.TransparencyKey            = "LimeGreen"
 
-
-            ##################################
-            ############ SOFTWARE ############
-            ##################################
-
+$FormPanel                       = New-Object System.Windows.Forms.Panel
+$FormPanel.Size                  = $FormSize
+$FormPanel.Location              = "0,0"
+$FormPanel.BackgroundImage       = [System.Drawing.Image]::FromFile("$ImagesFolder\GameSettingsBg.png")
+$Form.Controls.Add($FormPanel)
 
 # Label
 $Label                           = New-Object System.Windows.Forms.Label
-$Label.Text                      = "G A M E    S E T T I N G S"
-$Label.Width                     = 709 - 1
-$Label.Height                    = 38
-$Label.Location                  = New-Object System.Drawing.Point(0,5)
+$Label.Text                      = "                  G A M E    S E T T I N G S"
+$Label.Size                      = "605,36"
+$Label.Location                  = "7,1"
 $Label.Font                      = New-Object System.Drawing.Font('Segoe UI Semibold',15)
-$Label.ForeColor                 = $LabelColor
-$Label.TextAlign                 = [System.Drawing.ContentAlignment]::MiddleCenter
+$Label.ForeColor                 = $AccentColor
+$Label.BackColor                 = $FormBackColor
 $Label.BackgroundImage           = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBgGS.png")
-$Form.Controls.Add($Label)
+$Label.TextAlign                 = [System.Drawing.ContentAlignment]::MiddleCenter
+$FormPanel.Controls.Add($Label)
 
 # Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
-$Panel.Height                    = 69 * 2
-$Panel.Width                     = 709 - 1
+$Panel.Height                    = 67 * 2
+$Panel.Width                     = 707
+$Panel.BackColor                 = $FormBackColor
 $Panel.BackgroundImage           = [System.Drawing.Image]::FromFile("$ImagesFolder\PanelBgGS.png")
-$Panel.Location                  = New-Object System.Drawing.Point(0,45)
-$Form.Controls.Add($Panel)
+$Panel.Location                  = New-Object System.Drawing.Point(7,46)
+$FormPanel.Controls.Add($Panel)
+
+# Close Form Button
+$CloseButton                     = New-Object System.Windows.Forms.Button
+$CloseButton.Location            = "684,3"
+$CloseButton.Size                = "34,34"
+$CloseButton.FlatStyle           = "Flat"
+$CloseButton.BackColor           = $PanelBackColor
+$CloseButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
+$CloseButton.FlatAppearance.BorderSize = 0
+$FormPanel.Controls.Add($CloseButton)
+
+$CloseButton.Add_MouseEnter({
+    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCloseButton.png")
+    $FormPanel.BackgroundImage      = [System.Drawing.Image]::FromFile("$ImagesFolder\GameSettingsBgClose.png")
+})
+
+$CloseButton.Add_MouseLeave({
+    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
+    $FormPanel.BackgroundImage      = [System.Drawing.Image]::FromFile("$ImagesFolder\GameSettingsBg.png")
+})
+
+$CloseButton.Add_Click({
+    $Form.Close()
+})
+
+# Maximize Form Button
+$MaximizeButton                     = New-Object System.Windows.Forms.Button
+$MaximizeButton.Location            = "648,1"
+$MaximizeButton.Size                = "36,36"
+$MaximizeButton.FlatStyle           = "Flat"
+$MaximizeButton.BackColor           = $PanelBackColor
+$MaximizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MaximizeButton.png")
+$MaximizeButton.FlatAppearance.BorderSize = 0
+$FormPanel.Controls.Add($MaximizeButton)
+
+# Minimize Form Button
+$MinimizeButton                     = New-Object System.Windows.Forms.Button
+$MinimizeButton.Location            = "612,1"
+$MinimizeButton.Size                = "36,36"
+$MinimizeButton.FlatStyle           = "Flat"
+$MinimizeButton.BackColor           = $PanelBackColor
+$MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
+$MinimizeButton.FlatAppearance.BorderSize = 0
+$FormPanel.Controls.Add($MinimizeButton)
+
+$MinimizeButton.Add_Click({
+    $Form.WindowState = 1
+})
+
+$MinimizeButton.Add_MouseEnter({
+    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverMinimizeButton.png")
+})
+
+$MinimizeButton.Add_MouseLeave({
+    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
+})
 
 # Modern Warfare II
 $R1B1                            = New-Object System.Windows.Forms.Button
@@ -77,14 +135,16 @@ $R2B2.Text                       = "Apex Legends"
 # Game
 $R2B3                            = New-Object System.Windows.Forms.Button
 $R2B3.Text                       = "Export"
+$R2B3.ForeColor                  = $AccentColor
 
 # Game
 $R2B4                            = New-Object System.Windows.Forms.Button
 $R2B4.Text                       = "Import"
+$R2B4.ForeColor                  = $AccentColor
 
 # Game
 $R3B1                            = New-Object System.Windows.Forms.Button
-$R3B1.Text                       = "1"
+$R3B1.Text                       = "Salir"
 
 # Game
 $R3B2                            = New-Object System.Windows.Forms.Button
@@ -98,21 +158,20 @@ $R3B3.Text                       = "3"
 $R3B4                            = New-Object System.Windows.Forms.Button
 $R3B4.Text                       = "4"
 
-$PositionX = 10
-$PositionY = 10
+$PositionX = 5
+$PositionY = 5
 
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
 foreach ($Button in $Buttons) {
     $Panel.Controls.Add($Button)
-    $Button.Location             = New-Object System.Drawing.Point($PositionX,$PositionY)
-    $PositionX += 175
-    if ($PositionX -gt 700) {
-        $PositionX = 10
-        $PositionY += 70
+    $Button.Location             = "$PositionX,$PositionY"
+    $PositionX += 177
+    if ($PositionX -gt 536) {
+        $PositionX = 5
+        $PositionY += 68
     }
     
-    $Button.Width                = 165
-    $Button.Height               = 50
+    $Button.Size                 = "165,50"
     $Button.Font                 = New-Object System.Drawing.Font('Segoe UI',13)
     $Button.FlatStyle = "Flat"
     $Button.FlatAppearance.BorderSize = 0
@@ -203,18 +262,23 @@ $R2B4.Add_Click({
     Import-Export -Import
 })
 
+# Import
+$R3B1.Add_Click({
+    $Form.Close()
+})
+
 $Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
 foreach ($Button in $Buttons) {
     $Button.Add_Click({
         $this.Image = $DefaultGameButtonColor
-        $this.ForeColor = $LabelColor
+        $this.ForeColor = $AccentColor
         Start-Sleep 2
     })
 }
 
 $Form.Add_Closing({
     $HB1.Image = $DefaultButtonColor
-    $HB1.ForeColor = $LabelColor
+    $HB1.ForeColor = $AccentColor
 })
 
 [void]$Form.ShowDialog()
