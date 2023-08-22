@@ -4,31 +4,109 @@
 $ErrorActionPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
+$FormSize = "555,202"
+
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
 $Form.Text                       = "Move User Folder"
 $Form.StartPosition              = "CenterScreen"
 $Form.TopMost                    = $false
-$Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
-$Form.AutoSize                   = $true
-$Form.FormBorderStyle            = "FixedSingle"
-$Form.Width                      = $objImage.Width
-$Form.Height                     = $objImage.Height
+$Form.FormBorderStyle            = "None"
+$Form.Size                       = $FormSize
 $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $false
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
+$Form.BackColor                  = "LimeGreen"
+$Form.TransparencyKey            = "LimeGreen"
+
+$FormPanel                       = New-Object System.Windows.Forms.Panel
+$FormPanel.Size                  = $FormSize
+$FormPanel.Location              = "0,0"
+$FormPanel.BackgroundImage       = [System.Drawing.Image]::FromFile("$ImagesFolder\MoveUserFolderBg.png")
+$Form.Controls.Add($FormPanel)
+
+$FormClosePanel                  = New-Object System.Windows.Forms.Panel
+$FormClosePanel.Size             = '109,37'
+$FormClosePanel.Location         = "612,0"
+$FormClosePanel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
+
+$FormPanel.Controls.Add($FormClosePanel)
+
+$CloseFormPanel                  = New-Object System.Windows.Forms.Panel
+$CloseFormPanel.Size             = '109,37'
+$CloseFormPanel.Location         = "446,0"
+$CloseFormPanel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
+$FormPanel.Controls.Add($CloseFormPanel)
+
+# Close Form Button
+$CloseButton                     = New-Object System.Windows.Forms.Button
+$CloseButton.Location            = "72,3"
+$CloseButton.Size                = "34,34"
+$CloseButton.FlatStyle           = "Flat"
+$CloseButton.BackColor           = $PanelBackColor
+$CloseButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
+$CloseButton.FlatAppearance.BorderSize = 0
+$CloseFormPanel.Controls.Add($CloseButton)
+
+$CloseButton.Add_MouseEnter({
+    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCloseButton.png")
+    $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBgClose.png")
+})
+
+$CloseButton.Add_MouseLeave({
+    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
+    $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
+})
+
+$CloseButton.Add_Click({
+    $Form.Close()
+})
+
+# Maximize Form Button
+$MaximizeButton                     = New-Object System.Windows.Forms.Button
+$MaximizeButton.Location            = "36,1"
+$MaximizeButton.Size                = "36,36"
+$MaximizeButton.FlatStyle           = "Flat"
+$MaximizeButton.BackColor           = $PanelBackColor
+$MaximizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MaximizeButton.png")
+$MaximizeButton.FlatAppearance.BorderSize = 0
+$CloseFormPanel.Controls.Add($MaximizeButton)
+
+# Minimize Form Button
+$MinimizeButton                     = New-Object System.Windows.Forms.Button
+$MinimizeButton.Location            = "0,1"
+$MinimizeButton.Size                = "36,36"
+$MinimizeButton.FlatStyle           = "Flat"
+$MinimizeButton.BackColor           = $PanelBackColor
+$MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
+$MinimizeButton.FlatAppearance.BorderSize = 0
+$CloseFormPanel.Controls.Add($MinimizeButton)
+
+$MinimizeButton.Add_Click({
+    $Form.WindowState = 1
+})
+
+$MinimizeButton.Add_MouseEnter({
+    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverMinimizeButton.png")
+})
+
+$MinimizeButton.Add_MouseLeave({
+    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
+})
 
 # Title Label
 $TitleLabel                      = New-Object System.Windows.Forms.Label
 $TitleLabel.Text                 = "M O V E    U S E R    FOLDER"
-$TitleLabel.Width                = 550
-$TitleLabel.Height               = 38
-$TitleLabel.Location             = New-Object System.Drawing.Point(5,5)
+$TitleLabel.Width                = 544
+$TitleLabel.Height               = 36
+$TitleLabel.Location             = New-Object System.Drawing.Point(7,1)
 $TitleLabel.Font                 = New-Object System.Drawing.Font('Segoe UI Semibold',15)
-$TitleLabel.ForeColor            = $LabelColor
+$TitleLabel.ForeColor            = $AccentColor
+$TitleLabel.BackColor            = $PanelBackColor
 $TitleLabel.TextAlign            = [System.Drawing.ContentAlignment]::MiddleCenter
-$TitleLabel.BackgroundImage      = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelMUFBg.png")
-$Form.Controls.Add($TitleLabel)
+$FormPanel.Controls.Add($TitleLabel)
+
+
 
 $CheckBoxes = @('SelectAll','Desktop','Downloads','Documents','Pictures','Videos','Music')
 
@@ -41,7 +119,8 @@ $CheckBoxes | ForEach-Object {
     $NewCheckBox.Width = 105
     $NewCheckBox.Height = 25
     $NewCheckBox.Font = New-Object System.Drawing.Font('Segoe UI',13)
-    $Form.Controls.Add($NewCheckBox)
+    $NewCheckBox.BackColor = $FormBackColor
+    $FormPanel.Controls.Add($NewCheckBox)
     New-Variable "$_" $NewCheckBox
 }
 
@@ -55,16 +134,16 @@ $Music.Text      = 'Música'
 
 $CheckBoxes = @($SelectAll,$Desktop,$Downloads,$Documents,$Pictures)
 
-$Position = 10
+$Position = 7
 foreach ($CheckBox in $CheckBoxes) {
     $CheckBox.Location = New-Object System.Drawing.Point($Position,50)
     $Position += 105
 }
 $Documents.Width = 130
 $Pictures.Width = 101
-$Pictures.Location = New-Object System.Drawing.Point(455,50)
+$Pictures.Location = New-Object System.Drawing.Point(453,50)
 
-$Position = 10
+$Position = 7
 $CheckBoxes = @($Videos,$Music)
 foreach ($CheckBox in $CheckBoxes) {
     $CheckBox.Location = New-Object System.Drawing.Point($Position,77)
@@ -84,7 +163,7 @@ foreach ($Disk in $Disks) {
     Get-Variable -Name $Disk | Remove-Variable
 }
 
-$Position = 10
+$Position = 7
 $i = 1
 $Drives | ForEach-Object {
     $NewRadioButton = New-Object System.Windows.Forms.RadioButton
@@ -93,8 +172,9 @@ $Drives | ForEach-Object {
     $NewRadioButton.Height = 25
     $NewRadioButton.Font = New-Object System.Drawing.Font('Segoe UI',13)
     $NewRadioButton.Location = New-Object System.Drawing.Point($Position,120)
+    $NewRadioButton.BackColor = $FormBackColor
     $Position += 105
-    $Form.Controls.Add($NewRadioButton)
+    $FormPanel.Controls.Add($NewRadioButton)
     New-Variable "Disk$i" $NewRadioButton
     $i++
 }
@@ -104,7 +184,8 @@ $ButtonsPanel                    = New-Object System.Windows.Forms.Panel
 $ButtonsPanel.height             = 45
 $ButtonsPanel.width              = 255 - 2
 $ButtonsPanel.location           = New-Object System.Drawing.Point(153,155)
-$Form.Controls.Add($ButtonsPanel)
+$ButtonsPanel.BackColor          = $FormBackColor
+$FormPanel.Controls.Add($ButtonsPanel)
 
 # Cancel Button
 $Cancel                          = New-Object System.Windows.Forms.Button
@@ -122,7 +203,7 @@ $Accept.width                    = 117
 $Accept.height                   = 35
 $Accept.location                 = New-Object System.Drawing.Point(128,5)
 $Accept.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\CancelAcceptButton.png")
-$Accept.ForeColor                = $LabelColor
+$Accept.ForeColor                = $AccentColor
 $ButtonsPanel.Controls.Add($Accept)
 
 $Buttons = @($Cancel,$Accept)
@@ -249,7 +330,7 @@ $Accept.Add_Click({
 
 $Form.Add_Closing({
     $MTB10.Image = $DefaultButtonColor
-    $MTB10.ForeColor = $LabelColor
+    $MTB10.ForeColor = $AccentColor
 })
 
 [void]$Form.ShowDialog()
