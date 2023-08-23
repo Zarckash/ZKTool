@@ -173,7 +173,7 @@
             Expand-Archive -Path ($Path.Temp + '\' + $env:username + 'Backup.zip') -DestinationPath $Path.Backup -Force
 
             Get-ChildItem -Path $Path.Backup | ForEach-Object {
-                Write-TypeHost ('Importando' + $_.BaseName.Replace('Documents','Documentos').Replace('SavedGames','Juegos Guardados') + '...')
+                Write-TypeHost ('Importando ' + $_.BaseName.Replace('Documents','Documentos').Replace('SavedGames','Juegos Guardados') + '...')
                 Expand-Archive -Path $_ -DestinationPath $Path.($_.BaseName) -Force
             }
 
