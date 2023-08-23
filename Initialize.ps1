@@ -41,9 +41,9 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
 
 # Install Font
-Write-TypeHost "Instalando Fuente..."
+Write-TypeHost "`r`nInstalando Fuente..."
 Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Resources/HaskligFont.zip" -OutFile "$env:temp\ZKTool\Resources\HaskligFont.zip"
-Expand-Archive -Path "$env:temp\ZKTool\Resources\HaskligFont.zip" -DestinationPath "$env:temp\ZKTool\Resources\HaskligFont"
+Expand-Archive -Path "$env:temp\ZKTool\Resources\HaskligFont.zip" -DestinationPath "$env:temp\ZKTool\Resources\HaskligFont" -Force
 Get-ChildItem -Path "$env:temp\ZKTool\Resources\HaskligFont" | ForEach-Object {
     $FontName = $_.Name.Replace('-',' ').Replace('It',' Italic').Replace('  ',' ').Replace('.ttf',' (True Type)')
     $FontPath = "$env:localappdata\Microsoft\Windows\Fonts\" + $_.Name
