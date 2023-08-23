@@ -23,7 +23,7 @@ function Write-TypeHost ([string]$s = '',[string]$TextColor = 'Cyan') {
 Write-TypeHost "Instalando ZKTool App..."
 New-Item $env:temp\ZKTool\Resources\ -ItemType Directory | Out-Null
 Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip" -OutFile "$env:temp\ZKTool\Resources\ZKTool.zip"
-Expand-Archive -Path "$env:temp\ZKTool\Resources\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool"
+Expand-Archive -Path "$env:temp\ZKTool\Resources\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
 Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
 New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
