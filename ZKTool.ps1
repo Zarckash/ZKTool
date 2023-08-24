@@ -2,6 +2,7 @@
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $ErrorActionPreference = 'SilentlyContinue'
+$WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
 # Checking For Updates
@@ -38,8 +39,8 @@ $AppsList    = $Download.DownloadString("$GitHubPath/Resources/Apps.json")  | Co
 $FormsList   = $Download.DownloadString("$GitHubPath/Resources/Forms.json") | ConvertFrom-Json
 
 # Cleaning Last Log File
-Remove-Item $env:temp\1ZKTool.log | Out-Null
 $LogPath     = "$env:temp\1ZKTool.log"
+Remove-Item $LogPath | Out-Null
 
 # Creating Folders
 New-Item $env:temp\ZKTool\Files -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
@@ -627,13 +628,14 @@ function OptimizationTweaks {
 
     # Install Timer Resolution Service
     Write-UserOutput "Instalando Set Timer Resolution Service"
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2013.x64 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2013.x86 | Out-File $LogPath -Encoding UTF8 -Append
+    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2010.x64 | Out-File $LogPath -Encoding UTF8 -Append
+    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2010.x86 | Out-File $LogPath -Encoding UTF8 -Append
     $Download.DownloadFile("$GitHubPath/Files/.exe/SetTimerResolutionService.exe", "$TempPath\Files\SetTimerResolutionService.exe")
     New-Item 'C:\Program Files\Set Timer Resolution Service\' -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
     Move-Item -Path ("$TempPath\Files\SetTimerResolutionService.exe") -Destination 'C:\Program Files\Set Timer Resolution Service\'
     Push-Location
     Set-Location -Path "C:\Program Files\Set Timer Resolution Service"
+    Start-Sleep 3
     .\SetTimerResolutionService.exe -install | Out-File $LogPath -Encoding UTF8 -Append
     Pop-Location
 
