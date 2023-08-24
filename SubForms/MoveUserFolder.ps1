@@ -238,7 +238,7 @@ $SelectAll.Add_Click({
     }
 })
 
-function SetKnownFolderPath {
+function Set-KnownFolderPath {
     Param (
         [Parameter(Mandatory = $true)]
         [ValidateSet('Desktop','Downloads','Documents','Pictures','Videos','Music')]
@@ -319,7 +319,7 @@ $Accept.Add_Click({
     foreach ($CheckBox in $CheckBoxes) {
         if ($CheckBox.Checked -eq $true) {
             $Path = "$SelectedDisk" + ":\Users\$env:username\" + $CheckBoxNames[$i]
-            SetKnownFolderPath -KnownFolder $CheckBoxNames[$i] -Path $Path
+            Set-KnownFolderPath -KnownFolder $CheckBoxNames[$i] -Path $Path
         }
         $i++
     }
