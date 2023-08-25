@@ -1,7 +1,7 @@
 ﻿{
-    "GameSettings": {
-        "Name": "Game Settings",
-        "Path": "GameSettings.ps1"
+    "Settings": {
+        "Name": "Settings",
+        "Path": "Settings.ps1"
     },
     "ContextMenuHandler": {
         "Name": "Context Menu Handler",
