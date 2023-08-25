@@ -121,35 +121,35 @@ $R1B1.Text                       = "Modern Warfare II"
 $R1B2                            = New-Object System.Windows.Forms.Button
 $R1B2.Text                       = "PUBG"
 
-# Rogue Company
+# CSGO
 $R1B3                            = New-Object System.Windows.Forms.Button
-$R1B3.Text                       = "Rogue Company"
+$R1B3.Text                       = "CSGO"
 
-# Battlefield 2042
+# Apex Legends
 $R1B4                            = New-Object System.Windows.Forms.Button
-$R1B4.Text                       = "Battlefield 2042"
+$R1B4.Text                       = "Apex Legends"
 
-# Game
+# MSI Afterburner
 $R2B1                            = New-Object System.Windows.Forms.Button
-$R2B1.Text                       = "CSGO"
+$R2B1.Text                       = "MSI Afterburner"
 
-# Game
+# RivaTuner
 $R2B2                            = New-Object System.Windows.Forms.Button
-$R2B2.Text                       = "Apex Legends"
+$R2B2.Text                       = "RivaTuner"
 
-# Game
+# Export
 $R2B3                            = New-Object System.Windows.Forms.Button
 $R2B3.Text                       = "Export"
 $R2B3.ForeColor                  = $AccentColor
 
-# Game
+# Import
 $R2B4                            = New-Object System.Windows.Forms.Button
 $R2B4.Text                       = "Import"
 $R2B4.ForeColor                  = $AccentColor
 
 # Game
 $R3B1                            = New-Object System.Windows.Forms.Button
-$R3B1.Text                       = "Salir"
+$R3B1.Text                       = "1"
 
 # Game
 $R3B2                            = New-Object System.Windows.Forms.Button
@@ -224,17 +224,21 @@ $R1B2.Add_Click({
     Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
-# Rogue Company
+# CSGO
 $R1B3.Add_Click({
-    $Download.DownloadFile("$GitHubPath/Files/.zip/RogueCompany.zip", "$TempPath\Files\RogueCompany.zip")
-    Expand-Archive -Path ("$TempPath\Files\RogueCompany.zip") -DestinationPath "$env:localappdata\AppData\Local\RogueCompany\Saved\Config\WindowsNoEditor" -Force
+    $Download.DownloadFile("$GitHubPath/Files/.zip/CSGO.zip", "$TempPath\Files\CSGO.zip")
+    Expand-Archive -Path ("$TempPath\Files\CSGO.zip") -DestinationPath ("$TempPath\Files\") -Force
+    $UserIds = Get-ChildItem "C:\Program Files (x86)\Steam\userdata" -Directory
+    foreach ($Id in $UserIds.name) {
+        Copy-Item -Path ("$TempPath\Files\730") -Destination "C:\Program Files (x86)\Steam\userdata\$Id" -Recurse -Force
+    }
     Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
-# Battlefield 2042
+# Apex Legends
 $R1B4.Add_Click({
-    $Download.DownloadFile("$GitHubPath/Files/.zip/Battlefield2042.zip", "$TempPath\Files\Battlefield2042.zip")
-    Expand-Archive -Path ("$TempPath\Files\Battlefield2042.zip") -DestinationPath ("$DocumentsPath\Battlefield 2042\settings") -Force
+    $Download.DownloadFile("$GitHubPath/Files/.zip/Apex.zip", "$TempPath\Files\Apex.zip")
+    Expand-Archive -Path ("$TempPath\Files\Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
     Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
@@ -249,10 +253,21 @@ $R2B1.Add_Click({
     Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
-# Apex
+# MSI Afterburner
+$R2B1.Add_Click({
+    $Download.DownloadFile("$GitHubPath/Files/.zip/MSIAfterburner.zip", "$TempPath\Files\MSIAfterburner.zip")
+    Expand-Archive -Path ("$TempPath\Files\MSIAfterburner.zip") -DestinationPath ("$TempPath\Files\MSIAfterburner") -Force
+    Move-Item -Path ("$TempPath\Files\MSIAfterburner\Profiles\*") -Destination 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
+    Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
+})
+
+# RivaTuner
 $R2B2.Add_Click({
-    $Download.DownloadFile("$GitHubPath/Files/.zip/Apex.zip", "$TempPath\Files\Apex.zip")
-    Expand-Archive -Path ("$TempPath\Files\Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
+    $Download.DownloadFile("$GitHubPath/Files/.zip/RivaTuner.zip", "$TempPath\Files\RivaTuner.zip")
+    Expand-Archive -Path ("$TempPath\Files\RivaTuner.zip") -DestinationPath ("$TempPath\Files\RivaTuner") -Force
+    New-Item -Path 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -ItemType Directory | Out-Null
+    Move-Item -Path ("$TempPath\Files\RivaTuner\Profiles\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -Force
+    Move-Item -Path ("$TempPath\Files\RivaTuner\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates' -Force
     Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
