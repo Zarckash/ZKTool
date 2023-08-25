@@ -2,6 +2,7 @@
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $ErrorActionPreference = 'SilentlyContinue'
+$ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
@@ -392,7 +393,7 @@ $HPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFold
 
 $Position = 5
 
-$HB1.Text      = "Game Settings"
+$HB1.Text      = "Settings"
 $HB1.Location  = New-Object System.Drawing.Point(10,$Position)
 
 $HB2.Text      = "Dark Theme"
@@ -403,7 +404,7 @@ $HB3.Location  = New-Object System.Drawing.Point(470,$Position)
 
 $Position += 49
 
-$HB4.Text      = "MSI Afterburner Settings"
+$HB4.Text      = "NVCleanstall"
 $HB4.Location  = New-Object System.Drawing.Point(10,$Position)
 
 $HB5.Text      = "Remove Realtek"
@@ -513,7 +514,7 @@ $LogoBox.Add_Click({
 })
 
 function Spotify {
-    $SB4.ForeColor = AccentColor
+    $SB4.ForeColor = $AccentColor
     Write-UserOutput "Instalando Spotify"
     $Download.DownloadFile("$GitHubPath/Files/Spotify.ps1", "$TempPath\Files\Spotify.ps1")
     Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\Spotify.ps1 ; exit"
@@ -576,7 +577,7 @@ function OptimizationTweaks {
     Write-UserOutput "Creando Punto De Restauración"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
     Enable-ComputerRestore -Drive "C:\"
-    &{$ProgressPreference = 'SilentlyContinue'; Checkpoint-Computer -Description "Pre Optimizacion ZKTool" -RestorePointType "MODIFY_SETTINGS"} 
+    Checkpoint-Computer -Description "Pre Optimizacion ZKTool" -RestorePointType "MODIFY_SETTINGS"
     
     # Disable UAC
     Write-UserOutput "Desactivando UAC Para Administradores"
@@ -1097,10 +1098,8 @@ function CleaningTweaks {
         "MicrosoftCorporationII.MicrosoftFamily"
         "Disney.37853FC22B2CE"
     )
-    &{ $ProgressPreference = 'SilentlyContinue'
     foreach ($Bloat in $Bloatware) {
         Get-AppxPackage -Name $Bloat | Remove-AppxPackage
-    }
     }
 
     # Clean "New" In Context Menu
@@ -1120,7 +1119,6 @@ function CleaningTweaks {
     Remove-ItemProperty -Path "HKCR:\.zip\CompressedFolder\ShellNew" -Name "ItemName"
 
     # Uninstall Windows Optional Features
-    &{ $ProgressPreference = 'SilentlyContinue'
     Write-UserOutput "Instalando .NET Framework 3.5 y 4.8"
     Enable-WindowsOptionalFeature -Online -FeatureName NetFx3 -All -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
     Enable-WindowsOptionalFeature -Online -FeatureName NetFx4-AdvSrvs -All -NoRestart | Out-File $LogPath -Encoding UTF8 -Append
@@ -1138,7 +1136,6 @@ function CleaningTweaks {
     DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
     Write-UserOutput "Desinstalando Reconocedor Matemático"
     DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-File $LogPath -Encoding UTF8 -Append
-    }
     $TB2.ForeColor = $DefaultForeColor
 }
 
@@ -1230,21 +1227,19 @@ function RemoveOneDrive {
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $LogPath -Encoding UTF8 -Append
     Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
     Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
-    &{ $ProgressPreference = 'SilentlyContinue'; Get-AppxPackage Microsoft.OneDriveSync | Remove-AppxPackage }
+    Get-AppxPackage Microsoft.OneDriveSync | Remove-AppxPackage
     $TB8.ForeColor = $DefaultForeColor
 }
 
 function RemoveXboxGameBar {
     $TB9.ForeColor = $AccentColor
     Write-UserOutput "Desinstalando Xbox Game Bar"
-    &{ $ProgressPreference = 'SilentlyContinue'
     Get-AppxPackage "Microsoft.XboxGamingOverlay" | Remove-AppxPackage 
     Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage 
     Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage 
     Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
     Get-AppxPackage "Microsoft.GamingApp" | Remove-AppxPackage
     Get-AppxPackage "Microsoft.GamingServices" | Remove-AppxPackage
-    }
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
     $TB9.ForeColor = $DefaultForeColor
@@ -1367,7 +1362,7 @@ function FFMPEG {
     Write-UserOutput "Instalando FFMPEG"
     $Download.DownloadFile("$GitHubPath/Files/.appx/HEVC.appx", "$TempPath\Files\HEVC.appx")
     $Download.DownloadFile("$GitHubPath/Files/.appx/HEIF.appx", "$TempPath\Files\HEIF.appx")
-    &{$ProgressPreference = 'SilentlyContinue'; Add-AppxPackage ("$TempPath\Files\HEVC.appx"); Add-AppxPackage ("$TempPath\Files\HEIF.appx")}
+    Add-AppxPackage ("$TempPath\Files\HEVC.appx"); Add-AppxPackage ("$TempPath\Files\HEIF.appx")
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File $LogPath -Encoding UTF8 -Append
     $Download.DownloadFile("$GitHubPath/Files/.exe/ffmpeg.exe", "$ZKToolPath\Apps\ffmpeg.exe")
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
@@ -1473,17 +1468,10 @@ function DarkTheme {
     $HB2.ForeColor = $DefaultForeColor
 }
 
-function MSIAfterburnerSettings {
+function NVCleanstall {
     $MTB14.ForeColor = $AccentColor
-    Write-UserOutput "Configurando MSI Afterbuner"
-    $Download.DownloadFile("$GitHubPath/Files/.zip/MSIAfterburner.zip", "$TempPath\Files\MSIAfterburner.zip")
-    Expand-Archive -Path ("$TempPath\Files\MSIAfterburner.zip") -DestinationPath ("$TempPath\Files\MSIAfterburner") -Force
-    Move-Item -Path ("$TempPath\Files\MSIAfterburner\MSIAfterburner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
-    if (Test-Path -Path 'C:\Program Files (x86)\RivaTuner Statistics Server') {
-        New-Item -Path 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -ItemType Directory | Out-Null
-        Move-Item -Path ("$TempPath\Files\MSIAfterburner\RivaTuner Settings\Profiles\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -Force
-        Move-Item -Path ("$TempPath\Files\MSIAfterburner\RivaTuner Settings\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates' -Force
-    }
+    $Download.DownloadFile("$GitHubPath/Files/NVCleanstall.ps1", "$TempPath\Files\NVCleanstall.ps1")
+    Start-Process powershell -ArgumentList "-noexit -windowstyle minimized -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\NVCleansnstall.ps1 ; exit"
     $MTB14.ForeColor = $DefaultForeColor
 }
 
