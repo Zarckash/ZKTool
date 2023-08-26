@@ -1475,7 +1475,7 @@ function DarkTheme {
 function NVCleanstall {
     $MTB14.ForeColor = $AccentColor
     $Download.DownloadFile("$GitHubPath/Files/NVCleanstall.ps1", "$TempPath\Files\NVCleanstall.ps1")
-    Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\NVCleansnstall.ps1 ; exit"
+    Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\NVCleanstall.ps1 ; exit"
     $MTB14.ForeColor = $DefaultForeColor
 }
 
