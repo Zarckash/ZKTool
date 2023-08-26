@@ -29,9 +29,9 @@
             function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
                 $s -split '' | ForEach-Object {
                     Write-Host $_ -NoNewline -ForegroundColor $TextColor
-                    Start-Sleep -Milliseconds 20
+                    Start-Sleep -Milliseconds 15
                 }
-                Start-Sleep -Milliseconds 20
+                Start-Sleep -Milliseconds 15
                 Write-Host `n
             }
     
@@ -143,9 +143,9 @@
             function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
                 $s -split '' | ForEach-Object {
                     Write-Host $_ -NoNewline -ForegroundColor $TextColor
-                    Start-Sleep -Milliseconds 20
+                    Start-Sleep -Milliseconds 15
                 }
-                Start-Sleep -Milliseconds 20
+                Start-Sleep -Milliseconds 15
                 Write-Host `n
             }
 
