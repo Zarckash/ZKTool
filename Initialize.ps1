@@ -61,15 +61,12 @@ Register-ScheduledTask -TaskName "ZKToolUpdater" -Action $Action -Trigger $Trigg
 Write-TypeHost "`r`nComprobando Winget..."
 if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10,10)) -eq "Windows 11")) {
     Write-TypeHost "`r`n    Instalando Winget..."
-    Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
-    $WaitFor = (Get-Process AppInstaller).Id
-    Wait-Process -Id $WaitFor
+    Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget" -Wait
 }
 
 Write-Host "`r`n`r`n        ###################" -ForegroundColor Green
 Write-Host "        #####  READY  #####" -ForegroundColor Green
 Write-Host "        ###################" -ForegroundColor Green
-Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe
-Start-Sleep 1
+Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe -Wait
 
 Exit
