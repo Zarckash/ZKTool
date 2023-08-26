@@ -12,14 +12,23 @@ function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
 
 $TempPath = "$env:temp\ZKTool\Files"
 
-# Downloading Latest Nvidia Driver
-Write-TypeHost "Descargando Ultimos Drivers De Nvidia..."
+# Checking Installed Version
+Write-TypeHost "Comprobando Version Instalada..."
+$GetCurrentVersion = Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion | Where-Object {$_.devicename -Like "*nvidia*tx*"} | Select-Object -ExpandProperty DriverVersion
+$CurrentVersion = $GetCurrentVersion.Replace('.','').Substring($GetCurrentVersion.Length - 8)
 
 $Uri = "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=120&pfid=929&osID=57&languageCode=1033&isWHQL=1&dch=1&sort1=0&numberOfResults=1"
 $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
-$DriverVersion = $WebRequest.IDS.downloadInfo.Version
+$LatestVersion = $WebRequest.IDS.downloadInfo.Version
 
-$Url = "https://us.download.nvidia.com/Windows/$DriverVersion/$DriverVersion-desktop-win10-win11-64bit-international-dch-whql.exe"
+if ($CurrentVersion -ge $LatestVersion.Replace('.','')) {
+    Write-TypeHost "LA VERSIÓN ACTUAL YA ES LA ÚLTIMA, SALIENDO..." -TextColor "Red"
+    exit
+}
+
+# Downloading Latest Nvidia Driver
+Write-TypeHost "Descargando Ultimos Drivers De Nvidia..."
+$Url = "https://us.download.nvidia.com/Windows/$LatestVersion/$LatestVersion-desktop-win10-win11-64bit-international-dch-whql.exe"
 (New-Object System.Net.WebClient).DownloadFile($Url,"$TempPath\Driver.exe")
 
 # Installing 7-Zip
