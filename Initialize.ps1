@@ -13,9 +13,9 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 function Write-TypeHost ([string]$s = '',[string]$TextColor = 'Cyan') {
     $s -split '' | ForEach-Object {
         Write-Host $_ -NoNewline -ForegroundColor $TextColor
-        Start-Sleep -Milliseconds 20
+        Start-Sleep -Milliseconds 15
     }
-    Start-Sleep -Milliseconds 20
+    Start-Sleep -Milliseconds 15
     Write-Host ''
 }
 
