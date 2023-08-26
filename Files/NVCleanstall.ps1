@@ -1,4 +1,6 @@
-﻿function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
+﻿$ErrorActionPreference = 'Suspend'
+
+function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
     $s -split '' | ForEach-Object {
         Write-Host $_ -NoNewline -ForegroundColor $TextColor
         Start-Sleep -Milliseconds 20
