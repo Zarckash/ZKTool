@@ -1,4 +1,5 @@
-﻿$ErrorActionPreference = 'Suspend'
+﻿$ErrorActionPreference = 'Continue'
+$Host.UI.RawUI.WindowTitle = 'Nvidia Drivers Installer'
 
 function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
     $s -split '' | ForEach-Object {
