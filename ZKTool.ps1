@@ -21,6 +21,7 @@ finally {
             $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
             Write-Host 'Actualizando ZKTool App...'
             Start-Sleep 2
+            New-Item $env:temp\ZKTool\Resources\ -ItemType Directory -Force | Out-Null
             Invoke-WebRequest -Uri 'https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip' -OutFile ($env:temp + '\ZKTool\Resources\ZKTool.zip')
             Expand-Archive -Path ($env:temp + '\ZKTool\Resources\ZKTool.zip') -DestinationPath ($env:ProgramFiles + '\ZKTool') -Force
             Start-Process ($env:ProgramFiles + '\ZKTool\ZKTool.exe')
