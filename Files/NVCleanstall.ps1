@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Continue'
+﻿$ErrorActionPreference = 'SilentlyContinue'
 $Host.UI.RawUI.WindowTitle = 'Nvidia Drivers Installer'
 
 function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
@@ -25,7 +25,7 @@ $Url = "https://us.download.nvidia.com/Windows/$DriverVersion/$DriverVersion-des
 # Installing 7-Zip
 Write-TypeHost "Instalando 7-Zip..."
 (New-Object System.Net.WebClient).DownloadFile("https://www.7-zip.org/a/7z2301-x64.exe","$TempPath\7Zip.exe")
-Start-Process "$TempPath\7Zip.exe" /S
+Start-Process "$TempPath\7Zip.exe" /S -Wait
 
 # Extracting Drivers
 Write-TypeHost "Extrayendo Drivers..."
@@ -35,7 +35,7 @@ $FilesToExtract = "Display.Driver GFExperience NVI2 EULA.txt ListDevices.txt set
 $DriverPath = "$TempPath\Driver.exe"
 $ExtractPath = "$TempPath\NVCleanstall"
 
-Start-Process "C:\Program Files\7-Zip\7z.exe" -NoNewWindow -ArgumentList "x -bso0 -bsp1 -bse1 -aoa $DriverPath $FilesToExtract -o$ExtractPath"
+Start-Process "C:\Program Files\7-Zip\7z.exe" -ArgumentList "x -bso0 -bsp1 -bse1 -aoa $DriverPath $FilesToExtract -o$ExtractPath" -Wait
 
 # Cleaning Driver Files
 Write-TypeHost "Eliminando Archivos De Driver..."
@@ -56,10 +56,12 @@ if (Test-Path "$RegPath\0000") {
 
 # Installing Drivers
 Write-TypeHost "Instalando Drivers..."
-Start-Process "$TempPath\NVCleanstall\setup.exe" -WorkingDirectory "$TempPath\NVCleanstall" -ArgumentList "-clean -s"
+Start-Process "$TempPath\NVCleanstall\setup.exe" -WorkingDirectory "$TempPath\NVCleanstall" -ArgumentList "-clean -s" -Wait
 
 # Uninstalling 7-Zip
 Write-TypeHost "Desinstalando 7Zip..."
-Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S
+Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S -Wait
 
-Pause
+Write-TypeHost '- - - DRIVERS INSTALADOS - - -'
+
+Start-Sleep 2
