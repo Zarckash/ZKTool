@@ -21,7 +21,7 @@ finally {
             $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
             Write-Host "Actualizando ZKTool App..."
             Start-Sleep 2
-            Start-Process Powershell -WindowStyle Hidden {Invoke-Expression (Invoke-WebRequest -useb "https://rb.gy/8shezm")}
+            Start-Process Powershell -WindowStyle Hidden {Invoke-Expression (Invoke-WebRequest -useb "https://rb.gy/7wms9")}
         }
         exit
     }
