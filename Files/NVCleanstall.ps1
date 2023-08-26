@@ -4,9 +4,9 @@ $Host.UI.RawUI.WindowTitle = 'Nvidia Drivers Installer'
 function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
     $s -split '' | ForEach-Object {
         Write-Host $_ -NoNewline -ForegroundColor $TextColor
-        Start-Sleep -Milliseconds 20
+        Start-Sleep -Milliseconds 15
     }
-    Start-Sleep -Milliseconds 20
+    Start-Sleep -Milliseconds 15
     Write-Host `n
 }
 
@@ -61,3 +61,5 @@ Start-Process "$TempPath\NVCleanstall\setup.exe" -WorkingDirectory "$TempPath\NV
 # Uninstalling 7-Zip
 Write-TypeHost "Desinstalando 7Zip..."
 Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S
+
+Pause
