@@ -7,7 +7,7 @@ $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
 # Checking For Updates
-$AppVersion = 3.0
+$AppVersion = 3.1
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
