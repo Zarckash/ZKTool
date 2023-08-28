@@ -20,7 +20,6 @@ $Form.TopMost                    = $false
 $Form.FormBorderStyle            = "None"
 $Form.Size                       = $FormSize
 $Form.ForeColor                  = $DefaultForeColor
-$Form.MaximizeBox                = $false
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
 $Form.BackColor                  = "LimeGreen"
 $Form.TransparencyKey            = "LimeGreen"
@@ -96,7 +95,7 @@ $MinimizeButton.Add_MouseLeave({
 # Label
 $Label                           = New-Object System.Windows.Forms.Label
 $Label.Text                      = "G A M E    S E T T I N G S"
-$Label.Size                      = "708,36"
+$Label.Size                      = "708,34"
 $Label.Location                  = "7,1"
 $Label.Font                      = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $Label.ForeColor                 = $AccentColor
