@@ -75,20 +75,87 @@ $ActiveButtonColorBig  = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveB
 $HoverButtonColorBig   = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColorBig.png")
 
 $PanelSize = 230 # Sets Each Panel Location
+$FormSize = '1138,773'
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 779)
 $Form.Text                       = "ZKTool"
 $Form.StartPosition              = "CenterScreen"
 $Form.TopMost                    = $false
-$Form.BackColor                  = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
-$Form.AutoSize                   = $true
-$Form.FormBorderStyle            = "FixedSingle"
-$Form.Width                      = $objImage.Width
-$Form.Height                     = $objImage.Height
+$Form.FormBorderStyle            = "None"
+$Form.Size                       = $FormSize
 $Form.ForeColor                  = $DefaultForeColor
-$Form.MaximizeBox                = $false
 $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
+$Form.BackColor                  = "LimeGreen"
+$Form.TransparencyKey            = "LimeGreen"
+
+$FormPanel                       = New-Object System.Windows.Forms.Panel
+$FormPanel.Size                  = $FormSize
+$FormPanel.Location              = "0,0"
+$FormPanel.BackgroundImage       = [System.Drawing.Image]::FromFile("$ImagesFolder\ZKToolBg.png")
+$Form.Controls.Add($FormPanel)
+
+$CloseFormPanel                  = New-Object System.Windows.Forms.Panel
+$CloseFormPanel.Size             = "109,37"
+$CloseFormPanel.Location         = "1029,0"
+$CloseFormPanel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
+$FormPanel.Controls.Add($CloseFormPanel)
+
+# Close Form Button
+$CloseButton                     = New-Object System.Windows.Forms.Button
+$CloseButton.Location            = "72,3"
+$CloseButton.Size                = "34,34"
+$CloseButton.FlatStyle           = "Flat"
+$CloseButton.BackColor           = $PanelBackColor
+$CloseButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
+$CloseButton.FlatAppearance.BorderSize = 0
+$CloseFormPanel.Controls.Add($CloseButton)
+
+$CloseButton.Add_MouseEnter({
+    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCloseButton.png")
+    $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBgClose.png")
+})
+
+$CloseButton.Add_MouseLeave({
+    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
+    $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
+})
+
+$CloseButton.Add_Click({
+    $Form.Close()
+})
+
+# Maximize Form Button
+$MaximizeButton                     = New-Object System.Windows.Forms.Button
+$MaximizeButton.Location            = "36,1"
+$MaximizeButton.Size                = "36,36"
+$MaximizeButton.FlatStyle           = "Flat"
+$MaximizeButton.BackColor           = $PanelBackColor
+$MaximizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MaximizeButton.png")
+$MaximizeButton.FlatAppearance.BorderSize = 0
+$CloseFormPanel.Controls.Add($MaximizeButton)
+
+# Minimize Form Button
+$MinimizeButton                     = New-Object System.Windows.Forms.Button
+$MinimizeButton.Location            = "0,1"
+$MinimizeButton.Size                = "36,36"
+$MinimizeButton.FlatStyle           = "Flat"
+$MinimizeButton.BackColor           = $PanelBackColor
+$MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
+$MinimizeButton.FlatAppearance.BorderSize = 0
+$CloseFormPanel.Controls.Add($MinimizeButton)
+
+$MinimizeButton.Add_Click({
+    $Form.WindowState = 1
+})
+
+$MinimizeButton.Add_MouseEnter({
+    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverMinimizeButton.png")
+})
+
+$MinimizeButton.Add_MouseLeave({
+    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
+})
 
 
             ##################################
@@ -99,28 +166,27 @@ $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon(
 # Software Label
 $SLabel                          = New-Object System.Windows.Forms.Label
 $SLabel.Text                     = "S O F T W A R E"
-$SLabel.Width                    = $PanelSize
-$SLabel.Height                   = 38
-$SLabel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),5)
+$SLabel.Size                     = "440,34"
+$SLabel.Location                 = "7,1"
 $SLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
+$SLabel.BackColor                = $PanelBackColor
 $SLabel.ForeColor                = $AccentColor
 $SLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
-$SLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
-$Form.Controls.Add($SLabel)
+$FormPanel.Controls.Add($SLabel)
 
 # Software Panel
 $SPanel                          = New-Object System.Windows.Forms.Panel
-$SPanel.Height                   = 491
-$SPanel.Width                    = $PanelSize
-$SPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*0),49)
+$SPanel.Size                     = "220,509"
+$SPanel.Location                 = "233,46"
+$SPanel.BackColor                = $FormBackColor
 $SPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\STPanelBg.png")
-$Form.Controls.Add($SPanel)
+$FormPanel.Controls.Add($SPanel)
 
 $Position  = 10 # Sets Each Button Position
 
 $Buttons = @('SB1','SB2','SB3','SB4','SB5','SB6','SB7','SB8','SB9','SB10','SB11','SB12','MSB1','MSB2','MSB3','MSB4','MSB5','MSB6','MSB7','MSB8','MSB9','MSB10','MSB11','MSB12','MSB13','MSB14','MSB15','MSB16',
 'MSB17','LB1','LB2','LB3','LB4','LB5','LB6','LB7','LB8','TB1','TB2','TB3','TB4','TB5','TB6','TB7','TB8','TB9','TB10','TB11','MTB1','MTB2','MTB3','MTB4','MTB5','MTB6','MTB7','MTB8','MTB9','MTB10','MTB11','MTB12',
-'MTB13','MTB14','MTB15','MTB16','HB1','HB2','HB3','HB4','HB5','HB6')
+'MTB13','MTB14','MTB15','MTB16','HB1','HB2','HB3','HB4','HB5','HB6','HB7','HB8','HB9')
 
 foreach ($Button in $Buttons) {
     Get-Variable -Name $Button | Remove-Variable
@@ -144,12 +210,12 @@ $SB10.Text  = "uTorrent Web"
 $SB11.Text  = "NanaZip"
 $SB12.Text  = "Visual Studio Code"
 
-$Position = 10
+$Position = 6
 $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12)
 foreach ($Button in $Buttons) {
     $SPanel.Controls.Add($Button)
-    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=40
+    $Button.Location             = New-Object System.Drawing.Point(6,$Position)
+    $Position+=42
 }
 
 
@@ -160,10 +226,11 @@ foreach ($Button in $Buttons) {
 
 # More Software Panel
 $MSPanel                         = New-Object system.Windows.Forms.Panel
-$MSPanel.Height                  = 491 + 195 + 9
-$MSPanel.Width                   = $PanelSize
-$MSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),49)
+$MSPanel.Size                    = "220,719"
+$MSPanel.Location                = "7,46"
+$MSPanel.BackColor               = $FormBackColor
 $MSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\MSMTPanelBg.png")
+$FormPanel.Controls.Add($MSPanel)
 
 $MSB1.Text   = "OBS Studio"
 $MSB2.Text   = "Adobe Photoshop"
@@ -183,12 +250,12 @@ $MSB15.Text  = "Tarkov Launcher"
 $MSB16.Text  = "League of Legends"
 $MSB17.Text  = "Valorant"
 
-$Position = 10
+$Position = 6
 $Buttons = @($MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,$MSB17)
 foreach ($Button in $Buttons) {
     $MSPanel.Controls.Add($Button)
-    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=40
+    $Button.Location             = New-Object System.Drawing.Point(6,$Position)
+    $Position+=42
 }
 
 
@@ -200,22 +267,21 @@ foreach ($Button in $Buttons) {
 # Launchers Label
 $LLabel                          = New-Object System.Windows.Forms.Label
 $LLabel.Text                     = "L A U N C H E R S"
-$LLabel.Width                    = $PanelSize
-$LLabel.Height                   = 38
-$LLabel.Location                 = New-Object System.Drawing.Point($PanelSize,5)
+$LLabel.Size                     = "220,34"
+$LLabel.Location                 = "459,1"
 $LLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $LLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
-$LLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
+$LLabel.BackColor                = $PanelBackColor
 $LLabel.ForeColor                = $AccentColor
-$Form.Controls.Add($LLabel)
+$FormPanel.Controls.Add($LLabel)
 
 # Launchers Panel
 $LPanel                          = New-Object System.Windows.Forms.Panel
-$LPanel.Height                   = 344
-$LPanel.Width                    = $PanelSize
-$LPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*1),49)
+$LPanel.Size                     = "220,341"
+$LPanel.Location                 = "459,46"
+$LPanel.BackColor                = $FormBackColor
 $LPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LPanelBg.png")
-$Form.Controls.Add($LPanel)
+$FormPanel.Controls.Add($LPanel)
 
 $LB1.Text  = "Steam"
 $LB2.Text  = "EA App"
@@ -226,12 +292,12 @@ $LB6.Text  = "Rockstar Games"
 $LB7.Text  = "Epic Games Launcher"
 $LB8.Text  = "Xbox"
 
-$Position = 10
+$Position = 6
 $Buttons = @($LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8)
 foreach ($Button in $Buttons) {
     $LPanel.Controls.Add($Button)
-    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=40
+    $Button.Location             = New-Object System.Drawing.Point(6,$Position)
+    $Position+=42
 }
 
 
@@ -243,22 +309,21 @@ foreach ($Button in $Buttons) {
 # Tweaks Label
 $TLabel                          = New-Object System.Windows.Forms.Label
 $TLabel.Text                     = "T W E A K S"
-$TLabel.Width                    = $PanelSize - 3
-$TLabel.Height                   = 38
-$TLabel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),5)
+$TLabel.Size                     = "440,34"
+$TLabel.Location                 = "685,1"
 $TLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $TLabel.TextAlign                = [System.Drawing.ContentAlignment]::MiddleCenter
-$TLabel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBg.png")
+$TLabel.BackColor                = $PanelBackColor
 $TLabel.ForeColor                = $AccentColor
-$Form.Controls.Add($TLabel)
+$FormPanel.Controls.Add($TLabel)
 
 # Tweaks Panel
 $TPanel                          = New-Object System.Windows.Forms.Panel
-$TPanel.Height                   = 491
-$TPanel.Width                    = $PanelSize - 3
-$TPanel.Location                 = New-Object System.Drawing.Point(($PanelSize*2),49)
+$TPanel.Size                     = "220,509"
+$TPanel.Location                 = "685,46"
+$TPanel.BackColor                = $FormBackColor
 $TPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\STPanelBg.png")
-$Form.Controls.Add($TPanel)
+$FormPanel.Controls.Add($TPanel)
 
 $TB1.Text   = "Optimization Tweaks"
 $TB2.Text   = "Cleaning Tweaks"
@@ -272,14 +337,14 @@ $TB9.Text   = "Remove Xbox Game Bar"
 $TB10.Text  = "Tweaks In Context Menu"
 $TB11.Text  = "VisualFX Fix"
 
-$Position = 40*2+10
+$Position = 42*2+6
 $Buttons = @($TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11)
 foreach ($Button in $Buttons) {    
     $TPanel.Controls.Add($Button)
-    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=40
+    $Button.Location             = New-Object System.Drawing.Point(6,$Position)
+    $Position+=42
 }
-$TB1.Location                    = New-Object System.Drawing.Point(10,10)
+$TB1.Location                    = New-Object System.Drawing.Point(6,6)
 $TPanel.Controls.Add($TB1)
 
 
@@ -290,10 +355,11 @@ $TPanel.Controls.Add($TB1)
 
 # More Tweaks Panel
 $MTPanel                         = New-Object System.Windows.Forms.Panel
-$MTPanel.Height                  = 491 + 195 + 9
-$MTPanel.Width                   = $PanelSize - 3
+$MTPanel.Size                    = "220,719"
+$MTPanel.Location                = "911,46"
+$MTPanel.BackColor               = $FormBackColor
 $MTPanel.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\MSMTPanelBg.png")
-$MTPanel.Location                = New-Object System.Drawing.Point(($PanelSize*3),49)
+$FormPanel.Controls.Add($MTPanel)
 
 $MTB1.Text   = "Activate Windows Pro"
 $MTB2.Text   = "Visual C Runtimes"
@@ -304,7 +370,7 @@ $MTB6.Text   = "Void"
 $MTB7.Text   = "Void"
 $MTB8.Text   = "Network Config"
 $MTB9.Text   = "Autoruns"
-$MTB10.Text  = "Move User Folder"
+$MTB10.Text  = "Void"
 $MTB11.Text  = "Void"
 $MTB12.Text  = "Void"
 $MTB13.Text  = "Void"
@@ -312,14 +378,14 @@ $MTB14.Text  = "Void"
 $MTB15.Text  = "Adobe Cleaner"
 $MTB16.Text  = "AMD Undervolt Pack"
 
-$Position = 40*2+10
-$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB10,$MTB15,$MTB16)
+$Position = 42*2+6
+$Buttons = @($MTB2,$MTB3,$MTB4,$MTB5,$MTB8,$MTB9,$MTB15,$MTB16)
 foreach ($Button in $Buttons) {
     $MTPanel.Controls.Add($Button)
-    $Button.Location             = New-Object System.Drawing.Point(10,$Position)
-    $Position+=40
+    $Button.Location             = New-Object System.Drawing.Point(6,$Position)
+    $Position+=42
 }
-$MTB1.Location                   = New-Object System.Drawing.Point(10,10)
+$MTB1.Location                   = New-Object System.Drawing.Point(6,6)
 $MTPanel.Controls.Add($MTB1)
 
 
@@ -330,12 +396,11 @@ $MTPanel.Controls.Add($MTB1)
 
 # PictureBox
 $LogoBox                         = New-Object System.Windows.Forms.PictureBox
-$LogoBox.Width                   = $PanelSize
-$LogoBox.Height                  = 152
-$LogoBox.Location                = New-Object System.Drawing.Point($PanelSize,388)
-$LogoBox.SizeMode                = "Zoom"
+$LogoBox.Size                    = "220,162"
+$LogoBox.Location                = "459,393"
+$LogoBox.BackColor               = $FormBackColor
 $LogoBox.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\PictureBox.png")
-$Form.Controls.Add($LogoBox)
+$FormPanel.Controls.Add($LogoBox)
 
 
             ##################################
@@ -345,18 +410,17 @@ $Form.Controls.Add($LogoBox)
 
 # Start Script Panel
 $SSPanel                         = New-Object System.Windows.Forms.Panel
-$SSPanel.Height                  = 83
-$SSPanel.Width                   = $PanelSize*3 - 3
-$SSPanel.Location                = New-Object System.Drawing.Point(($PanelSize*0),552)
+$SSPanel.Size                    = "672,79"
+$SSPanel.Location                = "233,686"
+$SSPanel.BackColor               = $FormBackColor
 $SSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\SSPanelBg.png")
-$Form.Controls.Add($SSPanel)
+$FormPanel.Controls.Add($SSPanel)
 
 # Start Script Button
 $StartScript                     = New-Object System.Windows.Forms.Button
 $StartScript.Text                = "I N I C I A R    S C R I P T"
-$StartScript.Width               = 670
-$StartScript.Height              = 44
-$StartScript.Location            = New-Object System.Drawing.Point(10,0)
+$StartScript.Size                = "660,40" 
+$StartScript.Location            = "6,6"
 $StartScript.Font                = New-Object System.Drawing.Font('Segoe UI Semibold',20)
 $StartScript.BackColor           = $PanelBackColor
 $StartScript.ForeColor           = $AccentColor
@@ -368,11 +432,10 @@ $Button.BackColor = $PanelBackColor
 $SSPanel.Controls.Add($StartScript)
 
 # StatusBox
-$StatusBox                       = New-Object System.Windows.Forms.Button
+$StatusBox                       = New-Object System.Windows.Forms.Label
 $StatusBox.Text                  = "| Ready"
-$StatusBox.Width                 = 670
-$StatusBox.Height                = 30
-$StatusBox.Location              = New-Object System.Drawing.Point(10,47)
+$StatusBox.Size                  = "660,30"
+$StatusBox.Location              = "6,50"
 $StatusBox.Font                  = New-Object System.Drawing.Font('Lucida Console',12)
 $StatusBox.BackColor             = $PanelBackColor
 $StatusBox.FlatStyle             = "Flat"
@@ -390,45 +453,49 @@ $SSPanel.Controls.Add($StatusBox)
 
 # Hidden Panel
 $HPanel                          = New-Object System.Windows.Forms.Panel
-$HPanel.Height                   = 95
-$HPanel.Width                    = $PanelSize*3 - 3
-$HPanel.Location                 = New-Object System.Drawing.Point(($PanelSize),552)
+$HPanel.Size                     = "672,119"
+$HPanel.Location                 = "233,561"
+$HPanel.BackColor                = $FormBackColor
 $HPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\HPanelBg.png")
-
-$Position = 5
+$FormPanel.Controls.Add($HPanel)
 
 $HB1.Text      = "Settings"
-$HB1.Location  = New-Object System.Drawing.Point(10,$Position)
+$HB1.Location  = "6,6"
 
-$HB2.Text      = "Dark Theme"
-$HB2.Location  = New-Object System.Drawing.Point(240,$Position)
+$HB2.Text      = "Move User Folder"
+$HB2.Location  = "6,42"
 
 $HB3.Text      = "Context Menu Handler"
-$HB3.Location  = New-Object System.Drawing.Point(470,$Position)
-
-$Position += 49
+$HB3.Location  = "6,78"
 
 $HB4.Text      = "NVCleanstall"
-$HB4.Location  = New-Object System.Drawing.Point(10,$Position)
+$HB4.Location  = "232,6"
 
 $HB5.Text      = "Remove Realtek"
-$HB5.Location  = New-Object System.Drawing.Point(240,$Position)
+$HB5.Location  = "232,42"
 
 $HB6.Text      = "Z390 Lan Drivers"
-$HB6.Location  = New-Object System.Drawing.Point(470,$Position)
-$Position += 40
+$HB6.Location  = "232,78"
 
-$Buttons = @($HB1,$HB2,$HB3,$HB4,$HB5,$HB6)
+$HB7.Text      = "Dark Theme"
+$HB7.Location  = "458,6"
+
+$HB8.Text      = ""
+$HB8.Location  = "458,42"
+
+$HB9.Text      = ""
+$HB9.Location  = "458,78"
+
+$Buttons = @($HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
 foreach ($Button in $Buttons) {
     $HPanel.Controls.Add($Button)
 }
 
 $Buttons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
 $MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
-$MTB13,$MTB14,$MTB15,$MTB16,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6)
+$MTB13,$MTB14,$MTB15,$MTB16,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
 foreach ($Button in $Buttons) {
-    $Button.Width                = 210
-    $Button.Height               = 35
+    $Button.Size                 = "208,35"
     $Button.Font                 = New-Object System.Drawing.Font('Segoe UI',13)
     $Button.TextAlign            = [System.Drawing.ContentAlignment]::MiddleLeft
     $Button.FlatStyle            = "Flat"
@@ -436,33 +503,32 @@ foreach ($Button in $Buttons) {
     $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
     $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
     $Button.BackColor = $PanelBackColor
-    $Button.Image = $DefaultButtonColor
+    $Button.BackgroundImage = $DefaultButtonColor
 
     $Button.Add_MouseEnter({
-        if ($this.Image -eq $DefaultButtonColor) {
-            $this.Image = $HoverButtonColor
+        if ($this.BackgroundImage -eq $DefaultButtonColor) {
+            $this.BackgroundImage = $HoverButtonColor
         }
     })
 
     $Button.Add_MouseLeave({
-        if ($this.Image -eq $HoverButtonColor) {
-            $this.Image = $DefaultButtonColor
+        if ($this.BackgroundImage -eq $HoverButtonColor) {
+            $this.BackgroundImage = $DefaultButtonColor
         }
     })
 
     $Button.Add_Click({
-        if ($this.Image -eq $HoverButtonColor) {
-            $this.Image = $ActiveButtonColor
+        if ($this.BackgroundImage -eq $HoverButtonColor) {
+            $this.BackgroundImage = $ActiveButtonColor
         }else{
-            $this.Image = $DefaultButtonColor
+            $this.BackgroundImage = $DefaultButtonColor
         }
     })
 }
 
 $Buttons = @($TB1,$MTB1)
 foreach ($Button in $Buttons) {
-    $Button.Width                = 210
-    $Button.Height               = 75
+    $Button.Size                 = "208,77"
     $Button.Font                 = New-Object System.Drawing.Font('Segoe UI',13)
     $Button.TextAlign            = [System.Drawing.ContentAlignment]::MiddleLeft
     $Button.FlatStyle            = "Flat"
@@ -470,52 +536,29 @@ foreach ($Button in $Buttons) {
     $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
     $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
     $Button.BackColor = $PanelBackColor
-    $Button.Image = $DefaultButtonColorBig
+    $Button.BackgroundImage = $DefaultButtonColorBig
 
     $Button.Add_Click({
-        if ($this.Image -eq $HoverButtonColorBig) {
-            $this.Image = $ActiveButtonColorBig
+        if ($this.BackgroundImage -eq $HoverButtonColorBig) {
+            $this.BackgroundImage = $ActiveButtonColorBig
         }else {
-            $this.Image = $DefaultButtonColorBig
+            $this.BackgroundImage = $DefaultButtonColorBig
         }
     })
 
     $Button.Add_MouseEnter({
-        if ($this.Image -eq $DefaultButtonColorBig) {
-            $this.Image = $HoverButtonColorBig
+        if ($this.BackgroundImage -eq $DefaultButtonColorBig) {
+            $this.BackgroundImage = $HoverButtonColorBig
         }
     })
 
     $Button.Add_MouseLeave({
-        if ($this.Image -eq $HoverButtonColorBig) {
-            $this.Image = $DefaultButtonColorBig
+        if ($this.BackgroundImage -eq $HoverButtonColorBig) {
+            $this.BackgroundImage = $DefaultButtonColorBig
         }
     })
 }
 
-$LogoBox.Text = "Unlocked"
-$LogoBox.Add_Click({
-    if ($LogoBox.Text -eq "Unlocked") {
-        $LogoBox.Text            = "Locked"
-        $MSPanel.Width           = $PanelSize
-        $Form.Left              -= $PanelSize 
-        $Form.Top               -= 50
-        $SLabel.Width            = $PanelSize * 2 - 3
-        $SLabel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBigBg.png")
-        $SPanel.Left            += $PanelSize
-        $LLabel.Left            += $PanelSize
-        $LPanel.Left            += $PanelSize
-        $TLabel.Left            += $PanelSize
-        $TLabel.Width            = $PanelSize * 2 - 3
-        $TLabel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\LabelBigBg.png")
-        $TPanel.Left            += $PanelSize
-        $LogoBox.Left           += $PanelSize
-        $SSPanel.Left           += $PanelSize
-        $SSPanel.Top            += 80 + 28
-        $MTPanel.Left           += $PanelSize
-        $Form.Controls.AddRange(@($MSPanel,$MTPanel,$HPanel))
-    }
-})
 
 function Spotify {
     $SB4.ForeColor = $AccentColor
@@ -1504,28 +1547,28 @@ function Z390LanDrivers {
 }
 
 $StartScript.Add_MouseEnter({
-    $StartScript.Image = [System.Drawing.Image]::FromFile(("$ImagesFolder\HoverSSButtonColor.png"))
+    $StartScript.BackgroundImage = [System.Drawing.Image]::FromFile(("$ImagesFolder\HoverSSButtonColor.png"))
 })
 
 $StartScript.Add_MouseLeave({
-    $StartScript.Image = $SSNone
+    $StartScript.BackgroundImage = $SSNone
 })
 
 $StartScript.Add_Click({
-    $StartScript.Image = [System.Drawing.Image]::FromFile(("$ImagesFolder\SSProcessing.png"))
+    $StartScript.BackgroundImage = [System.Drawing.Image]::FromFile(("$ImagesFolder\SSProcessing.png"))
     $StartScript.ForeColor = "Black"
     Write-UserOutput "Iniciando Script"
 
     $AllButtons = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB8,$SB9,$SB10,$SB11,$SB12,$MSB1,$MSB2,$MSB3,$MSB4,$MSB5,$MSB6,$MSB7,$MSB8,$MSB9,$MSB10,$MSB11,$MSB12,$MSB13,$MSB14,$MSB15,$MSB16,
     $MSB17,$LB1,$LB2,$LB3,$LB4,$LB5,$LB6,$LB7,$LB8,$TB1,$TB2,$TB3,$TB4,$TB5,$TB6,$TB7,$TB8,$TB9,$TB10,$TB11,$MTB1,$MTB2,$MTB3,$MTB4,$MTB5,$MTB6,$MTB7,$MTB8,$MTB9,$MTB10,$MTB11,$MTB12,
-    $MTB13,$MTB14,$MTB15,$MTB16,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6)
+    $MTB13,$MTB14,$MTB15,$MTB16,$HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8,$HB9)
 
     $AppsToInstall   = @()
     $FormsToInvoke   = @()
     $FunctionsToRun  = @()
 
     foreach ($Button in $AllButtons) {
-        if (($Button.Image -eq $ActiveButtonColor) -or ($Button.Image -eq $ActiveButtonColorBig)) {
+        if (($Button.BackgroundImage -eq $ActiveButtonColor) -or ($Button.BackgroundImage -eq $ActiveButtonColorBig)) {
 
             $ButtonName = $Button.Text -replace " ",""
 
@@ -1546,12 +1589,12 @@ $StartScript.Add_Click({
     Invoke-Form -Forms $FormsToInvoke
 
     foreach ($Button in $AllButtons) {
-        if ($Button.Image -eq $ActiveButtonColor) {
-            $Button.Image = $DefaultButtonColor
+        if ($Button.BackgroundImage -eq $ActiveButtonColor) {
+            $Button.BackgroundImage = $DefaultButtonColor
             $Button.ForeColor = $AccentColor
         }
-        elseif ($Button.Image -eq $ActiveButtonColorBig) {
-            $Button.Image = $DefaultButtonColorBig
+        elseif ($Button.BackgroundImage -eq $ActiveButtonColorBig) {
+            $Button.BackgroundImage = $DefaultButtonColorBig
             $Button.ForeColor = $AccentColor
         }
     }
@@ -1589,7 +1632,7 @@ $StartScript.Add_Click({
         }
     }
 
-    $StartScript.Image = [System.Drawing.Image]::FromFile("$ImagesFolder\SSDefault.png")
+    $StartScript.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\SSDefault.png")
     $StartScript.ForeColor = $AccentColor
     $StatusBox.Text = "| Script Finalizado"
 })
