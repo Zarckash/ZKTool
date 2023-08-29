@@ -64,7 +64,7 @@ $Download.DownloadFile("$GitHubPath/Functions/Write-UserOutput.ps1","$TempPath\F
 . "$TempPath\Functions\Invoke-Form.ps1"
 . "$TempPath\Functions\Write-UserOutput.ps1"
 
-$ImagesFolder          = "$TempPath\Resources\Images"
+$ImagesFolder          = "H:\Users\Zarckash\Desktop\Images"
 $FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $AccentColor           = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
 $DefaultForeColor      = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
@@ -396,8 +396,8 @@ $MTPanel.Controls.Add($MTB1)
 
 # PictureBox
 $LogoBox                         = New-Object System.Windows.Forms.PictureBox
-$LogoBox.Size                    = "220,162"
-$LogoBox.Location                = "459,393"
+$LogoBox.Size                    = "220,161"
+$LogoBox.Location                = "459,394"
 $LogoBox.BackColor               = $FormBackColor
 $LogoBox.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\PictureBox.png")
 $FormPanel.Controls.Add($LogoBox)
@@ -410,8 +410,8 @@ $FormPanel.Controls.Add($LogoBox)
 
 # Start Script Panel
 $SSPanel                         = New-Object System.Windows.Forms.Panel
-$SSPanel.Size                    = "672,79"
-$SSPanel.Location                = "233,686"
+$SSPanel.Size                    = "672,77"
+$SSPanel.Location                = "233,688"
 $SSPanel.BackColor               = $FormBackColor
 $SSPanel.BackgroundImage         = [System.Drawing.Image]::FromFile("$ImagesFolder\SSPanelBg.png")
 $FormPanel.Controls.Add($SSPanel)
@@ -454,7 +454,7 @@ $SSPanel.Controls.Add($StatusBox)
 # Hidden Panel
 $HPanel                          = New-Object System.Windows.Forms.Panel
 $HPanel.Size                     = "672,119"
-$HPanel.Location                 = "233,561"
+$HPanel.Location                 = "233,562"
 $HPanel.BackColor                = $FormBackColor
 $HPanel.BackgroundImage          = [System.Drawing.Image]::FromFile("$ImagesFolder\HPanelBg.png")
 $FormPanel.Controls.Add($HPanel)

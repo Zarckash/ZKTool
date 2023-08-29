@@ -10,7 +10,7 @@ $ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$ImagesFolder\Pro
 $Download.DownloadFile("$GitHubPath/Functions/Import-Export.ps1", "$TempPath\Functions\Import-Export.ps1")
 . "$TempPath\Functions\Import-Export.ps1"
 
-$FormSize = '721,182'
+$FormSize = "721,183"
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
@@ -31,7 +31,7 @@ $FormPanel.BackgroundImage       = [System.Drawing.Image]::FromFile("$ImagesFold
 $Form.Controls.Add($FormPanel)
 
 $CloseFormPanel                  = New-Object System.Windows.Forms.Panel
-$CloseFormPanel.Size             = '109,37'
+$CloseFormPanel.Size             = "109,37"
 $CloseFormPanel.Location         = "612,0"
 $CloseFormPanel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
 $FormPanel.Controls.Add($CloseFormPanel)
