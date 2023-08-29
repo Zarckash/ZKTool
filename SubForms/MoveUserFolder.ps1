@@ -171,7 +171,7 @@ $Drives | ForEach-Object {
     $NewRadioButton.Width = 105
     $NewRadioButton.Height = 25
     $NewRadioButton.Font = New-Object System.Drawing.Font('Segoe UI',13)
-    $NewRadioButton.Location = New-Object System.Drawing.Point($Position,120)
+    $NewRadioButton.Location = New-Object System.Drawing.Point($Position,118)
     $NewRadioButton.BackColor = $FormBackColor
     $Position += 105
     $FormPanel.Controls.Add($NewRadioButton)
@@ -183,8 +183,8 @@ $Drives | ForEach-Object {
 $ButtonsPanel                    = New-Object System.Windows.Forms.Panel
 $ButtonsPanel.height             = 45
 $ButtonsPanel.width              = 255 - 2
-$ButtonsPanel.location           = New-Object System.Drawing.Point(153,155)
-$ButtonsPanel.BackColor          = $FormBackColor
+$ButtonsPanel.location           = New-Object System.Drawing.Point(153,154)
+$ButtonsPanel.BackColor          = $PanelBackColor
 $FormPanel.Controls.Add($ButtonsPanel)
 
 # Cancel Button
