@@ -64,7 +64,7 @@ $Download.DownloadFile("$GitHubPath/Functions/Write-UserOutput.ps1","$TempPath\F
 . "$TempPath\Functions\Invoke-Form.ps1"
 . "$TempPath\Functions\Write-UserOutput.ps1"
 
-$ImagesFolder          = "H:\Users\Zarckash\Desktop\Images"
+$ImagesFolder          = "$TempPath\Resources\Images"
 $FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
 $AccentColor           = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
 $DefaultForeColor      = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
@@ -74,7 +74,6 @@ $HoverButtonColor      = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverBu
 $ActiveButtonColorBig  = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColorBig.png")
 $HoverButtonColorBig   = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColorBig.png")
 
-$PanelSize = 230 # Sets Each Panel Location
 $FormSize = '1138,773'
 
 $Form                            = New-Object System.Windows.Forms.Form
