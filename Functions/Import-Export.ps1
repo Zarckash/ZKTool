@@ -177,7 +177,7 @@
                 Expand-Archive -Path $_ -DestinationPath $Path.($_.BaseName) -Force
             }
 
-            if (Test-Path ($Path.Backup + 'RivaTuner.zip')) {
+            if (Test-Path ($Path.Backup + '\RivaTuner.zip')) {
                 Move-Item -Path ($Path.RivaTuner + '\Config') -Destination ($Path.RivaTuner + '\ProfileTemplates') -Force
             }
 
