@@ -55,7 +55,7 @@ Get-ChildItem -Path "$env:temp\ZKTool\Resources\HaskligFont" | ForEach-Object {
 Write-TypeHost "`r`nCreando Tarea Programada..."
 $Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
 $Trigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Monday -At 10am
-Register-ScheduledTask -TaskName "ZKToolUpdater" -Action $Action -Trigger $Trigger | Out-Null
+Register-ScheduledTask -TaskName "ZKToolOptimizer" -Action $Action -Trigger $Trigger | Out-Null
 
 # Check Winget
 Write-TypeHost "`r`nComprobando Winget..."
