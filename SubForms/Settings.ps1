@@ -241,17 +241,6 @@ $R1B4.Add_Click({
     Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
-# CSGO
-$R2B1.Add_Click({
-    $Download.DownloadFile("$GitHubPath/Files/.zip/CSGO.zip", "$TempPath\Files\CSGO.zip")
-    Expand-Archive -Path ("$TempPath\Files\CSGO.zip") -DestinationPath ("$TempPath\Files\") -Force
-    $UserIds = Get-ChildItem "C:\Program Files (x86)\Steam\userdata" -Directory
-    foreach ($Id in $UserIds.name) {
-        Copy-Item -Path ("$TempPath\Files\730") -Destination "C:\Program Files (x86)\Steam\userdata\$Id" -Recurse -Force
-    }
-    Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
-})
-
 # MSI Afterburner
 $R2B1.Add_Click({
     $Download.DownloadFile("$GitHubPath/Files/.zip/MSIAfterburner.zip", "$TempPath\Files\MSIAfterburner.zip")
