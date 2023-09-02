@@ -20,7 +20,7 @@ finally {
         Start-Process Powershell {
             $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
             Write-Host 'Actualizando ZKTool App...'
-            Start-Sleep 2
+            Start-Sleep 4
             New-Item $env:temp\ZKTool\Resources\ -ItemType Directory -Force | Out-Null
             Invoke-WebRequest -Uri 'https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip' -OutFile ($env:temp + '\ZKTool\Resources\ZKTool.zip')
             Expand-Archive -Path ($env:temp + '\ZKTool\Resources\ZKTool.zip') -DestinationPath ($env:ProgramFiles + '\ZKTool') -Force
@@ -662,12 +662,6 @@ function OptimizationTweaks {
         Write-UserOutput "La Cantidad De Memoria RAM Es Superior A Los 16GB, No Se Realizara Ningun Cambio"
     }
 
-    # Energy Profile Settings
-    Write-UserOutput "Estableciendo Perfil De Alto Rendimiento"
-    powercfg.exe -SETACTIVE 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
-    powercfg /Change monitor-timeout-ac 15
-    powercfg /Change standby-timeout-ac 0
-
     # Rebuild Performance Counters
     Write-UserOutput "Reconstruyendo Contadores De Rendimiento"
     lodctr /r
@@ -685,6 +679,17 @@ function OptimizationTweaks {
     Start-Sleep 3
     .\SetTimerResolutionService.exe -install | Out-File $LogPath -Encoding UTF8 -Append
     Pop-Location
+
+    # Install Bitsum Power Plan
+    Write-Output "Instalando Bitsum Power Plan"
+    $Download.DownloadFile("$GitHubPath/Files/BitsumPowerPlan.pow", "$TempPath\Files\BitsumPowerPlan.pow")
+    powercfg -import "$TempPath\Files\BitsumPowerPlan.pow" 77777777-7777-7777-7777-777777777777
+    powercfg -SETACTIVE "77777777-7777-7777-7777-777777777777"
+    powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c # Remove High Performance Profile
+    powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a # Remove Power Saver Profile
+    powercfg -h off
+    powercfg -change monitor-timeout-ac 15
+    powercfg -change standby-timeout-ac 0
 
     # Windows Defender Exclusions
     Write-UserOutput "Aplicando Exclusiones A Windows Defender"
@@ -892,6 +897,10 @@ function OptimizationTweaks {
         New-Item "C:\PerfLogs" -ItemType Directory
     }
     (Get-Item "C:\PerfLogs").Attributes = 'Hidden'
+    if (!(Test-Path -Path "C:\Intel")) {
+        New-Item "C:\Intel" -ItemType Directory
+    }
+    (Get-Item "C:\Intel").Attributes = 'Hidden'
 
     # Stop Microsoft Store From Updating Apps Automatically
     Write-UserOutput "Desactivando Actualizaciones Automáticas De Microsoft Store"
