@@ -17,16 +17,9 @@ catch {                                                                         
 finally {
     if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $AppVersion)) {
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" -Value $AppVersion
-        Start-Process Powershell {
-            $host.UI.RawUI.WindowTitle = 'ZKTool Updater'
-            Write-Host 'Actualizando ZKTool App...'
+        Start-Process Powershell -WindowStyle Hidden{
             Start-Sleep 4
-            New-Item $env:temp\ZKTool\Resources\ -ItemType Directory -Force | Out-Null
-            Invoke-WebRequest -Uri 'https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip' -OutFile ($env:temp + '\ZKTool\Resources\ZKTool.zip')
-            Expand-Archive -Path ($env:temp + '\ZKTool\Resources\ZKTool.zip') -DestinationPath ($env:ProgramFiles + '\ZKTool') -Force
-            Remove-Item -Path ($env:ProgramFiles + '\ZKTool\ZKTool.lnk')
-            Start-Process ($env:ProgramFiles + '\ZKTool\ZKTool.exe')
-            Start-Sleep 1
+            Invoke-Expression (Invoke-WebRequest -useb 'https://raw.githubusercontent.com/Zarckash/ZKTool/main/Initialize.ps1')
         }
         exit
     }
