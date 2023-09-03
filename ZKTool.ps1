@@ -45,10 +45,6 @@ $FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#202020") #
 $PanelBackColor        = [System.Drawing.ColorTranslator]::FromHtml("#2B2B2B") # Black Light
 $AccentColor           = [System.Drawing.ColorTranslator]::FromHtml("#ACA5F3") # Purple
 $DefaultForeColor      = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF") # White
-$ActiveButtonColor     = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColor.png")
-$HoverButtonColor      = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColor.png")
-$ActiveButtonColorBig  = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColorBig.png")
-$HoverButtonColorBig   = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColorBig.png")
 
 # Defining Lists
 $AppsList    = $Download.DownloadString("$GitHubPath/Resources/Apps.json")  | ConvertFrom-Json
@@ -490,6 +486,11 @@ foreach ($Button in $Buttons) {
     $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
     $Button.BackColor = $PanelBackColor
     $Button.BackgroundImage = $DefaultButtonColor
+
+    $ActiveButtonColor     = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColor.png")
+    $HoverButtonColor      = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColor.png")
+    $ActiveButtonColorBig  = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColorBig.png")
+    $HoverButtonColorBig   = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColorBig.png")
 
     $Button.Add_MouseEnter({
         if ($this.BackgroundImage -eq $DefaultButtonColor) {
