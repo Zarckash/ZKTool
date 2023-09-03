@@ -415,7 +415,6 @@ $StartScript.FlatStyle           = "Flat"
 $StartScript.FlatAppearance.BorderSize = 0
 $StartScript.FlatAppearance.MouseOverBackColor = $PanelBackColor
 $StartScript.FlatAppearance.MouseDownBackColor = $PanelBackColor
-$Button.BackColor = $PanelBackColor
 $SSPanel.Controls.Add($StartScript)
 
 # StatusBox
@@ -494,7 +493,7 @@ foreach ($Button in $Buttons) {
 
     $Button.Add_MouseEnter({
         if ($this.BackgroundImage -eq $DefaultButtonColor) {
-            $this.BackgroundImage = $HoverButtonColor
+            $this.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColor.png")
         }
     })
 
