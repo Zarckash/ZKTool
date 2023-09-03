@@ -30,7 +30,7 @@ if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
 
     # Rebuild Icon Cache
     ie4uinit.exe -show
-    taskkill /IM explorer.exe /F
+    taskkill /f /im explorer.exe | Out-Null
     Remove-Item -Path "$env:localappdata\IconCache.db" -Force
     Remove-Item -Path "$env:localappdata\Microsoft\Windows\Explorer\iconcache*" -Force
     explorer.exe
