@@ -31,6 +31,14 @@ $TempPath    = "$env:temp\ZKTool"                                   # Folder Str
 $LogPath     = "$env:temp\1ZKTool.log"                              # Script Log Path
 $ZKToolPath  = "$env:ProgramFiles\ZKTool"                           # ZKTool App Path
 
+# Cleaning Last Log File
+Remove-Item $LogPath | Out-Null
+
+# Creating Folders
+New-Item "$TempPath\Files" -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+New-Item "$TempPath\Functions" -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+New-Item "$TempPath\Resources" -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
+
 # Color Variables
 $ImagesFolder          = "$TempPath\Resources\Images"
 $FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#202020") # Black
@@ -46,14 +54,6 @@ $HoverButtonColorBig   = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverBu
 $AppsList    = $Download.DownloadString("$GitHubPath/Resources/Apps.json")  | ConvertFrom-Json
 $FormsList   = $Download.DownloadString("$GitHubPath/Resources/Forms.json") | ConvertFrom-Json
 
-# Cleaning Last Log File
-$LogPath     = "$env:temp\1ZKTool.log"
-Remove-Item $LogPath | Out-Null
-
-# Creating Folders
-New-Item $env:temp\ZKTool\Files -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
-New-Item $env:temp\ZKTool\Functions -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
-New-Item $env:temp\ZKTool\Resources -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
 $Download.DownloadFile("$GitHubPath/Resources/Images.zip", "$TempPath\Resources\Images.zip")
 Expand-Archive -Path "$TempPath\Resources\Images.zip" -DestinationPath "$TempPath\Resources\Images\" -Force
 
@@ -493,7 +493,7 @@ foreach ($Button in $Buttons) {
 
     $Button.Add_MouseEnter({
         if ($this.BackgroundImage -eq $DefaultButtonColor) {
-            $this.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColor.png")
+            $this.BackgroundImage = $HoverButtonColor
         }
     })
 
