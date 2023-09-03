@@ -27,7 +27,16 @@ if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
     Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip" -OutFile "$env:temp\ZKTool\Resources\ZKTool.zip"
     Expand-Archive -Path "$env:temp\ZKTool\Resources\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
     Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
+
+    # Rebuild Icon Cache
+    ie4uinit.exe -show
+    taskkill /IM explorer.exe /F
+    Remove-Item -Path "$env:localappdata\IconCache.db" -Force
+    Remove-Item -Path "$env:localappdata\Microsoft\Windows\Explorer\iconcache*" -Force
+    explorer.exe
+
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+    Remove-Item -Path "HKCR:\Directory\Background\shell\ZKTool" -Recurse -Force
     New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0"
@@ -84,6 +93,6 @@ else { # Install ZKTool
 Write-Host "`r`n`r`n        ###################" -ForegroundColor Green
 Write-Host "        #####  READY  #####" -ForegroundColor Green
 Write-Host "        ###################" -ForegroundColor Green
-Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe -Wait
+Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe
 
 Exit

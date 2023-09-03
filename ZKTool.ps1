@@ -17,11 +17,8 @@ catch {                                                                         
 finally {
     if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $AppVersion)) {
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" -Value $AppVersion
-        Start-Process Powershell -WindowStyle Hidden{
-            Start-Sleep 4
-            Start-Process Powershell {
-                Invoke-Expression (Invoke-WebRequest -useb 'https://raw.githubusercontent.com/Zarckash/ZKTool/main/Initialize.ps1')
-            }
+        Start-Process Powershell {
+            Invoke-Expression (Invoke-WebRequest -useb 'https://raw.githubusercontent.com/Zarckash/ZKTool/main/Initialize.ps1')
         }
         exit
     }
