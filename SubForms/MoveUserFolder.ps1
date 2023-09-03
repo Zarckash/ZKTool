@@ -1,9 +1,6 @@
 ﻿Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-$ErrorActionPreference = 'SilentlyContinue'
-$ConfirmPreference = 'None'
-
 $FormSize = "555,202"
 
 $Form                            = New-Object System.Windows.Forms.Form
@@ -15,7 +12,6 @@ $Form.FormBorderStyle            = "None"
 $Form.Size                       = $FormSize
 $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $false
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
 $Form.BackColor                  = "LimeGreen"
 $Form.TransparencyKey            = "LimeGreen"
 
@@ -26,14 +22,14 @@ $FormPanel.BackgroundImage       = [System.Drawing.Image]::FromFile("$ImagesFold
 $Form.Controls.Add($FormPanel)
 
 $FormClosePanel                  = New-Object System.Windows.Forms.Panel
-$FormClosePanel.Size             = '109,37'
+$FormClosePanel.Size             = "109,37"
 $FormClosePanel.Location         = "612,0"
 $FormClosePanel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
 
 $FormPanel.Controls.Add($FormClosePanel)
 
 $CloseFormPanel                  = New-Object System.Windows.Forms.Panel
-$CloseFormPanel.Size             = '109,37'
+$CloseFormPanel.Size             = "109,37"
 $CloseFormPanel.Location         = "446,0"
 $CloseFormPanel.BackgroundImage  = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
 $FormPanel.Controls.Add($CloseFormPanel)
@@ -42,19 +38,14 @@ $FormPanel.Controls.Add($CloseFormPanel)
 $CloseButton                     = New-Object System.Windows.Forms.Button
 $CloseButton.Location            = "72,3"
 $CloseButton.Size                = "34,34"
-$CloseButton.FlatStyle           = "Flat"
-$CloseButton.BackColor           = $PanelBackColor
 $CloseButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
-$CloseButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($CloseButton)
 
 $CloseButton.Add_MouseEnter({
-    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCloseButton.png")
     $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBgClose.png")
 })
 
 $CloseButton.Add_MouseLeave({
-    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
     $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
 })
 
@@ -66,47 +57,43 @@ $CloseButton.Add_Click({
 $MaximizeButton                     = New-Object System.Windows.Forms.Button
 $MaximizeButton.Location            = "36,1"
 $MaximizeButton.Size                = "36,36"
-$MaximizeButton.FlatStyle           = "Flat"
-$MaximizeButton.BackColor           = $PanelBackColor
 $MaximizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MaximizeButton.png")
-$MaximizeButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($MaximizeButton)
 
 # Minimize Form Button
 $MinimizeButton                     = New-Object System.Windows.Forms.Button
 $MinimizeButton.Location            = "0,1"
 $MinimizeButton.Size                = "36,36"
-$MinimizeButton.FlatStyle           = "Flat"
-$MinimizeButton.BackColor           = $PanelBackColor
 $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
-$MinimizeButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($MinimizeButton)
 
 $MinimizeButton.Add_Click({
     $Form.WindowState = 1
 })
 
-$MinimizeButton.Add_MouseEnter({
-    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverMinimizeButton.png")
-})
+$Buttons = @($MinimizeButton,$MaximizeButton,$CloseButton)
+foreach ($Button in $Buttons) {
+    $Button.FlatStyle            = "Flat"
+    $Button.FlatAppearance.BorderSize = 0
+    $Button.BackColor = $PanelBackColor
+    $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
+    $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
+}
 
-$MinimizeButton.Add_MouseLeave({
-    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
-})
+$MinimizeButton.FlatAppearance.MouseOverBackColor = [System.Drawing.ColorTranslator]::FromHtml("#3C3C3C")
+$CloseButton.FlatAppearance.MouseOverBackColor = [System.Drawing.ColorTranslator]::FromHtml("#C42B1C")
+$CloseButton.FlatAppearance.MouseDownBackColor = [System.Drawing.ColorTranslator]::FromHtml("#C42B1C")
 
 # Title Label
 $TitleLabel                      = New-Object System.Windows.Forms.Label
 $TitleLabel.Text                 = "M O V E    U S E R    FOLDER"
-$TitleLabel.Width                = 544
-$TitleLabel.Height               = 36
-$TitleLabel.Location             = New-Object System.Drawing.Point(7,1)
+$TitleLabel.Size                 = "504,36"
+$TitleLabel.Location             = "27,1"
 $TitleLabel.Font                 = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $TitleLabel.ForeColor            = $AccentColor
 $TitleLabel.BackColor            = $PanelBackColor
 $TitleLabel.TextAlign            = [System.Drawing.ContentAlignment]::MiddleCenter
 $FormPanel.Controls.Add($TitleLabel)
-
-
 
 $CheckBoxes = @('SelectAll','Desktop','Downloads','Documents','Pictures','Videos','Music')
 

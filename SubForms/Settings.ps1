@@ -1,9 +1,6 @@
 ﻿Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-$ErrorActionPreference = 'SilentlyContinue'
-$ConfirmPreference = 'None'
-
 $HoverGameButtonColor = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverGameButtonColor.png")
 $ProcessingGameButtonColor = [System.Drawing.Image]::FromFile("$ImagesFolder\ProcessingGameButtonColor.png")
 
@@ -20,7 +17,6 @@ $Form.TopMost                    = $false
 $Form.FormBorderStyle            = "None"
 $Form.Size                       = $FormSize
 $Form.ForeColor                  = $DefaultForeColor
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
 $Form.BackColor                  = "LimeGreen"
 $Form.TransparencyKey            = "LimeGreen"
 
@@ -40,19 +36,14 @@ $FormPanel.Controls.Add($CloseFormPanel)
 $CloseButton                     = New-Object System.Windows.Forms.Button
 $CloseButton.Location            = "72,3"
 $CloseButton.Size                = "34,34"
-$CloseButton.FlatStyle           = "Flat"
-$CloseButton.BackColor           = $PanelBackColor
 $CloseButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
-$CloseButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($CloseButton)
 
 $CloseButton.Add_MouseEnter({
-    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCloseButton.png")
     $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBgClose.png")
 })
 
 $CloseButton.Add_MouseLeave({
-    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
     $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
 })
 
@@ -64,39 +55,38 @@ $CloseButton.Add_Click({
 $MaximizeButton                     = New-Object System.Windows.Forms.Button
 $MaximizeButton.Location            = "36,1"
 $MaximizeButton.Size                = "36,36"
-$MaximizeButton.FlatStyle           = "Flat"
-$MaximizeButton.BackColor           = $PanelBackColor
 $MaximizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MaximizeButton.png")
-$MaximizeButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($MaximizeButton)
 
 # Minimize Form Button
 $MinimizeButton                     = New-Object System.Windows.Forms.Button
 $MinimizeButton.Location            = "0,1"
 $MinimizeButton.Size                = "36,36"
-$MinimizeButton.FlatStyle           = "Flat"
-$MinimizeButton.BackColor           = $PanelBackColor
 $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
-$MinimizeButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($MinimizeButton)
 
 $MinimizeButton.Add_Click({
     $Form.WindowState = 1
 })
 
-$MinimizeButton.Add_MouseEnter({
-    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverMinimizeButton.png")
-})
+$Buttons = @($MinimizeButton,$MaximizeButton,$CloseButton)
+foreach ($Button in $Buttons) {
+    $Button.FlatStyle            = "Flat"
+    $Button.FlatAppearance.BorderSize = 0
+    $Button.BackColor = $PanelBackColor
+    $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
+    $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
+}
 
-$MinimizeButton.Add_MouseLeave({
-    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
-})
+$MinimizeButton.FlatAppearance.MouseOverBackColor = [System.Drawing.ColorTranslator]::FromHtml("#3C3C3C")
+$CloseButton.FlatAppearance.MouseOverBackColor = [System.Drawing.ColorTranslator]::FromHtml("#C42B1C")
+$CloseButton.FlatAppearance.MouseDownBackColor = [System.Drawing.ColorTranslator]::FromHtml("#C42B1C")
 
 # Label
 $Label                           = New-Object System.Windows.Forms.Label
 $Label.Text                      = "G A M E    S E T T I N G S"
-$Label.Size                      = "708,34"
-$Label.Location                  = "7,1"
+$Label.Size                      = "688,34"
+$Label.Location                  = "27,1"
 $Label.Font                      = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $Label.ForeColor                 = $AccentColor
 $Label.BackColor                 = $PanelBackColor
@@ -181,24 +171,24 @@ foreach ($Button in $Buttons) {
     $Button.FlatAppearance.BorderSize = 0
     $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
     $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
-    $Button.Image = $DefaultGameButtonColor
+    $Button.BackgroundImage = $DefaultGameButtonColor
     $Button.BackColor = $PanelBackColor
     
 
     $Button.Add_MouseEnter({
-        if ($this.Image -eq $DefaultGameButtonColor) {
-            $this.Image = $HoverGameButtonColor
+        if ($this.BackgroundImage -eq $DefaultGameButtonColor) {
+            $this.BackgroundImage = $HoverGameButtonColor
         }
     })
 
     $Button.Add_MouseLeave({
-        if ($this.Image -eq $HoverGameButtonColor) {
-            $this.Image = $DefaultGameButtonColor
+        if ($this.BackgroundImage -eq $HoverGameButtonColor) {
+            $this.BackgroundImage = $DefaultGameButtonColor
         }
     })
 
     $Button.Add_Click({
-            $this.Image = $ProcessingGameButtonColor
+            $this.BackgroundImage = $ProcessingGameButtonColor
             $this.ForeColor = "Black"
     })
 }

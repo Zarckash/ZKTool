@@ -7,7 +7,7 @@ $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
 # Checking For Updates
-$AppVersion = 3.1
+$AppVersion = 3.2
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -24,20 +24,31 @@ finally {
             New-Item $env:temp\ZKTool\Resources\ -ItemType Directory -Force | Out-Null
             Invoke-WebRequest -Uri 'https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip' -OutFile ($env:temp + '\ZKTool\Resources\ZKTool.zip')
             Expand-Archive -Path ($env:temp + '\ZKTool\Resources\ZKTool.zip') -DestinationPath ($env:ProgramFiles + '\ZKTool') -Force
+            Remove-Item -Path ($env:ProgramFiles + '\ZKTool\ZKTool.lnk')
             Start-Process ($env:ProgramFiles + '\ZKTool\ZKTool.exe')
             Start-Sleep 1
         }
         exit
     }
 }
-
-$Download = New-Object System.Net.WebClient                         # Creating Download Method        
-
-# Defining Paths
-$GitHubPath  = "https://github.com/Zarckash/ZKTool/raw/main"        # GitHub Downloads URL
+              
+# Defining Variables
+$Download    = New-Object System.Net.WebClient                      # Download Method
+$GitHubPath  = "$TempPath\Resources\Images"                         # GitHub Downloads URL
 $TempPath    = "$env:temp\ZKTool"                                   # Folder Structure Path
 $LogPath     = "$env:temp\1ZKTool.log"                              # Script Log Path
 $ZKToolPath  = "$env:ProgramFiles\ZKTool"                           # ZKTool App Path
+
+# Color Variables
+$ImagesFolder          = "H:\Users\Zarckash\Desktop\Images"
+$FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#202020") # Black
+$PanelBackColor        = [System.Drawing.ColorTranslator]::FromHtml("#2B2B2B") # Black Light
+$AccentColor           = [System.Drawing.ColorTranslator]::FromHtml("#ACA5F3") # Purple
+$DefaultForeColor      = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF") # White
+$ActiveButtonColor     = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColor.png")
+$HoverButtonColor      = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColor.png")
+$ActiveButtonColorBig  = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColorBig.png")
+$HoverButtonColorBig   = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColorBig.png")
 
 # Defining Lists
 $AppsList    = $Download.DownloadString("$GitHubPath/Resources/Apps.json")  | ConvertFrom-Json
@@ -64,17 +75,7 @@ $Download.DownloadFile("$GitHubPath/Functions/Write-UserOutput.ps1","$TempPath\F
 . "$TempPath\Functions\Invoke-Form.ps1"
 . "$TempPath\Functions\Write-UserOutput.ps1"
 
-$ImagesFolder          = "$TempPath\Resources\Images"
-$FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#272E3D")
-$AccentColor           = [System.Drawing.ColorTranslator]::FromHtml("#26FFB3") 
-$DefaultForeColor      = [System.Drawing.ColorTranslator]::FromHtml("#FFFFFF")
-$PanelBackColor        = [System.Drawing.ColorTranslator]::FromHtml("#3D4351")
-$ActiveButtonColor     = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColor.png")
-$HoverButtonColor      = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColor.png")
-$ActiveButtonColorBig  = [System.Drawing.Image]::FromFile("$ImagesFolder\ActiveButtonColorBig.png")
-$HoverButtonColorBig   = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverButtonColorBig.png")
-
-$FormSize = '1138,773'
+$FormSize = "1138,773"
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 779)
@@ -84,7 +85,6 @@ $Form.TopMost                    = $false
 $Form.FormBorderStyle            = "None"
 $Form.Size                       = $FormSize
 $Form.ForeColor                  = $DefaultForeColor
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
 $Form.BackColor                  = "LimeGreen"
 $Form.TransparencyKey            = "LimeGreen"
 
@@ -104,19 +104,14 @@ $FormPanel.Controls.Add($CloseFormPanel)
 $CloseButton                     = New-Object System.Windows.Forms.Button
 $CloseButton.Location            = "72,3"
 $CloseButton.Size                = "34,34"
-$CloseButton.FlatStyle           = "Flat"
-$CloseButton.BackColor           = $PanelBackColor
 $CloseButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
-$CloseButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($CloseButton)
 
 $CloseButton.Add_MouseEnter({
-    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCloseButton.png")
     $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBgClose.png")
 })
 
 $CloseButton.Add_MouseLeave({
-    $CloseButton.BackgroundImage    = [System.Drawing.Image]::FromFile("$ImagesFolder\CloseButton.png")
     $CloseFormPanel.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\FormClosePanelBg.png")
 })
 
@@ -128,33 +123,33 @@ $CloseButton.Add_Click({
 $MaximizeButton                     = New-Object System.Windows.Forms.Button
 $MaximizeButton.Location            = "36,1"
 $MaximizeButton.Size                = "36,36"
-$MaximizeButton.FlatStyle           = "Flat"
-$MaximizeButton.BackColor           = $PanelBackColor
 $MaximizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MaximizeButton.png")
-$MaximizeButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($MaximizeButton)
 
 # Minimize Form Button
 $MinimizeButton                     = New-Object System.Windows.Forms.Button
 $MinimizeButton.Location            = "0,1"
 $MinimizeButton.Size                = "36,36"
-$MinimizeButton.FlatStyle           = "Flat"
-$MinimizeButton.BackColor           = $PanelBackColor
 $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
-$MinimizeButton.FlatAppearance.BorderSize = 0
 $CloseFormPanel.Controls.Add($MinimizeButton)
 
 $MinimizeButton.Add_Click({
     $Form.WindowState = 1
 })
 
-$MinimizeButton.Add_MouseEnter({
-    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverMinimizeButton.png")
-})
+$Buttons = @($MinimizeButton,$MaximizeButton,$CloseButton)
+foreach ($Button in $Buttons) {
+    $Button.FlatStyle            = "Flat"
+    $Button.FlatAppearance.BorderSize = 0
+    $Button.BackColor = $PanelBackColor
+    $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
+    $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
+}
 
-$MinimizeButton.Add_MouseLeave({
-    $MinimizeButton.BackgroundImage     = [System.Drawing.Image]::FromFile("$ImagesFolder\MinimizeButton.png")
-})
+$MinimizeButton.FlatAppearance.MouseOverBackColor = [System.Drawing.ColorTranslator]::FromHtml("#3C3C3C")
+$CloseButton.FlatAppearance.MouseOverBackColor = [System.Drawing.ColorTranslator]::FromHtml("#C42B1C")
+$CloseButton.FlatAppearance.MouseDownBackColor = [System.Drawing.ColorTranslator]::FromHtml("#C42B1C")
+
 
 
             ##################################
@@ -165,8 +160,8 @@ $MinimizeButton.Add_MouseLeave({
 # Software Label
 $SLabel                          = New-Object System.Windows.Forms.Label
 $SLabel.Text                     = "S O F T W A R E"
-$SLabel.Size                     = "440,34"
-$SLabel.Location                 = "7,1"
+$SLabel.Size                     = "415,34"
+$SLabel.Location                 = "27,1"
 $SLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $SLabel.BackColor                = $PanelBackColor
 $SLabel.ForeColor                = $AccentColor
@@ -683,7 +678,7 @@ function OptimizationTweaks {
     # Install Bitsum Power Plan
     Write-Output "Instalando Bitsum Power Plan"
     $Download.DownloadFile("$GitHubPath/Files/BitsumPowerPlan.pow", "$TempPath\Files\BitsumPowerPlan.pow")
-    powercfg -import "$TempPath\Files\BitsumPowerPlan.pow" 77777777-7777-7777-7777-777777777777
+    powercfg -import "$TempPath\Files\BitsumPowerPlan.pow" 77777777-7777-7777-7777-777777777777 | Out-File $LogPath -Encoding UTF8 -Append
     powercfg -SETACTIVE "77777777-7777-7777-7777-777777777777"
     powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c # Remove High Performance Profile
     powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a # Remove Power Saver Profile

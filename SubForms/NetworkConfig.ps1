@@ -1,10 +1,7 @@
 ﻿Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-$ErrorActionPreference = 'SilentlyContinue'
-$ConfirmPreference = 'None'
-
-$FormSize = '265,282'
+$FormSize = "265,282"
 
 $Form                            = New-Object System.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(1050, 700)
@@ -15,7 +12,6 @@ $Form.FormBorderStyle            = "None"
 $Form.Size                       = $FormSize
 $Form.ForeColor                  = $DefaultForeColor
 $Form.MaximizeBox                = $false
-$Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon("$ImagesFolder\ZKLogo.ico")
 $Form.BackColor                  = "LimeGreen"
 $Form.TransparencyKey            = "LimeGreen"
 
@@ -119,18 +115,22 @@ foreach ($Button in $Buttons) {
     $Button.FlatAppearance.MouseOverBackColor = $PanelBackColor
     $Button.FlatAppearance.MouseDownBackColor = $PanelBackColor
     $Button.BackColor = $PanelBackColor
-    $Button.Image = $DefaultButtonColor
 
     $Button.Add_MouseEnter({
         if (($this.Text -eq "Buscar IPs") -or ($this.Text -eq "Buscar Mas IPs")) {
-            $this.Image = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverSearchIPButton.png")
+            $this.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverSearchIPButton.png")
         } else {
-            $this.Image = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCancelAcceptButton.png")
+            $this.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\HoverCancelAcceptButton.png")
         }
     })
 
     $Button.Add_MouseLeave({
-        $this.Image = $None
+        if (($this.Text -eq "Buscar IPs") -or ($this.Text -eq "Buscar Mas IPs")) {
+            $this.BackgroundImage = $None
+        } else {
+            $this.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\CancelAcceptButton.png")
+        }
+
     })
 }
 
@@ -140,7 +140,8 @@ $i.Width = 20
 
 # Search IPs Button
 $SearchIP.Add_Click({
-    $SearchIP.BackColor = $ProcessingColor
+    $SearchIP.BackgroundImage = [System.Drawing.Image]::FromFile("$ImagesFolder\ProcessingSearchIPButton.png")
+    $SearchIP.ForeColor = "Black"
     $Condition = $false
     $AvaibleIPs.Text = ""
 
@@ -157,7 +158,8 @@ $SearchIP.Add_Click({
     }
     
     $SearchIP.Text = "Buscar Mas IPs"
-    $SearchIP.BackColor = $ButtonColor
+    $SearchIP.ForeColor = $DefaultForeColor
+    $SearchIP.BackgroundImage = $Empty
 })
 
 # Cancel Button
