@@ -34,13 +34,13 @@ finally {
               
 # Defining Variables
 $Download    = New-Object System.Net.WebClient                      # Download Method
-$GitHubPath  = "$TempPath\Resources\Images"                         # GitHub Downloads URL
+$GitHubPath  = "https://github.com/Zarckash/ZKTool/raw/main"        # GitHub Downloads URL
 $TempPath    = "$env:temp\ZKTool"                                   # Folder Structure Path
 $LogPath     = "$env:temp\1ZKTool.log"                              # Script Log Path
 $ZKToolPath  = "$env:ProgramFiles\ZKTool"                           # ZKTool App Path
 
 # Color Variables
-$ImagesFolder          = "H:\Users\Zarckash\Desktop\Images"
+$ImagesFolder          = "$TempPath\Resources\Images"
 $FormBackColor         = [System.Drawing.ColorTranslator]::FromHtml("#202020") # Black
 $PanelBackColor        = [System.Drawing.ColorTranslator]::FromHtml("#2B2B2B") # Black Light
 $AccentColor           = [System.Drawing.ColorTranslator]::FromHtml("#ACA5F3") # Purple
