@@ -113,6 +113,7 @@
             Get-Process 'MEGAcmdServer' | Stop-Process
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\Uninstall MEGAcmd.lnk')
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
 
@@ -166,9 +167,10 @@
             Get-Process 'MEGAcmdServer' | Stop-Process
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
+            Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\Uninstall MEGAcmd.lnk')
             Remove-Item -Path ((Get-ItemPropertyValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -Name 'Desktop') + '\MEGAcmd.lnk')
             Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEGAcmd' -Recurse -Force
-
+            
             Write-TypeHost 'Descomprimiendo Archivo...'
             Expand-Archive -Path ($Path.Temp + '\' + $env:username + 'Backup.zip') -DestinationPath $Path.Backup -Force
 
