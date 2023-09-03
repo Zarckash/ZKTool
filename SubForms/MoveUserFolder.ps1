@@ -87,8 +87,8 @@ $CloseButton.FlatAppearance.MouseDownBackColor = [System.Drawing.ColorTranslator
 # Title Label
 $TitleLabel                      = New-Object System.Windows.Forms.Label
 $TitleLabel.Text                 = "M O V E    U S E R    FOLDER"
-$TitleLabel.Size                 = "504,36"
-$TitleLabel.Location             = "27,1"
+$TitleLabel.Size                 = "500,36"
+$TitleLabel.Location             = "31,1"
 $TitleLabel.Font                 = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $TitleLabel.ForeColor            = $AccentColor
 $TitleLabel.BackColor            = $PanelBackColor

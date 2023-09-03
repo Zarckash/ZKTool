@@ -149,8 +149,8 @@ $CloseButton.FlatAppearance.MouseDownBackColor = [System.Drawing.ColorTranslator
 # Software Label
 $SLabel                          = New-Object System.Windows.Forms.Label
 $SLabel.Text                     = "S O F T W A R E"
-$SLabel.Size                     = "415,34"
-$SLabel.Location                 = "27,1"
+$SLabel.Size                     = "411,34"
+$SLabel.Location                 = "31,1"
 $SLabel.Font                     = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $SLabel.BackColor                = $PanelBackColor
 $SLabel.ForeColor                = $AccentColor

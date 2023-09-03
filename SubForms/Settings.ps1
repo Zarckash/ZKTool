@@ -86,8 +86,8 @@ $CloseButton.FlatAppearance.MouseDownBackColor = [System.Drawing.ColorTranslator
 # Label
 $Label                           = New-Object System.Windows.Forms.Label
 $Label.Text                      = "G A M E    S E T T I N G S"
-$Label.Size                      = "688,34"
-$Label.Location                  = "27,1"
+$Label.Size                      = "684,34"
+$Label.Location                  = "31,1"
 $Label.Font                      = New-Object System.Drawing.Font('Segoe UI Semibold',15)
 $Label.ForeColor                 = $AccentColor
 $Label.BackColor                 = $PanelBackColor
