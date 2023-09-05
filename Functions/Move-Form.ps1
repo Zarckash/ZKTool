@@ -15,7 +15,10 @@
 
     $SelectedLabel.Add_MouseMove({ 
         if ($global:Dragging) {
-            $Screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea
+            $Screen = @{
+                Right = [System.Windows.Forms.Screen]::AllScreens.WorkingArea.Right | Select-Object -Last 1
+                Bottom = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea.Bottom
+            }
             $CurrentX = [System.Windows.Forms.Cursor]::Position.X
             $CurrentY = [System.Windows.Forms.Cursor]::Position.Y
             [int]$NewX = [Math]::Min($CurrentX - $global:MouseDragX, $Screen.Right - $Form.Width)
