@@ -21,6 +21,14 @@
             }
             $CurrentX = [System.Windows.Forms.Cursor]::Position.X
             $CurrentY = [System.Windows.Forms.Cursor]::Position.Y
+
+            if ($CurrentX -gt [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea.Right) {
+                $Screen.Bottom = [System.Windows.Forms.Screen]::AllScreens.WorkingArea.Bottom | Select-Object -Last 1
+            }
+            else {
+                $Screen.Bottom = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea.Bottom
+            }
+
             [int]$NewX = [Math]::Min($CurrentX - $global:MouseDragX, $Screen.Right - $Form.Width)
             [int]$NewY = [Math]::Min($CurrentY - $global:MouseDragY, $Screen.Bottom - $Form.Height)
             $Form.Location = New-Object System.Drawing.Point($NewX, $NewY)
