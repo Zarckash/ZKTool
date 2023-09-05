@@ -7,7 +7,7 @@
     New-Item -Path "$TempPath\Files\Compress" -ItemType Directory -Force | Out-Null
 
     if ($Export.IsPresent) {
-        Start-Process Powershell {
+        Start-Process Powershell -Wait {
             $ErrorActionPreference = 'SilentlyContinue'
             $host.UI.RawUI.WindowTitle = 'Settings Exporter'
             $Path = @{
@@ -26,16 +26,21 @@
                 Compressed = ($env:temp + '\ZKTool\Files\Compress')
             }
     
-            function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
+            function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan',[switch]$FirstLine,[switch]$NewLine) {
+                if (!$FirstLine.IsPresent) {
+                    Write-Host `n
+                }
                 $s -split '' | ForEach-Object {
                     Write-Host $_ -NoNewline -ForegroundColor $TextColor
                     Start-Sleep -Milliseconds 15
                 }
                 Start-Sleep -Milliseconds 15
-                Write-Host `n
+                if ($NewLine.IsPresent) {
+                    Write-Host `n
+                }
             }
     
-            Write-TypeHost 'Exportando Documentos...'            
+            Write-TypeHost 'Exportando Documentos...' -FirstLine            
             Get-ChildItem -Path ($Path.Documents) -Name | ForEach-Object {New-Item -Path ($Path.Temp + '\Documents\' + $_) -ItemType Directory | Out-Null}
 
             $ExcludeList = @('*.mcache','*.PcDx12','*.bin','*.dat','*.cache','*.png','*.jpg','*jpeg','*.dds','*.wav','*.ogg','library_0x*','*.js','*.db','*.mdmp','*?????????????????','*.html')        
@@ -101,12 +106,12 @@
             Start-Process ($Path.Temp + '\MEGAcmdSetup64.exe') /S
             Start-Sleep 10
 
-            Write-TypeHost 'Subiendo Archivo...'
+            Write-TypeHost 'Subiendo Archivo...' -NewLine
             Set-Location $env:localappdata
             .\MEGAcmd\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
             .\MEGAcmd\mega-put ($Path.Temp + '\SettingsBackup.zip') ('/Backup/' + $env:username + 'Backup.zip')
             
-            Write-TypeHost 'Desinstalando MEGA...'
+            Write-TypeHost 'Desinstalando MEGA...' -NewLine
             .\MEGAcmd\mega-logout
             .\MEGAcmd\mega-quit
             Start-Sleep 3
@@ -122,7 +127,7 @@
         }
     }
     elseif ($Import.IsPresent) {
-        Start-Process Powershell {
+        Start-Process Powershell -Wait {
             $ErrorActionPreference = 'SilentlyContinue'
             $host.UI.RawUI.WindowTitle = 'Settings Importer'
             $Path = @{
@@ -141,26 +146,31 @@
                 Backup     = ($env:temp + '\ZKTool\Files\SettingsBackup')
             }
     
-            function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
+            function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan',[switch]$FirstLine,[switch]$NewLine) {
+                if (!$FirstLine.IsPresent) {
+                    Write-Host `n
+                }
                 $s -split '' | ForEach-Object {
                     Write-Host $_ -NoNewline -ForegroundColor $TextColor
                     Start-Sleep -Milliseconds 15
                 }
                 Start-Sleep -Milliseconds 15
-                Write-Host `n
+                if ($NewLine.IsPresent) {
+                    Write-Host `n
+                }
             }
 
-            Write-TypeHost 'Instalando MEGA...'
+            Write-TypeHost 'Instalando MEGA...' -FirstLine
             (New-Object System.Net.WebClient).DownloadFile($Path.File,($Path.Temp + '\MEGAcmdSetup64.exe'))
             Start-Process ($Path.Temp + '\MEGAcmdSetup64.exe') /S
             Start-Sleep 10
 
-            Write-TypeHost 'Descargando Archivo...'
+            Write-TypeHost 'Descargando Archivo...' -NewLine
             Set-Location $env:localappdata
             .\MEGAcmd\mega-login 'zktoolapp@gmail.com' 'zktoolbackup'
             .\MEGAcmd\mega-get ('/Backup/' + $env:username + 'Backup.zip') ($Path.Temp + '\' + $env:username + 'Backup.zip')
 
-            Write-TypeHost 'Desinstalando MEGA...'
+            Write-TypeHost 'Desinstalando MEGA...' -NewLine
             .\MEGAcmd\mega-logout
             .\MEGAcmd\mega-quit
             Start-Sleep 3

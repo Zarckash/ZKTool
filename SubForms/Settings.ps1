@@ -94,6 +94,8 @@ $Label.BackColor                 = $PanelBackColor
 $Label.TextAlign                 = [System.Drawing.ContentAlignment]::MiddleCenter
 $FormPanel.Controls.Add($Label)
 
+Move-Form -SelectedLabel $Label
+
 # Panel
 $Panel                           = New-Object System.Windows.Forms.Panel
 $Panel.Height                    = 67 * 2
@@ -250,10 +252,10 @@ $R2B2.Add_Click({
     Write-UserOutput ("Configuracion De " + $this.Text + " Aplicada")
 })
 
-$Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R2B3,$R2B4,$R3B1,$R3B2,$R3B3,$R3B4)
+$Buttons = @($R1B1,$R1B2,$R1B3,$R1B4,$R2B1,$R2B2,$R3B1,$R3B2,$R3B3,$R3B4)
 foreach ($Button in $Buttons) {
     $Button.Add_Click({
-        $this.Image = $DefaultGameButtonColor
+        $this.BackgroundImage = $DefaultGameButtonColor
         $this.ForeColor = $AccentColor
         Start-Sleep 2
     })
@@ -261,16 +263,20 @@ foreach ($Button in $Buttons) {
 
 # Export
 $R2B3.Add_Click({
-    $R2B3.ForeColor = "Black"
+    $this.ForeColor = "Black"
     Write-UserOutput "Exportando configuración"
-    Import-Export -Export
+    Import-Export -Export -Wait
+    $this.BackgroundImage = $None
+    $this.ForeColor = $AccentColor
 })
 
 # Import
 $R2B4.Add_Click({
-    $R2B4.ForeColor = "Black"
+    $this.ForeColor = "Black"
     Write-UserOutput "Importando configuración"
-    Import-Export -Import
+    Import-Export -Import -Wait
+    $this.BackgroundImage = $None
+    $this.ForeColor = $AccentColor
 })
 
 $Form.Add_Closing({
