@@ -29,8 +29,8 @@
                 $Screen.Bottom = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea.Bottom
             }
 
-            [int]$NewX = [Math]::Min($CurrentX - $global:MouseDragX, $Screen.Right - $Form.Width)
-            [int]$NewY = [Math]::Min($CurrentY - $global:MouseDragY, $Screen.Bottom - $Form.Height)
+            [int]$NewX = [Math]::Min($CurrentX - $global:MouseDragX, $Screen.Right - 50)
+            [int]$NewY = [Math]::Min($CurrentY - $global:MouseDragY, $Screen.Bottom - 50)
             $Form.Location = New-Object System.Drawing.Point($NewX, $NewY)
         }
     })
