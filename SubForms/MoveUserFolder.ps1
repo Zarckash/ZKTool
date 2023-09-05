@@ -95,6 +95,8 @@ $TitleLabel.BackColor            = $PanelBackColor
 $TitleLabel.TextAlign            = [System.Drawing.ContentAlignment]::MiddleCenter
 $FormPanel.Controls.Add($TitleLabel)
 
+Move-Form -SelectedLabel $TitleLabel
+
 $CheckBoxes = @('SelectAll','Desktop','Downloads','Documents','Pictures','Videos','Music')
 
 foreach ($CheckBox in $CheckBoxes) {
