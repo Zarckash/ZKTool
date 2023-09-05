@@ -15,22 +15,29 @@
 
     $SelectedLabel.Add_MouseMove({ 
         if ($global:Dragging) {
+
+            $PrimaryScreen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea
+            $AllScreens = [System.Windows.Forms.Screen]::AllScreens.WorkingArea
+
             $Screen = @{
-                Right = [System.Windows.Forms.Screen]::AllScreens.WorkingArea.Right | Select-Object -Last 1
-                Bottom = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea.Bottom
+                Width = ($AllScreens.Width | Select-Object -First 1) + ($AllScreens.Width | Select-Object -Last 1)
+                Height = 0
             }
+
             $CurrentX = [System.Windows.Forms.Cursor]::Position.X
             $CurrentY = [System.Windows.Forms.Cursor]::Position.Y
 
-            if ($CurrentX -gt [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea.Right) {
-                $Screen.Bottom = [System.Windows.Forms.Screen]::AllScreens.WorkingArea.Bottom | Select-Object -Last 1
-            }
-            else {
-                $Screen.Bottom = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea.Bottom
+            if (($CurrentX -gt $PrimaryScreen.Width) -or ($CurrentX -lt 0)) {
+                $Screen.Height = $AllScreens.Bottom | Select-Object -Last 1
+            }elseif (($AllScreens.Top | Select-Object -Last 1) -ge $PrimaryScreen.Height) {
+                $Screen.Height = $AllScreens.Bottom | Select-Object -Last 1
+            }else {
+                $Screen.Height = $PrimaryScreen.Bottom
             }
 
-            [int]$NewX = [Math]::Min($CurrentX - $global:MouseDragX, $Screen.Right - 50)
-            [int]$NewY = [Math]::Min($CurrentY - $global:MouseDragY, $Screen.Bottom - 50)
+            [int]$NewX = [Math]::Min($CurrentX - $global:MouseDragX, $Screen.Width - ($CloseFormPanel.Height + 2))
+            [int]$NewY = [Math]::Min($CurrentY - $global:MouseDragY, $Screen.Height - ($CloseFormPanel.Height + 2))
+
             $Form.Location = New-Object System.Drawing.Point($NewX, $NewY)
         }
     })
