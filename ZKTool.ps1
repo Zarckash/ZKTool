@@ -1,4 +1,4 @@
-Add-Type -AssemblyName System.Windows.Forms
+﻿Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -1453,9 +1453,14 @@ function AMDUndervoltPack {
 
 function DarkTheme {
     $HB7.ForeColor = $AccentColor
+
     Write-UserOutput "Aplicando Tema Oscuro"
+
+    taskkill /f /im explorer.exe
+
     $Download.DownloadFile("$GitHubPath/Files/.zip/Media.zip", "$TempPath\Files\Media.zip")
     Expand-Archive -Path ("$TempPath\Files\Media.zip") -DestinationPath ("$ZKToolPath\Media") -Force
+
     $Download.DownloadFile("$GitHubPath/Functions/Set-Wallpaper.ps1", "$TempPath\Functions\Set-Wallpaper.ps1")
     . "$TempPath\Functions\Set-Wallpaper.ps1"
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $LogPath -Encoding UTF8 -Append
@@ -1468,8 +1473,21 @@ function DarkTheme {
     Set-Wallpaper -Path "$ZKToolPath\Media\BlackW11Wallpaper.jpg"
 
     # Accent Color
-    $Download.DownloadFile("$GitHubPath/Files/DarkTheme.reg", "$TempPath\Files\DarkTheme.reg")
-    regedit /s $TempPath\Files\DarkTheme.reg
+    $MainColor    = "FF,FF,FF,00," # Main Color
+    $SecondColor  = "AC,A0,F7,00," # Second Color
+    $TaskManagerH = "AA,00,55,00," # Task Manager High Usage Color
+    $TaskManagerT = "A5,A5,A5,00," # Task Manager Tiles Color
+    $Color1       = "FF,00,00,00,"
+    $Color2       = "FF,00,00,00"
+    $MaskValue = $SecondColor + $MainColor + $MainColor + $SecondColor + $TaskManagerH + $TaskManagerT + $Color1 + $Color2
+    $MaskValueToHex = $MaskValue.Split(',') | ForEach-Object { "0x$_"}
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Type Binary -Value ([byte[]]$MaskValueToHex)
+
+    # HighLight Color
+    $SecondColorRGB = "172 160 247"
+    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "Hilight" -Value $SecondColorRGB
+    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor" -Value $SecondColorRGB
+    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "MenuHilight" -Value $SecondColorRGB
 
     # Black Edge
     $ShortcutPath = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
@@ -1503,6 +1521,8 @@ function DarkTheme {
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
     $Shortcut.IconLocation = "$IconLocation, 0"
     $Shortcut.Save()
+
+    explorer.exe
     
     $HB7.ForeColor = $DefaultForeColor
 }
