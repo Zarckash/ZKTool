@@ -1,4 +1,4 @@
-﻿Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -1452,7 +1452,7 @@ function AMDUndervoltPack {
 }
 
 function DarkTheme {
-    $HB2.ForeColor = $AccentColor
+    $HB7.ForeColor = $AccentColor
     Write-UserOutput "Aplicando Tema Oscuro"
     $Download.DownloadFile("$GitHubPath/Files/.zip/Media.zip", "$TempPath\Files\Media.zip")
     Expand-Archive -Path ("$TempPath\Files\Media.zip") -DestinationPath ("$ZKToolPath\Media") -Force
@@ -1504,7 +1504,7 @@ function DarkTheme {
     $Shortcut.IconLocation = "$IconLocation, 0"
     $Shortcut.Save()
     
-    $HB2.ForeColor = $DefaultForeColor
+    $HB7.ForeColor = $DefaultForeColor
 }
 
 function NVCleanstall {
