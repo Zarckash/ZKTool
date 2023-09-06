@@ -19,6 +19,8 @@ Iex (Iwr -useb "https://rb.gy/7wms9")
 
 [//]: # (Old App Design https://i.imgur.com/fOOfTsy.png)
 
-![App Screenshot](https://i.imgur.com/Roh4t0a.png)
+[//]: # (Old App Design https://i.imgur.com/Roh4t0a.png)
+
+![App Screenshot](https://i.imgur.com/NyIGReh.png)
 
 
