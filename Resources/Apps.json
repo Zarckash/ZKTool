@@ -221,6 +221,13 @@
         "Output": "Instalando ",
         "Source": ".appx"
     },
+    "VisualCRuntimes": {
+        "Name": "Visual C++ Runtimes",
+        "Installer": "VisualCRuntimes.exe",
+        "Output": "Instalando ",
+        "Source": ".exe",
+        "Arguments": "/aiA /gm2"
+    },
     "Autoruns": {
         "Name": "Autoruns",
         "Installer": "Autoruns.exe",

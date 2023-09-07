@@ -1365,24 +1365,6 @@ function ActivateWindowsPro {
     $MTB1.ForeColor = $DefaultForeColorBig
 }
 
-function VisualCRuntimes {
-    $MTB2.ForeColor = $AccentColor
-    Write-UserOutput "Instalando Todas Las Versiones De Visual C++"
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x64 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2005.x86 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2008.x64 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2008.x86 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2010.x64 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2010.x86 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2012.x64 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2012.x86 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2013.x64 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2013.x86 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2015+.x64 | Out-File $LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2015+.x86 | Out-File $LogPath -Encoding UTF8 -Append
-    $MTB2.ForeColor = $DefaultForeColor
-}
-
 function EnableMSIMode {
     $MTB3.ForeColor = $AccentColor
     Write-UserOutput "Estableciendo GPU En Modo MSI"
