@@ -33,7 +33,8 @@
         "Name": "MSI Afterburner",
         "Installer": "MSIAfterburner.exe",
         "Output": "Instalando ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "CorsairiCue": {
         "Name": "Corsair iCue",
@@ -45,19 +46,22 @@
         "Name": "Logitech Onboard Memory Manager",
         "Installer": "LogitechOMM.exe",
         "Output": "Abriendo ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "RazerSynapse": {
         "Name": "Razer Synapse",
         "Installer": "RazerSynapse.exe",
         "Output": "Instalando ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "uTorrentWeb": {
         "Name": "uTorrent Web",
         "Installer": "uTorrentWeb.exe",
         "Output": "Instalando ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "NanaZip": {
         "Name": "NanaZip",
@@ -111,13 +115,15 @@
         "Name": "VLC Media Player",
         "Installer": "VLCMediaPlayer.exe",
         "Output": "Instalando ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "Rufus": {
         "Name": "Rufus",
         "Installer": "Rufus.exe",
         "Output": "Abriendo ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "WinRAR": {
         "Name": "WinRAR",
@@ -153,13 +159,15 @@
         "Name": "AMD Adrenalin",
         "Installer": "AMDAdrenalin.exe",
         "Output": "Instalando ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "TarkovLauncher": {
         "Name": "Tarkov Launcher",
         "Installer": "TarkovLauncher.exe",
         "Output": "Instalando ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "LeagueofLegends": {
         "Name": "League Of Legends",
@@ -195,7 +203,8 @@
         "Name": "Battle.Net",
         "Installer": "Battle.Net.exe",
         "Output": "Instalando ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "GOGGalaxy": {
         "Name": "GOG Galaxy",
@@ -207,7 +216,8 @@
         "Name": "Rockstar Games",
         "Installer": "RockstarGamesLauncher.exe",
         "Output": "Instalando ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     },
     "EpicGamesLauncher": {
         "Name": "Epic Games Launcher",
@@ -232,6 +242,7 @@
         "Name": "Autoruns",
         "Installer": "Autoruns.exe",
         "Output": "Abriendo ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Arguments": ""
     }
 }
