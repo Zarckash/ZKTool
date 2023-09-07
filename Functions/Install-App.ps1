@@ -21,11 +21,11 @@
         }
         elseif ($AppsList.$App.Source -eq ".exe") {
             $Download.DownloadFile($GetPath, $SetPath)
-            Start-Process $SetPath -ArgumentList $AppsList.$App.Arguments
+            Start-Process -Path $SetPath -ArgumentList $AppsList.$App.Arguments
         }  
         elseif ($AppsList.$App.Source -eq ".appx") {
             $Download.DownloadFile($GetPath, $SetPath)
-            Add-AppPackage $SetPath
+            Add-AppPackage -Path $SetPath
         }
 
         $i++
