@@ -25,7 +25,7 @@
         }  
         elseif ($AppsList.$App.Source -eq ".appx") {
             $Download.DownloadFile($GetPath, $SetPath)
-            & {$ProgressPreference = 'SilentlyContinue'; Add-AppPackage $SetPath}
+            Add-AppPackage $SetPath
         }
 
         $i++
