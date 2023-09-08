@@ -23,8 +23,10 @@
             $Download.DownloadFile($GetPath, $SetPath)
             if ($AppsList.$App.Arguments -eq "") {
                 Start-Process -Path $SetPath
+                Write-Host "Argumentos Vacios"
             }else {
                 Start-Process -Path $SetPath -ArgumentList $AppsList.$App.Arguments
+                Write-Host Argumentos $AppsList.$App.Arguments
             }
         }  
         elseif ($AppsList.$App.Source -eq ".appx") {
