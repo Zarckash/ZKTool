@@ -43,12 +43,8 @@ if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
     explorer.exe
 
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-    Remove-Item -Path "HKCR:\Directory\Background\shell\ZKTool" -Recurse -Force
-    New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
-    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0"
-    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ZKTool.exe"
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayIcon" -Value "C:\Program Files\ZKTool\ZKTool.exe"
+    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0" -Force
+
 }
 else { # Install ZKTool
     $host.UI.RawUI.WindowTitle = "ZKTool Installer"
