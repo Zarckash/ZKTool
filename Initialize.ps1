@@ -76,12 +76,6 @@ else { # Install ZKTool
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -Name $FontName -Value $FontPath
     }
 
-    # Create Monthly Scheduled Task
-    Write-TypeHost "`r`nCreando Tarea Programada..."
-    $Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
-    $Trigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Monday -At 10am
-    Register-ScheduledTask -TaskName "ZKToolOptimizer" -Action $Action -Trigger $Trigger | Out-Null
-
     # Check Winget
     Write-TypeHost "`r`nComprobando Winget..."
     if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10, 10)) -eq "Windows 11")) {
