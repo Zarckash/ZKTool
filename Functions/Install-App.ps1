@@ -21,7 +21,7 @@
         }
         elseif ($AppsList.$App.Source -eq ".exe") {
             $Download.DownloadFile($GetPath, $SetPath)
-            Start-Process $SetPath
+            Start-Process $SetPath -ArgumentList ""
         }  
         elseif ($AppsList.$App.Source -eq ".appx") {
             $Download.DownloadFile($GetPath, $SetPath)
