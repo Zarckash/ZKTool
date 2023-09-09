@@ -1595,16 +1595,22 @@ $StartScript.Add_Click({
 
     # Checking Installed Apps With Winget
     $Installations = @($SB1,$SB2,$SB3,$SB4,$SB5,$SB6,$SB7,$SB11,$SB12,$MSB1,$MSB5,$MSB6,$MSB9,$MSB10,$MSB11,$MSB12,$LB1,$LB2,$LB3,$LB5,$LB7,$LB8)
-    $i = 1
+    $InstallationsSelected = @()
+
     foreach ($Installation in $Installations) {
         if ($Installation.ForeColor -eq $AccentColor) {
-            Write-UserOutput -Message "Comprobando Instalaciones"  -Progress "     $i" -DisableType
+            $InstallationsSelected += $Installation
+        }
+    }
+
+    $i = 1
+    foreach ($Installation in $InstallationsSelected) {
+            Write-UserOutput -Message "Comprobando Instalaciones" -Progress ("$i de " + $InstallationsSelected.Count) -DisableType
             $WingetListCheck = Winget List $Installation.Text | Select-String -Pattern $Installation.Text | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
             if (!($WingetListCheck -eq $Installation.Text)) {
                 $Installation.ForeColor = "Red"
             }
             $i++
-        }
     }
 
     if ($MSB8.ForeColor -eq $AccentColor) {
