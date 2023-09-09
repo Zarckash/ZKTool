@@ -5,7 +5,14 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
     Start-Process Powershell "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
     Exit
 }
-
+#################################
+#################################
+#################################
+$ConfirmPreference = 'None'
+Unregister-ScheduledTask -TaskName "ZKToolUpdater"
+#################################
+#################################
+#################################
 Set-ExecutionPolicy RemoteSigned
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
