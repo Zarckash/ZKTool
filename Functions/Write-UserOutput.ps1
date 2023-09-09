@@ -6,7 +6,7 @@
     )
 
     $Message = $Message + "..."
-    $MaxLength = 66 - $Progress.Length - 3
+    $MaxLength = 66 - $Progress.Length - 4
     $AddSpaces = ""
     $AddSpacesDynamic = ""
 
