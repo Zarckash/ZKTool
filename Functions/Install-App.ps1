@@ -15,9 +15,18 @@
 
         $GetPath = "$GitHubPath/Files/" + $AppsList.$App.Source + "/"  + $AppsList.$App.Installer
         $SetPath = "$TempPath\Files\"  + $AppsList.$App.Installer
+        $WingetLog = $LogFolder + "\" + $AppsList.$App.Name + ".log"
 
         if ($AppsList.$App.Source -eq "Winget") {
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $AppsList.$App.Installer | Out-File $LogPath -Encoding UTF8 -Append
+            $WingetApp = $AppsList.$App.Installer
+            $WingetInstall = {
+                param (
+                    $WingetApp,
+                    $WingetLog
+                )
+                winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $WingetApp | Out-File $WingetLog -Encoding UTF8 -Append
+            }
+            Start-Job -Name ("Job-$WingetApp") -ScriptBlock $WingetInstall -ArgumentList @($WingetApp,$WingetLog)
         }
         elseif ($AppsList.$App.Source -eq ".exe") {
             $Download.DownloadFile($GetPath, $SetPath)
@@ -34,4 +43,8 @@
 
         $i++
     }
+    while (Get-Job -State Running) {
+        Start-Sleep 1
+    }
+    Get-Job | Remove-Job
 }
