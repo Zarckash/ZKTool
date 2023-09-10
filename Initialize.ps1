@@ -17,7 +17,7 @@ Set-ExecutionPolicy RemoteSigned
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
-function Write-TypeHost ([string]$s = '', [string]$TextColor = 'Cyan') {
+function Write-TypeHost ([string]$s = '', [string]$TextColor = 'DarkCyan') {
     $s -split '' | ForEach-Object {
         Write-Host $_ -NoNewline -ForegroundColor $TextColor
         Start-Sleep -Milliseconds 15
@@ -81,15 +81,15 @@ else { # Install ZKTool
 
     # Check Winget
     Write-TypeHost "`r`nComprobando Winget..."
-    if (!(((Get-ComputerInfo | Select-Object -ExpandProperty OsName).Substring(10, 10)) -eq "Windows 11")) {
+    if (!(Test-Path "$env:userprofile\AppData\Local\Microsoft\WindowsApps\winget.exe")) {
         Write-TypeHost "`r`n    Instalando Winget..."
         Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget" -Wait
     }
 }
 
-Write-Host "`r`n`r`n        ###################" -ForegroundColor Green
-Write-Host "        #####  READY  #####" -ForegroundColor Green
-Write-Host "        ###################" -ForegroundColor Green
+Write-Host "`r`n- - - - - - - - - - - - -" -ForegroundColor Green
+Write-Host "- - - - R E A D Y - - - -" -ForegroundColor Green
+Write-Host "- - - - - - - - - - - - -" -ForegroundColor Green
 Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe
 
-Exit
+exit
