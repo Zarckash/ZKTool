@@ -28,13 +28,15 @@ finally {
 $Download    = New-Object System.Net.WebClient                      # Download Method
 $GitHubPath  = "https://github.com/Zarckash/ZKTool/raw/main"        # GitHub Downloads URL
 $TempPath    = "$env:temp\ZKTool"                                   # Folder Structure Path
-$LogPath     = "$env:temp\1ZKTool.log"                              # Script Log Path
+$LogFolder   = "$env:temp\ZKToolLogs"                               # Script Logs Path
+$LogPath     = $LogFolder + "\ZKTool.log"                           # Script Main Log Path
 $ZKToolPath  = "$env:ProgramFiles\ZKTool"                           # ZKTool App Path
 
 # Cleaning Last Log File
-Remove-Item $LogPath | Out-Null
+Remove-Item $LogFolder -Recurse | Out-Null
 
 # Creating Folders
+New-Item $LogFolder -ItemType Directory | Out-Null
 New-Item "$TempPath\Files" -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
 New-Item "$TempPath\Functions" -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
 New-Item "$TempPath\Resources" -ItemType Directory | Out-File $LogPath -Encoding UTF8 -Append
