@@ -54,6 +54,7 @@
             if (Test-Path $Path.OBS) {
                 Write-TypeHost 'Exportando OBS...'
                 Compress-Archive -Path ($Path.OBS + '\global.ini'),($Path.OBS + '\basic') -DestinationPath ($Path.Compressed + '\OBS.zip')
+                Compress-Archive -Path ($Path.OBS + '\themes') -DestinationPath ($Path.Compressed + '\OBS.zip') -Update
             }
             if (Test-Path $Path.PUBG) {
                 Write-TypeHost 'Exportando PUBG...'
