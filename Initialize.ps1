@@ -1,9 +1,9 @@
 $ErrorActionPreference = 'SilentlyContinue'
 
 # Run Script As Administrator
-If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
     Start-Process Powershell "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-    Exit
+    exit
 }
 #################################
 #################################
@@ -13,7 +13,7 @@ Unregister-ScheduledTask -TaskName "ZKToolUpdater"
 #################################
 #################################
 #################################
-Set-ExecutionPolicy RemoteSigned
+Set-ExecutionPolicy Bypass
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
@@ -44,7 +44,6 @@ if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
 
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0" -Force
-
 }
 else { # Install ZKTool
     $host.UI.RawUI.WindowTitle = "ZKTool Installer"
@@ -84,6 +83,13 @@ else { # Install ZKTool
     if (!(Test-Path "$env:userprofile\AppData\Local\Microsoft\WindowsApps\winget.exe")) {
         Write-TypeHost "`r`n    Instalando Winget..."
         Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget" -Wait
+    }
+    # Installing Powershell 7
+    Write-TypeHost "`r`nComprobando Powershell 7..."
+    $PWSH = 'Microsoft.Powershell'
+    if (!($PWSH -eq (Winget list $PWSH | Select-String -Pattern $PWSH | ForEach-Object {$_.Matches} | Select-Object -ExpandProperty Value))) {
+        Write-TypeHost "`r`n    Instalando Powershell 7..."
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell  | Out-Null
     }
 }
 
