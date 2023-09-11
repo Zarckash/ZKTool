@@ -29,7 +29,7 @@ $Download    = New-Object System.Net.WebClient                      # Download M
 $GitHubPath  = "https://github.com/Zarckash/ZKTool/raw/main"        # GitHub Downloads URL
 $TempPath    = "$env:temp\ZKTool"                                   # Folder Structure Path
 $LogFolder   = "$env:temp\ZKToolLogs"                               # Script Logs Path
-$LogPath     = $LogFolder + "\ZKTool.log"                           # Script Main Log Path
+$LogPath     = "$LogFolder\ZKTool.log"                              # Script Main Log Path
 $ZKToolPath  = "$env:ProgramFiles\ZKTool"                           # ZKTool App Path
 
 # Cleaning Last Log File
@@ -618,7 +618,7 @@ function OptimizationTweaks {
     Write-UserOutput "Creando Punto De Restauración"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
     Enable-ComputerRestore -Drive "C:\"
-    Checkpoint-Computer -Description "Pre Optimizacion ZKTool" -RestorePointType "MODIFY_SETTINGS"
+    Checkpoint-Computer -Description "Pre Optimización ZKTool" -RestorePointType "MODIFY_SETTINGS"
 
     # Create Monthly Scheduled Task
     Write-UserOutput "Creando Tarea Programada"
@@ -653,6 +653,7 @@ function OptimizationTweaks {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -Name "DirectXUserGlobalSettings" -Value "SwapEffectUpgradeEnable=1;"
 
     # Set-PageFile Size
+    Write-UserOutput "Comprobando Cantidad De RAM"
     $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1mb
     if ($RamCapacity -le 17000) {
         Write-UserOutput "Estableciendo El Tamaño Del Archivo De Paginación En $RamCapacity MB"
@@ -660,7 +661,7 @@ function OptimizationTweaks {
         $PageFile.AutomaticManagedPagefile = $false
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "PagingFiles" -Value "c:\pagefile.sys $RamCapacity $RamCapacity"
     }else {
-        Write-UserOutput "La Cantidad De Memoria RAM Es Superior A Los 16GB, No Se Realizara Ningun Cambio"
+        Write-UserOutput "La Cantidad De RAM Supera Los 16GB, No Se Realizará Ningún Cambio"
     }
 
     # Rebuild Performance Counters
@@ -695,10 +696,8 @@ function OptimizationTweaks {
     # Windows Defender Exclusions
     Write-UserOutput "Aplicando Exclusiones A Windows Defender"
     $ActiveDrives = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty "Root" | Where-Object {$_.Length -eq 3}
-    foreach ($Drive in $ActiveDrives) {
-        if (Test-Path ("$Drive\Games")) {
-            Add-MpPreference -ExclusionPath ("$Drive\Games")
-        }
+    $ActiveDrives | ForEach-Object {
+        if (Test-Path ($_ + "Games")) {Add-MpPreference -ExclusionPath ($_ + "Games")}
     }
     Add-MpPreference -ExclusionPath "$env:ProgramFiles\Windows Defender"
     Add-MpPreference -ExclusionPath "$env:windir\security\database"
@@ -725,7 +724,7 @@ function OptimizationTweaks {
     Pop-Location
     
     # Open File Explorer In This PC Page
-    Write-UserOutput "Estableciendo Abrir El Explorador De Archivos En La Página Este Equipo"
+    Write-UserOutput "Estableciendo Abrir El Explorador En La Página `"Este Equipo`""
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
 
     # Reduce svchost Process Amount
@@ -1393,13 +1392,13 @@ function FFMPEG {
     $Download.DownloadFile("$GitHubPath/Files/.appx/HEIF.appx", "$TempPath\Files\HEIF.appx")
     Add-AppxPackage ("$TempPath\Files\HEVC.appx"); Add-AppxPackage ("$TempPath\Files\HEIF.appx")
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File $LogPath -Encoding UTF8 -Append
-    $Download.DownloadFile("$GitHubPath/Files/.exe/ffmpeg.exe", "$ZKToolPath\Apps\ffmpeg.exe")
+    $Download.DownloadFile("$GitHubPath/Files/.exe/Compress.exe", "$ZKToolPath\Apps\Compress.exe")
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Compress" | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "command" | Out-Null
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Icon" -Value "$ZKToolPath\Apps\ffmpeg.exe,0"
+    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Icon" -Value "$ZKToolPath\Apps\Compress.exe,0"
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Position" -Value "Bottom"
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\ffmpeg.exe"'
+    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe"'
     $MTB4.ForeColor = $DefaultForeColor
 }
 
