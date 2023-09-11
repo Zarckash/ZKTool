@@ -1,4 +1,9 @@
-﻿Add-Type -AssemblyName System.Windows.Forms
+﻿if ((Test-Path "$env:ProgramFiles\PowerShell\7\pwsh.exe") -and ($PSEdition -eq "Desktop")) {
+    Start-Process pwsh -WindowStyle Hidden "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+    exit
+}
+
+Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -1532,11 +1537,11 @@ function NVCleanstall {
 function RemoveRealtek {
     $MTB11.ForeColor = $AccentColor
     Write-UserOutput "Quitando Realtek Audio Service"
-    pwsh.exe -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
-    pwsh.exe -command {sc stop RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
+    sc stop Audiosrv | Out-File $LogPath -Encoding UTF8 -Append
+    sc stop RtkAudioUniversalService | Out-File $LogPath -Encoding UTF8 -Append
     taskkill.exe /f /im RtkAudUService64.exe | Out-File $LogPath -Encoding UTF8 -Append
-    pwsh.exe -command {sc delete RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
-    pwsh.exe -command {sc start Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
+    sc delete RtkAudioUniversalService | Out-File $LogPath -Encoding UTF8 -Append
+    sc start Audiosrv | Out-File $LogPath -Encoding UTF8 -Append
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
     Get-AppxPackage -All "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
     $MTB11.ForeColor = $DefaultForeColor
