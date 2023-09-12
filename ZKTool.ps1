@@ -1,5 +1,15 @@
-﻿if ((Test-Path "$env:ProgramFiles\PowerShell\7\pwsh.exe") -and ($PSEdition -eq "Desktop")) {
-    Start-Process pwsh -WindowStyle Hidden "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+﻿if ($MyInvocation.MyCommand.CommandType -eq "ExternalScript"){
+    $ScriptPath = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
+}
+else {
+    $ScriptPath = Split-Path -Parent -Path ([Environment]::GetCommandLineArgs()[0]) 
+    if (!$ScriptPath) {
+        $ScriptPath = "."
+    } 
+}
+
+if ((Test-Path "$env:ProgramFiles\PowerShell\7\pwsh.exe") -and ($PSEdition -eq "Desktop")) {
+    Start-Process pwsh -WindowStyle Hidden "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
     exit
 }
 
