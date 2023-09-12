@@ -1,12 +1,5 @@
-﻿if ($MyInvocation.MyCommand.CommandType -eq "ExternalScript"){
-    $ScriptPath = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-}
-else {
-    $ScriptPath = Split-Path -Parent -Path ([Environment]::GetCommandLineArgs()[0]) 
-    if (!$ScriptPath) {
-        $ScriptPath = "."
-    } 
-}
+﻿Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/ZKTool.ps1" -OutFile "$env:temp\ZKTool.ps1"
+$ScriptPath = "$env:temp\ZKTool.ps1"
 
 if ((Test-Path "$env:ProgramFiles\PowerShell\7\pwsh.exe") -and ($PSEdition -eq "Desktop")) {
     Start-Process pwsh -WindowStyle Hidden "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
