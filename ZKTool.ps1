@@ -2,7 +2,7 @@
 $ScriptPath = "$env:temp\ZKTool.ps1"
 
 if ((Test-Path "$env:ProgramFiles\PowerShell\7\pwsh.exe") -and ($PSEdition -eq "Desktop")) {
-    Start-Process pwsh -WindowStyle Hidden "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
+    Start-Process pwsh -NoNewWindow "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
     exit
 }
 
