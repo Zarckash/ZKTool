@@ -84,13 +84,6 @@ else { # Install ZKTool
         Write-TypeHost "`r`n    Instalando Winget..."
         Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget" -Wait
     }
-    # Installing Powershell 7
-    Write-TypeHost "`r`nComprobando Powershell 7..."
-    $PWSH = 'Microsoft.Powershell'
-    if (!($PWSH -eq (Winget list $PWSH | Select-String -Pattern $PWSH | ForEach-Object {$_.Matches} | Select-Object -ExpandProperty Value))) {
-        Write-TypeHost "`r`n    Instalando Powershell 7..."
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell  | Out-Null
-    }
 }
 
 Write-Host "`r`n- - - - - - - - - - - - -" -ForegroundColor Green

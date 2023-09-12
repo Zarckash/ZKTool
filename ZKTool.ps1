@@ -1,12 +1,4 @@
-﻿Invoke-WebRequest -Uri "https://github.com/Zarckash/ZKTool/raw/main/ZKTool.ps1" -OutFile "$env:temp\ZKTool.ps1"
-$ScriptPath = "$env:temp\ZKTool.ps1"
-
-if ((Test-Path "$env:ProgramFiles\PowerShell\7\pwsh.exe") -and ($PSEdition -eq "Desktop")) {
-    Start-Process pwsh -NoNewWindow "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
-    exit
-}
-
-Add-Type -AssemblyName System.Windows.Forms
+﻿Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -1540,11 +1532,11 @@ function NVCleanstall {
 function RemoveRealtek {
     $MTB11.ForeColor = $AccentColor
     Write-UserOutput "Quitando Realtek Audio Service"
-    sc stop Audiosrv | Out-File $LogPath -Encoding UTF8 -Append
-    sc stop RtkAudioUniversalService | Out-File $LogPath -Encoding UTF8 -Append
+    pwsh -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
+    pwsh -command {sc stop RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
     taskkill.exe /f /im RtkAudUService64.exe | Out-File $LogPath -Encoding UTF8 -Append
-    sc delete RtkAudioUniversalService | Out-File $LogPath -Encoding UTF8 -Append
-    sc start Audiosrv | Out-File $LogPath -Encoding UTF8 -Append
+    pwsh -command {sc delete RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
+    pwsh -command {sc start Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
     Get-AppxPackage -All "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
     $MTB11.ForeColor = $DefaultForeColor
