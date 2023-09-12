@@ -117,6 +117,7 @@
             .\MEGAcmd\mega-quit
             Start-Sleep 3
             Get-Process 'MEGAcmdServer' | Stop-Process
+            Get-ScheduledTask -TaskName "*MEGAcmd*" | Unregister-ScheduledTask
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\Uninstall MEGAcmd.lnk')
@@ -130,6 +131,7 @@
     elseif ($Import.IsPresent) {
         Start-Process Powershell -Wait {
             $ErrorActionPreference = 'SilentlyContinue'
+            $ConfirmPreference = 'None'
             $host.UI.RawUI.WindowTitle = 'Settings Importer'
             $Path = @{
                 File       = 'https://github.com/Zarckash/ZKTool/raw/main/Files/.exe/MEGAcmdSetup64.exe'
@@ -176,6 +178,7 @@
             .\MEGAcmd\mega-quit
             Start-Sleep 3
             Get-Process 'MEGAcmdServer' | Stop-Process
+            Get-ScheduledTask -TaskName "*MEGAcmd*" | Unregister-ScheduledTask
             Remove-Item -Path ($env:localappdata + '\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\MEGAcmd') -Recurse -Force
             Remove-Item -Path ($env:appdata + '\Microsoft\Windows\Start Menu\Programs\Uninstall MEGAcmd.lnk')
