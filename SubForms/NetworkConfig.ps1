@@ -178,7 +178,7 @@ $Accept.Add_Click({
     if (($IP.Length -lt 11) -or (($DNS[0].Length + $DNS[1].Length) -lt 14)) {
         [System.Windows.Forms.MessageBox]::Show("Uno o mas valores no son válidos", "Valores incorrectos", [System.Windows.Forms.MessageBoxButtons]::Ok, [System.Windows.Forms.MessageBoxIcon]::Warning) | Out-Null
     }else {
-        Write-UserOutput = "Estableciendo IP $IP Y DNS $DNS"
+        Write-UserOutput "Estableciendo IP $IP Y DNS $DNS "
         $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
         Remove-NetIPAddress -InterfaceAlias $Interface -Confirm:$false
         Remove-NetRoute -InterfaceAlias $Interface
