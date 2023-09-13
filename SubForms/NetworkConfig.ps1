@@ -174,7 +174,7 @@ $Accept.Add_Click({
     $GetValues = ($InputBox.Lines).Replace(' ','').Split('|')
     $IP = $GetValues[0]
     $DNS = $GetValues[1..2]
-    $StatusBox.Text = "| Estableciendo IP Estatica A $IP..."
+    Write-UserOutput = "Estableciendo IP $IP Y DNS $DNS"
 
     $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
     Remove-NetIPAddress -InterfaceAlias $Interface -Confirm:$false
