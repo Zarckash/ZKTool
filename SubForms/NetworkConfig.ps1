@@ -174,18 +174,22 @@ $Accept.Add_Click({
     $GetValues = ($InputBox.Lines).Replace(' ','').Split('|')
     $IP = $GetValues[0]
     $DNS = $GetValues[1..2]
-    Write-UserOutput = "Estableciendo IP $IP Y DNS $DNS"
 
-    $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
-    Remove-NetIPAddress -InterfaceAlias $Interface -Confirm:$false
-    Remove-NetRoute -InterfaceAlias $Interface
-    New-NetIPAddress -InterfaceAlias $Interface -AddressFamily IPv4 $IP -PrefixLength 24 -DefaultGateway $Gateway | Out-Null
-    Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses $DNS[0], $DNS[1]
-    Disable-NetAdapter -Name $Interface -Confirm:$false
-    Enable-NetAdapter -Name $Interface -Confirm:$false
-    Set-NetConnectionProfile -NetworkCategory Private
-    Start-Sleep 5
-    $Form.Close()
+    if (($IP.Length -lt 11) -or (($DNS[0].Length + $DNS[1].Length) -lt 14)) {
+        [System.Windows.Forms.MessageBox]::Show("Uno o mas valores no son válidos", "Valores incorrectos", [System.Windows.Forms.MessageBoxButtons]::Ok, [System.Windows.Forms.MessageBoxIcon]::Warning) | Out-Null
+    }else {
+        Write-UserOutput = "Estableciendo IP $IP Y DNS $DNS"
+        $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
+        Remove-NetIPAddress -InterfaceAlias $Interface -Confirm:$false
+        Remove-NetRoute -InterfaceAlias $Interface
+        New-NetIPAddress -InterfaceAlias $Interface -AddressFamily IPv4 $IP -PrefixLength 24 -DefaultGateway $Gateway | Out-Null
+        Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses $DNS[0], $DNS[1]
+        Disable-NetAdapter -Name $Interface -Confirm:$false
+        Enable-NetAdapter -Name $Interface -Confirm:$false
+        Set-NetConnectionProfile -NetworkCategory Private
+        Start-Sleep 5
+        $Form.Close()
+    }
 })
 
 $Form.Add_Closing({
