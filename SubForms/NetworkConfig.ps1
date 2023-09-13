@@ -61,7 +61,7 @@ $FormPanel.Controls.Add($AvaibleIPs)
 
 # Choose IP Label
 $ChooseIPLabel                   = New-Object System.Windows.Forms.Label
-$ChooseIPLabel.Text              = "Seleccionar IP:"
+$ChooseIPLabel.Text              = "Seleccionar IP y DNS"
 $ChooseIPLabel.Size              = "251,30"
 $ChooseIPLabel.Location          = "7,167"
 $ChooseIPLabel.Font              = New-Object System.Drawing.Font('Segoe UI Semibold',13)
@@ -75,11 +75,12 @@ $FormPanel.Controls.Add($ChooseIPLabel)
 $InputBox                        = New-Object System.Windows.Forms.TextBox
 $InputBox.Size                   = "251,40"
 $InputBox.Location               = "7,197"
-$InputBox.Font                   = New-Object System.Drawing.Font('Segoe UI',12)
+$InputBox.Font                   = New-Object System.Drawing.Font('Consolas',10)
 $InputBox.AcceptsReturn          = $true
-$InputBox.Text                   = " " + (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10)
+$InputBox.Text                   = " " + (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop).Substring(0,10) + " | 8.8.8.8 | 8.8.4.4"
 $InputBox.BackColor              = $PanelBackColor
 $InputBox.ForeColor              = $DefaultForeColor
+$InputBox.MaxLength = 35
 $FormPanel.Controls.Add($InputBox)
 
 # Choose IP Panel
@@ -170,14 +171,16 @@ $Cancel.Add_Click({
 # Accept Button
 $Accept.Add_Click({
     $Accept.BackColor = $ProcessingColor
-    $IP = ($InputBox.Lines).Replace(' ','').Substring(0,12)
+    $GetValues = ($InputBox.Lines).Replace(' ','').Split('|')
+    $IP = $GetValues[0]
+    $DNS = $GetValues[1..2]
     $StatusBox.Text = "| Estableciendo IP Estatica A $IP..."
 
     $Interface = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
     Remove-NetIPAddress -InterfaceAlias $Interface -Confirm:$false
     Remove-NetRoute -InterfaceAlias $Interface
     New-NetIPAddress -InterfaceAlias $Interface -AddressFamily IPv4 $IP -PrefixLength 24 -DefaultGateway $Gateway | Out-Null
-    Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses 1.1.1.1, 1.0.0.1
+    Set-DnsClientServerAddress -InterfaceAlias $Interface -ServerAddresses $DNS[0], $DNS[1]
     Disable-NetAdapter -Name $Interface -Confirm:$false
     Enable-NetAdapter -Name $Interface -Confirm:$false
     Set-NetConnectionProfile -NetworkCategory Private
