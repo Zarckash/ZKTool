@@ -7,7 +7,7 @@ $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
 # Checking For Updates
-$AppVersion = 3.4
+$AppVersion = 3.5
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -620,11 +620,9 @@ function OptimizationTweaks {
     Enable-ComputerRestore -Drive "C:\"
     Checkpoint-Computer -Description "Pre Optimización ZKTool" -RestorePointType "MODIFY_SETTINGS"
 
-    # Create Monthly Scheduled Task
-    Write-UserOutput "Creando Tarea Programada"
-    $Action = New-ScheduledTaskAction -Execute "$env:ProgramFiles\ZKTool\ZKTool.exe" -Argument "-Optimize"
-    $Trigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Monday -At 10am
-    Register-ScheduledTask -TaskName "ZKToolOptimizer" -Action $Action -Trigger $Trigger | Out-Null
+    # Monthly Optimization Entry
+    Write-UserOutput "Creando Entrada De Fecha En Regedit"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "LastOptimizationDate" -Value (Get-Date -Format "dd-MM-yyyy")
     
     # Disable UAC
     Write-UserOutput "Desactivando UAC Para Administradores"

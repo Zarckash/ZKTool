@@ -5,14 +5,7 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
     Start-Process Powershell "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
     exit
 }
-#################################
-#################################
-#################################
-$ConfirmPreference = 'None'
-Unregister-ScheduledTask -TaskName "ZKToolUpdater"
-#################################
-#################################
-#################################
+
 Set-ExecutionPolicy Bypass
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
@@ -89,6 +82,13 @@ else { # Install ZKTool
 Write-Host "`r`n- - - - - - - - - - - - -" -ForegroundColor Green
 Write-Host "- - - - R E A D Y - - - -" -ForegroundColor Green
 Write-Host "- - - - - - - - - - - - -" -ForegroundColor Green
-Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe
+
+$GetDays = (New-TimeSpan -Start (Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "LastOptimizationDate") -End (Get-Date -Format "dd-MM-yyyy")).Days
+if ($GetDays -gt 29) {
+    Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe -ArgumentList "-Optimize"
+}
+else {
+    Start-Process $env:ProgramFiles\ZKTool\ZKTool.exe
+}
 
 exit
