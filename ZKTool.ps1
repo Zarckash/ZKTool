@@ -316,7 +316,7 @@ $TB1.Text   = "Optimization Tweaks"
 $TB2.Text   = "Cleaning Tweaks"
 $TB3.Text   = "Nvidia Settings"
 $TB4.Text   = "Reduce Icons Spacing"
-$TB5.Text   = "Hide Shortcut Arrows"
+$TB5.Text   = "Hide Shortcut Icons"
 $TB6.Text   = "Set Fluent Cursor"
 $TB7.Text   = "Disable Cortana"
 $TB8.Text   = "Remove OneDrive"
@@ -1203,7 +1203,7 @@ function ReduceIconsSpacing {
     $TB4.ForeColor = $DefaultForeColor
 }
 
-function HideShortcutArrows {
+function HideShortcutIcons {
     $TB5.ForeColor = $AccentColor
     Write-UserOutput "Ocultando Flechas De Acceso Directo"
     $Download.DownloadFile("$GitHubPath/Files/Blank.ico", "$TempPath\Files\Blank.ico")
