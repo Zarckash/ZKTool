@@ -9,6 +9,7 @@
     if ($Export.IsPresent) {
         Start-Process Powershell -Wait {
             $ErrorActionPreference = 'SilentlyContinue'
+            $ConfirmPreference = 'None'
             $host.UI.RawUI.WindowTitle = 'Settings Exporter'
             $Path = @{
                 File       = 'https://github.com/Zarckash/ZKTool/raw/main/Files/.exe/MEGAcmdSetup64.exe'
