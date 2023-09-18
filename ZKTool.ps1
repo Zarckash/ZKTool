@@ -1189,7 +1189,7 @@ function NvidiaSettings {
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -Name "EnableGR535" -Type DWord -Value 0
     $Download.DownloadFile("$GitHubPath/Files/.exe/ProfileInspector.exe", "$TempPath\Files\ProfileInspector.exe")
     $Download.DownloadFile("$GitHubPath/Files/NvidiaProfiles.nip", "$TempPath\Files\NvidiaProfiles.nip")
-    Start-Process ("$TempPath\Files\ProfileInspector.exe")("$TempPath\Files\NvidiaProfiles.nip")
+    & ("$TempPath\Files\ProfileInspector.exe") -SilentImport ("$TempPath\Files\NvidiaProfiles.nip")
     Set-ItemProperty -Path "HKCU:\Software\NVIDIA Corporation\NvTray" -Name "StartOnLogin" -Type DWord -Value 0
     Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse -Force | Out-File $LogPath -Encoding UTF8 -Append
     Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item -Force | Out-File $LogPath -Encoding UTF8 -Append
