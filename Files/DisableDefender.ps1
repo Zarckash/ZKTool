@@ -16,7 +16,7 @@ $TempPath = "$env:temp\ZKTool\Files"
 Write-TypeHost "Desactivando Proteccion En Tiempo Real..."
 
 Start-Process "explorer" -ArgumentList "windowsdefender://threat" 
-Start-Sleep 2
+Start-Sleep 3
 
 $wshell = New-Object -ComObject wscript.shell
 
@@ -65,23 +65,22 @@ Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Sense" /v "Start" /t REG_DWO
 Write-TypeHost "Desactivando Windows Defender Con Política De Grupo..." 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0 -Force
-New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "Real-Time Protection"
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "Real-Time Protection" | Out-Null
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -Name "DisableRealtimeMonitoring" -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService" -Name "Start" -Type DWord -Value 4 -Force
 
-Get-ScheduledTask -TaskName "Windows Defender Cache Maintenance" | Disable-ScheduledTask
-Get-ScheduledTask -TaskName "Windows Defender Cleanup" | Disable-ScheduledTask 
-Get-ScheduledTask -TaskName "Windows Defender Scheduled Scan" | Disable-ScheduledTask
-Get-ScheduledTask -TaskName "Windows Defender Verification" | Disable-ScheduledTask
+Get-ScheduledTask -TaskName "Windows Defender Cache Maintenance" | Disable-ScheduledTask | Out-Null
+Get-ScheduledTask -TaskName "Windows Defender Cleanup" | Disable-ScheduledTask | Out-Null
+Get-ScheduledTask -TaskName "Windows Defender Scheduled Scan" | Disable-ScheduledTask | Out-Null
+Get-ScheduledTask -TaskName "Windows Defender Verification" | Disable-ScheduledTask | Out-Null
 
-gpupdate /force
+gpupdate /force | Out-Null
 
 # Running .bat file with Power Run
 Write-TypeHost "Desactivando Servicios..."
 $BatPath = "$TempPath\DisableDefender.bat"
 $ArgumentList = "-U:T -P:E -M:S " + "`"$BatPath`"" 
 Start-Process "$TempPath\NSudoLG.exe" -ArgumentList $ArgumentList -Wait
-
 
 Write-TypeHost '- - - WINDOWS DEFENDER DESACTIVADO - - -'
 Start-Sleep 2
