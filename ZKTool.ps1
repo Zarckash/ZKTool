@@ -466,13 +466,13 @@ $HB6.Location  = "232,78"
 $HB7.Text      = "Dark Theme"
 $HB7.Location  = "458,6"
 
-$HB8.Text      = ""
+$HB8.Text      = "Disable Defender"
 $HB8.Location  = "458,42"
 
 $HB9.Text      = ""
 $HB9.Location  = "458,78"
 
-$Buttons = @($HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7)
+$Buttons = @($HB1,$HB2,$HB3,$HB4,$HB5,$HB6,$HB7,$HB8)
 foreach ($Button in $Buttons) {
     $HPanel.Controls.Add($Button)
 }
@@ -695,7 +695,10 @@ function OptimizationTweaks {
     Write-UserOutput "Aplicando Exclusiones A Windows Defender"
     $ActiveDrives = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty "Root" | Where-Object {$_.Length -eq 3}
     $ActiveDrives | ForEach-Object {
-        if (Test-Path ($_ + "Games")) {Add-MpPreference -ExclusionPath ($_ + "Games")}
+        if (Test-Path ($_ + "Games")) {
+            Add-MpPreference -ExclusionPath ($_ + "Games")
+            Add-MpPreference -ExclusionProcess ($_ + "Games\*")
+        }
     }
     Add-MpPreference -ExclusionPath "$env:ProgramFiles\Windows Defender"
     Add-MpPreference -ExclusionPath "$env:windir\security\database"
@@ -1444,6 +1447,37 @@ function AMDUndervoltPack {
     $MTB16.ForeColor = $DefaultForeColor
 }
 
+function NVCleanstall {
+    $MTB14.ForeColor = $AccentColor
+    $Download.DownloadFile("$GitHubPath/Files/NVCleanstall.ps1", "$TempPath\Files\NVCleanstall.ps1")
+    Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\NVCleanstall.ps1 ; exit"
+    $MTB14.ForeColor = $DefaultForeColor
+}
+
+function RemoveRealtek {
+    $MTB11.ForeColor = $AccentColor
+    Write-UserOutput "Quitando Realtek Audio Service"
+    pwsh -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
+    pwsh -command {sc stop RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
+    taskkill.exe /f /im RtkAudUService64.exe | Out-File $LogPath -Encoding UTF8 -Append
+    pwsh -command {sc delete RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
+    pwsh -command {sc start Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
+    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
+    Get-AppxPackage -All "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
+    $MTB11.ForeColor = $DefaultForeColor
+}
+
+function Z390LanDrivers {
+    $HB6.ForeColor = $AccentColor
+    Write-UserOutput "Instalando Z390 Lan Drivers"
+    $Download.DownloadFile("$GitHubPath/Files/.zip/LanDrivers.zip", "$TempPath\Files\LanDrivers.zip")
+    Expand-Archive -Path ("$TempPath\Files\LanDrivers.zip") -DestinationPath ("$TempPath\Files\LanDrivers") -Force
+    pnputil /add-driver ("$TempPath\Files\LanDrivers\e1d68x64.inf") /install
+    $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Intel(R) Ethernet Connection (7) I219-V" | Select-Object -ExpandProperty InfName
+    pnputil /delete-driver $OldDriver /uninstall /force
+    $HB6.ForeColor = $DefaultForeColor
+}
+
 function DarkTheme {
     $HB7.ForeColor = $AccentColor
 
@@ -1520,35 +1554,11 @@ function DarkTheme {
     $HB7.ForeColor = $DefaultForeColor
 }
 
-function NVCleanstall {
+function DisableDefender {
     $MTB14.ForeColor = $AccentColor
-    $Download.DownloadFile("$GitHubPath/Files/NVCleanstall.ps1", "$TempPath\Files\NVCleanstall.ps1")
-    Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\NVCleanstall.ps1 ; exit"
+    $Download.DownloadFile("$GitHubPath/Files/DisableDefender.ps1", "$TempPath\Files\DisableDefender.ps1")
+    Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\DisableDefender.ps1 ; exit"
     $MTB14.ForeColor = $DefaultForeColor
-}
-
-function RemoveRealtek {
-    $MTB11.ForeColor = $AccentColor
-    Write-UserOutput "Quitando Realtek Audio Service"
-    pwsh -command {sc stop Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
-    pwsh -command {sc stop RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
-    taskkill.exe /f /im RtkAudUService64.exe | Out-File $LogPath -Encoding UTF8 -Append
-    pwsh -command {sc delete RtkAudioUniversalService} | Out-File $LogPath -Encoding UTF8 -Append
-    pwsh -command {sc start Audiosrv} | Out-File $LogPath -Encoding UTF8 -Append
-    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
-    Get-AppxPackage -All "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
-    $MTB11.ForeColor = $DefaultForeColor
-}
-
-function Z390LanDrivers {
-    $HB6.ForeColor = $AccentColor
-    Write-UserOutput "Instalando Z390 Lan Drivers"
-    $Download.DownloadFile("$GitHubPath/Files/.zip/LanDrivers.zip", "$TempPath\Files\LanDrivers.zip")
-    Expand-Archive -Path ("$TempPath\Files\LanDrivers.zip") -DestinationPath ("$TempPath\Files\LanDrivers") -Force
-    pnputil /add-driver ("$TempPath\Files\LanDrivers\e1d68x64.inf") /install
-    $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Intel(R) Ethernet Connection (7) I219-V" | Select-Object -ExpandProperty InfName
-    pnputil /delete-driver $OldDriver /uninstall /force
-    $HB6.ForeColor = $DefaultForeColor
 }
 
 $StartScript.Add_MouseEnter({
