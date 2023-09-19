@@ -92,6 +92,9 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name 
 New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "Real-Time Protection" | Out-Null
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -Name "DisableRealtimeMonitoring" -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService" -Name "Start" -Type DWord -Value 4 -Force
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft" -Name "Windows Defender Security Center" | Out-Null
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center" -Name "Systray" | Out-Null
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray" -Name "HideSystray" -Type DWord -Value 1
 
 Get-ScheduledTask -TaskName "Windows Defender Cache Maintenance" | Disable-ScheduledTask | Out-Null
 Get-ScheduledTask -TaskName "Windows Defender Cleanup" | Disable-ScheduledTask | Out-Null
