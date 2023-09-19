@@ -61,7 +61,31 @@ Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WdFilter" /v "Start" /t REG_
 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WdBoot" /v "Start" /t REG_DWORD /d "4" /f
 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Sense" /v "Start" /t REG_DWORD /d "4" /f' | Out-File "$TempPath\DisableDefender.bat"
 
-#disables defender through gp edit
+# Add Defender exclusions to all drives
+Write-TypeHost "Añadiendo Exclusiones De Todo A Windows Defender..."
+$ActiveDrives = Get-PSDrive -PSProvider FileSystem | Select-Object -ExpandProperty "Root" | Where-Object {$_.Length -eq 3}
+$ActiveDrives | ForEach-Object {
+    Add-MpPreference -ExclusionPath "$_"
+    Add-MpPreference -ExclusionProcess "$_*"
+}
+
+# Disable Windows Defender through Set-MpPreference
+Write-TypeHost "Desactivando Windows Defender Con Powershell Cmdlet..."
+Set-MpPreference -DisableArchiveScanning 1
+Set-MpPreference -DisableBehaviorMonitoring 1
+Set-MpPreference -DisableIntrusionPreventionSystem 1
+Set-MpPreference -DisableIOAVProtection 1
+Set-MpPreference -DisableRemovableDriveScanning 1
+Set-MpPreference -DisableBlockAtFirstSeen 1
+Set-MpPreference -DisableScanningMappedNetworkDrivesForFullScan 1
+Set-MpPreference -DisableScanningNetworkFiles 1
+Set-MpPreference -DisableScriptScanning 1
+Set-MpPreference -DisableRealtimeMonitoring 1
+Set-MpPreference -LowThreatDefaultAction Allow
+Set-MpPreference -ModerateThreatDefaultAction Allow
+Set-MpPreference -HighThreatDefaultAction Allow
+
+# Disable Windows Defender through Group Policy
 Write-TypeHost "Desactivando Windows Defender Con Política De Grupo..." 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1 -Force
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0 -Force
