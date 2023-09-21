@@ -13,21 +13,25 @@ function Write-TypeHost ([string]$s = '',[string]$TextColor = 'DarkCyan') {
 $TempPath = "$env:temp\ZKTool\Files"
 
 # Checking Installed Version
-Write-TypeHost "Comprobando Version Instalada..."
+Write-TypeHost "Comprobando Versión Instalada..."
 $GetCurrentVersion = Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion | Where-Object {$_.devicename -Like "*nvidia*tx*"} | Select-Object -ExpandProperty DriverVersion
-$CurrentVersion = $GetCurrentVersion.Replace('.','').Substring($GetCurrentVersion.Length - 8)
+$CurrentVersion = $GetCurrentVersion.Replace('.','').Substring($GetCurrentVersion.Length - 8).Insert(3,'.')
 
 $Uri = "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=120&pfid=929&osID=57&languageCode=1033&isWHQL=1&dch=1&sort1=0&numberOfResults=1"
 $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
 $LatestVersion = $WebRequest.IDS.downloadInfo.Version
 
-if ($CurrentVersion -ge $LatestVersion.Replace('.','')) {
-    Write-TypeHost "LA VERSIÓN ACTUAL YA ES LA ÚLTIMA, SALIENDO..." -TextColor "Red"
+if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
+    Write-TypeHost "LA VERSIÓN $CurrentVersion YA ES LA ÚLTIMA, SALIENDO..." -TextColor "Red"
+    Start-Sleep 3
     exit
+}
+else {
+    Write-TypeHost "NUEVA VERSIÓN $LatestVersion ENCONTRADA" -TextColor "Green"
 }
 
 # Downloading Latest Nvidia Driver
-Write-TypeHost "Descargando Ultimos Drivers De Nvidia..."
+Write-TypeHost "Descargando Últimos Drivers De Nvidia..."
 $Url = "https://us.download.nvidia.com/Windows/$LatestVersion/$LatestVersion-desktop-win10-win11-64bit-international-dch-whql.exe"
 (New-Object System.Net.WebClient).DownloadFile($Url,"$TempPath\Driver.exe")
 
@@ -59,7 +63,8 @@ Write-TypeHost "Desactivando HDCP..."
 $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}"
 if (Test-Path "$RegPath\0000") {
     Set-ItemProperty -Path "$RegPath\0000" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
-}elseif (Test-Path "$RegPath\0002") {
+}
+elseif (Test-Path "$RegPath\0002") {
     Set-ItemProperty -Path "$RegPath\0002" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
 }
 
@@ -71,6 +76,6 @@ Start-Process "$TempPath\NVCleanstall\setup.exe" -WorkingDirectory "$TempPath\NV
 Write-TypeHost "Desinstalando 7Zip..."
 Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S -Wait
 
-Write-TypeHost '- - - DRIVERS INSTALADOS - - -'
+Write-TypeHost '- - - DRIVERS INSTALADOS - - -' -TextColor "Green"
 
-Start-Sleep 2
+Start-Sleep 3
