@@ -78,4 +78,5 @@ Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S -Wait
 
 Write-TypeHost '- - - DRIVERS INSTALADOS - - -' -TextColor "Green"
 
-Start-Sleep 3
+Timeout -T 10
+exit
