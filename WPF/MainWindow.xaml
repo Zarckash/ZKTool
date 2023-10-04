@@ -10,6 +10,7 @@
     Height="651"
     AllowsTransparency="True"
     Background="Transparent"
+    Icon="C:\Program Files\ZKTool\WPF\Images\ZKTool.ico"
     SnapsToDevicePixels="True"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None">

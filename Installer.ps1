@@ -41,13 +41,12 @@ $Images.psobject.properties.name | ForEach-Object {
     $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/Images/$ImagePath","$env:ProgramFiles\ZKTool\Resources\Images\$ImagePath")
 }
 
-$WPF = @('MainWindow.xaml','StylesDictionary.xaml')
-$WPF | ForEach-Object {
-    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/WPF/$_", "$env:ProgramFiles\ZKTool\WPF\$_")
-}
+$Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/WPF/WPF.zip", "$env:temp\ZKTool\Files\WPF.zip")
+Expand-Archive -Path "$env:temp\ZKTool\Files\WPF.zip" -DestinationPath "$env:ProgramFiles\ZKTool\WPF" -Force
+
 
 $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
-Expand-Archive -Path "$env:temp\ZKTool\Resources\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
+Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
 Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
 
 if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
