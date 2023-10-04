@@ -1,5 +1,10 @@
 ﻿$Global:App = [Hashtable]::Synchronized(@{})
 
+$ErrorActionPreference = 'SilentlyContinue'
+$ProgressPreference = 'SilentlyContinue'
+$WarningPreference = 'SilentlyContinue'
+$ConfirmPreference = 'None'
+
 $App.Version = "4.0.0"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
