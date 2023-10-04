@@ -1,8 +1,8 @@
 $ErrorActionPreference = 'SilentlyContinue'
 $Host.UI.RawUI.WindowTitle = 'Spotify Installer'
 
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Invoke-Expression "& { $((Invoke-WebRequest -useb 'https://spotx-official.github.io/run.ps1').Content) } -new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -block_update_on"
+[Net.ServicePointManager]::SecurityProtocol = 3072
+Invoke-Expression "& { $(Invoke-WebRequest -useb 'https://spotx-official.github.io/run.ps1') } -new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -block_update_on -cache_limit 100"
 
 Add-Content $env:appdata\Spotify\prefs "app.autostart-configured=true`nui.hardware_acceleration=false`napp.autostart-mode=`"off`""
 New-Item -Path "HKCU:\Software" -Name "Spotify" | Out-Null
