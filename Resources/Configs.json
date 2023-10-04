@@ -1,0 +1,32 @@
+﻿{
+    "Config1": {
+        "Name": "Modern Warfare II",
+        "FunctionName": "ModernWarfareII",
+        "Image": "MWII.png"
+    },
+    "Config2": {
+        "Name": "PUBG",
+        "FunctionName": "PUBG",
+        "Image": "PUBG.png"
+    },
+    "Config3": {
+        "Name": "Counter Strike 2",
+        "FunctionName": "CSGO",
+        "Image": "CS2.png"
+    },
+    "Config4": {
+        "Name": "Apex Legends",
+        "FunctionName": "ApexLegends",
+        "Image": "ApexLegends.ico"
+    },
+    "Config15": {
+        "Name": "MSI Afterburner",
+        "FunctionName": "MSIAfterburner",
+        "Image": "MSIAfterburner.ico"
+    },
+    "Config16": {
+        "Name": "RivaTuner",
+        "FunctionName": "RivaTuner",
+        "Image": "RivaTuner.ico"
+    }
+}

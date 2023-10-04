@@ -1,0 +1,1839 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="AppBackgroundColor" Color="#F2161616" />
+    <SolidColorBrush x:Key="AppItemsColor" Color="#CC2B2B2B" />
+    <SolidColorBrush x:Key="AppTextColor" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="AppSubTextColor" Color="#C8C8C8" />
+    <SolidColorBrush x:Key="AppAccentColor" Color="#ACA5F3" />
+    <SolidColorBrush x:Key="AppHoverColor" Color="#0DFFFFFF" />
+    <SolidColorBrush x:Key="AppHoverButtonColor" Color="#1AFFFFFF" />
+
+    <FontFamily x:Key="Font">Segoe UI</FontFamily>
+    <FontFamily x:Key="FontIcons">Segoe Fluent Icons</FontFamily>
+
+    <Style x:Key="InteractionButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontIcons}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="interactionButtonBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="4"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NavButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Margin" Value="8,0,8,12" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="navButtonBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="4"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Margin="8,0,0,0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ContentLabelStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Margin" Value="8,0,0,0" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Border
+                        x:Name="contentLabelBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CategoryLabelStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="{DynamicResource AppAccentColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Margin" Value="8,8,8,4" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Border
+                        x:Name="categoryLabelBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AppButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource AppHoverColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="Margin" Value="8,4" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="appButtonBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{DynamicResource AppAccentColor}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="appButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="appButtonBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="appButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TweakButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource AppHoverColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Height" Value="51" />
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="Margin" Value="8,4" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="tweakButtonBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{DynamicResource AppAccentColor}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="tweakButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="tweakButtonBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="tweakButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ConfigButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource AppHoverColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Height" Value="52" />
+        <Setter Property="Margin" Value="8,4" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Semibold" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="configButtonBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{DynamicResource AppAccentColor}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="configButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="configButtonBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="configButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SearchButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource AppHoverColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="Margin" Value="8,4" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="searchButtonBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{DynamicResource AppAccentColor}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="searchButtonBorder" Property="Background" Value="{DynamicResource AppAccentColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="searchButtonBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="searchButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Width" Value="30" />
+        <Setter Property="MaxLength" Value="3" />
+        <Setter Property="Margin" Value="4,0" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="CaretBrush" Value="{DynamicResource AppTextColor}" />
+    </Style>
+
+    <Style x:Key="StartScriptButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource AppItemsColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Margin" Value="8,0,0,0" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="startscriptButtonBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{DynamicResource AppAccentColor}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="startscriptButtonBorder" Property="Background" Value="{DynamicResource AppAccentColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="startscriptButtonBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="startscriptButtonBorder" Property="Background" Value="#1AFFFFFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

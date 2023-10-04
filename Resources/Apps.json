@@ -1,248 +1,218 @@
 ﻿{
-    "GoogleChrome": {
+    "App1": {
         "Name": "Google Chrome",
         "Installer": "Google.Chrome",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "GeForceExperience": {
+    "App2": {
         "Name": "GeForce Experience",
         "Installer": "Nvidia.GeForceExperience",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "Discord": {
+    "App3": {
         "Name": "Discord",
         "Installer": "Discord.Discord",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "Spotify": {
+    "App4": {
         "Name": "Spotify",
-        "Installer": "Spotify.ps1",
-        "Output": "Instalando ",
-        "Source": "Script"
+        "FunctionName": "Spotify",
+        "Output": "Iniciando Instalador De ",
+        "Source": "Function"
     },
-    "HWMonitor": {
-        "Name": "HW Monitor",
-        "Installer": "CPUID.HWMonitor",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "MSIAfterburner": {
-        "Name": "MSI Afterburner",
-        "Installer": "MSIAfterburner.exe",
-        "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": " "
-    },
-    "CorsairiCue": {
-        "Name": "Corsair iCue",
-        "Installer": "Corsair.iCUE.4",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "LogitechOMM": {
-        "Name": "Logitech Onboard Memory Manager",
-        "Installer": "LogitechOMM.exe",
-        "Output": "Abriendo ",
-        "Source": ".exe",
-        "Arguments": " "
-    },
-    "RazerSynapse": {
-        "Name": "Razer Synapse",
-        "Installer": "RazerSynapse.exe",
-        "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": " "
-    },
-    "uTorrentWeb": {
-        "Name": "uTorrent Web",
-        "Installer": "uTorrentWeb.exe",
-        "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": " "
-    },
-    "NanaZip": {
+    "App5": {
         "Name": "NanaZip",
         "Installer": "M2Team.NanaZip",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "VisualStudioCode": {
-        "Name": "Visual Studio Code",
-        "Installer": "Microsoft.VisualStudioCode",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "OBSStudio": {
-        "Name": "OBS Studio",
-        "Installer": "OBSProject.OBSStudio",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "AdobePhotoshop": {
-        "Name": "Adobe Photoshop",
-        "Installer": "AdobePhotoshop.iso",
-        "Output": "Iniciando Instalador De ",
-        "Source": ".iso"
-    },
-    "AdobePremiere": {
-        "Name": "Adobe Premiere",
-        "Installer": "AdobePremiere.iso",
-        "Output": "Iniciando Instalador De ",
-        "Source": ".iso"
-    },
-    "AdobeAfterEffects": {
-        "Name": "Adobe After Effects",
-        "Installer": "AdobeAfterEffects.iso",
-        "Output": "Iniciando Instalador De ",
-        "Source": ".iso"
-    },
-    "Netflix": {
-        "Name": "Netflix",
-        "Installer": "Netflix.appx",
-        "Output": "Instalando ",
-        "Source": ".appx"
-    },
-    "PrimeVideo": {
-        "Name": "Prime Video",
-        "Installer": "PrimeVideo.appx",
-        "Output": "Instalando ",
-        "Source": ".appx"
-    },
-    "VLCMediaPlayer": {
-        "Name": "VLC Media Player",
-        "Installer": "VLCMediaPlayer.exe",
-        "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": " "
-    },
-    "Rufus": {
-        "Name": "Rufus",
-        "Installer": "Rufus.exe",
-        "Output": "Abriendo ",
-        "Source": ".exe",
-        "Arguments": " "
-    },
-    "WinRAR": {
+    "App6": {
         "Name": "WinRAR",
         "Installer": "RARLab.WinRAR",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "MegaSync": {
-        "Name": "MegaSync",
-        "Installer": "Mega.MEGASync",
+    "App7": {
+        "Name": "7-Zip",
+        "Installer": "mcmilk.7zip-zstd",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "LibreOffice": {
-        "Name": "Libre Office",
-        "Installer": "TheDocumentFoundation.LibreOffice",
+    "App8": {
+        "Name": "HW Monitor",
+        "Installer": "CPUID.HWMonitor",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "GitHubDesktop": {
-        "Name": "GitHub Desktop",
-        "Installer": "GitHub.GitHubDesktop",
-        "Output": "Instalando ",
-        "Source": "Winget"
+    "App9": {
+        "Name": "MSI Afterburner",
+        "Installer": "MSIAfterburner.exe",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".exe"
     },
-    "NodeJS":{
-        "Name": "Node JS",
-        "Installer": "OpenJS.NodeJS",
-        "Output": "Instalando ",
-        "Source": "Winget"
+    "App10": {
+        "Name": "uTorrent Web",
+        "Installer": "uTorrentWeb.exe",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".exe"
     },
-    "AMDAdrenalin": {
-        "Name": "AMD Adrenalin",
-        "Installer": "AMDAdrenalin.exe",
-        "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": " "
-    },
-    "TarkovLauncher": {
-        "Name": "Tarkov Launcher",
-        "Installer": "TarkovLauncher.exe",
-        "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": " "
-    },
-    "LeagueofLegends": {
-        "Name": "League Of Legends",
-        "Installer": "RiotGames.LeagueOfLegends.EUW",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "Valorant": {
-        "Name": "Valorant",
-        "Installer": "RiotGames.Valorant.EU",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "Steam": {
+    "App11": {
         "Name": "Steam",
         "Installer": "Valve.Steam",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "EAApp": {
+    "App12": {
         "Name": "EA Desktop App",
         "Installer": "ElectronicArts.EADesktop",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "UbisoftConnect": {
+    "App13": {
         "Name": "Ubisoft Connect",
         "Installer": "Ubisoft.Connect",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "Battle.Net": {
+    "App14": {
         "Name": "Battle.Net",
         "Installer": "Battle.Net.exe",
-        "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": " "
+        "Output": "Iniciando Instalador De ",
+        "Source": ".exe"
     },
-    "GOGGalaxy": {
-        "Name": "GOG Galaxy",
-        "Installer": "GOG.Galaxy",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "RockstarGames": {
+    "App15": {
         "Name": "Rockstar Games",
         "Installer": "RockstarGamesLauncher.exe",
-        "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": " "
+        "Output": "Iniciando Instalador De ",
+        "Source": ".exe"
     },
-    "EpicGamesLauncher": {
-        "Name": "Epic Games Launcher",
+    "App16": {
+        "Name": "Epic Games",
         "Installer": "EpicGames.EpicGamesLauncher",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "Xbox": {
+    "App17": {
         "Name": "Xbox App",
         "Installer": "XboxApp.appx",
         "Output": "Instalando ",
         "Source": ".appx"
     },
-    "VisualCRuntimes": {
-        "Name": "Visual C++ Runtimes",
-        "Installer": "VisualCRuntimes.exe",
+    "App18": {
+        "Name": "Valorant",
+        "Installer": "RiotGames.Valorant.EU",
         "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": "/aiA /gm2"
+        "Source": "Winget"
     },
-    "Autoruns": {
-        "Name": "Autoruns",
-        "Installer": "Autoruns.exe",
+    "App19": {
+        "Name": "League of Legends",
+        "Installer": "RiotGames.LeagueOfLegends.EUW",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App20": {
+        "Name": "Tarkov Launcher",
+        "Installer": "TarkovLauncher.exe",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".exe"
+    },
+    "App21": {
+        "Name": "Logitech OMM",
+        "Installer": "LogitechOMM.exe",
         "Output": "Abriendo ",
-        "Source": ".exe",
-        "Arguments": " "
+        "Source": ".exe"
+    },
+    "App22": {
+        "Name": "Corsair iCue",
+        "Installer": "Corsair.iCUE.4",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App23": {
+        "Name": "Razer Synapse",
+        "Installer": "RazerSynapse.exe",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".exe"
+    },
+    "App24": {
+        "Name": "SteelSeries Engine",
+        "Installer": "SteelSeries.SteelSeriesEngine",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App25": {
+        "Name": "Visual Studio Code",
+        "Installer": "Microsoft.VisualStudioCode",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App26": {
+        "Name": "Visual Studio 2022",
+        "Installer": "Microsoft.VisualStudio.2022.Community",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App27": {
+        "Name": "GitHub Desktop",
+        "Installer": "GitHub.GitHubDesktop",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App28":{
+        "Name": "Node JS",
+        "Installer": "OpenJS.NodeJS",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App31": {
+        "Name": "OBS Studio",
+        "Installer": "OBSProject.OBSStudio",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App32": {
+        "Name": "Adobe Photoshop",
+        "FunctionName": "AdobePhotoshop",
+        "Output": "Iniciando Instalador De ",
+        "Source": "Function"
+    },
+    "App33": {
+        "Name": "Adobe Premiere",
+        "FunctionName": "AdobePremiere",
+        "Output": "Iniciando Instalador De ",
+        "Source": "Function"
+    },
+    "App34": {
+        "Name": "Adobe After Effects",
+        "FunctionName": "AdobeAfterEffects",
+        "Output": "Iniciando Instalador De ",
+        "Source": "Function"
+    },
+    "App35": {
+        "Name": "VLC Media Player",
+        "Installer": "VLCMediaPlayer.exe",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".exe"
+    },
+    "App36": {
+        "Name": "MegaSync",
+        "Installer": "Mega.MEGASync",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App37": {
+        "Name": "Libre Office",
+        "Installer": "TheDocumentFoundation.LibreOffice",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App38": {
+        "Name": "AMD Adrenalin",
+        "Installer": "AMDAdrenalin.exe",
+        "Output": "Iniciando Instalador De ",
+        "Source": ".exe"
     }
 }

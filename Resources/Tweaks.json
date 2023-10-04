@@ -1,0 +1,54 @@
+﻿{
+    "Tweak1": {
+        "Name": "Ajustes de registro",
+        "FunctionName": "RegistryTweaks"
+    },
+    "Tweak2": {
+        "Name": "Ajustes de Nvidia",
+        "FunctionName": "NvidiaSettings"
+    },
+    "Tweak4": {
+        "Name": "Desinstalar Xbox Game Bar",
+        "FunctionName": "UninstallXboxGameBar"
+    },
+    "Tweak5": {
+        "Name": "Activar modo MSI en GPU",
+        "FunctionName": "EnableMSIMode"
+    },
+    "Tweak9": {
+        "Name": "Desisntalar aplicaciones",
+        "FunctionName": "UninstallBloat"
+    },
+    "Tweak10": {
+        "Name": "Desinstalar OneDrive",
+        "FunctionName": "UninstallOneDrive"
+    },
+    "Tweak11": {
+        "Name": "Eliminar procesos de Adobe",
+        "FunctionName": "AdobeCleaner"
+    },
+    "Tweak12": {
+        "Name": "Eliminar drivers de Realtek",
+        "FunctionName": "RealtekCleaner"
+    },
+    "Tweak17": {
+        "Name": "Reducir espacio entre iconos",
+        "FunctionName": "ReduceIconsSpacing"
+    },
+    "Tweak18": {
+        "Name": "Ocultar icono acceso directo",
+        "FunctionName": "HideShortcutIcons"
+    },
+    "Tweak19": {
+        "Name": "Cambiar cursor de W11",
+        "FunctionName": "SetW11Cursor"
+    },
+    "Tweak20": {
+        "Name": "Tweaks en menú contextual",
+        "FunctionName": "TweaksInContextMenu"
+    },
+    "Tweak21": {
+        "Name": "Apariencia de la terminal",
+        "FunctionName": "WindowsTerminalAppearance"
+    }
+}

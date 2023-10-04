@@ -1,46 +1,25 @@
 ﻿function Write-UserOutput {
     param (
         [string]$Message,
-        [string]$Progress,
-        [switch]$DisableType
+        [string]$Progress
     )
 
-    $Message = $Message + "..."
-    $MaxLength = 62 - $Progress.Length
+    $Message += "..."
+    $MaxLength = 52 - $Progress.Length
     $AddSpaces = ""
-    $AddSpacesDynamic = ""
 
-    $Message.Length..$MaxLength | ForEach-Object {
+    $Message.Length..($MaxLength - 1) | ForEach-Object {
         $AddSpaces += " "
     }
 
-    0..$Message.Length | ForEach-Object {
-        $AddSpacesDynamic += " "
-    }
-
-    if ($DisableType.IsPresent -and ($Progress.Length -eq 0)) {
-        $StatusBox.Text = "| $Message"
-    }
-    elseif ($DisableType.IsPresent -and ($Progress.Length -gt 0)) {
-        $StatusBox.Text = "| $Message" + $AddSpaces + $Progress
-    }
-    elseif ($Progress.Length -gt 0) {
-        $i = $Message.Length
-        $MessageChar = ""
-        $Message -split '' | ForEach-Object {
-            $MessageChar += $_
-            $AddSpacesDynamic = $AddSpacesDynamic.Substring(0,$i)
-            $StatusBox.Text = "| " + $MessageChar + $AddSpacesDynamic + $AddSpaces + $Progress
-            Start-Sleep -Milliseconds 20
-            $i--
-        }
+    if ($Progress.Length -eq 0) {
+        Update-GUI OutputBox Text $Message
+        $Message | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
+        
     }
     else {
-        $MessageChar = ""
-        $Message -split '' | ForEach-Object {
-            $MessageChar += $_
-            $StatusBox.Text = "| " + $MessageChar
-            Start-Sleep -Milliseconds 20
-        }
+        Update-GUI OutputBox Text ($Message + $AddSpaces + $Progress)
+        ($Message + $AddSpaces + $Progress) | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
     }
+
 }

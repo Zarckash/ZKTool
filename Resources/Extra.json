@@ -1,0 +1,49 @@
+﻿{
+    "Extra1": {
+        "Name": "Activar Windows Pro",
+        "FunctionName": "ActivateWindowsPro"
+    },
+    "Extra2": {
+        "Name": "Visual C++",
+        "Installer": "VisualCRuntimes.exe",
+        "Output": "Instalando ",
+        "Source": ".exe",
+        "Arguments": "/aiA /gm2"
+    },
+    "Extra3": {
+        "Name": "Autoruns",
+        "Installer": "Autoruns.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "Extra4": {
+        "Name": "Rufus",
+        "Installer": "Rufus.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "Extra5": {
+        "Name": "Paquete de undervolt AMD",
+        "FunctionName": "AMDUndervoltPack"
+    },
+    "Extra9": {
+        "Name": "Desactivar Defender",
+        "FunctionName": "DisableDefender"
+    },
+    "Extra10": {
+        "Name": "Instalacion limpia de Nvidia",
+        "FunctionName": "NVCleanstall"
+    },
+    "Extra17": {
+        "Name": "Drivers de Red Z390",
+        "FunctionName": "Z390LanDrivers"
+    },
+    "Extra18": {
+        "Name": "Tema oscuro personalizado",
+        "FunctionName": "CustomDarkTheme"
+    },
+    "Extra19": {
+        "Name": "Instalar FFMPEG",
+        "FunctionName": "InstallFFMPEG"
+    }
+}
