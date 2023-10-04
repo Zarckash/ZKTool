@@ -44,15 +44,14 @@ $Images.psobject.properties.name | ForEach-Object {
 $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/WPF/WPF.zip", "$env:temp\ZKTool\Files\WPF.zip")
 Expand-Archive -Path "$env:temp\ZKTool\Files\WPF.zip" -DestinationPath "$env:ProgramFiles\ZKTool\WPF" -Force
 
-
-$Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
-Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
-Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
-
 if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
     $host.UI.RawUI.WindowTitle = "ZKTool Updater"
     Write-TypeHost "Actualizando ZKTool App..."
     Start-Sleep 1
+
+    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
+    Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
+    Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
 
     # Rebuild Icon Cache
     ie4uinit.exe -show
@@ -67,6 +66,10 @@ if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
 else { # Install ZKTool
     $host.UI.RawUI.WindowTitle = "ZKTool Installer"
     Write-TypeHost "Instalando ZKTool App..."
+
+    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
+    Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
+    Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
 
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
