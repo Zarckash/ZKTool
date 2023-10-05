@@ -18,7 +18,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="C:\Program Files\ZKTool\WPF\StylesDictionary.xaml" />
+                <ResourceDictionary Source="H:\GitHub\ZKToolForm\StylesDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
