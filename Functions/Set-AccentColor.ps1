@@ -25,5 +25,5 @@
     if ($App.AccentColor -eq "#4CC2FF") {
         $App.AccentColor = "#ACA5F3" # Default app color
     }
-    (Get-Content -Path "H:\GitHub\ZKToolForm\StylesDictionary.xaml" -Raw) -replace '"AppAccentColor" Color=".*"', ('"AppAccentColor" Color=' + ('"' + $App.AccentColor + '"')) | Set-Content -Path "H:\GitHub\ZKToolForm\StylesDictionary.xaml"
+    (Get-Content -Path ($App.ZKToolPath + "WPF\StylesDictionary.xaml") -Raw) -replace '"AppAccentColor" Color=".*"', ('"AppAccentColor" Color=' + ('"' + $App.AccentColor + '"')) | Set-Content -Path ($App.ZKToolPath + "WPF\StylesDictionary.xaml")
 }
