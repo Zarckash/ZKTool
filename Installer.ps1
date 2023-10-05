@@ -1,4 +1,7 @@
 $ErrorActionPreference = 'SilentlyContinue'
+$ProgressPreference = 'SilentlyContinue'
+$WarningPreference = 'SilentlyContinue'
+$ConfirmPreference = 'None'
 
 # Run Script As Administrator
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
@@ -22,7 +25,8 @@ function Write-TypeHost ([string]$s = '', [string]$TextColor = 'DarkCyan') {
 $Download = (New-Object System.Net.WebClient)
 New-Item $env:temp\ZKTool\Files\ -ItemType Directory -Force | Out-Null
 
-if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
+if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") {
+    # Update ZKTool
     $host.UI.RawUI.WindowTitle = "ZKTool Updater"
     Write-TypeHost "Actualizando ZKTool App..."
     Start-Sleep 1
@@ -41,7 +45,8 @@ if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0" -Force
 }
-else { # Install ZKTool
+else {
+    # Install ZKTool
     $host.UI.RawUI.WindowTitle = "ZKTool Installer"
     Write-TypeHost "Instalando ZKTool App..."
 
@@ -68,19 +73,69 @@ else { # Install ZKTool
     Write-TypeHost "`r`nInstalando Fuente..."
     $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/HaskligFont.zip", "$env:temp\ZKTool\Files\HaskligFont.zip")
     Expand-Archive -Path "$env:temp\ZKTool\Files\HaskligFont.zip" -DestinationPath "$env:temp\ZKTool\Files\HaskligFont" -Force
-    Get-ChildItem -Path "$env:temp\ZKTool\Files\HaskligFont" | ForEach-Object {
-        $FontName = $_.Name.Replace('-', ' ').Replace('It', ' Italic').Replace('  ', ' ').Replace('.ttf', ' (True Type)')
-        $FontPath = "$env:localappdata\Microsoft\Windows\Fonts\" + $_.Name
-        Copy-Item -Path $_.FullName -Destination $FontPath -Force
-        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -Name $FontName -Value $FontPath
+
+    $ExistingFonts = Get-ChildItem -Path "C:\Windows\Fonts" | ForEach-Object { $_.Name }
+    $CSharpCode = @'
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using System.Runtime.InteropServices;
+
+namespace FontResource
+{
+    public class AddRemoveFonts
+    {
+        [DllImport("gdi32.dll")]
+        static extern int AddFontResource(string lpFilename);
+
+        public static int AddFont(string fontFilePath) {
+            try 
+            {
+                return AddFontResource(fontFilePath);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+    }
+}
+'@
+
+    Add-Type $CSharpCode
+
+    $FontFileTypes = @{}
+    $FontFileTypes.Add(".ttf", " (TrueType)")
+    $FontRegistryPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
+
+    Get-ChildItem "$env:temp\ZKTool\Files\HaskligFont" | ForEach-Object {
+        $Path = Join-Path "C:\Windows\Fonts" $_.Name
+        if (!($ExistingFonts.Contains($_.Name))) {
+
+            Copy-Item -Path $_.FullName -Destination $Path
+    
+            $FileDir = split-path $Path
+            $FileName = split-path $Path -leaf
+            $FileExt = (Get-Item $Path).extension
+            $FileBaseName = $FileName -replace ($FileExt , "")
+                
+            $Shell = new-object -com Shell.application
+            $MyFolder = $Shell.Namespace($FileDir)
+            $FileObj = $MyFolder.Items().Item($FileName)
+            $FontName = $MyFolder.GetDetailsOf($FileObj, 21)
+                
+            if ($FontName -eq "") { $FontName = $FileBaseName }
+                
+            [FontResource.AddRemoveFonts]::AddFont($Path) | Out-Null
+            Set-ItemProperty -Path "$($FontRegistryPath)" -Name "$($FontName)$($FontFileTypes.Item($FileExt))" -Value "$($FileName)"
+        }
     }
 
-    # Check Winget
-    Write-TypeHost "`r`nComprobando Winget..."
-    if ((Test-Path "$env:userprofile\AppData\Local\Microsoft\WindowsApps\winget.exe")) {
-        Write-TypeHost "`r`n    Instalando Winget..."
-        Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget" -Wait
-    }
+    # Update Winget
+    Write-TypeHost "`r`nActualizando Winget..."
+    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Files/.appx/Winget.appx", "$env:temp\ZKTool\Files\Winget.appx")
+    Add-AppPackage "$env:temp\ZKTool\Files\Winget.appx"
 }
 
 Write-Host "`r`n- - - - - - - - - - - - -" -ForegroundColor Green
