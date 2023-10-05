@@ -703,15 +703,8 @@ function ReduceIconsSpacing {
 
 function HideShortcutIcons {
     Write-UserOutput "Ocultando flechas de acceso directo"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "Blank.ico")), ($App.FilesPath + "Blank.ico")
-    Unblock-File ($App.FilesPath + "Blank.ico")
-    Copy-Item -Path ($App.FilesPath + "Blank.ico") -Destination "C:\Windows\System32" -Force
-    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-ItemProperty -Path "HKCR:\IE.AssocFile.URL" -Name "IsShortcut" -Value ""
-    Set-ItemProperty -Path "HKCR:\InternetShortcut" -Name "IsShortcut" -Value ""
-    Set-ItemProperty -Path "HKCR:\lnkfile" -Name "IsShortcut" -Value ""
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "Shell Icons" | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -Value "%windir%\System32\Blank.ico"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -Value "%windir%\System32\shell32.dll,-50"
 }
 
 function SetW11Cursor {
