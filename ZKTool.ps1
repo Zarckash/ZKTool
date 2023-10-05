@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.1"
+$App.Version = "4.0.0"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -125,10 +125,10 @@ $AppLogic = [PowerShell]::Create().AddScript({
                 if (($App.$SourceList.$_.Source -eq "Winget") -or ($App.$SourceList.$_.Source -eq ".exe") -or ($App.$SourceList.$_.Source -eq ".appx")) {
                     $App.AppsToInstall.Add($_)
                 }
-                elseif (($App.$SourceList.$_.FunctionName).Length -gt 0) {
+                elseif ($_ -like "Tweak*") {
                     $App.FunctionsToRun.Add($_)
                 }
-                elseif ($_ -like "Tweak*") {
+                elseif (($App.$SourceList.$_.FunctionName).Length -gt 0) {
                     $App.FunctionsToRun.Add($_)
                 }
                 elseif ($_ -like "Config*") {
@@ -177,8 +177,9 @@ $AppLogic = [PowerShell]::Create().AddScript({
             $App.SelectedButtons.Clear()
 
             Update-GUI StartScript Content "INICIAR SCRIPT"
-            Write-UserOutput "Script Finalizado"
             Update-GUI StartScript Background $App.HoverColor
+            Update-GUI OutputBox Text "Script finalizado"
+            "Script finalizado" | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
 
         })
         $Logic.Runspace = $NewRunspace
