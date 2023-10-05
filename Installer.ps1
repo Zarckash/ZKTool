@@ -13,36 +13,14 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 function Write-TypeHost ([string]$s = '', [string]$TextColor = 'DarkCyan') {
     $s -split '' | ForEach-Object {
         Write-Host $_ -NoNewline -ForegroundColor $TextColor
-        Start-Sleep -Milliseconds 15
+        Start-Sleep -Milliseconds 10
     }
-    Start-Sleep -Milliseconds 15
+    Start-Sleep -Milliseconds 10
     Write-Host ''
 }
 
 $Download = (New-Object System.Net.WebClient)
 New-Item $env:temp\ZKTool\Files\ -ItemType Directory -Force | Out-Null
-New-Item $env:ProgramFiles\ZKTool\Functions\ -ItemType Directory -Force | Out-Null
-New-Item $env:ProgramFiles\ZKTool\Resources\Images -ItemType Directory -Force | Out-Null
-New-Item $env:ProgramFiles\ZKTool\WPF -ItemType Directory -Force | Out-Null
-
-$Functions = @('Enable-Buttons.ps1','Export-Import.ps1','Functions.ps1','Import-Configs.ps1','Install-App.ps1','Invoke-Function.ps1','Move-UserFolders.ps1','Set-AccentColor.ps1','Switch-Tab.ps1','Update-GUI.ps1','Write-UserOutput.ps1')
-$Functions | ForEach-Object {
-    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Functions/$_", "$env:ProgramFiles\ZKTool\Functions\$_")
-}
-
-$Jsons = @("Apps.json","Tweaks.json","Extra.json","Configs.json")
-$Jsons | ForEach-Object {
-    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/$_", "$env:ProgramFiles\ZKTool\Resources\$_")
-}
-
-$Images = $Download.DownloadString("https://github.com/Zarckash/ZKTool/raw/main/Resources/Configs.json")  | ConvertFrom-Json
-$Images.psobject.properties.name | ForEach-Object {
-    $ImagePath = $Images.$_.Image
-    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/Images/$ImagePath","$env:ProgramFiles\ZKTool\Resources\Images\$ImagePath")
-}
-
-$Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/WPF/WPF.zip", "$env:temp\ZKTool\Files\WPF.zip")
-Expand-Archive -Path "$env:temp\ZKTool\Files\WPF.zip" -DestinationPath "$env:ProgramFiles\ZKTool\WPF" -Force
 
 if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") { # Update ZKTool
     $host.UI.RawUI.WindowTitle = "ZKTool Updater"
@@ -108,5 +86,9 @@ else { # Install ZKTool
 Write-Host "`r`n- - - - - - - - - - - - -" -ForegroundColor Green
 Write-Host "- - - - R E A D Y - - - -" -ForegroundColor Green
 Write-Host "- - - - - - - - - - - - -" -ForegroundColor Green
+
+Start-Sleep 1
+
+Start-Process "$env:ProgramFiles\ZKTool\ZKTool.exe"
 
 exit
