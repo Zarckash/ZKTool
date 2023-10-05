@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.0"
+$App.Version = "4.0.1"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -35,7 +35,6 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $ProgressPreference = 'SilentlyContinue'
     $WarningPreference = 'SilentlyContinue'
     $ConfirmPreference = 'None'
-
 
     # Declaring synced variables
     $App.Download = New-Object System.Net.WebClient

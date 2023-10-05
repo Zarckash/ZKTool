@@ -1,4 +1,4 @@
-Function Set-WallPaper {
+function Set-WallPaper {
 
 param (
     [parameter(Mandatory=$True)]
