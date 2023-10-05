@@ -829,19 +829,21 @@ function CustomDarkTheme {
 
     taskkill /f /im explorer.exe
 
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "Set-Wallpaper.ps1"), ($App.FilesPath + "Set-Wallpaper.ps1"))
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Media.zip"), ($App.FilesPath + "Media.zip"))
     Expand-Archive -Path ($App.FilesPath + "Media.zip") -DestinationPath ($App.ZKToolPath + "\Media") -Force
+    [string]$Wallpaper = ($App.ZKToolPath + "\Media\BlackW11Wallpaper.jpg")
 
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "Set-Wallpaper.ps1"), ($App.FilesPath + "Set-Wallpaper.ps1"))
-    . ($App.FilesPath + "Set-Wallpaper.ps1")
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "\Media\BlackW11Wallpaper.jpg")
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "\Media\BlackW11Wallpaper.jpg")
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $Wallpaper
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $Wallpaper
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
-    Set-Wallpaper -Path ($App.ZKToolPath + "\Media\BlackW11Wallpaper.jpg")
+
+    . ($App.FilesPath + "Set-Wallpaper.ps1")
+    Set-Wallpaper -Path $Wallpaper
 
     # Accent Color
     $MainColor    = "FF,FF,FF,00," # Main Color
