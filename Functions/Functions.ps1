@@ -735,11 +735,11 @@ function TweaksInContextMenu {
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "Icon" -Value ($App.ZKToolPath + "\ZKTool.exe,0")
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "MUIVerb" -Value "App"
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "command" | Out-Null
-            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\01App\command" -Name "(default)" -Value ($App.ZKToolPath + "\ZKTool.exe")
+            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\01App\command" -Name "(default)" -Value ($App.ZKToolPath + "ZKTool.exe")
 
     # LogitechOMM
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "02LogitechOMM" | Out-Null
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "Icon" -Value ($App.ZKToolPath + "\Apps\LogitechOMM.exe,0")
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "Icon" -Value ($App.ZKToolPath + "Apps\LogitechOMM.exe,0")
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "MUIVerb" -Value "Logitech OMM"
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "command" | Out-Null
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\LogitechOMM.exe")
@@ -770,7 +770,7 @@ function TweaksInContextMenu {
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "Icon" -Value "inetcpl.cpl,21"
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "MUIVerb" -Value "Bufferbloat Fix Disabled"
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "command" | Out-Null
-            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix\command" -Name "(default)" -Value ($App.ZKToolPath + "\Apps\Bufferbloat.exe")
+            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\Bufferbloat.exe")
 }
 
 function WindowsTerminalAppearance {
@@ -829,21 +829,21 @@ function CustomDarkTheme {
 
     taskkill /f /im explorer.exe
 
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "Set-Wallpaper.ps1"), ($App.FilesPath + "Set-Wallpaper.ps1"))
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Media.zip"), ($App.FilesPath + "Media.zip"))
     Expand-Archive -Path ($App.FilesPath + "Media.zip") -DestinationPath ($App.ZKToolPath + "\Media") -Force
-    [string]$Wallpaper = ($App.ZKToolPath + "\Media\BlackW11Wallpaper.jpg")
+
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "Set-Wallpaper.ps1"), ($App.FilesPath + "Set-Wallpaper.ps1"))
+    . ($App.FilesPath + "Set-Wallpaper.ps1")
 
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $Wallpaper
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $Wallpaper
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\BlackW11Wallpaper.jpg")
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\BlackW11Wallpaper.jpg")
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
 
-    . ($App.FilesPath + "Set-Wallpaper.ps1")
-    Set-Wallpaper -Path $Wallpaper
+    Set-Wallpaper -Path ($App.ZKToolPath + "Media\BlackW11Wallpaper.jpg")
 
     # Accent Color
     $MainColor    = "FF,FF,FF,00," # Main Color
