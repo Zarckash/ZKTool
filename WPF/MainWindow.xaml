@@ -374,7 +374,7 @@
                         <Button x:Name="App20" Style="{DynamicResource AppButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <Label Content="Perif�ricos" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Periféricos" Style="{DynamicResource CategoryLabelStyle}" />
                         <Button x:Name="App21" Style="{DynamicResource AppButtonStyle}" />
                         <Button x:Name="App22" Style="{DynamicResource AppButtonStyle}" />
                         <Button x:Name="App23" Style="{DynamicResource AppButtonStyle}" />
@@ -446,7 +446,7 @@
                         <Button x:Name="Tweak16" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <Label Content="Personalizaci�n" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Personalización" Style="{DynamicResource CategoryLabelStyle}" />
                         <Button x:Name="Tweak17" Style="{DynamicResource TweakButtonStyle}" />
                         <Button x:Name="Tweak18" Style="{DynamicResource TweakButtonStyle}" />
                         <Button x:Name="Tweak19" Style="{DynamicResource TweakButtonStyle}" />
@@ -765,7 +765,7 @@
                                 Margin="8,0,0,4"
                                 Foreground="{DynamicResource AppTextColor}"
                                 TextWrapping="Wrap">
-                                <Run Foreground="{DynamicResource AppAccentColor}" Text="Se exportar�n los siguientes ajustes:" />
+                                <Run Foreground="{DynamicResource AppAccentColor}" Text="Se exportarán los siguientes ajustes:" />
                                 <LineBreak />
                                 <Run Text="Documentos" />
                                 <LineBreak />
@@ -855,7 +855,7 @@
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18"
-                                    Text="Im�genes" />
+                                    Text="Imágenes" />
                             </StackPanel>
                         </Button>
                         <Button
@@ -896,7 +896,7 @@
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18"
-                                    Text="V�deos" />
+                                    Text="Vídeos" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -928,7 +928,7 @@
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18"
-                                    Text="M�sica" />
+                                    Text="Música" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -1293,5 +1293,6 @@
         </Grid>
     </Grid>
 </Window>
+
 
 
