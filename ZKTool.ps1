@@ -36,21 +36,6 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $WarningPreference = 'SilentlyContinue'
     $ConfirmPreference = 'None'
 
-    # Updating app accent color  
-    . "H:\GitHub\ZKTool\Functions\Set-AccentColor.ps1"
-    Set-AccentColor
-    
-    # Loading WPF
-    [xml]$XAML = (Get-Content -Path ("H:\GitHub\ZKToolForm\MainWindow.xaml") -Raw) -replace 'x:Name', 'Name'
-    $XAML.Window.RemoveAttribute("x:Class")
-    $Reader = New-Object System.Xml.XmlNodeReader $XAML
-    $App.Window = [Windows.Markup.XamlReader]::Load($Reader)
-
-    # Adding form items to App
-    $XAML.SelectNodes("//*[@Name]") | ForEach-Object {
-        $App.Add($_.Name,$App.Window.FindName($_.Name))
-    }
-
     # Declaring synced variables
     $App.Download = New-Object System.Net.WebClient
     $App.GitHubPath = "https://github.com/Zarckash/ZKTool/raw/main/"
@@ -64,6 +49,23 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $App.ResourcesPath = ($App.ZKToolPath + "Resources\")
     $App.HoverColor = "#0DFFFFFF"
     $App.HoverButtonColor = "#1AFFFFFF"
+
+    # Updating app accent color  
+    . ($App.FunctionsPath + "Set-AccentColor.ps1")
+    Set-AccentColor
+    
+    # Loading WPF
+    [xml]$XAML = (Get-Content -Path ($App.ZKToolPath + "WPF\MainWindow.xaml") -Raw) -replace 'x:Name', 'Name'
+    $XAML.Window.RemoveAttribute("x:Class")
+    $Reader = New-Object System.Xml.XmlNodeReader $XAML
+    $App.Window = [Windows.Markup.XamlReader]::Load($Reader)
+
+    # Adding form items to App
+    $XAML.SelectNodes("//*[@Name]") | ForEach-Object {
+        $App.Add($_.Name,$App.Window.FindName($_.Name))
+    }
+
+
 
     $App.AppVersion.Text = ("Versión " + $App.Version)
 
