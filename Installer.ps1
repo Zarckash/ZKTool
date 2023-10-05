@@ -77,7 +77,7 @@ else { # Install ZKTool
 
     # Check Winget
     Write-TypeHost "`r`nComprobando Winget..."
-    if (!(Test-Path "$env:userprofile\AppData\Local\Microsoft\WindowsApps\winget.exe")) {
+    if ((Test-Path "$env:userprofile\AppData\Local\Microsoft\WindowsApps\winget.exe")) {
         Write-TypeHost "`r`n    Instalando Winget..."
         Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget" -Wait
     }

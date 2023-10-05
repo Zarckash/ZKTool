@@ -613,6 +613,7 @@ function UninstallBloat {
         "Microsoft.ZuneMusic"
         "MicrosoftCorporationII.MicrosoftFamily"
         "Disney.37853FC22B2CE"
+        "Microsoft.549981C3F5F10"
     )
     foreach ($Bloat in $Bloatware) {
         Get-AppxPackage -Name $Bloat | Remove-AppxPackage
@@ -654,7 +655,7 @@ function UninstallBloat {
     DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append
 }
 
-function RemoveOneDrive {
+function UninstallOneDrive {
     Write-UserOutput "Desinstalando OneDrive"
     Stop-Process -Name "OneDrive"
     Start-Sleep -s 2
