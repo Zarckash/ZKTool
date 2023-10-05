@@ -60,16 +60,16 @@
                 <StackPanel Orientation="Horizontal">
                     <Button
                         x:Name="Minimize"
-                        Content="?"
+                        Content=""
                         Style="{DynamicResource InteractionButtonStyle}" />
                     <Button
                         x:Name="Maximize"
-                        Content="?"
+                        Content=""
                         FontSize="10"
                         Style="{DynamicResource InteractionButtonStyle}" />
                     <Button
                         x:Name="Close"
-                        Content="?"
+                        Content=""
                         FontSize="14"
                         Style="{DynamicResource InteractionButtonStyle}" />
                 </StackPanel>
@@ -1293,6 +1293,5 @@
         </Grid>
     </Grid>
 </Window>
-
 
 

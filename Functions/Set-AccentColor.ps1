@@ -25,5 +25,8 @@
     if ($App.AccentColor -eq "#4CC2FF") {
         $App.AccentColor = "#ACA5F3" # Default app color
     }
-    (Get-Content -Path ($App.ZKToolPath + "WPF\StylesDictionary.xaml") -Raw) -replace '"AppAccentColor" Color=".*"', ('"AppAccentColor" Color=' + ('"' + $App.AccentColor + '"')) | Set-Content -Path ($App.ZKToolPath + "WPF\StylesDictionary.xaml")
+
+    $Utf8WithBOM = New-Object System.Text.UTF8Encoding $true
+    $MyRawString = (Get-Content -Path ($App.ZKToolPath + "WPF\StylesDictionary.xaml") -Raw) -replace '"AppAccentColor" Color=".*"', ('"AppAccentColor" Color=' + ('"' + $App.AccentColor + '"'))
+    [System.IO.File]::WriteAllLines(($App.ZKToolPath + "WPF\StylesDictionary.xaml"), $MyRawString, $Utf8WithBOM)
 }
