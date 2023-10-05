@@ -8,7 +8,8 @@
     <SolidColorBrush x:Key="AppHoverColor" Color="#0DFFFFFF" />
     <SolidColorBrush x:Key="AppHoverButtonColor" Color="#1AFFFFFF" />
 
-    <FontFamily x:Key="Font">Segoe UI</FontFamily>
+    <FontFamily x:Key="Font">BMWTypeNext Pro Light</FontFamily>
+    <FontFamily x:Key="FontBold">BMWTypeNext Pro</FontFamily>
     <FontFamily x:Key="FontIcons">Segoe Fluent Icons</FontFamily>
 
     <Style x:Key="InteractionButtonStyle" TargetType="Button">
@@ -93,9 +94,9 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Margin" Value="8,0,0,0" />
-        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontBold}" />
         <Setter Property="FontSize" Value="24" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
@@ -127,9 +128,9 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Margin" Value="8,8,8,4" />
-        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontBold}" />
         <Setter Property="FontSize" Value="18" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
@@ -164,7 +165,7 @@
         <Setter Property="Visibility" Value="Collapsed" />
         <Setter Property="Margin" Value="8,4" />
         <Setter Property="FontFamily" Value="{DynamicResource Font}" />
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="15.5" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -209,7 +210,7 @@
         <Setter Property="Visibility" Value="Collapsed" />
         <Setter Property="Margin" Value="8,4" />
         <Setter Property="FontFamily" Value="{DynamicResource Font}" />
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="15.5" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -357,9 +358,9 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Margin" Value="8,0,0,0" />
-        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontBold}" />
         <Setter Property="FontSize" Value="18" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">

@@ -111,9 +111,8 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        FontFamily="{DynamicResource Font}"
+                        FontFamily="{DynamicResource FontBold}"
                         FontSize="32"
-                        FontWeight="SemiBold"
                         Foreground="{DynamicResource AppAccentColor}"
                         Text="ZKTool" />
 
