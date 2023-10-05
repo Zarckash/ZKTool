@@ -25,51 +25,7 @@ function Write-TypeHost ([string]$s = '', [string]$TextColor = 'DarkCyan') {
 $Download = (New-Object System.Net.WebClient)
 New-Item $env:temp\ZKTool\Files\ -ItemType Directory -Force | Out-Null
 
-if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") {
-    # Update ZKTool
-    $host.UI.RawUI.WindowTitle = "ZKTool Updater"
-    Write-TypeHost "Actualizando ZKTool App..."
-    Start-Sleep 1
-
-    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
-    Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
-    Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
-
-    # Rebuild Icon Cache
-    ie4uinit.exe -show
-    taskkill /f /im explorer.exe | Out-Null
-    Remove-Item -Path "$env:localappdata\IconCache.db" -Force
-    Remove-Item -Path "$env:localappdata\Microsoft\Windows\Explorer\iconcache*" -Force
-    explorer.exe
-
-    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0" -Force
-}
-else {
-    # Install ZKTool
-    $host.UI.RawUI.WindowTitle = "ZKTool Installer"
-    Write-TypeHost "Instalando ZKTool App..."
-
-    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
-    Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
-    Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
-
-    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-    New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
-    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0"
-    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ZKTool.exe"
-    Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool"
-
-    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "ZKTool" | Out-Null
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayIcon" -Value "C:\Program Files\ZKTool\ZKTool.exe"
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayName" -Value "ZKTool"
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "NoModify" -Type DWord -Value 1
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "NoRepair" -Type DWord -Value 1
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "Publisher" -Value "Zarckash"
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
-
-    # Install Font
+function Install-Font {
     Write-TypeHost "`r`nInstalando Fuente..."
     $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/Fonts.zip", "$env:temp\ZKTool\Files\Fonts.zip")
     Expand-Archive -Path "$env:temp\ZKTool\Files\Fonts.zip" -DestinationPath "$env:temp\ZKTool\Files\Fonts" -Force
@@ -132,6 +88,62 @@ namespace FontResource
             Set-ItemProperty -Path "$($FontRegistryPath)" -Name "$($FontName)$($FontFileTypes.Item($FileExt))" -Value "$($FileName)"
         }
     }
+}
+
+if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") {
+    # Update ZKTool
+    $host.UI.RawUI.WindowTitle = "ZKTool Updater"
+    Write-TypeHost "Actualizando ZKTool App..."
+    Start-Sleep 1
+
+    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
+    Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
+    Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
+
+    if (!(Test-Path "$env:localappdata\Microsoft\Windows\Fonts\Hasklig*")) {
+        Install-Font
+    }
+
+    if (!(Test-Path "$env:localappdata\Microsoft\Windows\Fonts\BMWTypeNext*")) {
+        Install-Font
+    }
+
+    # Rebuild Icon Cache
+    ie4uinit.exe -show
+    taskkill /f /im explorer.exe | Out-Null
+    Remove-Item -Path "$env:localappdata\IconCache.db" -Force
+    Remove-Item -Path "$env:localappdata\Microsoft\Windows\Explorer\iconcache*" -Force
+    explorer.exe
+
+    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0" -Force
+}
+else {
+    # Install ZKTool
+    $host.UI.RawUI.WindowTitle = "ZKTool Installer"
+    Write-TypeHost "Instalando ZKTool App..."
+
+    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
+    Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
+    Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
+
+    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+    New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
+    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0"
+    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\command\" -Name "(default)" -Value "C:\Program Files\ZKTool\ZKTool.exe"
+    Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool"
+
+    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" -Name "ZKTool" | Out-Null
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayIcon" -Value "C:\Program Files\ZKTool\ZKTool.exe"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayName" -Value "ZKTool"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "NoModify" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "NoRepair" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "Publisher" -Value "Zarckash"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "UninstallString" -Value "C:\Program Files\ZKTool\UninstallZKTool.exe"
+
+    # Install Font
+    Install-Font
 
     # Update Winget
     Write-TypeHost "`r`nActualizando Winget..."
