@@ -1,4 +1,4 @@
-<Window
+ï»¿<Window
     x:Class="ZKToolForm.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -374,7 +374,7 @@
                         <Button x:Name="App20" Style="{DynamicResource AppButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <Label Content="Periféricos" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Perifï¿½ricos" Style="{DynamicResource CategoryLabelStyle}" />
                         <Button x:Name="App21" Style="{DynamicResource AppButtonStyle}" />
                         <Button x:Name="App22" Style="{DynamicResource AppButtonStyle}" />
                         <Button x:Name="App23" Style="{DynamicResource AppButtonStyle}" />
@@ -446,7 +446,7 @@
                         <Button x:Name="Tweak16" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <Label Content="Personalización" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Personalizaciï¿½n" Style="{DynamicResource CategoryLabelStyle}" />
                         <Button x:Name="Tweak17" Style="{DynamicResource TweakButtonStyle}" />
                         <Button x:Name="Tweak18" Style="{DynamicResource TweakButtonStyle}" />
                         <Button x:Name="Tweak19" Style="{DynamicResource TweakButtonStyle}" />
@@ -765,7 +765,7 @@
                                 Margin="8,0,0,4"
                                 Foreground="{DynamicResource AppTextColor}"
                                 TextWrapping="Wrap">
-                                <Run Foreground="{DynamicResource AppAccentColor}" Text="Se exportarán los siguientes ajustes:" />
+                                <Run Foreground="{DynamicResource AppAccentColor}" Text="Se exportarï¿½n los siguientes ajustes:" />
                                 <LineBreak />
                                 <Run Text="Documentos" />
                                 <LineBreak />
@@ -855,7 +855,7 @@
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18"
-                                    Text="Imágenes" />
+                                    Text="Imï¿½genes" />
                             </StackPanel>
                         </Button>
                         <Button
@@ -896,7 +896,7 @@
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18"
-                                    Text="Vídeos" />
+                                    Text="Vï¿½deos" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -928,7 +928,7 @@
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18"
-                                    Text="Música" />
+                                    Text="Mï¿½sica" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
