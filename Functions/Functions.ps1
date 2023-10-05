@@ -145,7 +145,7 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
 
     # File Association Fix
-    $Download.DownloadFile(($App.GitHubFilesPath + ".exe/SetUserFTA.exe"), ($App.FilesPath + "SetUserFTA.exe"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/SetUserFTA.exe"), ($App.FilesPath + "SetUserFTA.exe"))
     Push-Location
     Set-Location $App.FilesPath
     $DefaultBrowser = .\SetUserFTA.exe get | Select-String -Pattern 'https' |  ForEach-Object { $_.Line.Substring(7,$_.Line.Length - 7) }
@@ -702,7 +702,7 @@ function ReduceIconsSpacing {
 
 function HideShortcutIcons {
     Write-UserOutput "Ocultando flechas de acceso directo"
-    $Download.DownloadFile(($App.GitHubFilesPath + "Blank.ico")), ($App.FilesPath + "Blank.ico")
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "Blank.ico")), ($App.FilesPath + "Blank.ico")
     Unblock-File ($App.FilesPath + "Blank.ico")
     Copy-Item -Path ($App.FilesPath + "Blank.ico") -Destination "C:\Windows\System32" -Force
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $App.LogPath -Encoding UTF8 -Append
@@ -715,9 +715,9 @@ function HideShortcutIcons {
 
 function SetW11Cursor {
     Write-UserOutput "Estableciendo cursor de Windows 11"
-    $Download.DownloadFile(($App.GitHubFilesPath + ".zip/FluentCursor.zip"), ($App.FilesPath + "FluentCursor.zip"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/FluentCursor.zip"), ($App.FilesPath + "FluentCursor.zip"))
     Expand-Archive -Path ($App.FilesPath + "FluentCursor.zip") -DestinationPath 'C:\Windows\Cursors\Fluent Cursor' -Force
-    $Download.DownloadFile(($App.GitHubFilesPath + "FluentCursor.reg"), ($App.FilesPath + "FluentCursor.reg"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "FluentCursor.reg"), ($App.FilesPath + "FluentCursor.reg"))
     regedit /s ($App.FilesPath + "FluentCursor.reg")
 }
 
@@ -725,7 +725,7 @@ function TweaksInContextMenu {
     Write-UserOutput "Activando tweaks en el menú contextual"
     
     # Enable App Submenu
-    $Download.DownloadFile(($App.GitHubFilesPath + ".zip/ContextMenuTweaks.zip"), ($App.FilesPath + "ContextMenuTweaks.zip"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/ContextMenuTweaks.zip"), ($App.FilesPath + "ContextMenuTweaks.zip"))
     Expand-Archive -Path ($App.FilesPath + "ContextMenuTweaks.zip") -DestinationPath ($App.ZKToolPath + "Apps") -Force
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Subcommands" -Value ""
