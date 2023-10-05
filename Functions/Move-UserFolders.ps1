@@ -66,3 +66,8 @@ $App.FoldersToMove | ForEach-Object {
     Set-KnownFolderPath -KnownFolder ($_ -replace "Folder","") -Path $Path
 }
 
+if ($App.SelectAllFolders.BorderThickness -eq 1.5) {
+    Update-GUI SelectAllFolders BorderThickness 0
+    Update-GUI SelectAllFolders Content "Seleccionar todo"
+}
+
