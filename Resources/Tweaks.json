@@ -16,7 +16,7 @@
         "FunctionName": "EnableMSIMode"
     },
     "Tweak9": {
-        "Name": "Desisntalar aplicaciones",
+        "Name": "Desinstalar aplicaciones",
         "FunctionName": "UninstallBloat"
     },
     "Tweak10": {
