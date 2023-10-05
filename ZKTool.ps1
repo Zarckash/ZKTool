@@ -36,21 +36,8 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $WarningPreference = 'SilentlyContinue'
     $ConfirmPreference = 'None'
 
-    # Declaring synced variables
-    $App.Download = New-Object System.Net.WebClient
-    $App.GitHubPath = "https://github.com/Zarckash/ZKTool/raw/main/"
-    $App.GitHubFilesPath = ($App.GitHubPath + "Files/")
-    $App.TempPath = "$env:temp\ZKTool\"
-    $App.LogFolder = ($App.TempPath + "Logs\")
-    $App.LogPath = ($App.LogFolder + "ZKTool.log")
-    $App.FilesPath = ($App.TempPath + "Files\")
-    $App.ZKToolPath = "$env:ProgramFiles\ZKTool\"
-    $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
-    $App.ResourcesPath = ($App.ZKToolPath + "Resources\")
-    $App.HoverColor = "#0DFFFFFF"
-    $App.HoverButtonColor = "#1AFFFFFF"
-
     # Updating app accent color  
+    $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
     . ($App.FunctionsPath + "Set-AccentColor.ps1")
     Set-AccentColor
     
@@ -65,7 +52,19 @@ $AppLogic = [PowerShell]::Create().AddScript({
         $App.Add($_.Name,$App.Window.FindName($_.Name))
     }
 
-
+    # Declaring synced variables
+    $App.Download = New-Object System.Net.WebClient
+    $App.GitHubPath = "https://github.com/Zarckash/ZKTool/raw/main/"
+    $App.GitHubFilesPath = ($App.GitHubPath + "Files/")
+    $App.TempPath = "$env:temp\ZKTool\"
+    $App.LogFolder = ($App.TempPath + "Logs\")
+    $App.LogPath = ($App.LogFolder + "ZKTool.log")
+    $App.FilesPath = ($App.TempPath + "Files\")
+    $App.ZKToolPath = "$env:ProgramFiles\ZKTool\"
+    $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
+    $App.ResourcesPath = ($App.ZKToolPath + "Resources\")
+    $App.HoverColor = "#0DFFFFFF"
+    $App.HoverButtonColor = "#1AFFFFFF"
 
     $App.AppVersion.Text = ("Versión " + $App.Version)
 
