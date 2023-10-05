@@ -32,7 +32,6 @@
                     $WingetApp,
                     $WingetLog
                 )
-                "Output test para $WingetApp" | Out-File $WingetLog
                 winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $WingetApp | Out-File $WingetLog -Encoding UTF8 -Append
             }
             Start-Job -Name ("Job-$WingetApp") -ScriptBlock $WingetInstall -ArgumentList @($WingetApp,$WingetLog)
