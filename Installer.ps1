@@ -71,8 +71,8 @@ else {
 
     # Install Font
     Write-TypeHost "`r`nInstalando Fuente..."
-    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/HaskligFont.zip", "$env:temp\ZKTool\Files\HaskligFont.zip")
-    Expand-Archive -Path "$env:temp\ZKTool\Files\HaskligFont.zip" -DestinationPath "$env:temp\ZKTool\Files\HaskligFont" -Force
+    $Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/Fonts.zip", "$env:temp\ZKTool\Files\Fonts.zip")
+    Expand-Archive -Path "$env:temp\ZKTool\Files\Fonts.zip" -DestinationPath "$env:temp\ZKTool\Files\Fonts" -Force
 
     $ExistingFonts = Get-ChildItem -Path "C:\Windows\Fonts" | ForEach-Object { $_.Name }
     $CSharpCode = @'
@@ -107,9 +107,10 @@ namespace FontResource
 
     $FontFileTypes = @{}
     $FontFileTypes.Add(".ttf", " (TrueType)")
+    $FontFileTypes.Add(".otf", " (OpenType)")
     $FontRegistryPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
 
-    Get-ChildItem "$env:temp\ZKTool\Files\HaskligFont" | ForEach-Object {
+    Get-ChildItem "$env:temp\ZKTool\Files\Fonts" | ForEach-Object {
         $Path = Join-Path "C:\Windows\Fonts" $_.Name
         if (!($ExistingFonts.Contains($_.Name))) {
 
