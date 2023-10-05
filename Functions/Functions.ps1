@@ -902,6 +902,9 @@ function InstallFFMPEG {
     Add-AppxPackage ($App.FilesPath + "HEVC.appx")
     Add-AppxPackage ($App.FilesPath + "HEIF.appx")
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File $App.LogPath -Encoding UTF8 -Append
+    if (!(Test-Path ($App.ZKToolPath + "\Apps"))) {
+        New-Item -Path ($App.ZKToolPath + "\Apps") -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
+    }
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/Compress.exe"), ($App.ZKToolPath + "\Apps\Compress.exe"))
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Compress" | Out-Null

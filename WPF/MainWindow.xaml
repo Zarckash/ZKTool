@@ -837,7 +837,7 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="H:\GitHub\ZKToolForm\Resources\DesktopFolderBig.png" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\DesktopFolderBig.png" />
                                 <TextBlock
                                     Margin="4,0"
                                     VerticalAlignment="Center"
@@ -850,7 +850,7 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="H:\GitHub\ZKToolForm\Resources\PicturesFolderBig.png" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\PicturesFolderBig.png" />
                                 <TextBlock
                                     Margin="4,0"
                                     VerticalAlignment="Center"
@@ -878,7 +878,7 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="H:\GitHub\ZKToolForm\Resources\DownloadsFolderBig.png" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\DownloadsFolderBig.png" />
                                 <TextBlock
                                     Margin="4,0"
                                     VerticalAlignment="Center"
@@ -891,7 +891,7 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="H:\GitHub\ZKToolForm\Resources\VideosFolderBig.png" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\VideosFolderBig.png" />
                                 <TextBlock
                                     Margin="4,0"
                                     VerticalAlignment="Center"
@@ -910,7 +910,7 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="H:\GitHub\ZKToolForm\Resources\DocumentsFolderBig.png" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\DocumentsFolderBig.png" />
                                 <TextBlock
                                     Margin="4,0"
                                     VerticalAlignment="Center"
@@ -923,7 +923,7 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="H:\GitHub\ZKToolForm\Resources\MusicFolderBig.png" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\MusicFolderBig.png" />
                                 <TextBlock
                                     Margin="4,0"
                                     VerticalAlignment="Center"

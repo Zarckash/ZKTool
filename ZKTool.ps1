@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.0"
+$App.Version = "4.0.1"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -50,7 +50,6 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
     $App.HoverColor = "#0DFFFFFF"
     $App.HoverButtonColor = "#1AFFFFFF"
-    $App.AppVersion.Text = ("Versión " + $App.Version)
 
     # Updating app accent color  
     . ($App.FunctionsPath + "Set-AccentColor.ps1")
@@ -86,6 +85,8 @@ $AppLogic = [PowerShell]::Create().AddScript({
         . ($App.FunctionsPath + "$_.ps1")
         & $_
     }
+
+    Update-GUI AppVersion Text ("Versión " + $App.Version)
 
     $App.StartScript.Add_Click({
         if ($this.Content -eq "EJECUTANDO") {
