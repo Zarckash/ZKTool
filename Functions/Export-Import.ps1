@@ -158,7 +158,7 @@
 
         Get-ChildItem -Path $Path.Backup | ForEach-Object {
             Write-UserOutput ("Importando " + $_.BaseName.Replace("Documents","Documentos").Replace("SavedGames","Juegos Guardados") + "")
-            Expand-Archive -Path $_ -DestinationPath $Path.($_.BaseName) -Force
+            Expand-Archive -Path $_.FullName -DestinationPath $Path.($_.BaseName) -Force
         }
 
         if (Test-Path ($Path.Backup + "\RivaTuner.zip")) {
