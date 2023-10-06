@@ -89,9 +89,10 @@ function RegistryTweaks {
     Write-UserOutput "Comprobando Cantidad De RAM"
     $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum /1gb
     if ($RamCapacity -le 16) {
-        Write-UserOutput "Estableciendo El Tamaño Del Archivo De Paginación En $RamCapacity MB"
+        Write-UserOutput "Estableciendo El Tamaño Del Archivo De Paginación En $RamCapacity GB"
         $PageFile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
         $PageFile.AutomaticManagedPagefile = $false
+        $RamCapacity = $RamCapacity*1024
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "PagingFiles" -Value "c:\pagefile.sys $RamCapacity $RamCapacity"
     }else {
         Write-UserOutput "La Cantidad De RAM Supera Los 16GB, No Se Realizará Ningún Cambio"
@@ -781,6 +782,23 @@ function WindowsTerminalAppearance {
     Expand-Archive -Path ($App.FilesPath + "WindowsTerminalSettings.zip") -DestinationPath $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
 }
 
+function WindowsAnimations {
+    Write-UserOutput "Ajustando Animaciones De Windows"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAnimations" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "MinAnimate" -Value 1
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "AlwaysHibernateThumbnails" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "EnableAeroPeek" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Value 1
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewAlphaSelect" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "IconsOnly" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "FontSmoothing" -Value 2
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewShadow" -Type DWord -Value 0
+    $MaskValue = "90,12,07,80,12,01,00,00"
+    $MaskValueToHex = $MaskValue.Split(',') | ForEach-Object { "0x$_"}
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]]$MaskValueToHex)
+}
+
 function ActivateWindowsPro {
     Write-UserOutput "Activando Windows Pro"
     cscript.exe //nologo "$env:windir\system32\slmgr.vbs" /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
@@ -918,4 +936,18 @@ function InstallFFMPEG {
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\" -Name "Icon" -Value ($App.ZKToolPath + "\Apps\Trim.exe,0")
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\" -Name "Position" -Value "Bottom"
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Trim.exe"'
+}
+
+function RAMFIX {
+    Write-UserOutput "Comprobando Cantidad De RAM"
+    $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum /1gb
+    if ($RamCapacity -le 16) {
+        Write-UserOutput "Estableciendo El Tamaño Del Archivo De Paginación En $RamCapacity GB"
+        $PageFile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
+        $PageFile.AutomaticManagedPagefile = $false
+        $RamCapacity = $RamCapacity*1024
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "PagingFiles" -Value "c:\pagefile.sys $RamCapacity $RamCapacity"
+    }else {
+        Write-UserOutput "La Cantidad De RAM Supera Los 16GB, No Se Realizará Ningún Cambio"
+    } 
 }

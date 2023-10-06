@@ -50,5 +50,9 @@
     "Tweak21": {
         "Name": "Apariencia de la terminal",
         "FunctionName": "WindowsTerminalAppearance"
+    },
+    "Tweak22": {
+        "Name": "Animaciones de Windows",
+        "FunctionName": "WindowsAnimations"
     }
 }
