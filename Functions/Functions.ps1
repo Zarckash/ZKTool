@@ -165,10 +165,10 @@ function RegistryTweaks {
 
     # Hide gallery in File explorer
     Write-UserOutput "Ocultando galería en el Explorador de archivos"
-    if (!(Test-Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}")) {
-        New-Item -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" | Out-File $LogPath
-        Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Name "System.IsPinnedToNameSpaceTree" -Type DWord -Value 0
-    }
+    New-Item -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Force | Out-File $LogPath
+    Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Name "System.IsPinnedToNameSpaceTree" -Type DWord -Value 0
+    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace_41040327\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace_41040327\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Name "(default)" -Value "{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
 
     # Reduce svchost Process Amount
     Write-UserOutput "Reduciendo los procesos de Windows a la mitad"
@@ -700,7 +700,7 @@ function ReduceIconsSpacing {
 
 function HideShortcutIcons {
     Write-UserOutput "Ocultando flechas de acceso directo"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "Blank.ico")), ($App.FilesPath + "Blank.ico")
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "Blank.ico"), ($App.FilesPath + "Blank.ico"))
     Unblock-File ($App.FilesPath + "Blank.ico")
     Copy-Item -Path ($App.FilesPath + "Blank.ico") -Destination "C:\Windows\System32" -Force
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $App.LogPath -Encoding UTF8 -Append
