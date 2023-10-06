@@ -1,0 +1,3 @@
+﻿function Set-NetConfig {
+    
+}

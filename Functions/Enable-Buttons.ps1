@@ -3,6 +3,7 @@ $App.TweaksList = Get-Content ($App.ResourcesPath + "Tweaks.json") -Raw | Conver
 $App.ExtraList = Get-Content ($App.ResourcesPath + "Extra.json") -Raw | ConvertFrom-Json
 $App.ConfigsList = Get-Content ($App.ResourcesPath + "Configs.json") -Raw | ConvertFrom-Json
 $UserFolders = @("DesktopFolder","DownloadsFolder","DocumentsFolder","PicturesFolder","VideosFolder","MusicFolder")
+$App.IPList = @("IP1","IP2","IP3","IP4","IP5","IP6")
 $DNSList = @("DNS1","DNS2","DNS3")
 
 $InteractionButtons = @('Minimize','Maximize','Close')
@@ -178,26 +179,65 @@ $App.DisksList | ForEach-Object {
     })
 }
 
-$DNSList | ForEach-Object {
-    $UserFolders | ForEach-Object {
-        Update-GUI $_ Visibility Visible
-        $App.$_.Add_Click({
-            if ($this.BorderThickness -eq 0) {
-                $this.BorderThickness = 1.5
-                $App.SelectedButtons.Add($this.Name)
+$App.IndexIP = 20
+$App.SearchIp.Add_Click({
+    $NewRunspace = [RunspaceFactory]::CreateRunspace()
+    $NewRunspace.ApartmentState = "STA"
+    $NewRunspace.ThreadOptions = "ReuseThread"          
+    $NewRunspace.Open()
+    $NewRunspace.SessionStateProxy.SetVariable("App", $App)
+    $Logic = [PowerShell]::Create().AddScript({
+        . ($App.FunctionsPath + "Update-GUI.ps1")
+
+        if ($App.SearchIp.Content -eq "Buscando...") {
+            return
+        }
+
+        Update-GUI SearchIp Background $App.AccentColor
+        Update-GUI SearchIp Content Buscando...
+        $Gateway = Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
+        $FoundIPs = 0
+        for ($App.IndexIP; ($App.IndexIP -lt 254) -and ($FoundIPs -le 6); $App.IndexIP++) {
+            $TestIP = $Gateway.Substring(0,10) + $App.IndexIP
+            if (!(Test-Connection $TestIP -Count 1 -Quiet)) {
+                Update-GUI $App.IPList[$FoundIPs] Content $TestIP
+                Update-GUI $App.IPList[$FoundIPs] Visibility Visible
+                $FoundIPs++
             }
-            else {
-                $this.BorderThickness = 0
-                $App.SelectedButtons.Remove($this.Name)
+        }
+        $App.IndexIP--
+        Update-GUI SearchIp Background $App.HoverColor
+        Update-GUI SearchIp Content "Buscar más IPs"
+    })
+    $Logic.Runspace = $NewRunspace
+    $Logic.BeginInvoke() | Out-Null
+})
+
+$App.IPList | ForEach-Object {
+    $App.$_.Add_Click({
+        if ($this.BorderThickness -eq 0) {
+            $App.IPList | ForEach-Object {
+                Update-GUI $_ BorderThickness 0
+                $App.SelectedButtons.Remove($_)
             }
-        })
-    }
+            $this.BorderThickness = 1.5
+            $App.SelectedButtons.Add($this.Name)
+        }
+        else {
+            $this.BorderThickness = 0
+            $App.SelectedButtons.Remove($this.Name)
+        }
+    })
 }
 
 $DNSList | ForEach-Object {
     Update-GUI $_ Visibility Visible
     $App.$_.Add_Click({
         if ($this.BorderThickness -eq 0) {
+            $DNSList | ForEach-Object {
+                Update-GUI $_ BorderThickness 0
+                $App.SelectedButtons.Remove($_)
+            }
             $this.BorderThickness = 1.5
             $App.SelectedButtons.Add($this.Name)
         }

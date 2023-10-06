@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.0"
+$App.Version = "4.0.1"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -149,6 +149,12 @@ $AppLogic = [PowerShell]::Create().AddScript({
                 elseif ($_ -like "Disk*") {
                     $App.SelectedDisk = $_
                 }
+                elseif ($_ -like "IP*") {
+                    $App.SelectedIP = $_
+                }
+                elseif ($_ -like "DNS*") {
+                    $App.SelectedDNS = $_
+                }
             }
             
             # Calling app installer
@@ -167,6 +173,11 @@ $AppLogic = [PowerShell]::Create().AddScript({
             if (($App.FoldersToMove.Count -gt 0) -and ($App.SelectedDisk.Count -gt 0)) {
                 . ($App.FunctionsPath + "Move-UserFolders.ps1")
                 Move-UserFolders
+            }
+
+            if (($App.SelectedIP.Count -gt 0) -and ($App.SelectedDNS.Count -gt 0)) {
+                . ($App.FunctionsPath + "Set-NetConfig.ps1")
+                Set-NetConfig
             }
 
             # Resetting buttons
@@ -199,3 +210,5 @@ $AppLogic = [PowerShell]::Create().AddScript({
 
 $AppLogic.Runspace = $GUIRunspace
 $AppLogic.BeginInvoke() | Out-Null
+
+
