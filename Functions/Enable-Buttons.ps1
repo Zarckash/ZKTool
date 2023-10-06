@@ -3,6 +3,7 @@ $App.TweaksList = Get-Content ($App.ResourcesPath + "Tweaks.json") -Raw | Conver
 $App.ExtraList = Get-Content ($App.ResourcesPath + "Extra.json") -Raw | ConvertFrom-Json
 $App.ConfigsList = Get-Content ($App.ResourcesPath + "Configs.json") -Raw | ConvertFrom-Json
 $UserFolders = @("DesktopFolder","DownloadsFolder","DocumentsFolder","PicturesFolder","VideosFolder","MusicFolder")
+$DNSList = @("DNS1","DNS2","DNS3")
 
 $InteractionButtons = @('Minimize','Maximize','Close')
 
@@ -167,6 +168,36 @@ $App.DisksList | ForEach-Object {
                 Update-GUI $_ BorderThickness 0
                 $App.SelectedButtons.Remove($_)
             }
+            $this.BorderThickness = 1.5
+            $App.SelectedButtons.Add($this.Name)
+        }
+        else {
+            $this.BorderThickness = 0
+            $App.SelectedButtons.Remove($this.Name)
+        }
+    })
+}
+
+$DNSList | ForEach-Object {
+    $UserFolders | ForEach-Object {
+        Update-GUI $_ Visibility Visible
+        $App.$_.Add_Click({
+            if ($this.BorderThickness -eq 0) {
+                $this.BorderThickness = 1.5
+                $App.SelectedButtons.Add($this.Name)
+            }
+            else {
+                $this.BorderThickness = 0
+                $App.SelectedButtons.Remove($this.Name)
+            }
+        })
+    }
+}
+
+$DNSList | ForEach-Object {
+    Update-GUI $_ Visibility Visible
+    $App.$_.Add_Click({
+        if ($this.BorderThickness -eq 0) {
             $this.BorderThickness = 1.5
             $App.SelectedButtons.Add($this.Name)
         }

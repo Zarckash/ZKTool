@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.0"
+$App.Version = "4.0.1"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -114,7 +114,7 @@ $AppLogic = [PowerShell]::Create().AddScript({
             $App.FunctionsToRun = New-Object System.Collections.Generic.List[System.Object]
             $App.ConfigsToApply = New-Object System.Collections.Generic.List[System.Object]
             $App.FoldersToMove = New-Object System.Collections.Generic.List[System.Object]
-            $App.SelectedButtons | Sort-Object {[regex]::Replace($_, '\d+',{$args[0].Value.Padleft(20)})} | ForEach-Object {
+            $App.SelectedButtons | ForEach-Object {
                 if ($_ -like "App*") {
                     $SourceList = "AppsList"
                 }

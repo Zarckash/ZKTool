@@ -1,6 +1,6 @@
 ﻿function Invoke-Function {
     . ($App.FunctionsPath + "Functions.ps1")
-    $App.FunctionsToRun | ForEach-Object {
+    $App.FunctionsToRun | Sort-Object {[regex]::Replace($_, '\d+',{$args[0].Value.Padleft(20)})} | ForEach-Object {
         if ($_ -like "App*") {
             $SourceList = "AppsList"
         }

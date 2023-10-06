@@ -2,7 +2,7 @@
     $i = 1
     $App.WingetApps = New-Object System.Collections.Generic.List[System.Object]
 
-    $App.AppsToInstall | ForEach-Object {
+    $App.AppsToInstall | Sort-Object {[regex]::Replace($_, '\d+',{$args[0].Value.Padleft(20)})} | ForEach-Object {
         if ($_ -like "App*") {
             $SourceList = "AppsList"
         }
