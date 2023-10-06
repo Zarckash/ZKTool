@@ -100,11 +100,7 @@ if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") {
     Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
     Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
 
-    if (!(Test-Path "$env:localappdata\Microsoft\Windows\Fonts\Hasklig*")) {
-        Install-Font
-    }
-
-    if (!(Test-Path "$env:localappdata\Microsoft\Windows\Fonts\BMWTypeNext*")) {
+    if ((!(Test-Path "$env:localappdata\Microsoft\Windows\Fonts\Hasklig*")) -or (!(Test-Path "$env:localappdata\Microsoft\Windows\Fonts\Hasklig*"))) {
         Install-Font
     }
 
