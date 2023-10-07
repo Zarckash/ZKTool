@@ -34,6 +34,10 @@
         "Name": "Instalacion limpia de Nvidia",
         "FunctionName": "NVCleanstall"
     },
+    "Extra11": {
+        "Name": "Forzar escalado del monitor",
+        "FunctionName": "DisplayScaling"
+    },
     "Extra17": {
         "Name": "Drivers de Red Z390",
         "FunctionName": "Z390LanDrivers"
@@ -45,9 +49,5 @@
     "Extra19": {
         "Name": "Instalar FFMPEG",
         "FunctionName": "InstallFFMPEG"
-    },
-    "Extra20": {
-        "Name": "Ram Fix",
-        "FunctionName": "RAMFIX"
     }
 }

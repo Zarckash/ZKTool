@@ -180,6 +180,7 @@ $App.DisksList | ForEach-Object {
 }
 
 $App.IndexIP = 20
+$App.FoundIPList = New-Object System.Collections.Generic.List[System.Object]
 $App.SearchIp.Add_Click({
     $NewRunspace = [RunspaceFactory]::CreateRunspace()
     $NewRunspace.ApartmentState = "STA"
@@ -196,22 +197,25 @@ $App.SearchIp.Add_Click({
         Update-GUI SearchIp Background $App.AccentColor
         Update-GUI SearchIp Content Buscando...
         $Gateway = Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
-        $FoundIPs = 0
+        $FoundIPs = 1
         for ($App.IndexIP; ($App.IndexIP -lt 254) -and ($FoundIPs -le 6); $App.IndexIP++) {
             $TestIP = $Gateway.Substring(0,10) + $App.IndexIP
             if (!(Test-Connection $TestIP -Count 1 -Quiet)) {
-                Update-GUI $App.IPList[$FoundIPs] Content $TestIP
-                Update-GUI $App.IPList[$FoundIPs] Visibility Visible
+                $App.FoundIPList.Add($TestIP)
+                Update-GUI ("IP" + $FoundIPs) Content $App.FoundIPList[$FoundIPs - 1]
+                Update-GUI ("IP" + $FoundIPs) Visibility Visible
                 $FoundIPs++
             }
         }
         $App.IndexIP--
+
         Update-GUI SearchIp Background $App.HoverColor
         Update-GUI SearchIp Content "Buscar más IPs"
     })
     $Logic.Runspace = $NewRunspace
     $Logic.BeginInvoke() | Out-Null
 })
+
 
 $App.IPList | ForEach-Object {
     $App.$_.Add_Click({
@@ -228,6 +232,7 @@ $App.IPList | ForEach-Object {
             $App.SelectedButtons.Remove($this.Name)
         }
     })
+    $App.FoundIPIndex++
 }
 
 $DNSList | ForEach-Object {

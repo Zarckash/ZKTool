@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.2"
+$App.Version = "4.0.3"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -29,8 +29,9 @@ $GUIRunspace.ThreadOptions = "ReuseThread"
 $GUIRunspace.Open()
 $GUIRunspace.SessionStateProxy.SetVariable("App", $App)
 
-Add-Type -AssemblyName PresentationFramework
+
 $AppLogic = [PowerShell]::Create().AddScript({
+    Add-Type -AssemblyName PresentationFramework
     $ErrorActionPreference = 'SilentlyContinue'
     $ProgressPreference = 'SilentlyContinue'
     $WarningPreference = 'SilentlyContinue'
@@ -45,8 +46,8 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $App.LogPath = ($App.LogFolder + "ZKTool.log")
     $App.ZKToolPath = "$env:ProgramFiles\ZKTool\"
     $App.FilesPath = ($App.TempPath + "Files\")
-    $App.ResourcesPath = ($App.ZKToolPath + "Resources\")
-    $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
+    $App.ResourcesPath = "H:\GitHub\ZKTool\Resources\"
+    $App.FunctionsPath = "H:\GitHub\ZKTool\Functions\"
     $App.HoverColor = "#0DFFFFFF"
     $App.HoverButtonColor = "#1AFFFFFF"
 
@@ -175,7 +176,7 @@ $AppLogic = [PowerShell]::Create().AddScript({
                 Move-UserFolders
             }
 
-            if (($App.SelectedIP.Count -gt 0) -and ($App.SelectedDNS.Count -gt 0)) {
+            if (($App.SelectedIP.Count -gt 0) -or ($App.SelectedDNS.Count -gt 0) -or (!($App.CustomIP -eq "")) -or (!($App.CustomDNS1 -eq ""))) {
                 . ($App.FunctionsPath + "Set-NetConfig.ps1")
                 Set-NetConfig
             }
@@ -184,15 +185,20 @@ $AppLogic = [PowerShell]::Create().AddScript({
             $App.SelectedButtons | ForEach-Object {
                 Update-GUI $_ BorderThickness 0
             }
-
             $App.SelectedButtons.Clear()
 
             Update-GUI StartScript Content "INICIAR SCRIPT"
             Update-GUI StartScript Background $App.HoverColor
             Update-GUI OutputBox Text "Script finalizado"
             "Script finalizado" | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
-
         })
+
+        # Catching texboxes values
+        if ((!($null -eq $App.IPBoxValue1.Text)) -or (!($null -eq $App.DNSBox1Value1.Text))) {
+            . ($App.FunctionsPath + "Get-TextBox.ps1")
+            Get-Textbox
+        }
+
         $Logic.Runspace = $NewRunspace
         $Logic.BeginInvoke() | Out-Null
     })

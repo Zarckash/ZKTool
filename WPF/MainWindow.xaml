@@ -1148,6 +1148,7 @@
                             <Border Background="{DynamicResource AppHoverColor}" CornerRadius="8" />
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                 <TextBox
+                                    x:Name="IPBoxValue1"
                                     Margin="8,0,4,0"
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="" />
@@ -1157,14 +1158,18 @@
                                     IsReadOnly="True"
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="." />
-                                <TextBox Style="{DynamicResource TextBoxStyle}" Text="" />
+                                <TextBox 
+                                    x:Name="IPBoxValue2" 
+                                    Style="{DynamicResource TextBoxStyle}"  />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
                                     IsReadOnly="True"
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="." />
-                                <TextBox Style="{DynamicResource TextBoxStyle}" Text="" />
+                                <TextBox 
+                                    x:Name="IPBoxValue3" 
+                                    Style="{DynamicResource TextBoxStyle}"  />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
@@ -1172,9 +1177,9 @@
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="." />
                                 <TextBox
+                                    x:Name="IPBoxValue4" 
                                     Margin="4,0,8,0"
-                                    Style="{DynamicResource TextBoxStyle}"
-                                    Text="" />
+                                    Style="{DynamicResource TextBoxStyle}"  />
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -1215,8 +1220,7 @@
                                 <TextBox
                                     x:Name="DNSBox1Value1"
                                     Margin="8,0,4,0"
-                                    Style="{DynamicResource TextBoxStyle}"
-                                    Text="" />
+                                    Style="{DynamicResource TextBoxStyle}" />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
@@ -1225,8 +1229,7 @@
                                     Text="." />
                                 <TextBox
                                     x:Name="DNSBox1Value2"
-                                    Style="{DynamicResource TextBoxStyle}"
-                                    Text="" />
+                                    Style="{DynamicResource TextBoxStyle}" />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
@@ -1235,8 +1238,7 @@
                                     Text="." />
                                 <TextBox
                                     x:Name="DNSBox1Value3"
-                                    Style="{DynamicResource TextBoxStyle}"
-                                    Text="" />
+                                    Style="{DynamicResource TextBoxStyle}" />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
@@ -1246,8 +1248,7 @@
                                 <TextBox
                                     x:Name="DNSBox1Value4"
                                     Margin="4,0,8,0"
-                                    Style="{DynamicResource TextBoxStyle}"
-                                    Text="" />
+                                    Style="{DynamicResource TextBoxStyle}" />
                             </StackPanel>
 
                         </Grid>
