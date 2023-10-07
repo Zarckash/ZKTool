@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.4"
+$App.Version = "4.0.5"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -28,7 +28,6 @@ $GUIRunspace.ApartmentState = "STA"
 $GUIRunspace.ThreadOptions = "ReuseThread"
 $GUIRunspace.Open()
 $GUIRunspace.SessionStateProxy.SetVariable("App", $App)
-
 
 $AppLogic = [PowerShell]::Create().AddScript({
     Add-Type -AssemblyName PresentationFramework
@@ -216,6 +215,3 @@ $AppLogic = [PowerShell]::Create().AddScript({
 
 $AppLogic.Runspace = $GUIRunspace
 $AppLogic.BeginInvoke() | Out-Null
-
-
-

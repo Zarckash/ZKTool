@@ -85,7 +85,7 @@ $App.NetConfig.Add_Click({
     Update-GUI ($this.Name + "Border") Opacity 1
     Update-GUI ($this.Name + "ContentGrid") Visibility Visible
 
-    if (!($App.CurrentDNS1Value.Content -eq "")) {
+    if ($App.CurrentDNS1 -ne "Visible") {
         $NewRunspace = [RunspaceFactory]::CreateRunspace()
         $NewRunspace.ApartmentState = "STA"
         $NewRunspace.ThreadOptions = "ReuseThread"          
