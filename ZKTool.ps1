@@ -46,8 +46,8 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $App.LogPath = ($App.LogFolder + "ZKTool.log")
     $App.ZKToolPath = "$env:ProgramFiles\ZKTool\"
     $App.FilesPath = ($App.TempPath + "Files\")
-    $App.ResourcesPath = "H:\GitHub\ZKTool\Resources\"
-    $App.FunctionsPath = "H:\GitHub\ZKTool\Functions\"
+    $App.ResourcesPath = ($App.ZKToolPath + "Resources\")
+    $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
     $App.HoverColor = "#0DFFFFFF"
     $App.HoverButtonColor = "#1AFFFFFF"
 
@@ -216,4 +216,5 @@ $AppLogic = [PowerShell]::Create().AddScript({
 
 $AppLogic.Runspace = $GUIRunspace
 $AppLogic.BeginInvoke() | Out-Null
+
 
