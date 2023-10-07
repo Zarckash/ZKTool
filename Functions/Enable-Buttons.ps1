@@ -196,7 +196,7 @@ $App.SearchIp.Add_Click({
 
         Update-GUI SearchIp Background $App.AccentColor
         Update-GUI SearchIp Content Buscando...
-        $Gateway = Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
+        $Gateway = Get-NetIPConfiguration -InterfaceAlias Ethernet | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
         $FoundIPs = 1
         for ($App.IndexIP; ($App.IndexIP -lt 254) -and ($FoundIPs -le 6); $App.IndexIP++) {
             $TestIP = $Gateway.Substring(0,10) + $App.IndexIP

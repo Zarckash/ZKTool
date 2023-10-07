@@ -76,4 +76,13 @@
     $App.DNS2Values | ForEach-Object {
         Update-GUI $_ Text $null
     }
+
+    $Gateway = Get-NetIPConfiguration -InterfaceAlias Ethernet | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
+    $GetIP = Get-NetIPConfiguration -InterfaceAlias Ethernet | Select-Object -ExpandProperty IPv4Address | Select-Object -ExpandProperty IPv4Address
+    $GetDNS = Get-DnsClientServerAddress -InterfaceAlias Ethernet -AddressFamily IPv4  | Select-Object -ExpandProperty ServerAddresses
+    Update-GUI CurrentIPValue Content $GetIP
+    Update-GUI CurrentDNS1 Visibility Visible
+    Update-GUI CurrentDNS1Value Content $GetDNS[0]
+    Update-GUI CurrentDNS2 Visibility Visible
+    Update-GUI CurrentDNS2Value Content $GetDNS[1]
 }

@@ -84,4 +84,27 @@ $App.NetConfig.Add_Click({
     $this.Background = $App.HoverButtonColor
     Update-GUI ($this.Name + "Border") Opacity 1
     Update-GUI ($this.Name + "ContentGrid") Visibility Visible
+
+    if (!($App.CurrentDNS1Value.Content -eq "")) {
+        $NewRunspace = [RunspaceFactory]::CreateRunspace()
+        $NewRunspace.ApartmentState = "STA"
+        $NewRunspace.ThreadOptions = "ReuseThread"          
+        $NewRunspace.Open()
+        $NewRunspace.SessionStateProxy.SetVariable("App", $App)
+        $Logic = [PowerShell]::Create().AddScript({
+            . ($App.FunctionsPath + "Update-GUI.ps1")
+            $Gateway = Get-NetIPConfiguration -InterfaceAlias Ethernet | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop
+            $GetIP = Get-NetIPConfiguration -InterfaceAlias Ethernet | Select-Object -ExpandProperty IPv4Address | Select-Object -ExpandProperty IPv4Address
+            $GetDNS = Get-DnsClientServerAddress -InterfaceAlias Ethernet -AddressFamily IPv4  | Select-Object -ExpandProperty ServerAddresses
+            Update-GUI CurrentIPValue Content $GetIP
+            if (!($GetDNS -eq $Gateway)) {
+                Update-GUI CurrentDNS1 Visibility Visible
+                Update-GUI CurrentDNS1Value Content $GetDNS[0]
+                Update-GUI CurrentDNS2 Visibility Visible
+                Update-GUI CurrentDNS2Value Content $GetDNS[1]
+            }
+        })
+        $Logic.Runspace = $NewRunspace
+        $Logic.BeginInvoke() | Out-Null
+    }
 })
