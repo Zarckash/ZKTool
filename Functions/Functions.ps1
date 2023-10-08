@@ -259,17 +259,6 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdate" -Name "Start" -Type DWord -Value 4
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdatem" -Name "Start" -Type DWord -Value 4
 
-    <# DISABLE UNTIL FIXED
-    # Force 100% Monitor Scaling
-    Write-UserOutput "Forzando 100% de escalado en todos los monitores"
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "LogPixels" -Type DWord -Value 96
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "Win8DpiScaling" -Type DWord -Value 1
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "AppliedDPI" -Type DWord -Value 96
-    if (Test-Path "HKCU:\Control Panel\Desktop\PerMonitorSettings") {
-        Remove-Item "HKCU:\Control Panel\Desktop\PerMonitorSettings" -Recurse -Force
-    }
-    #>
-
     # Disable VBS
     Write-UserOutput "Desactivando aislamiento del núcleo"
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard" -Name "EnableVirtualizationBasedSecurity" -Type DWord -Value 0
@@ -952,15 +941,4 @@ function RAMFIX {
     }else {
         Write-UserOutput "La Cantidad De RAM Supera Los 16GB, No Se Realizará Ningún Cambio"
     } 
-}
-
-function DisplayScaling {
-    # Force 100% Monitor Scaling
-    Write-UserOutput "Forzando 100% de escalado en todos los monitores"
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "LogPixels" -Type DWord -Value 96
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "Win8DpiScaling" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "AppliedDPI" -Type DWord -Value 96
-    if (Test-Path "HKCU:\Control Panel\Desktop\PerMonitorSettings") {
-        Remove-Item "HKCU:\Control Panel\Desktop\PerMonitorSettings" -Recurse -Force
-    }
 }
