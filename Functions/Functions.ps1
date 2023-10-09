@@ -813,11 +813,7 @@ function AMDUndervoltPack {
 function DisableDefender {
     $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop") 
     $App.Download.DownloadFile(($App.GitHubFilesPath + "DisableDefender.ps1"), ($DesktopPath + "\DisableDefender.ps1"))
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "PowerRun.exe"), ($DesktopPath + "\PowerRun.exe"))
-    '@echo off
-
-    bcdedit /deletevalue {current} safeboot' | Out-File ($App.FilesPath + "DisableDefender.bat")
-    Start-Process ($App.FilesPath + "DisableDefender.bat")
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/PowerRun.exe"), ($DesktopPath + "\PowerRun.exe"))
 }
 
 function NVCleanstall {
