@@ -811,8 +811,13 @@ function AMDUndervoltPack {
 }
 
 function DisableDefender {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "DisableDefender.ps1"), ($App.FilesPath + "DisableDefender.ps1"))
-    Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\DisableDefender.ps1 ; exit"
+    $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop") 
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "DisableDefender.ps1"), ($DesktopPath + "\DisableDefender.ps1"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "PowerRun.exe"), ($DesktopPath + "\PowerRun.exe"))
+    '@echo off
+
+    bcdedit /deletevalue {current} safeboot' | Out-File ($App.FilesPath + "DisableDefender.bat")
+    Start-Process ($App.FilesPath + "DisableDefender.bat")
 }
 
 function NVCleanstall {
@@ -911,20 +916,20 @@ function InstallFFMPEG {
     Add-AppxPackage ($App.FilesPath + "HEVC.appx")
     Add-AppxPackage ($App.FilesPath + "HEIF.appx")
     winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File $App.LogPath -Encoding UTF8 -Append
-    if (!(Test-Path ($App.ZKToolPath + "\Apps"))) {
-        New-Item -Path ($App.ZKToolPath + "\Apps") -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
+    if (!(Test-Path ($App.ZKToolPath + "Apps"))) {
+        New-Item -Path ($App.ZKToolPath + "Apps") -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
     }
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/Compress.exe"), ($App.ZKToolPath + "\Apps\Compress.exe"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/Compress.exe"), ($App.ZKToolPath + "Apps\Compress.exe"))
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Compress" | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "command" | Out-Null
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Icon" -Value ($App.ZKToolPath + "\Apps\Compress.exe,0")
+    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Position" -Value "Bottom"
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe"'
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/Trim.exe"), ($App.ZKToolPath + "\Apps\Trim.exe"))
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Trim" | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\" -Name "command" | Out-Null
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\" -Name "Icon" -Value ($App.ZKToolPath + "\Apps\Trim.exe,0")
+    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Trim.exe,0")
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\" -Name "Position" -Value "Bottom"
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Trim.exe"'
 }
