@@ -811,9 +811,10 @@ function AMDUndervoltPack {
 }
 
 function DisableDefender {
-    $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop") 
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "DisableDefender.ps1"), ($DesktopPath + "\DisableDefender.ps1"))
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/PowerRun.exe"), ($DesktopPath + "\PowerRun.exe"))
+    $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop")
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DisableDefender.zip"), ($App.FilesPath + "DisableDefender.zip"))
+    Expand-Archive -Path ($App.FilesPath + "DisableDefender.zip") -DestinationPath $DesktopPath -Force
+    msconfig.exe
 }
 
 function NVCleanstall {
