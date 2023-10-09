@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.4"
+$App.Version = "4.0.5"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -175,7 +175,7 @@ $AppLogic = [PowerShell]::Create().AddScript({
                 Move-UserFolders
             }
 
-            if (($App.SelectedIP.Count -gt 0) -or ($App.SelectedDNS.Count -gt 0) -or (!($App.CustomIP -eq "")) -or (!($App.CustomDNS1 -eq ""))) {
+            if (($App.SelectedIP.Count -gt 0) -or ($App.SelectedDNS.Count -gt 0) -or ($App.CustomIP -gt 0) -or ($App.CustomDNS1 -gt 0)) {
                 . ($App.FunctionsPath + "Set-NetConfig.ps1")
                 Set-NetConfig
             }
