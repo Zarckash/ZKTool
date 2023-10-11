@@ -904,8 +904,16 @@ function CustomDarkTheme {
     $Shortcut.Save()
 
     # Black BattleNet
-    $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Battle.net\Battle.net.lnk"
+    $ShortcutPath = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Battle.net\Battle.net.lnk"
     $IconLocation = ($App.ZKToolPath + "\Media\BlackBattleNet.ico")
+    $Shell = New-Object -ComObject ("WScript.Shell")
+    $Shortcut = $Shell.CreateShortcut($ShortcutPath)
+    $Shortcut.IconLocation = "$IconLocation, 0"
+    $Shortcut.Save()
+
+    # Black Ubisoft
+    $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Ubisoft\Ubisoft Connect\Ubisoft Connect.lnk"
+    $IconLocation = ($App.ZKToolPath + "\Media\BlackUbisoft.ico")
     $Shell = New-Object -ComObject ("WScript.Shell")
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
     $Shortcut.IconLocation = "$IconLocation, 0"
