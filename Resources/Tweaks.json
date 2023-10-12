@@ -15,6 +15,10 @@
         "Name": "Activar modo MSI en GPU",
         "FunctionName": "EnableMSIMode"
     },
+    "Tweak6": {
+        "Name": "Resolution Timer",
+        "FunctionName": "SetResolutionTimer"
+    },
     "Tweak9": {
         "Name": "Desinstalar aplicaciones",
         "FunctionName": "UninstallBloat"

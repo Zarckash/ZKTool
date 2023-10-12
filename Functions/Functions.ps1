@@ -103,19 +103,6 @@ function RegistryTweaks {
     lodctr /r
     lodctr /r
 
-    # Install Timer Resolution Service
-    Write-UserOutput "Instalando Set Timer Resolution Service"
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2010.x64 | Out-File $App.LogPath -Encoding UTF8 -Append
-    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.VCRedist.2010.x86 | Out-File $App.LogPath -Encoding UTF8 -Append
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/SetTimerResolutionService.exe"), ($App.FilesPath + "SetTimerResolutionService.exe"))
-    New-Item 'C:\Program Files\Set Timer Resolution Service\' -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
-    Move-Item -Path ("$TempPath\Files\SetTimerResolutionService.exe") -Destination 'C:\Program Files\Set Timer Resolution Service\'
-    Push-Location
-    Set-Location -Path "C:\Program Files\Set Timer Resolution Service"
-    Start-Sleep 3
-    .\SetTimerResolutionService.exe -install | Out-File $App.LogPath -Encoding UTF8 -Append
-    Pop-Location
-
     # Install Bitsum Power Plan
     Write-Output "Instalando Bitsum Power Plan"
     $App.Download.DownloadFile(($App.GitHubFilesPath + "BitsumPowerPlan.pow"), ($App.FilesPath + "BitsumPowerPlan.pow"))
@@ -554,6 +541,14 @@ function EnableMSIMode {
         New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management" -Name "MessageSignaledInterruptProperties" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" -Name "MSISupported" -Type DWord -Value 1
     }
+}
+
+function SetResolutionTimer {
+    Write-UserOutput "Instalando Set Timer Resolution Service"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/SetTimerResolutionService.exe"), ($App.FilesPath + "SetTimerResolutionService.exe"))
+    New-Item 'C:\Program Files\Set Timer Resolution Service\' -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
+    Move-Item -Path ($App.FilesPath + "SetTimerResolutionService.exe") -Destination 'C:\Program Files\Set Timer Resolution Service\SetTimerResolutionService.exe'
+    Start-Process "C:\Program Files\Set Timer Resolution Service\SetTimerResolutionService.exe" -ArgumentList "-install" | Out-File $App.LogPath -Encoding UTF8 -Append
 }
 
 function UninstallBloat {
