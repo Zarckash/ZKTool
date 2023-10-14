@@ -10,6 +10,18 @@ function ModernWarfareII {
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
 }
 
+function ModernWarfareIII {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/ModernWarfareIII.zip"), ($App.FilesPath + "ModernWarfareIII.zip"))
+    Expand-Archive -Path (($App.FilesPath + "ModernWarfareIII.zip")) -DestinationPath (($App.FilesPath + "\ModernWarfareIII")) -Force
+    Move-Item -Path ($App.FilesPath + "ModernWarfareIII\options.3.cod23.cst") -Destination ("$DocumentsPath\Call of Duty\players") -Force
+    #$CodPath = "$DocumentsPath\Call of Duty\players\" 
+    #$CodIDPath = Get-ChildItem $CodPath -Directory -Name | Where-Object {$_ -match "^\d{8,}$"} | ForEach-Object {$CodPath + $_}
+    #$CodIDPath | ForEach-Object {
+    #    Copy-Item ($App.FilesPath + "ModernWarfareIII\settings.3.local.cod23.cst") -Destination ($_ + "\settings.3.local.cod23.cst") -Force
+    #}
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
+}
+
 function PUBG {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PUBG.zip"), ($App.FilesPath + "PUBG.zip"))
     Expand-Archive -Path ($App.FilesPath + "PUBG.zip") -DestinationPath "$env:localappdata\TslGame\Saved\Config\WindowsNoEditor" -Force
