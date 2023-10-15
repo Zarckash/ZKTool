@@ -72,9 +72,9 @@ function RegistryTweaks {
     Write-UserOutput "Desactivando Fast Boot"
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Type DWord -Value 0
 
-    # Enable Hardware Acceleration
-    Write-UserOutput "Activando aceleración de hardware"
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
+    # Enable Hardware Acceleration (Disabled)
+    #Write-UserOutput "Activando aceleración de hardware"
+    #Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
 
     # Enable Borderless Optimizations
     If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\DirectX")) {
