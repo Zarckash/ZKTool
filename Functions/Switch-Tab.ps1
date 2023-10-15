@@ -1,27 +1,18 @@
-﻿$App.NavItemsList = @('Apps','Tweaks','Extra','Configs','UserFolders','NetConfig')
+﻿$App.NavItemsList = @('Apps','Tweaks','Extra','Configs','UserFolders','NetConfig','Personalization')
 $App.DisksList = @('Disk1','Disk2','Disk3','Disk4','Disk5','Disk6')
 
-$App.Apps.Add_Click({
-    $App.NavItemsList | ForEach-Object {
-        Update-GUI $_ Background Transparent
-        Update-GUI ($_ + "Border") Opacity 0
-        Update-GUI ($_ + "ContentGrid") Visibility Collapsed
-    }
-    $this.Background = $App.HoverButtonColor
-    Update-GUI ($this.Name + "Border") Opacity 1
-    Update-GUI ($this.Name + "ContentGrid") Visibility Visible
-})
 
-$App.Tweaks.Add_Click({
-    $App.NavItemsList | ForEach-Object {
-        Update-GUI $_ Background Transparent
-        Update-GUI ($_ + "Border") Opacity 0
-        Update-GUI ($_ + "ContentGrid") Visibility Collapsed
-    }
-    $this.Background = $App.HoverButtonColor
-    Update-GUI ($this.Name + "Border") Opacity 1
-    Update-GUI ($this.Name + "ContentGrid") Visibility Visible
-})
+
+@('Apps','Tweaks','Extra','Configs') | ForEach-Object {
+    $App.$_.Add_Checked({
+        $App.NavItemsList | ForEach-Object {
+            Update-GUI $_ IsChecked $false
+            Update-GUI ($_ + "ContentGrid") Visibility Collapsed
+        }
+        Update-GUI $this.Name IsChecked $true
+        Update-GUI ($this.Name + "ContentGrid") Visibility Visible
+    })
+}
 
 $App.Extra.Add_Click({
     $App.NavItemsList | ForEach-Object {
@@ -107,4 +98,24 @@ $App.NetConfig.Add_Click({
         $Logic.Runspace = $NewRunspace
         $Logic.BeginInvoke() | Out-Null
     }
+})
+
+$App.Personalization.Add_Checked({
+    Update-GUI OutputContentGrid Visibility Hidden
+    $App.NavItemsList | ForEach-Object {
+        Update-GUI $_ Background Transparent
+        Update-GUI ($_ + "Border") Opacity 0
+        Update-GUI ($_ + "ContentGrid") Visibility Collapsed
+    }
+    $this.Background = $App.HoverButtonColor
+    Update-GUI ($this.Name + "Border") Opacity 1
+    Update-GUI ($this.Name + "ContentGrid") Visibility Visible
+
+    if ((Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme") -eq 0) {
+        Update-GUI DarkTheme IsChecked $true
+    }
+})
+
+$App.Personalization.Add_Unchecked({
+    Update-GUI OutputContentGrid Visibility Visible
 })

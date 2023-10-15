@@ -47,64 +47,36 @@ $App.Close.Add_Click({
 
 $App.SelectedButtons = New-Object System.Collections.Generic.List[System.Object]
 
-$App.AppsList.psobject.properties.name | ForEach-Object {
-    Update-GUI $_ Content $App.AppsList.$_.Name
-    Update-GUI $_ Visibility Visible
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
-        }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
-    })
-}
+$App.AppsList.psobject.properties.name + $App.TweaksList.psobject.properties.name + $App.ExtraList.psobject.properties.name + $App.ConfigsList.psobject.properties.name + $UserFolders | ForEach-Object {
 
-$App.TweaksList.psobject.properties.name | ForEach-Object {
-    Update-GUI $_ Content $App.TweaksList.$_.Name
-    Update-GUI $_ Visibility Visible
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
-        }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
-    })
-}
+    if ($_ -like "App*") {
+        $SourceList = "AppsList"
+    }
+    elseif ($_ -like "Tweak*") {
+        $SourceList = "TweaksList"
+    }
+    elseif ($_ -like "Extra*") {
+        $SourceList = "ExtraList"
+    }
+    elseif ($_ -like "Config*") {
+        $SourceList = "ConfigsList"
+    }
 
-$App.ExtraList.psobject.properties.name | ForEach-Object {
-    Update-GUI $_ Content $App.ExtraList.$_.Name
-    Update-GUI $_ Visibility Visible
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
-        }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
-    })
-}
+    if ($_ -like "Config*") {
+        Update-GUI ($_ + "Text") Text $App.$SourceList.$_.Name
+        Update-GUI ($_ + "Image") Source ($App.ZKToolPath + "Resources\Images\" + $App.$SourceList.$_.Image)
+    }
+    elseif ($_ -notlike "*Folder") {
+        Update-GUI $_ Content $App.$SourceList.$_.Name
+    }
 
-$App.ConfigsList.psobject.properties.name | ForEach-Object {
-    Update-GUI ($_ + "Text") Text $App.ConfigsList.$_.Name
-    Update-GUI ($_ + "Image") Source ($App.ZKToolPath + "Resources\Images\" + $App.ConfigsList.$_.Image)
     Update-GUI $_ Visibility Visible
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
-        }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
+
+    $App.$_.Add_Checked({
+        $App.SelectedButtons.Add($this.Name)
+    })
+    $App.$_.Add_Unchecked({
+        $App.SelectedButtons.Remove($this.Name)
     })
 }
 
@@ -116,20 +88,6 @@ $App.ConfigsList.psobject.properties.name | ForEach-Object {
                 $App.SelectedButtons.Remove("Export")
                 $App.SelectedButtons.Remove("Import")
             }
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
-        }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
-    })
-}
-
-$UserFolders | ForEach-Object {
-    Update-GUI $_ Visibility Visible
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
             $this.BorderThickness = 1.5
             $App.SelectedButtons.Add($this.Name)
         }
@@ -252,3 +210,24 @@ $DNSList | ForEach-Object {
         }
     })
 }
+
+$App.OpenColors.Add_Click({
+    $ColorDialog = New-Object System.Windows.Forms.ColorDialog
+    $ColorDialog.FullOpen = $true
+    $ColorDialog.AnyColor = $true
+    [void]$ColorDialog.ShowDialog()
+})
+
+$App.DarkTheme.Add_Checked({
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
+    taskkill /f /im explorer.exe | Out-Null
+    explorer.exe
+})
+
+$App.DarkTheme.Add_Unchecked({
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 1
+    taskkill /f /im explorer.exe | Out-Null
+    explorer.exe
+})
