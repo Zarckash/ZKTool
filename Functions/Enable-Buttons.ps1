@@ -217,17 +217,3 @@ $App.OpenColors.Add_Click({
     $ColorDialog.AnyColor = $true
     [void]$ColorDialog.ShowDialog()
 })
-
-$App.DarkTheme.Add_Checked({
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
-    taskkill /f /im explorer.exe | Out-Null
-    explorer.exe
-})
-
-$App.DarkTheme.Add_Unchecked({
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 1
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 1
-    taskkill /f /im explorer.exe | Out-Null
-    explorer.exe
-})
