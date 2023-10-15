@@ -83,14 +83,36 @@
                         <Rectangle
                             x:Name="navButtonRectangle"
                             Width="3"
-                            Height="18"
+                            Height="0"
                             Margin="-1,0,0,0"
                             HorizontalAlignment="Left"
                             Fill="{DynamicResource AppAccentColor}"
-                            RadiusX="2"
-                            RadiusY="2" />
+                            RadiusX="3"
+                            RadiusY="3" />
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Checked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="navButtonRectangle"
+                                        Storyboard.TargetProperty="Height"
+                                        To="18"
+                                        Duration="0:0:0.15" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="navButtonRectangle"
+                                        Storyboard.TargetProperty="Height"
+                                        To="0"
+                                        Duration="0:0:0.15" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverColor}" />
                         </Trigger>
@@ -99,9 +121,6 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="False">
-                            <Setter TargetName="navButtonRectangle" Property="Opacity" Value="0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

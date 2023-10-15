@@ -136,9 +136,16 @@
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
                             Margin="-8,0,0,0"
                             Orientation="Horizontal">
+                            <Border
+                                x:Name="AppsBorder"
+                                Width="3"
+                                Height="18"
+                                Margin="-1,0,0,0"
+                                Background="{DynamicResource AppAccentColor}"
+                                CornerRadius="2" />
                             <Image
                                 Width="20"
-                                Margin="7,0,0,0"
+                                Margin="4,0,0,0"
                                 Source="C:\Program Files\ZKTool\WPF\Images\Apps.png" />
                             <TextBlock
                                 Margin="4,0"
@@ -1375,7 +1382,7 @@
             <Grid
                 x:Name="PersonalizationContentGrid"
                 Grid.Column="1"
-                Visibility="Visible">
+                Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
@@ -1391,7 +1398,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="35" />
+                        <RowDefinition Height="55" />
                     </Grid.RowDefinitions>
                     <Button
                         x:Name="OpenColors"
@@ -1408,11 +1415,11 @@
                         Orientation="Horizontal">
                         <Grid Width="172">
                             <Label Content="Modo oscuro" Style="{DynamicResource ToggleLabelStyle}" />
-                            <ToggleButton x:Name="DarkTheme" Style="{DynamicResource ToggleButtonStyle}" />
+                            <ToggleButton x:Name="DarkThemeToggle" Style="{DynamicResource ToggleButtonStyle}" />
                         </Grid>
                         <Grid Width="172">
                             <Label Content="Transparencia" Style="{DynamicResource ToggleLabelStyle}" />
-                            <ToggleButton x:Name="Transparency" Style="{DynamicResource ToggleButtonStyle}" />
+                            <ToggleButton x:Name="TransparencyToggle" Style="{DynamicResource ToggleButtonStyle}" />
                         </Grid>
                     </StackPanel>
 
