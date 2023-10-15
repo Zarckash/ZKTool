@@ -95,7 +95,7 @@
                         VerticalAlignment="Center"
                         Panel.ZIndex="10"
                         BorderBrush="{DynamicResource AppAccentColor}"
-                        BorderThickness="2.2"
+                        BorderThickness="1.5"
                         CornerRadius="21" />
 
                     <Image
@@ -106,6 +106,7 @@
                         HorizontalAlignment="Left"
                         Opacity="1"
                         Source="C:\Program Files\ZKTool\WPF\Images\ZKTool.png"
+                        Style="{DynamicResource ImageQuality}"
                         UseLayoutRounding="True" />
 
                     <TextBlock
@@ -126,34 +127,27 @@
                 </Grid>
 
                 <StackPanel x:Name="Nav" Height="350">
-                    <Button
+                    <ToggleButton
                         x:Name="Apps"
-                        Background="{DynamicResource AppHoverButtonColor}"
+                        IsChecked="True"
                         Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
                             Margin="-8,0,0,0"
                             Orientation="Horizontal">
-                            <Border
-                                x:Name="AppsBorder"
-                                Width="3"
-                                Height="18"
-                                Margin="-1,0,0,0"
-                                Background="{DynamicResource AppAccentColor}"
-                                CornerRadius="2" />
                             <Image
                                 Width="20"
-                                Margin="4,0,0,0"
+                                Margin="7,0,0,0"
                                 Source="C:\Program Files\ZKTool\WPF\Images\Apps.png" />
                             <TextBlock
                                 Margin="4,0"
                                 VerticalAlignment="Center"
                                 Text="Aplicaciones" />
                         </StackPanel>
-                    </Button>
+                    </ToggleButton>
 
-                    <Button x:Name="Tweaks" Style="{DynamicResource NavButtonStyle}">
+                    <ToggleButton x:Name="Tweaks" Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
@@ -170,15 +164,16 @@
                             <Image
                                 Width="20"
                                 Margin="4,0,0,0"
-                                Source="C:\Program Files\ZKTool\WPF\Images\Tweaks.png" />
+                                Source="C:\Program Files\ZKTool\WPF\Images\Tweaks.png"
+                                Style="{DynamicResource ImageQuality}" />
                             <TextBlock
                                 Margin="4,0"
                                 VerticalAlignment="Center"
                                 Text="Tweaks" />
                         </StackPanel>
-                    </Button>
+                    </ToggleButton>
 
-                    <Button x:Name="Extra" Style="{DynamicResource NavButtonStyle}">
+                    <ToggleButton x:Name="Extra" Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
@@ -201,9 +196,9 @@
                                 VerticalAlignment="Center"
                                 Text="Extra" />
                         </StackPanel>
-                    </Button>
+                    </ToggleButton>
 
-                    <Button x:Name="Configs" Style="{DynamicResource NavButtonStyle}">
+                    <ToggleButton x:Name="Configs" Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
@@ -226,9 +221,9 @@
                                 VerticalAlignment="Center"
                                 Text="Configuraciones" />
                         </StackPanel>
-                    </Button>
+                    </ToggleButton>
 
-                    <Button x:Name="UserFolders" Style="{DynamicResource NavButtonStyle}">
+                    <ToggleButton x:Name="UserFolders" Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
@@ -251,9 +246,9 @@
                                 VerticalAlignment="Center"
                                 Text="Carpetas de usuario" />
                         </StackPanel>
-                    </Button>
+                    </ToggleButton>
 
-                    <Button x:Name="NetConfig" Style="{DynamicResource NavButtonStyle}">
+                    <ToggleButton x:Name="NetConfig" Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
@@ -270,13 +265,40 @@
                             <Image
                                 Width="20"
                                 Margin="4,0,0,0"
-                                Source="C:\Program Files\ZKTool\WPF\Images\NetConfig.png" />
+                                Source="C:\Program Files\ZKTool\WPF\Images\NetConfig.png"
+                                Style="{DynamicResource ImageQuality}" />
                             <TextBlock
                                 Margin="4,0"
                                 VerticalAlignment="Center"
                                 Text="Configurador de Red" />
                         </StackPanel>
-                    </Button>
+                    </ToggleButton>
+
+                    <ToggleButton x:Name="Personalization" Style="{DynamicResource NavButtonStyle}">
+                        <StackPanel
+                            Width="{Binding ActualWidth, ElementName=btnTweaks}"
+                            Height="{Binding ActualHeight, ElementName=btnTweaks}"
+                            Margin="-8,0,0,0"
+                            Orientation="Horizontal">
+                            <Border
+                                x:Name="PersonalizationBorder"
+                                Width="3"
+                                Height="18"
+                                Margin="-1,0,0,0"
+                                Background="{DynamicResource AppAccentColor}"
+                                CornerRadius="2"
+                                Opacity="0" />
+                            <Image
+                                Width="20"
+                                Margin="4,0,0,0"
+                                Source="C:\Program Files\ZKTool\WPF\Images\Personalization.png"
+                                Style="{DynamicResource ImageQuality}" />
+                            <TextBlock
+                                Margin="4,0"
+                                VerticalAlignment="Center"
+                                Text="Personalización" />
+                        </StackPanel>
+                    </ToggleButton>
                 </StackPanel>
 
                 <Grid
@@ -301,7 +323,7 @@
                         FontFamily="{DynamicResource Font}"
                         FontSize="14"
                         Foreground="{DynamicResource AppSubTextColor}"
-                        Text="Version 0.0.0" />
+                        Text="Versión 0.0.0" />
 
                     <Button
                         x:Name="GitHubLogo"
@@ -310,7 +332,8 @@
                         <Image
                             Width="20"
                             Height="20"
-                            Source="C:\Program Files\ZKTool\WPF\Images\GitHub.png" />
+                            Source="C:\Program Files\ZKTool\WPF\Images\GitHub.png"
+                            Style="{DynamicResource ImageQuality}" />
                     </Button>
                     <Button
                         x:Name="ZKLogo"
@@ -320,7 +343,8 @@
                             Width="30"
                             Height="30"
                             Margin="8,0"
-                            Source="C:\Program Files\ZKTool\WPF\Images\ZK.png" />
+                            Source="C:\Program Files\ZKTool\WPF\Images\ZK.png"
+                            Style="{DynamicResource ImageQuality}" />
                     </Button>
 
                 </StackPanel>
@@ -348,67 +372,67 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
                         <Label Content="Esencial" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="App1" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App2" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App3" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App4" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App1" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App2" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App3" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App4" Style="{DynamicResource AppButtonStyle}" />
                         <Label
                             Margin="8,14,8,4"
                             Content="Utilidades"
                             Style="{DynamicResource CategoryLabelStyle}" />
 
-                        <Button x:Name="App5" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App6" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App7" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App8" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App9" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App10" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App5" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App6" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App7" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App8" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App9" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App10" Style="{DynamicResource AppButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <Label Content="Launchers" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="App11" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App12" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App13" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App14" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App15" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App16" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App17" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App11" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App12" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App13" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App14" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App15" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App16" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App17" Style="{DynamicResource AppButtonStyle}" />
                         <Label
                             Margin="8,14,8,4"
                             Content="Juegos"
                             Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="App18" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App19" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App20" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App18" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App19" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App20" Style="{DynamicResource AppButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
                         <Label Content="Periféricos" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="App21" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App22" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App23" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App24" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App21" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App22" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App23" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App24" Style="{DynamicResource AppButtonStyle}" />
                         <Label
                             Margin="8,14,8,4"
                             Content="Desarollo"
                             Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="App25" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App26" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App27" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App28" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App25" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App26" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App27" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App28" Style="{DynamicResource AppButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="3">
                         <Label Content="Otros" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="App31" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App32" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App33" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App34" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App35" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App36" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App37" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App38" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App39" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App40" Style="{DynamicResource AppButtonStyle}" />
-                        <Button x:Name="App41" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App31" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App32" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App33" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App34" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App35" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App36" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App37" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App38" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App39" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App40" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App41" Style="{DynamicResource AppButtonStyle}" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -433,36 +457,36 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel>
                         <Label Content="Rendimiento" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="Tweak1" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak2" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak3" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak4" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak5" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak6" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak7" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak8" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak1" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak2" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak3" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak4" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak5" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak6" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak7" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak8" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <Label Content="Limpieza" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="Tweak9" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak10" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak11" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak12" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak13" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak14" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak15" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak16" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak9" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak10" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak11" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak12" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak13" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak14" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak15" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak16" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
                         <Label Content="Personalización" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="Tweak17" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak18" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak19" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak20" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak21" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak22" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak23" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Tweak24" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak17" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak18" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak19" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak20" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak21" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak22" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak23" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Tweak24" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -487,36 +511,36 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel>
                         <Label Content="General" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="Extra1" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra2" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra3" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra4" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra5" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra6" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra7" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra8" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra1" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra2" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra3" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra4" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra5" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra6" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra7" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra8" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <Label Content="Experimental" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="Extra9" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra10" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra11" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra12" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra13" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra14" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra15" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra16" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra9" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra10" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra11" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra12" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra13" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra14" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra15" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra16" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
                         <Label Content="Custom" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="Extra17" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra18" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra19" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra20" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra21" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra22" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra23" Style="{DynamicResource TweakButtonStyle}" />
-                        <Button x:Name="Extra24" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra17" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra18" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra19" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra20" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra21" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra22" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra23" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Extra24" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -541,7 +565,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel>
                         <Label Content="Archivos de juegos" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="Config1" Style="{DynamicResource TweakButtonStyle}">
+                        <ToggleButton x:Name="Config1" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config1Image"
@@ -553,8 +577,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config2" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config2" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config2Image"
@@ -566,8 +590,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config3" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config3" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config3Image"
@@ -579,8 +603,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config4" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config4" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config4Image"
@@ -592,8 +616,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config5" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config5" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config5Image"
@@ -605,8 +629,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config6" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config6" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config6Image"
@@ -618,8 +642,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config7" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config7" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config7Image"
@@ -631,8 +655,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config8" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config8" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config8Image"
@@ -644,11 +668,11 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
+                        </ToggleButton>
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <Label Content="Archivos de aplicaciones" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="Config9" Style="{DynamicResource TweakButtonStyle}">
+                        <ToggleButton x:Name="Config9" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config9Image"
@@ -660,8 +684,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config10" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config10" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config10Image"
@@ -673,8 +697,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config11" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config11" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config11Image"
@@ -686,8 +710,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config12" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config12" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config12Image"
@@ -699,8 +723,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config13" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config13" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config13Image"
@@ -712,8 +736,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config14" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config14" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config14Image"
@@ -725,8 +749,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config15" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config15" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config15Image"
@@ -738,8 +762,8 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="Config16" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="Config16" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     x:Name="Config16Image"
@@ -751,24 +775,25 @@
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
+                        </ToggleButton>
                     </StackPanel>
                     <StackPanel Grid.Column="2">
                         <Label Content="Exportar | Importar" Style="{DynamicResource CategoryLabelStyle}" />
                         <StackPanel>
-                            <Button x:Name="Export" Style="{DynamicResource ConfigButtonStyle}">
+                            <ToggleButton x:Name="Export" Style="{DynamicResource ConfigButtonStyle}">
                                 <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                     <Image
                                         x:Name="ExportImage"
                                         Width="24"
                                         Margin="8,0,0,0"
-                                        Source="C:\Program Files\ZKTool\WPF\Images\Export.png" />
+                                        Source="C:\Program Files\ZKTool\WPF\Images\Export.png"
+                                        Style="{DynamicResource ImageQuality}" />
                                     <TextBlock
                                         Margin="4,0"
                                         VerticalAlignment="Center"
                                         Text="EXPORTAR" />
                                 </StackPanel>
-                            </Button>
+                            </ToggleButton>
                             <TextBlock
                                 Margin="8,0,0,4"
                                 Foreground="{DynamicResource AppTextColor}"
@@ -795,19 +820,20 @@
                                 <LineBreak />
                                 <Run Text="RivaTuner" />
                             </TextBlock>
-                            <Button x:Name="Import" Style="{DynamicResource ConfigButtonStyle}">
+                            <ToggleButton x:Name="Import" Style="{DynamicResource ConfigButtonStyle}">
                                 <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                     <Image
                                         x:Name="ImportImage"
                                         Width="24"
                                         Margin="8,0,0,0"
-                                        Source="C:\Program Files\ZKTool\WPF\Images\Import.png" />
+                                        Source="C:\Program Files\ZKTool\WPF\Images\Import.png"
+                                        Style="{DynamicResource ImageQuality}" />
                                     <TextBlock
                                         Margin="4,0"
                                         VerticalAlignment="Center"
                                         Text="IMPORTAR" />
                                 </StackPanel>
-                            </Button>
+                            </ToggleButton>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -837,7 +863,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel>
                         <Label Content="Seleccionar carpetas" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="DesktopFolder"
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}">
@@ -852,8 +878,8 @@
                                     FontSize="18"
                                     Text="Escritorio" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="PicturesFolder" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="PicturesFolder" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     Width="24"
@@ -865,8 +891,8 @@
                                     FontSize="18"
                                     Text="Imágenes" />
                             </StackPanel>
-                        </Button>
-                        <Button
+                        </ToggleButton>
+                        <ToggleButton
                             x:Name="SelectAllFolders"
                             Height="35"
                             Margin="8"
@@ -878,7 +904,7 @@
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <Label Content="" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="DownloadsFolder"
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}">
@@ -893,8 +919,8 @@
                                     FontSize="18"
                                     Text="Descargas" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="VideosFolder" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="VideosFolder" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     Width="24"
@@ -906,11 +932,11 @@
                                     FontSize="18"
                                     Text="Vídeos" />
                             </StackPanel>
-                        </Button>
+                        </ToggleButton>
                     </StackPanel>
                     <StackPanel Grid.Column="2">
                         <Label Content="" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="DocumentsFolder"
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}">
@@ -925,8 +951,8 @@
                                     FontSize="18"
                                     Text="Documentos" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="MusicFolder" Style="{DynamicResource TweakButtonStyle}">
+                        </ToggleButton>
+                        <ToggleButton x:Name="MusicFolder" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                 <Image
                                     Width="24"
@@ -938,14 +964,14 @@
                                     FontSize="18"
                                     Text="Música" />
                             </StackPanel>
-                        </Button>
+                        </ToggleButton>
                     </StackPanel>
                     <StackPanel Grid.Row="1">
                         <Label
                             x:Name="SelectDiskLabel"
                             Content="Seleccionar disco"
                             Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="Disk1"
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}"
@@ -958,15 +984,16 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
+                                    Style="{DynamicResource ImageQuality}" />
                                 <TextBlock
                                     x:Name="Disk1Text"
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button
+                        </ToggleButton>
+                        <ToggleButton
                             x:Name="Disk4"
                             Style="{DynamicResource TweakButtonStyle}"
                             Visibility="Collapsed">
@@ -978,21 +1005,22 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
+                                    Style="{DynamicResource ImageQuality}" />
                                 <TextBlock
                                     x:Name="Disk4Text"
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
+                        </ToggleButton>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="1">
                         <Label
                             VerticalAlignment="Top"
                             Content=""
                             Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="Disk2"
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}"
@@ -1005,15 +1033,16 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
+                                    Style="{DynamicResource ImageQuality}" />
                                 <TextBlock
                                     x:Name="Disk2Text"
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button
+                        </ToggleButton>
+                        <ToggleButton
                             x:Name="Disk5"
                             Style="{DynamicResource TweakButtonStyle}"
                             Visibility="Collapsed">
@@ -1025,21 +1054,22 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
+                                    Style="{DynamicResource ImageQuality}" />
                                 <TextBlock
                                     x:Name="Disk5Text"
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
+                        </ToggleButton>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="2">
                         <Label
                             VerticalAlignment="Top"
                             Content=""
                             Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="Disk3"
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}"
@@ -1052,15 +1082,16 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
+                                    Style="{DynamicResource ImageQuality}" />
                                 <TextBlock
                                     x:Name="Disk3Text"
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
-                        <Button
+                        </ToggleButton>
+                        <ToggleButton
                             x:Name="Disk6"
                             Style="{DynamicResource TweakButtonStyle}"
                             Visibility="Collapsed">
@@ -1072,14 +1103,15 @@
                                 <Image
                                     Width="24"
                                     Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
+                                    Style="{DynamicResource ImageQuality}" />
                                 <TextBlock
                                     x:Name="Disk6Text"
                                     Margin="4,0"
                                     VerticalAlignment="Center"
                                     FontSize="18" />
                             </StackPanel>
-                        </Button>
+                        </ToggleButton>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -1110,48 +1142,78 @@
                         <Label Content="Seleccionar IP" Style="{DynamicResource CategoryLabelStyle}" />
                         <Button
                             x:Name="SearchIp"
-                            Height="35"
-                            Margin="8"
-                            HorizontalContentAlignment="Center"
                             Content="Buscar IPs disponibles"
-                            FontSize="18"
-                            Style="{DynamicResource SearchButtonStyle}"
-                            Visibility="Visible" />
-                        <Button
+                            Style="{DynamicResource SearchButtonStyle}" />
+                        <ToggleButton
                             x:Name="IP1"
                             FontSize="18"
                             Style="{DynamicResource TweakButtonStyle}"
                             Visibility="Collapsed" />
-                        <Button
+                        <ToggleButton
                             x:Name="IP4"
                             FontSize="18"
                             Style="{DynamicResource TweakButtonStyle}"
                             Visibility="Collapsed" />
                         <Label Content="Introducir manualmente" Style="{DynamicResource CategoryLabelStyle}" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,65">
-                        <Label x:Name="CurrentIP" Content="IP Actual:" Style="{DynamicResource CategoryLabelStyle}"  FontSize="14" />
-                        <Label x:Name="CurrentIPValue" Style="{DynamicResource CategoryLabelStyle}" FontSize="14" Foreground="White" />
+                    <StackPanel
+                        Margin="0,0,0,65"
+                        VerticalAlignment="Bottom"
+                        Orientation="Horizontal">
+                        <Label
+                            x:Name="CurrentIP"
+                            Content="IP Actual:"
+                            FontSize="14"
+                            Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label
+                            x:Name="CurrentIPValue"
+                            FontSize="14"
+                            Foreground="White"
+                            Style="{DynamicResource CategoryLabelStyle}" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,40">
-                        <Label x:Name="CurrentDNS1" Visibility="Collapsed" Content="DNS Actual 1:" Style="{DynamicResource CategoryLabelStyle}" FontSize="14" />
-                        <Label x:Name="CurrentDNS1Value" Style="{DynamicResource CategoryLabelStyle}" FontSize="14" Foreground="White" />
+                    <StackPanel
+                        Margin="0,0,0,40"
+                        VerticalAlignment="Bottom"
+                        Orientation="Horizontal">
+                        <Label
+                            x:Name="CurrentDNS1"
+                            Content="DNS Actual 1:"
+                            FontSize="14"
+                            Style="{DynamicResource CategoryLabelStyle}"
+                            Visibility="Collapsed" />
+                        <Label
+                            x:Name="CurrentDNS1Value"
+                            FontSize="14"
+                            Foreground="White"
+                            Style="{DynamicResource CategoryLabelStyle}" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,15">
-                        <Label x:Name="CurrentDNS2" Visibility="Collapsed" Content="DNS Actual 2:" Style="{DynamicResource CategoryLabelStyle}" FontSize="14" />
-                        <Label x:Name="CurrentDNS2Value" Style="{DynamicResource CategoryLabelStyle}" FontSize="14" Foreground="White" />
+                    <StackPanel
+                        Margin="0,0,0,15"
+                        VerticalAlignment="Bottom"
+                        Orientation="Horizontal">
+                        <Label
+                            x:Name="CurrentDNS2"
+                            Content="DNS Actual 2:"
+                            FontSize="14"
+                            Style="{DynamicResource CategoryLabelStyle}"
+                            Visibility="Collapsed" />
+                        <Label
+                            x:Name="CurrentDNS2Value"
+                            FontSize="14"
+                            Foreground="White"
+                            Style="{DynamicResource CategoryLabelStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <Label
                             Margin="8,8,8,55"
                             Content=""
                             Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="IP2"
                             FontSize="18"
                             Style="{DynamicResource TweakButtonStyle}"
                             Visibility="Collapsed" />
-                        <Button
+                        <ToggleButton
                             x:Name="IP5"
                             FontSize="18"
                             Style="{DynamicResource TweakButtonStyle}"
@@ -1170,18 +1232,14 @@
                                     IsReadOnly="True"
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="." />
-                                <TextBox 
-                                    x:Name="IPBoxValue2" 
-                                    Style="{DynamicResource TextBoxStyle}"  />
+                                <TextBox x:Name="IPBoxValue2" Style="{DynamicResource TextBoxStyle}" />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
                                     IsReadOnly="True"
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="." />
-                                <TextBox 
-                                    x:Name="IPBoxValue3" 
-                                    Style="{DynamicResource TextBoxStyle}"  />
+                                <TextBox x:Name="IPBoxValue3" Style="{DynamicResource TextBoxStyle}" />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
@@ -1189,20 +1247,20 @@
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="." />
                                 <TextBox
-                                    x:Name="IPBoxValue4" 
+                                    x:Name="IPBoxValue4"
                                     Margin="4,0,8,0"
-                                    Style="{DynamicResource TextBoxStyle}"  />
+                                    Style="{DynamicResource TextBoxStyle}" />
                             </StackPanel>
                         </Grid>
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <Button
+                        <ToggleButton
                             x:Name="IP3"
                             Margin="8,91,8,4"
                             FontSize="18"
                             Style="{DynamicResource TweakButtonStyle}"
                             Visibility="Collapsed" />
-                        <Button
+                        <ToggleButton
                             x:Name="IP6"
                             FontSize="18"
                             Style="{DynamicResource TweakButtonStyle}"
@@ -1210,7 +1268,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1">
                         <Label Content="Seleccionar DNS" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="DNS1"
                             Content="Google"
                             FontSize="18"
@@ -1220,7 +1278,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="1">
                         <Label Content="" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="DNS2"
                             Content="Cloudflare"
                             FontSize="18"
@@ -1239,18 +1297,14 @@
                                     IsReadOnly="True"
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="." />
-                                <TextBox
-                                    x:Name="DNSBox1Value2"
-                                    Style="{DynamicResource TextBoxStyle}" />
+                                <TextBox x:Name="DNSBox1Value2" Style="{DynamicResource TextBoxStyle}" />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
                                     IsReadOnly="True"
                                     Style="{DynamicResource TextBoxStyle}"
                                     Text="." />
-                                <TextBox
-                                    x:Name="DNSBox1Value3"
-                                    Style="{DynamicResource TextBoxStyle}" />
+                                <TextBox x:Name="DNSBox1Value3" Style="{DynamicResource TextBoxStyle}" />
                                 <TextBox
                                     Width="7"
                                     Focusable="False"
@@ -1267,7 +1321,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="2">
                         <Label Content="" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button
+                        <ToggleButton
                             x:Name="DNS3"
                             Content="Router"
                             FontSize="18"
@@ -1319,6 +1373,53 @@
                 </Grid>
             </Grid>
             <Grid
+                x:Name="PersonalizationContentGrid"
+                Grid.Column="1"
+                Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Content="Personalización" Style="{DynamicResource ContentLabelStyle}" />
+                <Grid Grid.Row="1" Margin="8,0,0,0">
+                    <Border Background="{DynamicResource AppItemsColor}" CornerRadius="6" />
+                </Grid>
+                <Grid Grid.Row="1" Margin="8,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+                    <Button
+                        x:Name="OpenColors"
+                        Margin="8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Content="Abrir colores"
+                        Style="{DynamicResource SearchButtonStyle}"
+                        Visibility="Visible" />
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal">
+                        <Grid Width="172">
+                            <Label Content="Modo oscuro" Style="{DynamicResource ToggleLabelStyle}" />
+                            <ToggleButton x:Name="DarkTheme" Style="{DynamicResource ToggleButtonStyle}" />
+                        </Grid>
+                        <Grid Width="172">
+                            <Label Content="Transparencia" Style="{DynamicResource ToggleLabelStyle}" />
+                            <ToggleButton x:Name="Transparency" Style="{DynamicResource ToggleButtonStyle}" />
+                        </Grid>
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+            <Grid
+                x:Name="OutputContentGrid"
                 Grid.Column="1"
                 Height="55"
                 Margin="8,0,0,0"

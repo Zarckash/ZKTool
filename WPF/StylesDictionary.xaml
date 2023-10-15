@@ -12,6 +12,10 @@
     <FontFamily x:Key="FontBold">BMWTypeNext Pro</FontFamily>
     <FontFamily x:Key="FontIcons">Segoe Fluent Icons</FontFamily>
 
+    <Style x:Key="ImageQuality" TargetType="Image">
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+    </Style>
+
     <Style x:Key="InteractionButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
@@ -45,7 +49,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NavButtonStyle" TargetType="Button">
+    <Style x:Key="NavButtonStyle" TargetType="ToggleButton">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -57,30 +61,47 @@
         <Setter Property="FontSize" Value="18" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border
-                        x:Name="navButtonBorder"
-                        Width="{TemplateBinding Width}"
-                        Height="{TemplateBinding Width}"
-                        Background="{TemplateBinding Background}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="4"
-                        SnapsToDevicePixels="True">
-                        <ContentPresenter
-                            x:Name="ContentPresenter"
-                            Margin="8,0,0,0"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Focusable="False"
-                            RecognizesAccessKey="True"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                    </Border>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <Border
+                            x:Name="navButtonBorder"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Width}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4"
+                            SnapsToDevicePixels="True">
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Margin="8,0,0,0"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <Rectangle
+                            x:Name="navButtonRectangle"
+                            Width="3"
+                            Height="18"
+                            Margin="-1,0,0,0"
+                            HorizontalAlignment="Left"
+                            Fill="{DynamicResource AppAccentColor}"
+                            RadiusX="2"
+                            RadiusY="2" />
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverColor}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="navButtonRectangle" Property="Opacity" Value="0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -156,7 +177,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="AppButtonStyle" TargetType="Button">
+    <Style x:Key="AppButtonStyle" TargetType="ToggleButton">
         <Setter Property="Background" Value="{DynamicResource AppHoverColor}" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -168,7 +189,7 @@
         <Setter Property="FontSize" Value="15.5" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="ToggleButton">
                     <Border
                         x:Name="appButtonBorder"
                         Width="{TemplateBinding Width}"
@@ -195,13 +216,16 @@
                             <Setter TargetName="appButtonBorder" Property="BorderBrush" Value="Transparent" />
                             <Setter TargetName="appButtonBorder" Property="BorderThickness" Value="1.5" />
                         </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="appButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style x:Key="TweakButtonStyle" TargetType="Button">
+    <Style x:Key="TweakButtonStyle" TargetType="ToggleButton">
         <Setter Property="Background" Value="{DynamicResource AppHoverColor}" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -213,7 +237,7 @@
         <Setter Property="FontSize" Value="15.5" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="ToggleButton">
                     <Border
                         x:Name="tweakButtonBorder"
                         Width="{TemplateBinding Width}"
@@ -246,7 +270,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ConfigButtonStyle" TargetType="Button">
+    <Style x:Key="ConfigButtonStyle" TargetType="ToggleButton">
         <Setter Property="Background" Value="{DynamicResource AppHoverColor}" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -258,7 +282,7 @@
         <Setter Property="FontWeight" Value="Semibold" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate TargetType="ToggleButton">
                     <Border
                         x:Name="configButtonBorder"
                         Width="{TemplateBinding Width}"
@@ -295,12 +319,11 @@
         <Setter Property="Background" Value="{DynamicResource AppHoverColor}" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Height" Value="35" />
-        <Setter Property="Visibility" Value="Collapsed" />
-        <Setter Property="Margin" Value="8,4" />
+        <Setter Property="Margin" Value="8" />
         <Setter Property="FontFamily" Value="{DynamicResource Font}" />
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="18" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -329,6 +352,113 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="searchButtonBorder" Property="BorderBrush" Value="Transparent" />
                             <Setter TargetName="searchButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ToggleLabelStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="15.5" />
+        <Setter Property="Margin" Value="8,0,8,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Border
+                        x:Name="toggleLabelBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="Width" Value="43" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Margin" Value="8,0,8,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <Border
+                            x:Name="toggleButtonBorder"
+                            Width="43"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderBrush="#C2C2C2"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True" />
+                        <Ellipse
+                            x:Name="toggleButtonCircle"
+                            Width="12"
+                            Height="12"
+                            HorizontalAlignment="Left" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Checked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ThicknessAnimation
+                                        Storyboard.TargetName="toggleButtonCircle"
+                                        Storyboard.TargetProperty="Margin"
+                                        To="27,0,0,0"
+                                        Duration="0:0:0.15" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ThicknessAnimation
+                                        Storyboard.TargetName="toggleButtonCircle"
+                                        Storyboard.TargetProperty="Margin"
+                                        To="4,0,0,0"
+                                        Duration="0:0:0.15" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="toggleButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
+                            <Setter TargetName="toggleButtonCircle" Property="Width" Value="14" />
+                            <Setter TargetName="toggleButtonCircle" Property="Height" Value="14" />
+                            <Setter TargetName="toggleButtonCircle" Property="Margin" Value="3,0,0,0" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="toggleButtonBorder" Property="Background" Value="{DynamicResource AppAccentColor}" />
+                            <Setter TargetName="toggleButtonBorder" Property="BorderThickness" Value="0" />
+                            <Setter TargetName="toggleButtonCircle" Property="Margin" Value="27,0,0,0" />
+                            <Setter TargetName="toggleButtonCircle" Property="Fill" Value="#F2161616" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="toggleButtonBorder" Property="Background" Value="{DynamicResource AppBackgroundColor}" />
+                            <Setter TargetName="toggleButtonBorder" Property="BorderThickness" Value="1" />
+                            <Setter TargetName="toggleButtonCircle" Property="Margin" Value="4,0,0,0" />
+                            <Setter TargetName="toggleButtonCircle" Property="Fill" Value="#C2C2C2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
