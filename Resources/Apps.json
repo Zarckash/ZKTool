@@ -67,15 +67,17 @@
     },
     "App12": {
         "Name": "EA Desktop App",
-        "Installer": "ElectronicArts.EADesktop",
+        "Installer": "EAApp.exe",
         "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": ".exe",
+        "Arguments": "/S"
     },
     "App13": {
         "Name": "Ubisoft Connect",
-        "Installer": "Ubisoft.Connect",
+        "Installer": "UbisoftConnect.exe",
         "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": ".exe",
+        "Arguments": "/S"
     },
     "App14": {
         "Name": "Battle.Net",
