@@ -210,10 +210,3 @@ $DNSList | ForEach-Object {
         }
     })
 }
-
-$App.OpenColors.Add_Click({
-    $ColorDialog = New-Object System.Windows.Forms.ColorDialog
-    $ColorDialog.FullOpen = $true
-    $ColorDialog.AnyColor = $true
-    [void]$ColorDialog.ShowDialog()
-})
