@@ -283,6 +283,9 @@
                             <Setter TargetName="tweakButtonBorder" Property="BorderBrush" Value="Transparent" />
                             <Setter TargetName="tweakButtonBorder" Property="BorderThickness" Value="1.5" />
                         </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="tweakButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -371,6 +374,101 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="searchButtonBorder" Property="BorderBrush" Value="Transparent" />
                             <Setter TargetName="searchButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ColorDialogLabelStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="Margin" Value="8" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="ColorDialogStyle" TargetType="Button">
+        <Setter Property="Background" Value="#888888" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="130" />
+        <Setter Property="Margin" Value="8,4" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="colordialogBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="#C2C2C2"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="colordialogBorder" Property="Width" Value="132" />
+                            <Setter TargetName="colordialogBorder" Property="Height" Value="52" />
+                            <Setter TargetName="colordialogBorder" Property="Margin" Value="-1" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="colordialogBorder" Property="Width" Value="130" />
+                            <Setter TargetName="colordialogBorder" Property="Height" Value="50" />
+                            <Setter TargetName="colordialogBorder" Property="Margin" Value="0" />
+                            <Setter TargetName="colordialogBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="colordialogBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WallpaperBoxStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Width" Value="320" />
+        <Setter Property="Margin" Value="8" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="wallpaperboxBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="#C2C2C2"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True" />
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="wallpaperboxBorder" Property="BorderThickness" Value="0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

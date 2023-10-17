@@ -281,7 +281,10 @@
                         </StackPanel>
                     </ToggleButton>
 
-                    <ToggleButton x:Name="Personalization" Style="{DynamicResource NavButtonStyle}">
+                    <ToggleButton
+                        x:Name="Personalization"
+                        Style="{DynamicResource NavButtonStyle}"
+                        Visibility="Collapsed">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
@@ -315,46 +318,48 @@
                     <Border Background="{DynamicResource AppAccentColor}" CornerRadius="2" />
                 </Grid>
 
-                <StackPanel
+                <Grid
                     x:Name="AppInfoPanel"
+                    Width="{Binding ActualWidth, ElementName=NavGrid}"
                     Height="35"
-                    MaxWidth="{Binding ActualWidth, ElementName=NavGrid}"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"
-                    Orientation="Horizontal">
+                    VerticalAlignment="Bottom">
 
                     <TextBlock
                         x:Name="AppVersion"
                         Margin="8,0,70,0"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontFamily="{DynamicResource Font}"
                         FontSize="14"
                         Foreground="{DynamicResource AppSubTextColor}"
                         Text="Versión 0.0.0" />
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button
+                            x:Name="GitHubLogo"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Source="C:\Program Files\ZKTool\WPF\Images\GitHub.png"
+                                Style="{DynamicResource ImageQuality}" />
+                        </Button>
+                        <Button
+                            x:Name="ZKLogo"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <Image
+                                Width="30"
+                                Height="30"
+                                Margin="8,0"
+                                Source="C:\Program Files\ZKTool\WPF\Images\ZK.png"
+                                Style="{DynamicResource ImageQuality}" />
+                        </Button>
+                    </StackPanel>
 
-                    <Button
-                        x:Name="GitHubLogo"
-                        Background="Transparent"
-                        BorderThickness="0">
-                        <Image
-                            Width="20"
-                            Height="20"
-                            Source="C:\Program Files\ZKTool\WPF\Images\GitHub.png"
-                            Style="{DynamicResource ImageQuality}" />
-                    </Button>
-                    <Button
-                        x:Name="ZKLogo"
-                        Background="Transparent"
-                        BorderThickness="0">
-                        <Image
-                            Width="30"
-                            Height="30"
-                            Margin="8,0"
-                            Source="C:\Program Files\ZKTool\WPF\Images\ZK.png"
-                            Style="{DynamicResource ImageQuality}" />
-                    </Button>
 
-                </StackPanel>
+                </Grid>
             </Grid>
 
             <Grid
@@ -1393,35 +1398,120 @@
                 </Grid>
                 <Grid Grid.Row="1" Margin="8,0,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.3*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="1.2*" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="55" />
+                        <RowDefinition Height="63" />
                     </Grid.RowDefinitions>
-                    <Button
-                        x:Name="OpenColors"
-                        Margin="8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Abrir colores"
-                        Style="{DynamicResource SearchButtonStyle}"
-                        Visibility="Visible" />
+
+                    <StackPanel>
+                        <Label
+                            Margin="8,8,0,0"
+                            Content="Colores:"
+                            Style="{DynamicResource CategoryLabelStyle}" />
+                        <Grid Margin="0,8,0,0">
+                            <Label Content="Énfasis principal" Style="{DynamicResource ColorDialogLabelStyle}" />
+                            <Button x:Name="ColorBox1" Style="{DynamicResource ColorDialogStyle}" />
+                        </Grid>
+                        <Grid>
+                            <Label Content="Énfasis secundario" Style="{DynamicResource ColorDialogLabelStyle}" />
+                            <Button x:Name="ColorBox2" Style="{DynamicResource ColorDialogStyle}" />
+                        </Grid>
+                        <Grid>
+                            <Label Content="Administrador de tareas" Style="{DynamicResource ColorDialogLabelStyle}" />
+                            <Button x:Name="ColorBox3" Style="{DynamicResource ColorDialogStyle}" />
+                        </Grid>
+                        <Grid>
+                            <Label Content="Administrador de tareas en uso" Style="{DynamicResource ColorDialogLabelStyle}" />
+                            <Button x:Name="ColorBox4" Style="{DynamicResource ColorDialogStyle}" />
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1">
+                        <Label Content="Fondo de pantalla:" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Button
+                            x:Name="WallpaperBox"
+                            Height="180"
+                            Style="{DynamicResource WallpaperBoxStyle}">
+                            <Grid>
+                                <Border
+                                    x:Name="Mask"
+                                    Background="#2B2B2B"
+                                    CornerRadius="6" />
+                                <StackPanel>
+                                    <StackPanel.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                    </StackPanel.OpacityMask>
+                                    <Image
+                                        x:Name="WallpaperBoxImage"
+                                        Height="{Binding ActualHeight, ElementName=WallpaperBox}"
+                                        Source="H:\Users\Zarckash\Pictures\XD\Captura de pantalla 2023-10-17 004504.png"
+                                        Stretch="Fill"
+                                        Style="{DynamicResource ImageQuality}"
+                                        Visibility="Collapsed" />
+                                    <Label
+                                        x:Name="WallpaperBoxLabel"
+                                        Width="320"
+                                        Height="180"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Content="Seleccionar imágen"
+                                        FontFamily="{DynamicResource Font}"
+                                        Foreground="White" />
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
 
                     <StackPanel
                         Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Orientation="Horizontal">
-                        <Grid Width="172">
+                        Grid.Column="1"
+                        Width="100"
+                        Height="192"
+                        Margin="-40,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom">
+                        <Button
+                            Margin="8,4"
+                            Content="Preset 1"
+                            FontFamily="Font"
+                            Style="{DynamicResource SearchButtonStyle}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        Margin="0,0,0,4"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom">
+                        <Grid Margin="0,4">
                             <Label Content="Modo oscuro" Style="{DynamicResource ToggleLabelStyle}" />
                             <ToggleButton x:Name="DarkThemeToggle" Style="{DynamicResource ToggleButtonStyle}" />
                         </Grid>
-                        <Grid Width="172">
+                        <Grid Margin="0,4">
                             <Label Content="Transparencia" Style="{DynamicResource ToggleLabelStyle}" />
                             <ToggleButton x:Name="TransparencyToggle" Style="{DynamicResource ToggleButtonStyle}" />
                         </Grid>
+                        <StackPanel Margin="0,4" Orientation="Horizontal">
+                            <Label Content="Botón de buscar" Style="{DynamicResource ToggleLabelStyle}" />
+                            <ToggleButton x:Name="TransparencayToggle" Style="{DynamicResource ToggleButtonStyle}" />
+                        </StackPanel>
+                        <Grid Margin="0,4">
+                            <Label Content="Iconos en negro" Style="{DynamicResource ToggleLabelStyle}" />
+                            <ToggleButton x:Name="BlackIcons" Style="{DynamicResource ToggleButtonStyle}" />
+                        </Grid>
                     </StackPanel>
+
+                    <Button
+                        Grid.Row="2"
+                        Height="45"
+                        Content="Aplicar tema seleccionado"
+                        FontFamily="{DynamicResource FontBold}"
+                        Style="{DynamicResource SearchButtonStyle}" />
 
                 </Grid>
             </Grid>
@@ -1430,7 +1520,8 @@
                 Grid.Column="1"
                 Height="55"
                 Margin="8,0,0,0"
-                VerticalAlignment="Bottom">
+                VerticalAlignment="Bottom"
+                Visibility="Visible">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
