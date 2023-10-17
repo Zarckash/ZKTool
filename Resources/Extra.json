@@ -26,13 +26,13 @@
         "Name": "Paquete de undervolt AMD",
         "FunctionName": "AMDUndervoltPack"
     },
+    "Extra6": {
+        "Name": "Actualizar drivers GPU",
+        "FunctionName": "UpdateGPUDrivers"
+    },
     "Extra9": {
         "Name": "Desactivar Defender",
         "FunctionName": "DisableDefender"
-    },
-    "Extra10": {
-        "Name": "Instalacion limpia de Nvidia",
-        "FunctionName": "NVCleanstall"
     },
     "Extra17": {
         "Name": "Drivers de Red Z390",

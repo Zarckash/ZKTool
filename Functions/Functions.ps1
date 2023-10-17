@@ -72,9 +72,9 @@ function RegistryTweaks {
     Write-UserOutput "Desactivando Fast Boot"
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Type DWord -Value 0
 
-    # Enable Hardware Acceleration (Disabled)
-    #Write-UserOutput "Activando aceleración de hardware"
-    #Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
+    # Enable Hardware Acceleration
+    Write-UserOutput "Activando aceleración de hardware"
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
 
     # Enable Borderless Optimizations
     If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\DirectX")) {
@@ -805,17 +805,90 @@ function AMDUndervoltPack {
     Move-Item -Path ($App.FilesPath + "AMD Undervolt Pack\PBO2 Tuner.lnk") -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs"
 }
 
+function UpdateGPUDrivers {
+    Write-UserOutput "Comprobando versión instalada"
+
+    $GetCurrentVersion = Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion | Where-Object {$_.devicename -Like "*nvidia*tx*"} | Select-Object -ExpandProperty DriverVersion
+    $CurrentVersion = $GetCurrentVersion.Replace('.','').Substring($GetCurrentVersion.Length - 8).Insert(3,'.')
+    
+    $Uri = "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=120&pfid=929&osID=57&languageCode=1033&isWHQL=1&dch=1&sort1=0&numberOfResults=1"
+    $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
+    $LatestVersion = $WebRequest.IDS.downloadInfo.Version
+    
+    if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
+        Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
+        Start-Sleep 3
+        return
+    }
+    else {
+        Write-UserOutput "Nueva versión $LatestVersion encontrada"
+    }
+
+    # Check if GeForce Experience installed
+    $WingetListCheck = Winget List 'Nvidia.GeForceExperience' | Select-String -Pattern 'Nvidia.GeForceExperience' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
+    if ($WingetListCheck -eq 'Nvidia.GeForceExperience') {
+        $GeForce = $true
+    }
+
+    # Downloading latest Nvidia drivers
+    Write-UserOutput "Descargando últimos drivers de Nvidia"
+    $Url = "https://us.download.nvidia.com/Windows/$LatestVersion/$LatestVersion-desktop-win10-win11-64bit-international-dch-whql.exe"
+    (New-Object System.Net.WebClient).DownloadFile($Url,($App.FilesPath + "Driver.exe"))
+
+    # Installing 7-Zip
+    Write-UserOutput "Instalando 7-Zip"
+    (New-Object System.Net.WebClient).DownloadFile("https://www.7-zip.org/a/7z2301-x64.exe",($App.FilesPath + "7Zip.exe"))
+    Start-Process ($App.FilesPath + "7Zip.exe") /S -Wait
+
+    # Extracting Drivers
+    Write-UserOutput "Extrayendo drivers"
+    New-Item -Path ($App.FilesPath + "NVCleanstall") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+
+    $FilesToExtract = "Display.Driver GFExperience NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe"
+    $DriverPath = ($App.FilesPath + "Driver.exe")
+    $ExtractPath = ($App.FilesPath + "NVCleanstall")
+
+    Start-Process "C:\Program Files\7-Zip\7z.exe" -ArgumentList "x -bso0 -bsp1 -bse1 -aoa $DriverPath $FilesToExtract -o$ExtractPath" -Wait  
+
+    Write-UserOutput "Desactivando HDCP"
+    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}"
+    if (Test-Path "$RegPath\0000") {
+        Set-ItemProperty -Path "$RegPath\0000" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
+    }
+    elseif (Test-Path "$RegPath\0002") {
+        Set-ItemProperty -Path "$RegPath\0002" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
+    }
+
+    # Strip driver if GeForce Experience is not installed
+    if (!$GeForce) {
+        Write-UserOutput "Limpiando archivos de driver"
+        $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt','FunctionalConsent_*')
+        Get-ChildItem ($App.FilesPath + "NVCleanstall\GFExperience") -Exclude $ExcludeList | ForEach-Object {
+            Remove-Item $_ -Recurse -Force
+        }
+        Write-UserOutput "Instalando drivers"
+        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-clean -s" -Wait
+    }
+    else {
+        Write-UserOutput "Instalando drivers"
+        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
+    }
+
+    # Uninstalling 7-Zip
+    Write-UserOutput "Desinstalando 7-Zip"
+    Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S -Wait
+
+    Write-UserOutput "Drivers $LatestVersion instalados correctamente"
+    Start-Sleep 3
+
+    & NvidiaSettings
+}
+
 function DisableDefender {
     $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop")
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DisableDefender.zip"), ($App.FilesPath + "DisableDefender.zip"))
     Expand-Archive -Path ($App.FilesPath + "DisableDefender.zip") -DestinationPath $DesktopPath -Force
     msconfig.exe
-}
-
-function NVCleanstall {
-    Write-UserOutput "Abriendo NVCleanstall"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "NVCleanstall.ps1"), ($App.FilesPath + "NVCleanstall.ps1"))
-    Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\NVCleanstall.ps1 ; exit"
 }
 
 function Z390LanDrivers {
