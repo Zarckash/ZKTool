@@ -35,6 +35,10 @@
         "Name": "Eliminar drivers de Realtek",
         "FunctionName": "RealtekCleaner"
     },
+    "Tweak13": {
+        "Name": "Desactivar Defender",
+        "FunctionName": "DisableDefender"
+    },
     "Tweak17": {
         "Name": "Reducir espacio entre iconos",
         "FunctionName": "ReduceIconsSpacing"
