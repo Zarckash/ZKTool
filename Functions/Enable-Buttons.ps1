@@ -81,64 +81,53 @@ $App.AppsList.psobject.properties.name + $App.TweaksList.psobject.properties.nam
 }
 
 @("Export","Import") | ForEach-Object {
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
-            @("Export","Import") | ForEach-Object {
-                Update-GUI $_ BorderThickness 0
-                $App.SelectedButtons.Remove("Export")
-                $App.SelectedButtons.Remove("Import")
+    $App.$_.Add_Checked({
+        @("Export","Import") | ForEach-Object {
+            if ($_ -ne $this.Name) {
+                Update-GUI $_ IsChecked $false
+                $App.SelectedButtons.Remove($_)
             }
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
         }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
+        $App.SelectedButtons.Add($this.Name)        
+    })
+    $App.$_.Add_Unchecked({
+        $App.SelectedButtons.Remove($this.Name)
     })
 }
 
-$App.SelectAllFolders.Add_Click({
+$App.SelectAllFolders.Add_Checked({
     $UserFolders | ForEach-Object {
-        $App.SelectedButtons.Remove($_)
+        Update-GUI $_ IsChecked $false
     }
-    if ($this.BorderThickness -eq 0) {
-        $this.Content = "Deseleccionar todo"
-        $this.BorderThickness = 1.5
-        $UserFolders | ForEach-Object {
-            Update-GUI $_ BorderThickness 1.5
-            $App.SelectedButtons.Add($_)
-        }
+    $this.Content = "Deseleccionar todo"
+    $UserFolders | ForEach-Object {
+        Update-GUI $_ IsChecked $true
     }
-    else {
-        $this.Content = "Seleccionar todo"
-        $this.BorderThickness = 0
-        $UserFolders | ForEach-Object {
-            Update-GUI $_ BorderThickness 0
-            $App.SelectedButtons.Remove($_)
-        }
+})
+
+$App.SelectAllFolders.Add_Unchecked({
+    $this.Content = "Seleccionar todo"
+    $UserFolders | ForEach-Object {
+        Update-GUI $_ IsChecked $false
     }
 })
 
 $App.DisksList | ForEach-Object {
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
-            $App.DisksList | ForEach-Object {
-                Update-GUI $_ BorderThickness 0
+    $App.$_.Add_Checked({
+        $App.DisksList | ForEach-Object {
+            if ($_ -ne $this.Name) {
+                Update-GUI $_ IsChecked $false
                 $App.SelectedButtons.Remove($_)
             }
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
         }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
+        $App.SelectedButtons.Add($this.Name)
+    })
+    $App.$_.Add_Unchecked({
+        $App.SelectedButtons.Remove($this.Name)
     })
 }
 
 $App.IndexIP = 20
-$App.FoundIPList = New-Object System.Collections.Generic.List[System.Object]
 $App.SearchIp.Add_Click({
     $NewRunspace = [RunspaceFactory]::CreateRunspace()
     $NewRunspace.ApartmentState = "STA"
@@ -151,6 +140,8 @@ $App.SearchIp.Add_Click({
         if ($App.SearchIp.Content -eq "Buscando...") {
             return
         }
+
+        $App.FoundIPList = New-Object System.Collections.Generic.List[System.Object]
 
         Update-GUI SearchIp Background $App.AccentColor
         Update-GUI SearchIp Content Buscando...
@@ -176,37 +167,32 @@ $App.SearchIp.Add_Click({
 
 
 $App.IPList | ForEach-Object {
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
-            $App.IPList | ForEach-Object {
-                Update-GUI $_ BorderThickness 0
+    $App.$_.Add_Checked({
+        $App.IPList | ForEach-Object {
+            if ($_ -ne $this.Name) {
+                Update-GUI $_ IsChecked $false
                 $App.SelectedButtons.Remove($_)
             }
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
         }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
+        $App.SelectedButtons.Add($this.Name)
     })
-    $App.FoundIPIndex++
+    $App.$_.Add_Unchecked({
+        $App.SelectedButtons.Remove($this.Name)
+    })
 }
 
 $DNSList | ForEach-Object {
     Update-GUI $_ Visibility Visible
-    $App.$_.Add_Click({
-        if ($this.BorderThickness -eq 0) {
-            $DNSList | ForEach-Object {
-                Update-GUI $_ BorderThickness 0
-                $App.SelectedButtons.Remove($_)
+    $App.$_.Add_Checked({
+        $DNSList | ForEach-Object {
+            if ($_ -ne $this.Name) {
+                Update-GUI $_ IsChecked $false
+                $App.SelectedButtons.Remove($_) 
             }
-            $this.BorderThickness = 1.5
-            $App.SelectedButtons.Add($this.Name)
         }
-        else {
-            $this.BorderThickness = 0
-            $App.SelectedButtons.Remove($this.Name)
-        }
+        $App.SelectedButtons.Add($this.Name)
+    })
+    $App.$_.Add_Unchecked({
+        $App.SelectedButtons.Remove($this.Name)
     })
 }
