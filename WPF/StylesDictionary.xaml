@@ -238,6 +238,9 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="appButtonBorder" Property="BorderThickness" Value="1.5" />
                         </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="appButtonBorder" Property="BorderThickness" Value="0" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -331,6 +334,9 @@
                             <Setter TargetName="configButtonBorder" Property="BorderBrush" Value="Transparent" />
                             <Setter TargetName="configButtonBorder" Property="BorderThickness" Value="1.5" />
                         </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="configButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -395,8 +401,8 @@
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="Height" Value="50" />
-        <Setter Property="Width" Value="130" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="80" />
         <Setter Property="Margin" Value="8,4" />
         <Setter Property="Template">
             <Setter.Value>
@@ -421,13 +427,13 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="colordialogBorder" Property="Width" Value="132" />
-                            <Setter TargetName="colordialogBorder" Property="Height" Value="52" />
+                            <Setter TargetName="colordialogBorder" Property="Width" Value="112" />
+                            <Setter TargetName="colordialogBorder" Property="Height" Value="42" />
                             <Setter TargetName="colordialogBorder" Property="Margin" Value="-1" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="colordialogBorder" Property="Width" Value="130" />
-                            <Setter TargetName="colordialogBorder" Property="Height" Value="50" />
+                            <Setter TargetName="colordialogBorder" Property="Width" Value="110" />
+                            <Setter TargetName="colordialogBorder" Property="Height" Value="40" />
                             <Setter TargetName="colordialogBorder" Property="Margin" Value="0" />
                             <Setter TargetName="colordialogBorder" Property="BorderBrush" Value="Transparent" />
                             <Setter TargetName="colordialogBorder" Property="BorderThickness" Value="1.5" />
@@ -441,9 +447,8 @@
     <Style x:Key="WallpaperBoxStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
-        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="BorderThickness" Value="2" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="Width" Value="320" />
         <Setter Property="Margin" Value="8" />
         <Setter Property="Template">
             <Setter.Value>
