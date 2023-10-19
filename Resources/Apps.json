@@ -146,24 +146,28 @@
         "Source": "Winget"
     },
     "App25": {
+        "Name": "OpenRGB",
+        "FunctionName": "OpenRGB"
+    },
+    "App26": {
         "Name": "Visual Studio Code",
         "Installer": "Microsoft.VisualStudioCode",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "App26": {
+    "App27": {
         "Name": "Visual Studio 2022",
         "Installer": "Microsoft.VisualStudio.2022.Community",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "App27": {
+    "App28": {
         "Name": "GitHub Desktop",
         "Installer": "GitHub.GitHubDesktop",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "App28":{
+    "App29":{
         "Name": "Node JS",
         "Installer": "OpenJS.NodeJS",
         "Output": "Instalando ",
@@ -177,21 +181,15 @@
     },
     "App32": {
         "Name": "Adobe Photoshop",
-        "FunctionName": "AdobePhotoshop",
-        "Output": "Iniciando Instalador De ",
-        "Source": "Function"
+        "FunctionName": "AdobePhotoshop"
     },
     "App33": {
         "Name": "Adobe Premiere",
-        "FunctionName": "AdobePremiere",
-        "Output": "Iniciando Instalador De ",
-        "Source": "Function"
+        "FunctionName": "AdobePremiere"
     },
     "App34": {
         "Name": "Adobe After Effects",
-        "FunctionName": "AdobeAfterEffects",
-        "Output": "Iniciando Instalador De ",
-        "Source": "Function"
+        "FunctionName": "AdobeAfterEffects"
     },
     "App35": {
         "Name": "VLC Media Player",

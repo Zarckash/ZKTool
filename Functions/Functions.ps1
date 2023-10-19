@@ -4,6 +4,14 @@
     Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\Spotify.ps1 ; exit"
 }
 
+function OpenRGB {
+    Write-UserOutput "Instalando OpenRGB"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/OpenRGB.zip"),($App.FilesPath + "OpenRGB.zip"))
+    Expand-Archive -Path ($App.FilesPath + "OpenRGB.zip") -DestinationPath "$env:ProgramFiles\OpenRGB" -Force
+    Move-Item -Path "$env:ProgramFiles\OpenRGB\OpenRGB.lnk" -Destination ([Environment]::GetFolderPath('Desktop') + "\OpenRGB.lnk") -Force
+    Copy-Item-Item -Path ([Environment]::GetFolderPath('Desktop') + "\OpenRGB.lnk") -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\OpenRGB.lnk" -Force
+}
+
 function AdobePhotoshop {
     Write-UserOutput "Iniciando instalador de Adobe Photoshop"
     Start-Process Powershell {
@@ -912,8 +920,6 @@ function CustomDarkTheme {
     . ($App.FilesPath + "Set-Wallpaper.ps1")
 
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\BlackW11Wallpaper.jpg")
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\BlackW11Wallpaper.jpg")
