@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.0.9"
+$App.Version = "4.1.0"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -182,10 +182,15 @@ $AppLogic = [PowerShell]::Create().AddScript({
             }
 
             # Resetting buttons
-            $App.SelectedButtons | ForEach-Object {
-                Update-GUI $_ IsChecked $false
+            function Reset-Buttons {
+                $App.SelectedButtons | ForEach-Object {
+                    Update-GUI $_ IsChecked $false
+                }
+                if ($App.SelectedButtons.Length -gt 0) {
+                    & Reset-Buttons
+                }
             }
-            $App.SelectedButtons.Clear()
+            & Reset-Buttons
 
             Update-GUI StartScript Content "INICIAR SCRIPT"
             Update-GUI StartScript Background $App.HoverColor
