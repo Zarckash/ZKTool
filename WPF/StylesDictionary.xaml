@@ -427,12 +427,12 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="colordialogBorder" Property="Width" Value="112" />
+                            <Setter TargetName="colordialogBorder" Property="Width" Value="82" />
                             <Setter TargetName="colordialogBorder" Property="Height" Value="42" />
                             <Setter TargetName="colordialogBorder" Property="Margin" Value="-1" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="colordialogBorder" Property="Width" Value="110" />
+                            <Setter TargetName="colordialogBorder" Property="Width" Value="80" />
                             <Setter TargetName="colordialogBorder" Property="Height" Value="40" />
                             <Setter TargetName="colordialogBorder" Property="Margin" Value="0" />
                             <Setter TargetName="colordialogBorder" Property="BorderBrush" Value="Transparent" />
