@@ -1,4 +1,36 @@
-﻿if ((Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme") -eq 0) {
+﻿function LoadCurrentPreset {
+    Update-GUI ColorBox1 Background (Get-AccentColor -Color 2)
+    Update-GUI ColorBox2 Background (Get-AccentColor -Color 1)
+    Update-GUI ColorBox3 Background (Get-AccentColor -Color 6)
+    Update-GUI ColorBox4 Background (Get-AccentColor -Color 5)
+
+    $RGB = ((Get-ItemPropertyValue -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor") -replace ' ',',') -split ','
+    $Red = [convert]::Tostring($RGB[0], 16)
+    $Green = [convert]::Tostring($RGB[1], 16)
+    $Blue = [convert]::Tostring($RGB[2], 16)
+    if ($Red.Length -eq 1) {
+        $Red = '0' + $Red
+    }
+    if ($Green.Length -eq 1) {
+        $Green = '0' + $Green
+    }
+    if ($Blue.Length -eq 1) {
+        $Blue = '0' + $Blue
+    }
+    $RGBColorToHex = "#" + $Red + $Green + $Blue
+    Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
+
+    $WallpaperPath = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
+    $FileDialog.FileName = $WallpaperPath
+    Update-GUI WallpaperBoxImage Source $WallpaperPath
+    Update-GUI WallpaperBox Height ($App.WallpaperBox.ActualWidth / 1.77)
+    Update-GUI WallpaperBoxLabel Visibility Collapsed
+    Update-GUI WallpaperBoxImage Visibility Visible
+}
+
+& LoadCurrentPreset
+
+if ((Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme") -eq 0) {
     Update-GUI DarkThemeToggle IsChecked $true
 }
 
@@ -182,33 +214,7 @@ function Script:Get-AccentColor {
 }
 
 $App.ActualPreset.Add_Click({
-    Update-GUI ColorBox1 Background (Get-AccentColor -Color 2)
-    Update-GUI ColorBox2 Background (Get-AccentColor -Color 1)
-    Update-GUI ColorBox3 Background (Get-AccentColor -Color 6)
-    Update-GUI ColorBox4 Background (Get-AccentColor -Color 5)
-
-    $RGB = ((Get-ItemPropertyValue -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor") -replace ' ',',') -split ','
-    $Red = [convert]::Tostring($RGB[0], 16)
-    $Green = [convert]::Tostring($RGB[1], 16)
-    $Blue = [convert]::Tostring($RGB[2], 16)
-    if ($Red.Length -eq 1) {
-        $Red = '0' + $Red
-    }
-    if ($Green.Length -eq 1) {
-        $Green = '0' + $Green
-    }
-    if ($Blue.Length -eq 1) {
-        $Blue = '0' + $Blue
-    }
-    $RGBColorToHex = "#" + $Red + $Green + $Blue
-    Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
-
-    $WallpaperPath = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
-    $FileDialog.FileName = $WallpaperPath
-    Update-GUI WallpaperBoxImage Source $WallpaperPath
-    Update-GUI WallpaperBox Height ($App.WallpaperBox.ActualWidth / 1.77)
-    Update-GUI WallpaperBoxLabel Visibility Collapsed
-    Update-GUI WallpaperBoxImage Visibility Visible
+    & LoadCurrentPreset
 })
 
 $App.PresetsList = Get-Content ($App.ResourcesPath + "Presets.json") -Raw | ConvertFrom-Json
