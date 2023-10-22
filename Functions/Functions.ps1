@@ -890,6 +890,7 @@ function UpdateGPUDrivers {
     Start-Sleep 3
 
     & NvidiaSettings
+    & EnableMSIMode
 }
 
 function DisableDefender {
@@ -908,41 +909,13 @@ function Z390LanDrivers {
     pnputil /delete-driver $OldDriver /uninstall /force
 }
 
-function CustomDarkTheme {
-    Write-UserOutput "Aplicando tema oscuro personalizado"
+function BlackIcons {
+    Write-UserOutput "Cambiando iconos a negro"
 
     taskkill /f /im explorer.exe
 
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Media.zip"), ($App.FilesPath + "Media.zip"))
-    Expand-Archive -Path ($App.FilesPath + "Media.zip") -DestinationPath ($App.ZKToolPath + "\Media") -Force
-
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "Set-Wallpaper.ps1"), ($App.FilesPath + "Set-Wallpaper.ps1"))
-    . ($App.FilesPath + "Set-Wallpaper.ps1")
-
-    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\BlackW11Wallpaper.jpg")
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\BlackW11Wallpaper.jpg")
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
-
-    Set-Wallpaper -Path ($App.ZKToolPath + "Media\BlackW11Wallpaper.jpg")
-
-    # Accent Color
-    $MainColor    = "FF,FF,FF,00," # Main Color
-    $SecondColor  = "AC,A0,F7,00," # Second Color
-    $TaskManagerH = "93,82,F4,00," # Task Manager High Usage Color 9382F4
-    $TaskManagerT = "DA,D5,F3,00," # Task Manager Tiles Color
-    $Color1       = "FF,00,00,00,"
-    $Color2       = "FF,00,00,00"
-    $MaskValue = $SecondColor + $MainColor + $MainColor + $SecondColor + $TaskManagerH + $TaskManagerT + $Color1 + $Color2
-    $MaskValueToHex = $MaskValue.Split(',') | ForEach-Object { "0x$_"}
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Type Binary -Value ([byte[]]$MaskValueToHex)
-
-    # HighLight Color
-    $SecondColorRGB = "172 160 247"
-    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "Hilight" -Value $SecondColorRGB
-    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor" -Value $SecondColorRGB
-    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "MenuHilight" -Value $SecondColorRGB
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BlackIcons.zip"), ($App.FilesPath + "BlackIcons.zip"))
+    Expand-Archive -Path ($App.FilesPath + "BlackIcons.zip") -DestinationPath ($App.ZKToolPath + "\Media") -Force
 
     # Black Edge
     $ShortcutPath = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
@@ -1019,18 +992,4 @@ function InstallFFMPEG {
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Trim.exe,0")
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\" -Name "Position" -Value "Bottom"
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Trim\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Trim.exe"'
-}
-
-function RAMFIX {
-    Write-UserOutput "Comprobando Cantidad De RAM"
-    $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum /1gb
-    if ($RamCapacity -le 16) {
-        Write-UserOutput "Estableciendo El Tamaño Del Archivo De Paginación En $RamCapacity GB"
-        $PageFile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
-        $PageFile.AutomaticManagedPagefile = $false
-        $RamCapacity = $RamCapacity*1024
-        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "PagingFiles" -Value "c:\pagefile.sys $RamCapacity $RamCapacity"
-    }else {
-        Write-UserOutput "La Cantidad De RAM Supera Los 16GB, No Se Realizará Ningún Cambio"
-    } 
 }

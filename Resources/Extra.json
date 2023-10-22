@@ -35,8 +35,8 @@
         "FunctionName": "Z390LanDrivers"
     },
     "Extra18": {
-        "Name": "Tema oscuro personalizado",
-        "FunctionName": "CustomDarkTheme"
+        "Name": "Iconos en negro",
+        "FunctionName": "BlackIcons"
     },
     "Extra19": {
         "Name": "Instalar FFMPEG",
