@@ -131,6 +131,7 @@ function RegistryTweaks {
             Add-MpPreference -ExclusionProcess ($_ + "Games\*")
         }
     }
+    Add-MpPreference -ExclusionPath (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal")
     Add-MpPreference -ExclusionPath "$env:ProgramFiles\Windows Defender"
     Add-MpPreference -ExclusionPath "$env:windir\security\database"
     Add-MpPreference -ExclusionPath "$env:windir\SoftwareDistribution\DataStore"
@@ -161,9 +162,9 @@ function RegistryTweaks {
 
     # Hide gallery in File explorer
     Write-UserOutput "Ocultando galería en el Explorador de archivos"
-    New-Item -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Force | Out-File $LogPath
+    New-Item -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Name "System.IsPinnedToNameSpaceTree" -Type DWord -Value 0
-    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace_41040327\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
+    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace_41040327\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace_41040327\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Name "(default)" -Value "{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
 
     # Reduce svchost Process Amount
