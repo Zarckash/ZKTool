@@ -30,6 +30,10 @@
         "Name": "Actualizar drivers GPU",
         "FunctionName": "UpdateGPUDrivers"
     },
+    "Extra9": {
+        "Name": "Latencia",
+        "FunctionName": "LantencyTweaks"
+    },
     "Extra17": {
         "Name": "Drivers de Red Z390",
         "FunctionName": "Z390LanDrivers"

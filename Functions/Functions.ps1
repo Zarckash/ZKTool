@@ -9,7 +9,7 @@ function OpenRGB {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/OpenRGB.zip"),($App.FilesPath + "OpenRGB.zip"))
     Expand-Archive -Path ($App.FilesPath + "OpenRGB.zip") -DestinationPath "$env:ProgramFiles\OpenRGB" -Force
     Move-Item -Path "$env:ProgramFiles\OpenRGB\OpenRGB.lnk" -Destination ([Environment]::GetFolderPath('Desktop') + "\OpenRGB.lnk") -Force
-    Copy-Item-Item -Path ([Environment]::GetFolderPath('Desktop') + "\OpenRGB.lnk") -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\OpenRGB.lnk" -Force
+    Copy-Item -Path ([Environment]::GetFolderPath('Desktop') + "\OpenRGB.lnk") -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\OpenRGB.lnk" -Force
 }
 
 function AdobePhotoshop {
@@ -558,6 +558,7 @@ function SetResolutionTimer {
     New-Item 'C:\Program Files\Set Timer Resolution Service\' -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
     Move-Item -Path ($App.FilesPath + "SetTimerResolutionService.exe") -Destination 'C:\Program Files\Set Timer Resolution Service\SetTimerResolutionService.exe'
     Start-Process "C:\Program Files\Set Timer Resolution Service\SetTimerResolutionService.exe" -ArgumentList "-install" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 }
 
 function UninstallBloat {
@@ -892,6 +893,10 @@ function UpdateGPUDrivers {
 
     & NvidiaSettings
     & EnableMSIMode
+}
+
+function LatencyTweaks {
+    powercfg -setacvalueindex scheme_current 54533251-82be-4824-96c1-47b60b740d00 4d2b0152-7d5c-498b-88e2-34345392a2c5 5000
 }
 
 function DisableDefender {
