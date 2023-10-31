@@ -5,6 +5,12 @@
     <Executeables />
     <Settings>
       <ProfileSetting>
+        <SettingNameInfo> </SettingNameInfo>
+        <SettingID>390467</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
         <SettingNameInfo />
         <SettingID>983226</SettingID>
         <SettingValue>1</SettingValue>
@@ -43,6 +49,12 @@
       <ProfileSetting>
         <SettingNameInfo>Preferred refresh rate</SettingNameInfo>
         <SettingID>6600001</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo>Maximum pre-rendered frames</SettingNameInfo>
+        <SettingID>8102046</SettingID>
         <SettingValue>1</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
@@ -95,6 +107,12 @@
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
+        <SettingNameInfo>Enable Ansel</SettingNameInfo>
+        <SettingID>276158834</SettingID>
+        <SettingValue>0</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
         <SettingNameInfo>Antialiasing - Gamma correction</SettingNameInfo>
         <SettingID>276652957</SettingID>
         <SettingValue>0</SettingValue>
@@ -104,6 +122,12 @@
         <SettingNameInfo>Antialiasing - Mode</SettingNameInfo>
         <SettingID>276757595</SettingID>
         <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo>FRL Low Latency</SettingNameInfo>
+        <SettingID>277041152</SettingID>
+        <SettingValue>0</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
@@ -175,56 +199,27 @@
     </Executeables>
     <Settings>
       <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983226</SettingID>
-        <SettingValue>1</SettingValue>
+        <SettingNameInfo>Sharpening Value</SettingNameInfo>
+        <SettingID>3070157</SettingID>
+        <SettingValue>10</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983227</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983295</SettingID>
-        <SettingValue>AAAAQAAAAAA=</SettingValue>
-        <ValueType>Binary</ValueType>
-      </ProfileSetting>
-    </Settings>
-  </Profile>
-  <Profile>
-    <ProfileName>Call of Duty: Modern Warfare 2 (2022)</ProfileName>
-    <Executeables>
-      <string>sp22.exe</string>
-      <string>launcher.exe</string>
-      <string>sp22-cod.exe</string>
-      <string>cod.exe</string>
-    </Executeables>
-    <Settings>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983226</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983227</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983295</SettingID>
-        <SettingValue>AAAAQAAAAAA=</SettingValue>
-        <ValueType>Binary</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo>Texture filtering - LOD Bias</SettingNameInfo>
-        <SettingID>7573135</SettingID>
+        <SettingNameInfo>Sharpening - Denoising Factor</SettingNameInfo>
+        <SettingID>3070158</SettingID>
         <SettingValue>0</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo>Sharpening Filter</SettingNameInfo>
+        <SettingID>5867816</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo>NVIDIA Predefined Sharpen Usage</SettingNameInfo>
+        <SettingID>5867849</SettingID>
+        <SettingValue>15</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
     </Settings>
