@@ -38,11 +38,9 @@ function AdobePremiere {
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
     }
-    $MSB3.ForeColor = $DefaultForeColor
 }
 
 function AdobeAfterEffects {
-    $MSB4.ForeColor = $AccentColor
     Write-UserOutput "Iniciando instalador de Adobe After Effects"
     Start-Process Powershell {
         $host.UI.RawUI.WindowTitle = 'Adobe After Effects'
@@ -54,11 +52,9 @@ function AdobeAfterEffects {
         $AdobeInstall = '{0}:\autoplay.exe' -f $AdobePath.DriveLetter
         Start-Process $AdobeInstall
     }
-    $MSB4.ForeColor = $DefaultForeColor
 }
 
 function RegistryTweaks {
-    $TB1.ForeColor = $AccentColorBig
     Write-UserOutput "Iniciando Optimización"
 
     # Create Restore Point
@@ -94,20 +90,21 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -Name "DirectXUserGlobalSettings" -Value "SwapEffectUpgradeEnable=1;"
 
     # Set-PageFile Size
-    Write-UserOutput "Comprobando Cantidad De RAM"
+    Write-UserOutput "Comprobando cantidad de RAM"
     $RamCapacity = (Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum /1gb
     if ($RamCapacity -le 16) {
-        Write-UserOutput "Estableciendo El Tamaño Del Archivo De Paginación En $RamCapacity GB"
+        Write-UserOutput "Estableciendo tamaño del archivo de paginación en $RamCapacity GB"
         $PageFile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
         $PageFile.AutomaticManagedPagefile = $false
         $RamCapacity = $RamCapacity*1024
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "PagingFiles" -Value "c:\pagefile.sys $RamCapacity $RamCapacity"
     }else {
-        Write-UserOutput "La Cantidad De RAM Supera Los 16GB, No Se Realizará Ningún Cambio"
+        Write-UserOutput "Mas de 16GB de RAM, desactivando pagefile"
+        (Get-WmiObject win32_pagefilesetting).Delete()
     }
 
     # Rebuild Performance Counters
-    Write-UserOutput "Reconstruyendo Contadores De Rendimiento"
+    Write-UserOutput "Reconstruyendo contadores de rendimiento"
     lodctr /r
     lodctr /r
 
@@ -138,7 +135,7 @@ function RegistryTweaks {
     Add-MpPreference -ExclusionPath "$env:temp\NVIDIA Corporation\NV_Cache"
 
     # Show File Extensions
-    Write-UserOutput "Activando Extensiones De Archivos"
+    Write-UserOutput "Activando extensiones de archivos"
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
 
     # File Association Fix
@@ -211,6 +208,7 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "UseNexusForGameBarEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "ClearPageFileAtShutdown" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseHoverTime" -Value 200
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" -Name "Win32PrioritySeparation" -Type DWord -Value 38
     Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "HungAppTimeout" -ErrorAction SilentlyContinue
 
     # Games Performance Optimizations
@@ -903,6 +901,8 @@ function DisableDefender {
     $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop")
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DisableDefender.zip"), ($App.FilesPath + "DisableDefender.zip"))
     Expand-Archive -Path ($App.FilesPath + "DisableDefender.zip") -DestinationPath $DesktopPath -Force
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" -Force | Out-Null
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" -Name "DisableNotifications" -Type DWord -Value 1
     msconfig.exe
 }
 
