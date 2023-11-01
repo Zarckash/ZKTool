@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.1.1"
+$App.Version = "4.1.2"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -50,6 +50,7 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
     $App.HoverColor = "#0DFFFFFF"
     $App.HoverButtonColor = "#1AFFFFFF"
+    $App.RequireRestart = $false
 
     # Updating app accent color  
     . ($App.FunctionsPath + "Set-AccentColor.ps1")
@@ -87,6 +88,12 @@ $AppLogic = [PowerShell]::Create().AddScript({
     }
 
     Update-GUI AppVersion Text ("Versión " + $App.Version)
+
+    # Catching texboxes values
+    if ((!($null -eq $App.IPBoxValue1.Text)) -or (!($null -eq $App.DNSBox1Value1.Text))) {
+        . ($App.FunctionsPath + "Get-TextBox.ps1")
+        Get-Textbox
+    }
 
     $App.StartScript.Add_Click({
         if ($this.Content -eq "EJECUTANDO") {
@@ -192,17 +199,31 @@ $AppLogic = [PowerShell]::Create().AddScript({
             }
             & Reset-Buttons
 
+            # Checking Restart
+            if ($App.RequireRestart) {
+                Write-UserOutput "Reinicio necesario"
+                $MessageBox = [System.Windows.Forms.MessageBox]::Show("El equipo requiere reiniciarse para aplicar los cambios`r`nReiniciar equipo ahora?", "Reiniciar equipo", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Information)
+                if ($MessageBox -ne [System.Windows.Forms.DialogResult]::No) {
+                    Write-UserOutput "Reiniciando pc en 5 segundos"
+                    Start-Sleep 1
+                    4..1 | ForEach-Object {
+                        Update-GUI OutputBox Text "Reiniciando pc en $_ segundos..."
+                        Start-Sleep 1
+                    }
+                    Start-Process Powershell -WindowStyle Hidden {
+                        Start-Sleep 1
+                        Get-Process "ZKTool" | Stop-Process
+                        Remove-Item -Path "$env:temp\ZKTool\Files" -Recurse -Force
+                        Restart-Computer
+                    }
+                }
+            }
+
             Update-GUI StartScript Content "INICIAR SCRIPT"
             Update-GUI StartScript Background $App.HoverColor
             Update-GUI OutputBox Text "Script finalizado"
             "Script finalizado" | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
         })
-
-        # Catching texboxes values
-        if ((!($null -eq $App.IPBoxValue1.Text)) -or (!($null -eq $App.DNSBox1Value1.Text))) {
-            . ($App.FunctionsPath + "Get-TextBox.ps1")
-            Get-Textbox
-        }
 
         $Logic.Runspace = $NewRunspace
         $Logic.BeginInvoke() | Out-Null
@@ -211,8 +232,8 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $App.Window.Add_Closing({
         Start-Process Powershell -WindowStyle Hidden {
             Start-Sleep .5
-            Remove-Item -Path "$env:temp\ZKTool\Files" -Recurse -Force
             Get-Process "ZKTool" | Stop-Process
+            Remove-Item -Path "$env:temp\ZKTool\Files" -Recurse -Force
         }
     })
 
