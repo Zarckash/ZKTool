@@ -859,7 +859,8 @@ function UpdateGPUDrivers {
     Start-Process "C:\Program Files\7-Zip\7z.exe" -ArgumentList "x -bso0 -bsp1 -bse1 -aoa $DriverPath $FilesToExtract -o$ExtractPath" -Wait  
 
     Write-UserOutput "Desactivando HDCP"
-    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}"
+    $ClassGuid = (Get-PnpDevice -Class Display).ClassGuid
+    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
     if (Test-Path "$RegPath\0000") {
         Set-ItemProperty -Path "$RegPath\0000" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
     }
@@ -894,7 +895,16 @@ function UpdateGPUDrivers {
 }
 
 function LatencyTweaks {
+    Write-UserOutput "Aplicando tweaks de latencia"
     powercfg -setacvalueindex scheme_current 54533251-82be-4824-96c1-47b60b740d00 4d2b0152-7d5c-498b-88e2-34345392a2c5 5000
+    $ClassGuid = (Get-PnpDevice -Class Display).ClassGuid
+    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
+    if (Test-Path "$RegPath\0000") {
+        Set-ItemProperty -Path "$RegPath\0000" -Name "DisableDynamicPstate" -Type DWord -Value 1
+    }
+    elseif (Test-Path "$RegPath\0002") {
+        Set-ItemProperty -Path "$RegPath\0002" -Name "DisableDynamicPstate" -Type DWord -Value 1
+    }
 }
 
 function DisableDefender {
