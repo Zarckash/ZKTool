@@ -199,6 +199,24 @@
     </Executeables>
     <Settings>
       <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983226</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983227</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983295</SettingID>
+        <SettingValue>AAAAQAAAAAA=</SettingValue>
+        <ValueType>Binary</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
         <SettingNameInfo>Sharpening Value</SettingNameInfo>
         <SettingID>3070157</SettingID>
         <SettingValue>10</SettingValue>
@@ -220,6 +238,78 @@
         <SettingNameInfo>NVIDIA Predefined Sharpen Usage</SettingNameInfo>
         <SettingID>5867849</SettingID>
         <SettingValue>15</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+    </Settings>
+  </Profile>
+  <Profile>
+    <ProfileName>Call of Duty: Modern Warfare 2 (2022)</ProfileName>
+    <Executeables>
+      <string>cod*.exe</string>
+      <string>game_steam*.exe</string>
+      <string>game_ship*.exe</string>
+      <string>sp22.exe</string>
+      <string>launcher.exe</string>
+      <string>sp22-cod.exe</string>
+      <string>cod.exe</string>
+    </Executeables>
+    <Settings>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983226</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983227</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983295</SettingID>
+        <SettingValue>AAAAQAAAAAA=</SettingValue>
+        <ValueType>Binary</ValueType>
+      </ProfileSetting>
+    </Settings>
+  </Profile>
+  <Profile>
+    <ProfileName>Call of Duty: Modern Warfare 3 (2023)</ProfileName>
+    <Executeables>
+      <string>sp23*.exe</string>
+      <string>cod*.exe</string>
+      <string>game_steam*.exe</string>
+      <string>game_ship*.exe</string>
+      <string>launcher.exe</string>
+      <string>mp23-cod.exe</string>
+      <string>4-mp23-game_profile.exe</string>
+    </Executeables>
+    <Settings>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983226</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983295</SettingID>
+        <SettingValue>AAAAQAAAAAA=</SettingValue>
+        <ValueType>Binary</ValueType>
+      </ProfileSetting>
+    </Settings>
+  </Profile>
+  <Profile>
+    <ProfileName>Desktop Windows Manager</ProfileName>
+    <Executeables>
+      <string>dwm.exe</string>
+    </Executeables>
+    <Settings>
+      <ProfileSetting>
+        <SettingNameInfo>Power management mode</SettingNameInfo>
+        <SettingID>274197361</SettingID>
+        <SettingValue>1</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
     </Settings>
