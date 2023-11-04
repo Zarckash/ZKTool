@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.1.2"
+$App.Version = "4.1.3"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -50,7 +50,6 @@ $AppLogic = [PowerShell]::Create().AddScript({
     $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
     $App.HoverColor = "#0DFFFFFF"
     $App.HoverButtonColor = "#1AFFFFFF"
-    $App.RequireRestart = $false
 
     # Updating app accent color  
     . ($App.FunctionsPath + "Set-AccentColor.ps1")
@@ -88,12 +87,6 @@ $AppLogic = [PowerShell]::Create().AddScript({
     }
 
     Update-GUI AppVersion Text ("Versión " + $App.Version)
-
-    # Catching texboxes values
-    if ((!($null -eq $App.IPBoxValue1.Text)) -or (!($null -eq $App.DNSBox1Value1.Text))) {
-        . ($App.FunctionsPath + "Get-TextBox.ps1")
-        Get-Textbox
-    }
 
     $App.StartScript.Add_Click({
         if ($this.Content -eq "EJECUTANDO") {
@@ -224,6 +217,12 @@ $AppLogic = [PowerShell]::Create().AddScript({
             Update-GUI OutputBox Text "Script finalizado"
             "Script finalizado" | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
         })
+
+        # Catching texboxes values
+        if ((!($null -eq $App.IPBoxValue1.Text)) -or (!($null -eq $App.DNSBox1Value1.Text))) {
+            . ($App.FunctionsPath + "Get-TextBox.ps1")
+            Get-Textbox
+        }
 
         $Logic.Runspace = $NewRunspace
         $Logic.BeginInvoke() | Out-Null
