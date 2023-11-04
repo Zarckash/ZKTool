@@ -39,6 +39,10 @@
         "Name": "Desactivar Defender",
         "FunctionName": "DisableDefender"
     },
+    "Tweak14": {
+        "Name": "Ocultar componentes",
+        "FunctionName": "HideSystemComponents"
+    },
     "Tweak17": {
         "Name": "Reducir espacio entre iconos",
         "FunctionName": "ReduceIconsSpacing"
