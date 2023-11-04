@@ -80,6 +80,11 @@ $AppLogic = [PowerShell]::Create().AddScript({
     New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
+    $Lists = @('Apps.json','Configs.json','Extra.json','Presets.json','Tweaks.json')
+    $Lists | ForEach-Object {
+        $App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
+    }
+
     $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
     $Functions | ForEach-Object {
         . ($App.FunctionsPath + "$_.ps1")
