@@ -542,7 +542,7 @@ function UninstallXboxGameBar {
 function EnableMSIMode {
     Write-UserOutput "Activando modo MSI en GPU"
     $GPUID = (Get-PnpDevice -Class Display).InstanceId
-    $GPUName = Get-ItemPropertyValue -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID" -Name "DeviceDesc"
+    $GPUName = (Get-PnpDevice -Class Display).Name
     
     if (($GPUName -like "*GTX*") -or ($GPUName -like "*RTX*")) {
         New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management" -Name "MessageSignaledInterruptProperties" | Out-File $App.LogPath -Encoding UTF8 -Append
