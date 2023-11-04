@@ -514,6 +514,8 @@ function RegistryTweaks {
 
     Stop-Service "SysMain" -WarningAction SilentlyContinue
     Set-Service "SysMain" -StartupType Disabled
+
+    $App.RequireRestart = $true
 }
 
 function NvidiaSettings {
@@ -548,6 +550,8 @@ function EnableMSIMode {
         New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management" -Name "MessageSignaledInterruptProperties" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" -Name "MSISupported" -Type DWord -Value 1
     }
+
+    $App.RequireRestart = $true
 }
 
 function SetResolutionTimer {
@@ -609,6 +613,7 @@ function UninstallBloat {
         "MicrosoftCorporationII.MicrosoftFamily"
         "Disney.37853FC22B2CE"
         "Microsoft.549981C3F5F10"
+        "Microsoft.OutlookForWindows"
     )
     foreach ($Bloat in $Bloatware) {
         Get-AppxPackage -Name $Bloat | Remove-AppxPackage
@@ -645,6 +650,8 @@ function UninstallBloat {
     DISM /Online /Remove-Capability /CapabilityName:Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0 /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append
     Write-UserOutput "Desinstalando Reconocedor Matemático"
     DISM /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append
+
+    $App.RequireRestart = $true
 }
 
 function UninstallOneDrive {
@@ -667,6 +674,8 @@ function UninstallOneDrive {
     Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse
     Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse
     Get-AppxPackage Microsoft.OneDriveSync | Remove-AppxPackage
+
+    $App.RequireRestart = $true
 }
 
 function AdobeCleaner {
@@ -691,6 +700,8 @@ function RealtekCleaner {
 function ReduceIconsSpacing {
     Write-UserOutput "Reduciendo espacio entre iconos en el Escritorio"
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "IconSpacing" -Value -900
+
+    $App.RequireRestart = $true
 }
 
 function HideShortcutIcons {
@@ -704,6 +715,8 @@ function HideShortcutIcons {
     Set-ItemProperty -Path "HKCR:\lnkfile" -Name "IsShortcut" -Value ""
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "Shell Icons" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -Value "%windir%\System32\Blank.ico"
+
+    $App.RequireRestart = $true
 }
 
 function SetW11Cursor {
@@ -712,6 +725,8 @@ function SetW11Cursor {
     Expand-Archive -Path ($App.FilesPath + "FluentCursor.zip") -DestinationPath 'C:\Windows\Cursors\Fluent Cursor' -Force
     $App.Download.DownloadFile(($App.GitHubFilesPath + "FluentCursor.reg"), ($App.FilesPath + "FluentCursor.reg"))
     regedit /s ($App.FilesPath + "FluentCursor.reg")
+
+    $App.RequireRestart = $true
 }
 
 function TweaksInContextMenu {
@@ -905,6 +920,8 @@ function LatencyTweaks {
     elseif (Test-Path "$RegPath\0002") {
         Set-ItemProperty -Path "$RegPath\0002" -Name "DisableDynamicPstate" -Type DWord -Value 1
     }
+
+    $App.RequireRestart = $true
 }
 
 function DisableDefender {
