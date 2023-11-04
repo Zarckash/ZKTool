@@ -32,7 +32,7 @@
     },
     "Extra9": {
         "Name": "Latencia",
-        "FunctionName": "LantencyTweaks"
+        "FunctionName": "LatencyTweaks"
     },
     "Extra17": {
         "Name": "Drivers de Red Z390",
