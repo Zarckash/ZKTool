@@ -7,7 +7,7 @@
       <ProfileSetting>
         <SettingNameInfo> </SettingNameInfo>
         <SettingID>390467</SettingID>
-        <SettingValue>1</SettingValue>
+        <SettingValue>0</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
@@ -55,7 +55,7 @@
       <ProfileSetting>
         <SettingNameInfo>Maximum pre-rendered frames</SettingNameInfo>
         <SettingID>8102046</SettingID>
-        <SettingValue>1</SettingValue>
+        <SettingValue>0</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
@@ -131,12 +131,6 @@
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
-        <SettingNameInfo>Frame Rate Limiter</SettingNameInfo>
-        <SettingID>277041154</SettingID>
-        <SettingValue>0</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
         <SettingNameInfo>Toggle the VRR global feature</SettingNameInfo>
         <SettingID>278196567</SettingID>
         <SettingValue>0</SettingValue>
@@ -183,120 +177,6 @@
         <SettingID>1343646814</SettingID>
         <SettingValue>0</SettingValue>
         <ValueType>Dword</ValueType>
-      </ProfileSetting>
-    </Settings>
-  </Profile>
-  <Profile>
-    <ProfileName>Battlefield 2042</ProfileName>
-    <Executeables>
-      <string>bf.exe</string>
-      <string>battlefieldgame.main_win64_final.exe</string>
-      <string>bf2042trial.exe</string>
-      <string>battlefieldgame.main_win64_retail.exe</string>
-      <string>bf2042.exe</string>
-      <string>battlefieldgame.main_win64_release.exe</string>
-      <string>battlefieldgame.exe</string>
-    </Executeables>
-    <Settings>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983226</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983227</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983295</SettingID>
-        <SettingValue>AAAAQAAAAAA=</SettingValue>
-        <ValueType>Binary</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo>Sharpening Value</SettingNameInfo>
-        <SettingID>3070157</SettingID>
-        <SettingValue>10</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo>Sharpening - Denoising Factor</SettingNameInfo>
-        <SettingID>3070158</SettingID>
-        <SettingValue>0</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo>Sharpening Filter</SettingNameInfo>
-        <SettingID>5867816</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo>NVIDIA Predefined Sharpen Usage</SettingNameInfo>
-        <SettingID>5867849</SettingID>
-        <SettingValue>15</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-    </Settings>
-  </Profile>
-  <Profile>
-    <ProfileName>Call of Duty: Modern Warfare 2 (2022)</ProfileName>
-    <Executeables>
-      <string>cod*.exe</string>
-      <string>game_steam*.exe</string>
-      <string>game_ship*.exe</string>
-      <string>sp22.exe</string>
-      <string>launcher.exe</string>
-      <string>sp22-cod.exe</string>
-      <string>cod.exe</string>
-    </Executeables>
-    <Settings>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983226</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983227</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983295</SettingID>
-        <SettingValue>AAAAQAAAAAA=</SettingValue>
-        <ValueType>Binary</ValueType>
-      </ProfileSetting>
-    </Settings>
-  </Profile>
-  <Profile>
-    <ProfileName>Call of Duty: Modern Warfare 3 (2023)</ProfileName>
-    <Executeables>
-      <string>sp23*.exe</string>
-      <string>cod*.exe</string>
-      <string>game_steam*.exe</string>
-      <string>game_ship*.exe</string>
-      <string>launcher.exe</string>
-      <string>mp23-cod.exe</string>
-      <string>4-mp23-game_profile.exe</string>
-    </Executeables>
-    <Settings>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983226</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>983295</SettingID>
-        <SettingValue>AAAAQAAAAAA=</SettingValue>
-        <ValueType>Binary</ValueType>
       </ProfileSetting>
     </Settings>
   </Profile>
