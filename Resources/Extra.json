@@ -8,7 +8,7 @@
         "Installer": "VisualCRuntimes.exe",
         "Output": "Instalando ",
         "Source": ".exe",
-        "Arguments": "/ai /gm2"
+        "Arguments": "/aiA /gm2"
     },
     "Extra3": {
         "Name": "Autoruns",
