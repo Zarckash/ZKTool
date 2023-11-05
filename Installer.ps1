@@ -126,6 +126,9 @@ else {
     Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
     Move-Item -Path "$env:ProgramFiles\ZKTool\ZKTool.lnk" -Destination "$env:appdata\Microsoft\Windows\Start Menu\Programs\ZKTool.lnk" -Force
 
+    New-Item $env:ProgramFiles\ZKTool\sha | Out-Null
+    attrib +h $env:ProgramFiles\ZKTool\sha
+
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     New-Item -Path "HKCR:\Directory\Background\shell\" -Name "ZKTool" | Out-Null
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "command" | Out-Null
