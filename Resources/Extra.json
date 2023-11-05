@@ -39,7 +39,7 @@
         "Installer": "DefenderRemover.exe",
         "Output": "Ejecutando ",
         "Source": ".exe",
-        "Arguments": "/N"
+        "Arguments": "/R"
     },
     "Extra17": {
         "Name": "Drivers de Red Z390",
