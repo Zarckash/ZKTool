@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.1.4"
+$App.Version = "4.1.5"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        #
 }                                                                                                                                           # Crea DisplayVersion
@@ -82,7 +82,7 @@ $AppLogic = [PowerShell]::Create().AddScript({
 
     $Lists = @('Apps.json','Configs.json','Extra.json','Presets.json','Tweaks.json')
     $Lists | ForEach-Object {
-        $App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
+        #$App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
     }
 
     $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
