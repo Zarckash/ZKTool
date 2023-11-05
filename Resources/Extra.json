@@ -34,6 +34,13 @@
         "Name": "Latencia",
         "FunctionName": "LatencyTweaks"
     },
+    "Extra10": {
+        "Name": "Desactivar Defender",
+        "Installer": "DefenderRemover.exe",
+        "Output": "Ejecutando ",
+        "Source": ".exe",
+        "Arguments": "/N"
+    },
     "Extra17": {
         "Name": "Drivers de Red Z390",
         "FunctionName": "Z390LanDrivers"

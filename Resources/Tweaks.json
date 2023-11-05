@@ -36,10 +36,6 @@
         "FunctionName": "RealtekCleaner"
     },
     "Tweak13": {
-        "Name": "Desactivar Defender",
-        "FunctionName": "DisableDefender"
-    },
-    "Tweak14": {
         "Name": "Ocultar componentes",
         "FunctionName": "HideSystemComponents"
     },

@@ -924,15 +924,6 @@ function LatencyTweaks {
     $App.RequireRestart = $true
 }
 
-function DisableDefender {
-    $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop")
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DisableDefender.zip"), ($App.FilesPath + "DisableDefender.zip"))
-    Expand-Archive -Path ($App.FilesPath + "DisableDefender.zip") -DestinationPath $DesktopPath -Force
-    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" -Force | Out-Null
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" -Name "DisableNotifications" -Type DWord -Value 1
-    msconfig.exe
-}
-
 function HideSystemComponents {
     Write-UserOutput "Limpiando lista de aplicaciones"
     $Components64 = @(
