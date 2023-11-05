@@ -621,8 +621,12 @@ function UninstallBloat {
         "Microsoft.549981C3F5F10"
         "Microsoft.OutlookForWindows"
     )
-    foreach ($Bloat in $Bloatware) {
-        Get-AppxPackage -Name $Bloat | Remove-AppxPackage
+
+    $Bloatware | ForEach-Object {
+        if ($_ -eq (Get-AppxPackage -Name $_).Name) {
+            Write-Output ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
+            Get-AppxPackage -Name $_ | Remove-AppPackage
+        }
     }
 
     # Clean "New" In Context Menu
