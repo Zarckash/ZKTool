@@ -20,7 +20,7 @@
     "App4": {
         "Name": "Spotify",
         "FunctionName": "Spotify",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": "Function"
     },
     "App5": {
@@ -50,13 +50,13 @@
     "App9": {
         "Name": "MSI Afterburner",
         "Installer": "MSIAfterburner.exe",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": ".exe"
     },
     "App10": {
         "Name": "uTorrent Web",
         "Installer": "uTorrentWeb.exe",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": ".exe"
     },
     "App11": {
@@ -82,13 +82,13 @@
     "App14": {
         "Name": "Battle.Net",
         "Installer": "Battle.Net.exe",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": ".exe"
     },
     "App15": {
         "Name": "Rockstar Games",
         "Installer": "RockstarGamesLauncher.exe",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": ".exe"
     },
     "App16": {
@@ -118,7 +118,7 @@
     "App20": {
         "Name": "Tarkov Launcher",
         "Installer": "TarkovLauncher.exe",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": ".exe"
     },
     "App21": {
@@ -136,7 +136,7 @@
     "App23": {
         "Name": "Razer Synapse",
         "Installer": "RazerSynapse.exe",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": ".exe"
     },
     "App24": {
@@ -194,7 +194,7 @@
     "App35": {
         "Name": "VLC Media Player",
         "Installer": "VLCMediaPlayer.exe",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": ".exe"
     },
     "App36": {
@@ -212,7 +212,7 @@
     "App38": {
         "Name": "AMD Adrenalin",
         "Installer": "AMDAdrenalin.exe",
-        "Output": "Iniciando Instalador De ",
+        "Output": "Iniciando instalador de ",
         "Source": ".exe"
     }
 }
