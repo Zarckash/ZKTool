@@ -72,6 +72,11 @@ $App.AppsList.psobject.properties.name + $App.TweaksList.psobject.properties.nam
     }
 
     Update-GUI $_ Visibility Visible
+    
+    if ((($App.$SourceList.$_.Enabled).Length -gt 0) -and ($App.$SourceList.$_.Enabled -eq "False")) {
+        Update-GUI $_ IsEnabled $false
+        Update-GUI $_ Opacity ".5"
+    }
 
     $App.$_.Add_Checked({
         $App.SelectedButtons.Add($this.Name)
