@@ -80,9 +80,17 @@ $AppLogic = [PowerShell]::Create().AddScript({
     New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-    $Lists = @('Apps.json','Configs.json','Extra.json','Presets.json','Tweaks.json')
-    $Lists | ForEach-Object {
-        $App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
+    $Uri = "https://api.github.com/repos/Zarckash/ZKTool/branches/main"
+    $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
+    $LatestSha = $WebRequest.commit.commit.tree.sha
+    $CurrentSha = Get-Content -Path ($App.ZKToolPath + "sha")
+
+    if ($CurrentSha -ne $LatestSha) {
+        $Lists = @('Apps.json','Configs.json','Extra.json','Presets.json','Tweaks.json')
+        $Lists | ForEach-Object {
+            $App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
+        }
+        $LatestSha | Set-Content -Path ($App.ZKToolPath + "sha")
     }
 
     $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
