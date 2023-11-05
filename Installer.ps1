@@ -90,6 +90,17 @@ namespace FontResource
     }
 }
 
+function Reset-IconCache {
+        ie4uinit.exe -show
+        taskkill /f /im explorer.exe | Out-Null
+        Remove-Item -Path "$env:localappdata\IconCache.db" -Force
+        Remove-Item -Path "$env:localappdata\Microsoft\Windows\Explorer\iconcache*" -Force
+        explorer.exe
+    
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0" -Force
+}
+
 if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") {
     # Update ZKTool
     $host.UI.RawUI.WindowTitle = "ZKTool Updater"
@@ -104,15 +115,7 @@ if (Test-Path "$env:ProgramFiles\ZKTool\ZKTool.exe") {
         Install-Font
     }
 
-    # Rebuild Icon Cache
-    ie4uinit.exe -show
-    taskkill /f /im explorer.exe | Out-Null
-    Remove-Item -Path "$env:localappdata\IconCache.db" -Force
-    Remove-Item -Path "$env:localappdata\Microsoft\Windows\Explorer\iconcache*" -Force
-    explorer.exe
-
-    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-    Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Icon" -Value "C:\Program Files\ZKTool\ZKTool.exe,0" -Force
+    #Reset-IconCache
 }
 else {
     # Install ZKTool
@@ -147,12 +150,9 @@ else {
     Add-AppPackage "$env:temp\ZKTool\Files\Winget.appx"
 }
 
-Write-Host "`r`n- - - - - - - - - - - - -" -ForegroundColor Green
 Write-Host "- - - - R E A D Y - - - -" -ForegroundColor Green
-Write-Host "- - - - - - - - - - - - -" -ForegroundColor Green
-
-Start-Sleep 1
 
 Start-Process "$env:ProgramFiles\ZKTool\ZKTool.exe"
+Start-Sleep 1
 
 exit
