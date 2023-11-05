@@ -2,7 +2,8 @@
     "Config1": {
         "Name": "Modern Warfare III",
         "FunctionName": "ModernWarfareIII",
-        "Image": "MWIII.png"
+        "Image": "MWIII.png",
+        "Enabled": "False"
     },
     "Config2": {
         "Name": "PUBG",
