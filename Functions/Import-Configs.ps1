@@ -1,24 +1,11 @@
 ﻿$DocumentsPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
 
-function ModernWarfareII {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/ModernWarfareII.zip"), ($App.FilesPath + "ModernWarfareII.zip"))
-    Expand-Archive -Path (($App.FilesPath + "ModernWarfareII.zip")) -DestinationPath (($App.FilesPath + "\ModernWarfareII")) -Force
-    Move-Item -Path ($App.FilesPath + "ModernWarfareII\options.3.cod22.cst") -Destination ("$DocumentsPath\Call of Duty\players") -Force
-    $CodPath = "$DocumentsPath\Call of Duty\players\" 
-    $CodIDPath = ($CodPath + (Get-ChildItem $CodPath -Directory -Name 765*))
-    Move-Item -Path ($App.FilesPath + "ModernWarfareII\settings.3.local.cod22.cst") -Destination $CodIDPath -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
-}
-
 function ModernWarfareIII {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/ModernWarfareIII.zip"), ($App.FilesPath + "ModernWarfareIII.zip"))
     Expand-Archive -Path (($App.FilesPath + "ModernWarfareIII.zip")) -DestinationPath (($App.FilesPath + "\ModernWarfareIII")) -Force
-    Move-Item -Path ($App.FilesPath + "ModernWarfareIII\options.3.cod23.cst") -Destination ("$DocumentsPath\Call of Duty\players") -Force
-    #$CodPath = "$DocumentsPath\Call of Duty\players\" 
-    #$CodIDPath = Get-ChildItem $CodPath -Directory -Name | Where-Object {$_ -match "^\d{8,}$"} | ForEach-Object {$CodPath + $_}
-    #$CodIDPath | ForEach-Object {
-    #    Copy-Item ($App.FilesPath + "ModernWarfareIII\settings.3.local.cod23.cst") -Destination ($_ + "\settings.3.local.cod23.cst") -Force
-    #}
+    $CpuCores = (((Get-ComputerInfo -Property CsProcessors).CsProcessors).NumberOfCores) - 1
+    (Get-Content -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst")).Replace("RendererWorkerCount:1.0 = `"7`"","RendererWorkerCount:1.0 = `"$CpuCores`"") | Set-Content -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst")
+    Move-Item -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst") -Destination ("$DocumentsPath\Call of Duty\players") -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
 }
 
