@@ -2,7 +2,7 @@
 
 function ModernWarfareIII {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/ModernWarfareIII.zip"), ($App.FilesPath + "ModernWarfareIII.zip"))
-    Expand-Archive -Path (($App.FilesPath + "ModernWarfareIII.zip")) -DestinationPath (($App.FilesPath + "\ModernWarfareIII")) -Force
+    Expand-Archive -Path (($App.FilesPath + "ModernWarfareIII.zip")) -DestinationPath (($App.FilesPath + "ModernWarfareIII")) -Force
     $CpuCores = (((Get-ComputerInfo -Property CsProcessors).CsProcessors).NumberOfCores) - 1
     (Get-Content -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst")).Replace("RendererWorkerCount:1.0 = `"7`"","RendererWorkerCount:1.0 = `"$CpuCores`"") | Set-Content -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst")
     Move-Item -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst") -Destination ("$DocumentsPath\Call of Duty\players") -Force
@@ -13,16 +13,6 @@ function PUBG {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PUBG.zip"), ($App.FilesPath + "PUBG.zip"))
     Expand-Archive -Path ($App.FilesPath + "PUBG.zip") -DestinationPath "$env:localappdata\TslGame\Saved\Config\WindowsNoEditor" -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config2.Name + " aplicada")
-}
-
-function CSGO {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/CSGO.zip"), ($App.FilesPath + "CSGO.zip"))
-    Expand-Archive -Path ($App.FilesPath + "\CSGO.zip") -DestinationPath $App.FilesPath -Force
-    $UserIds = Get-ChildItem "C:\Program Files (x86)\Steam\userdata" -Directory
-    foreach ($Id in $UserIds.name) {
-        Copy-Item -Path ($App.FilesPath + "730") -Destination "C:\Program Files (x86)\Steam\userdata\$Id" -Recurse -Force
-    }
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
 }
 
 function ApexLegends {

@@ -10,11 +10,6 @@
         "Image": "PUBG.png"
     },
     "Config3": {
-        "Name": "Counter Strike 2",
-        "FunctionName": "CSGO",
-        "Image": "CS2.png"
-    },
-    "Config4": {
         "Name": "Apex Legends",
         "FunctionName": "ApexLegends",
         "Image": "ApexLegends.ico"
