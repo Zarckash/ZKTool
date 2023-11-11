@@ -38,7 +38,7 @@ $App.Maximize.Add_Click({
     else {
         $App.Window.WindowState = "Normal"
     }
-    Update-GUI WallpaperBox Height ($App.WallpaperBox.Width / 1.77)
+    Update-GUI WallpaperBox Height ($App.WallpaperBox.ActualWidth / 1.77)
 })
 
 $App.Close.Add_Click({
