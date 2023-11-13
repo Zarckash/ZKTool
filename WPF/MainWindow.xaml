@@ -451,7 +451,7 @@
             <Grid
                 x:Name="TweaksContentGrid"
                 Grid.Column="1"
-                Visibility="Collapsed">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
@@ -505,7 +505,7 @@
             <Grid
                 x:Name="ExtraContentGrid"
                 Grid.Column="1"
-                Visibility="Collapsed">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
@@ -559,7 +559,7 @@
             <Grid
                 x:Name="ConfigsContentGrid"
                 Grid.Column="1"
-                Visibility="Collapsed">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
@@ -790,7 +790,7 @@
                         </ToggleButton>
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <Label Content="Exportar | Importar" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Backup" Style="{DynamicResource CategoryLabelStyle}" />
                         <StackPanel>
                             <ToggleButton x:Name="Export" Style="{DynamicResource ConfigButtonStyle}">
                                 <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
@@ -853,7 +853,7 @@
             <Grid
                 x:Name="UserFoldersContentGrid"
                 Grid.Column="1"
-                Visibility="Collapsed">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
@@ -1130,7 +1130,7 @@
             <Grid
                 x:Name="NetConfigContentGrid"
                 Grid.Column="1"
-                Visibility="Collapsed">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
@@ -1387,7 +1387,7 @@
             <Grid
                 x:Name="PersonalizationContentGrid"
                 Grid.Column="1"
-                Visibility="Collapsed">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
