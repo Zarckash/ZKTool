@@ -14,7 +14,7 @@ $App.NavItemsList | ForEach-Object {
             if ($_ -notlike $this.Name) {
                 Update-GUI $_ IsChecked $false
                 Update-GUI $_ IsEnabled $true
-                Update-GUI ($_ + "ContentGrid") Visibility Collapsed
+                Update-GUI ($_ + "ContentGrid") Visibility Hidden
             }
         }
 
