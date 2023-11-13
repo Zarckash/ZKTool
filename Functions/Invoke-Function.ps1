@@ -12,6 +12,7 @@
             $SourceList = "ExtraList"
         }
         else {
+            $App.Download.DownloadFile(($App.GitHubPath + "Functions/Import-Configs.ps1"), ($App.FunctionsPath + "Import-Configs.ps1"))
             . ($App.FunctionsPath + "Import-Configs.ps1")
             $SourceList = "ConfigsList"
         }
