@@ -382,6 +382,10 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
 
+    # Disable Dynamic Lightning
+    Write-UserOutput "Desactivando iluminación dinámica"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Lighting" -Name "AmbientLightningEnabled" -Type DWord -Value 0
+
     # Hide Recent Files And Folders In Explorer
     Write-UserOutput "Ocultando recientes de Acceso Rápido"
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
@@ -434,7 +438,7 @@ function RegistryTweaks {
     Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" -ErrorAction SilentlyContinue | Out-File $App.LogPath -Encoding UTF8 -Append
 
     # Service Tweaks To Manual 
-    Write-UserOutput "Deshabilitando servicios de Windows"
+    Write-UserOutput "Desactivando servicios de Windows"
     $Services = @(
         "ALG"                                       # Application Layer Gateway Service(Provides support for 3rd party protocol plug-ins for Internet Connection Sharing)
         "AJRouter"                                  # Needed for AllJoyn Router Service
@@ -500,8 +504,13 @@ function RegistryTweaks {
         "vmictimesync"
         "vmicvmsession"
     )
-    foreach ($Service in $Services) {
-        Get-Service -Name $Service -ErrorAction SilentlyContinue | Set-Service -StartupType Manual
+
+    $Services | ForEach-Object {
+        try {
+            Write-UserOutput ("Desactivando " + (Get-Service -Name $_ -ErrorAction Stop).DisplayName)
+        }
+        catch {}
+        Get-Service -Name $_ -ErrorAction SilentlyContinue | Set-Service -StartupType Manual
     }
 
     Stop-Service "DiagTrack"
