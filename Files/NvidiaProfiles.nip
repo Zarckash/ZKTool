@@ -180,18 +180,4 @@
       </ProfileSetting>
     </Settings>
   </Profile>
-  <Profile>
-    <ProfileName>Desktop Windows Manager</ProfileName>
-    <Executeables>
-      <string>dwm.exe</string>
-    </Executeables>
-    <Settings>
-      <ProfileSetting>
-        <SettingNameInfo>Power management mode</SettingNameInfo>
-        <SettingID>274197361</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-    </Settings>
-  </Profile>
 </ArrayOfProfile>
