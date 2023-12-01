@@ -179,6 +179,12 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Hotkey" -Value 3
     Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Language Hotkey" -Value 3
     Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Layout Hotkey" -Value 3
+
+    # Hide Keyboard Layout Icon
+    Write-UserOutput "Ocultando el botón de idioma del teclado"
+    Set-WinLanguageBarOption -UseLegacyLanguageBar
+    New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ShowStatus" -Type DWord -Value 3
     
     # Disable Error Reporting
     Write-UserOutput "Desactivando informar de errores"
@@ -266,15 +272,6 @@ function RegistryTweaks {
     New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Power" -Name "PowerThrottling" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" -Name "PowerThrottlingOff" -Type DWord -Value 1
 
-    # Hide Keyboard Layout Icon
-    Write-UserOutput "Ocultando el botón ee idioma del teclado"
-    Set-WinLanguageBarOption -UseLegacyLanguageBar
-    New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ExtraIconsOnMinimized" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "Label" -Type DWord -Value 1
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ShowStatus" -Type DWord -Value 3
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "Transparency" -Type DWord -Value 255
-
     # Disable Telemetry
     Write-UserOutput "Deshabilitando telemetría de Windows"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
@@ -339,7 +336,7 @@ function RegistryTweaks {
 
     # Stop Microsoft Store From Updating Apps Automatically
     Write-UserOutput "Desactivando actualizaciones de Microsoft Store"
-    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "WindowsStore"
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "WindowsStore" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -Name "AutoDownload" -Type DWord -Value 2
 
     # Hide TaskBar View Button
@@ -353,6 +350,10 @@ function RegistryTweaks {
     # Hide Search Button
     Write-UserOutput "Ocultando botón de búsqueda"
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+
+    # Disable Windows Copilot Button
+    New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
 
     # Disable Widgets
     Write-UserOutput "Desactivando Widgets"
