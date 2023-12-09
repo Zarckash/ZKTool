@@ -153,7 +153,7 @@ else {
     Add-AppPackage "$env:temp\ZKTool\Files\Winget.appx"
 }
 
-Write-Host "- - - - R E A D Y - - - -" -ForegroundColor Green
+Write-Host "`r`n----- R E A D Y -----`r`n" -ForegroundColor Green
 
 Start-Process "$env:ProgramFiles\ZKTool\ZKTool.exe"
 Start-Sleep 1
