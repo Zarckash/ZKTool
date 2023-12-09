@@ -893,6 +893,10 @@ function UpdateGPUDrivers {
 
     Start-Process "C:\Program Files\7-Zip\7z.exe" -ArgumentList "x -bso0 -bsp1 -bse1 -aoa $DriverPath $FilesToExtract -o$ExtractPath" -Wait  
 
+    # Uninstalling 7-Zip
+    Write-UserOutput "Desinstalando 7-Zip"
+    Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S -Wait
+
     Write-UserOutput "Desactivando HDCP"
     $ClassGuid = (Get-PnpDevice -Class Display).ClassGuid
     $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
@@ -917,10 +921,6 @@ function UpdateGPUDrivers {
         Write-UserOutput "Instalando drivers"
         Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
     }
-
-    # Uninstalling 7-Zip
-    Write-UserOutput "Desinstalando 7-Zip"
-    Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S -Wait
 
     Write-UserOutput "Drivers $LatestVersion instalados correctamente"
     Start-Sleep 3
