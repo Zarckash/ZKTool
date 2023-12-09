@@ -7,9 +7,9 @@ $ConfirmPreference = 'None'
 
 $App.Version = "4.1.7"
 try {
-    Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null        
-}                                                                                                                                           # Crea DisplayVersion
-catch {                                                                                                                                     # en caso de que no exista
+    Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null
+}
+catch {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" -Value $App.Version -Force
 }
 finally {
