@@ -126,5 +126,6 @@ else {
 }
 
 Start-Process "$env:ProgramFiles\ZKTool\ZKTool.exe"
+Start-Sleep 1
 
 Close-SplashScreen
