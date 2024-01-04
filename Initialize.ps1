@@ -1,4 +1,7 @@
-﻿Set-ExecutionPolicy Bypass
+﻿$ErrorActionPreference = 'SilentlyContinue'
+$ProgressPreference = 'SilentlyContinue'
+
+Set-ExecutionPolicy Bypass
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
@@ -12,4 +15,3 @@ Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:
 
 Start-Process "$env:ProgramFiles\ZKTool\Setup.exe"
 
-exit
