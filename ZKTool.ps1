@@ -16,7 +16,7 @@ finally {
     if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" -Value $App.Version -Force
         Start-Process Powershell -WindowStyle Hidden{
-            Invoke-Expression (Invoke-WebRequest -useb 'https://raw.githubusercontent.com/Zarckash/ZKTool/main/Setup.ps1')
+            Start-Process "$env:ProgramFiles\ZKTool\Setup.exe"
         }
         exit
     }
