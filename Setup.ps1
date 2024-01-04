@@ -3,8 +3,6 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
-
 $Global:Setup = [Hashtable]::Synchronized(@{})
 
 $Runspace = [RunspaceFactory]::CreateRunspace()
