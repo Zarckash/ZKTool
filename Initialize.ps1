@@ -1,12 +1,11 @@
-﻿$ErrorActionPreference = 'SilentlyContinue'
+﻿Set-ExecutionPolicy Bypass -ErrorAction SilentlyContinue
+
 $ProgressPreference = 'SilentlyContinue'
 
-Set-ExecutionPolicy Bypass
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
-
-Add-MpPreference -ExclusionPath "$env:temp\ZKTool\"
-Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool"
+Add-MpPreference -ExclusionPath "$env:temp\ZKTool\" -ErrorAction SilentlyContinue
+Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool" -ErrorAction SilentlyContinue
 
 New-Item "$env:temp\ZKTool\Files\" -ItemType Directory -Force | Out-Null
 
@@ -14,4 +13,6 @@ New-Item "$env:temp\ZKTool\Files\" -ItemType Directory -Force | Out-Null
 Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
 
 Start-Process "$env:ProgramFiles\ZKTool\Setup.exe"
+
+exit
 
