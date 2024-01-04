@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.1.8"
+$App.Version = "4.1.9"
 try {
     Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" | Out-Null
 }
@@ -15,8 +15,14 @@ catch {
 finally {
     if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion" -Value $App.Version -Force
-        Start-Process Powershell -WindowStyle Hidden{
-            Start-Process "$env:ProgramFiles\ZKTool\Setup.exe"
+        if (!(Test-Path "$env:ProgramFiles\ZKTool\Setup.exe")) {
+            Start-Process Powershell -WindowStyle Hidden{
+                Invoke-Expression (Invoke-WebRequest -useb 'https://raw.githubusercontent.com/Zarckash/ZKTool/main/Initialize.ps1')
+            }
+        } else {
+            Start-Process Powershell -WindowStyle Hidden{
+                Start-Process "$env:ProgramFiles\ZKTool\Setup.exe"
+            }
         }
         exit
     }

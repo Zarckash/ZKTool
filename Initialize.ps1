@@ -3,9 +3,11 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
+Set-ExecutionPolicy Bypass
+
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
-New-Item "$env:temp\ZKTool\Files" -ItemType Directory -Force | Out-Null
+New-Item "$env:temp\ZKTool\Files\" -ItemType Directory -Force | Out-Null
 
 (New-Object System.Net.WebClient).DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip","$env:temp\ZKTool\Files\ZKTool.zip")
 Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
