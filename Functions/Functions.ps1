@@ -947,42 +947,39 @@ function LatencyTweaks {
 function HideSystemComponents {
     Write-UserOutput "Limpiando lista de aplicaciones"
     $Components64 = @(
-        "{1D8E6291-B0D5-35EC-8441-6616F567A0F7}"
-        "{37B8F9C7-03FB-3253-8781-2517C99D7C00}"
-        "{53CF6934-A98D-3D84-9146-FC4EDF3D5641}"
-        "{5FCE6D76-F5DC-37AB-B2B8-22AB8CEDB1D4}"
         "{959CB28B-C5F3-4B66-9F8C-EC1F02E15115}"
-        "{ad8a2fa1-06e7-4b0d-927d-6e54b3d31028}"
         "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.PhysX"
         "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_FrameViewSdk"
         "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_HDAudio.Driver"
         "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_USBC"
-        "{CF2BEA3C-26EA-32F8-AA9B-331F7E34BA97}"
         "{D2152F77-52A6-4EA7-AC89-8143E189D730}"
         "mstsc-4b0a31aa-df6a-4307-9b47-d5cc50009643"
-        "{98B96874-2649-4CC3-B599-1F2EEC28A500}"
-        "{010792BA-551A-3AC0-A7EF-0FAB4156C382}"
-        "{D028B71C-9372-40C9-B535-5841F78448CC}"
     )
 
     $Components32 = @(
         "{35905844-0610-427D-86A0-2103FABE3D4D}"
-        "{710f4c1c-cc18-4c49-8cbf-51240c89a1a2}"
         "{97CD7AFC-0ED3-41B8-9CCD-22717E8631D0}_is1"
-        "{9BE518E6-ECC6-35A9-88E4-87755C07200F}"
-        "{B175520C-86A2-35A7-8619-86DC379688B9}"
-        "{BD95A8CD-1D9F-35AD-981A-3E7925026EBB}"
-        "{C5E3A69D-D392-45A6-A8FB-00B01E2B010D}"
-        "{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}"
         "Microsoft Edge"
         "Microsoft Edge Update"
         "Microsoft EdgeWebView"
         "UXPW_1_1_0"
-        "{5F0295FE-3DAA-4C04-94A6-2AFC6D739D34}"
-        "{2F7F071D-83D0-4994-8237-7B0579452FD4}"
-        "{8122DAB1-ED4D-3676-BB0A-CA368196543E}"
-        "{D401961D-3A20-3AC7-943B-6139D5BD490A}"
     )
+
+    $VisualCApps64 = Get-ChildItem -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
+
+    Split-Path $VisualCApps64.Name -Leaf | Where-Object {
+        (Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName) -Like "Microsoft Visual C++*"
+    } | ForEach-Object {
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
+    }
+
+    $VisualCApps32 = Get-ChildItem -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
+
+    Split-Path $VisualCApps32.Name -Leaf | Where-Object {
+        (Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName) -Like "Microsoft Visual C++*"
+    } | ForEach-Object {
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
+    }
 
     $Components64 | ForEach-Object {
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
