@@ -874,7 +874,7 @@ function UpdateGPUDrivers {
     }
 
     # Downloading latest Nvidia drivers
-    Write-UserOutput "Descargando últimos drivers de Nvidia"
+    Write-UserOutput "Descargando últimos drivers de Nvidia $LatestVersion"
     $Url = "https://us.download.nvidia.com/Windows/$LatestVersion/$LatestVersion-desktop-win10-win11-64bit-international-dch-whql.exe"
     (New-Object System.Net.WebClient).DownloadFile($Url,($App.FilesPath + "Driver.exe"))
 
@@ -914,11 +914,11 @@ function UpdateGPUDrivers {
         Get-ChildItem ($App.FilesPath + "NVCleanstall\GFExperience") -Exclude $ExcludeList | ForEach-Object {
             Remove-Item $_ -Recurse -Force
         }
-        Write-UserOutput "Instalando drivers"
+        Write-UserOutput "Instalando drivers $LatestVersion"
         Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-clean -s" -Wait
     }
     else {
-        Write-UserOutput "Instalando drivers"
+        Write-UserOutput "Instalando drivers $LatestVersion"
         Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
     }
 
