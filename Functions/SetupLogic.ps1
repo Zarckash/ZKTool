@@ -1,47 +1,12 @@
-﻿# GUI dragging
-$Setup.SetupTitleBar.Add_MouseDown({
-    $Setup.Window.DragMove()
-})
-
-$InteractionButtons = @('Minimize','Close')
-
-
-$InteractionButtons | ForEach-Object {
-    if ($_ -ne "Close") {
-        $Setup.$_.Add_MouseEnter({
-            $this.Background = $Setup.HoverButtonColor
-        })
-    }
-    else {
-        $Setup.$_.Add_MouseEnter({
-            $this.Background = "#CC0000"
-        })
-    }
-
-    $Setup.$_.Add_MouseLeave({
-        $this.Background = "Transparent"
-    })
-
-}
-
-$Setup.Minimize.Add_Click({
-    $Setup.Window.WindowState = "Minimized"
-})
-
-$Setup.Close.Add_Click({
-    $Setup.Window.Close()
-})
-
-function Update-Status {
+﻿function Update-Status {
     Param (
         $Value
     )
-    $Setup.Status.Dispatcher.Invoke("Normal",[action]{$Setup.Status.Text = $Value})
+    $Hash.Status.Dispatcher.Invoke("Normal",[action]{$Hash.Status.Text = ($Value + "...")})
 }
 
 function Install-Font {
-    Update-Status "Instalando fuentes necesarias..."
-    $Setup.Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/Fonts.zip", "$env:temp\ZKTool\Files\Fonts.zip")
+    $Hash.Download.DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/Fonts.zip", "$env:temp\ZKTool\Files\Fonts.zip")
     Expand-Archive -Path "$env:temp\ZKTool\Files\Fonts.zip" -DestinationPath "$env:temp\ZKTool\Files\Fonts" -Force
 
     $ExistingFonts = Get-ChildItem -Path "C:\Windows\Fonts" | ForEach-Object { $_.Name }
