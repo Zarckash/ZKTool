@@ -15,4 +15,3 @@ Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:
 Start-Process "$env:ProgramFiles\ZKTool\Setup.exe"
 
 exit
-
