@@ -10,8 +10,8 @@ Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool" -ErrorAction Silently
 New-Item "$env:temp\ZKTool\Files\" -ItemType Directory -Force | Out-Null
 
 (New-Object System.Net.WebClient).DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip","$env:temp\ZKTool\Files\ZKTool.zip")
-Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:ProgramFiles\ZKTool" -Force
+Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:temp\ZKTool" -Force
 
-Start-Process "$env:ProgramFiles\ZKTool\Setup.exe"
+Start-Process "$env:temp\ZKTool\Setup.exe" -ArgumentList "-Install"
 
 exit
