@@ -1,5 +1,13 @@
-﻿$ProgressPreference = 'SilentlyContinue'
-$ErrorActionPreference = 'SilentlyContinue'
+﻿$ErrorActionPreference = 'SilentlyContinue'
+$ProgressPreference = 'SilentlyContinue'
+$WarningPreference = 'SilentlyContinue'
+$ConfirmPreference = 'None'
+
+# Run Script As Administrator
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
+    Start-Process Powershell "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+    exit
+}
 
 Set-ExecutionPolicy Bypass
 
@@ -14,5 +22,7 @@ New-Item "$env:temp\ZKTool\Files\" -ItemType Directory -Force | Out-Null
 Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:temp\ZKTool\Files\Temp" -Force
 
 Start-Process "$env:temp\ZKTool\Files\Temp\Setup.exe" -ArgumentList "-Install"
+
+Start-Sleep 1
 
 exit
