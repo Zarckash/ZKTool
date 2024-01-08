@@ -17,7 +17,7 @@ $NewRunspace.Open()
 $NewRunspace.SessionStateProxy.SetVariable("App", $App)
 $Logic = [PowerShell]::Create().AddScript({
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PresetsWallpapers.zip"),($App.FilesPath + "PresetsWallpapers.zip"))
-    Expand-Archive -Path ($App.FilesPath + "PresetsWallpapers.zip") -DestinationPath ($App.FilesPath + "PresetsWallpapers")
+    Expand-Archive -Path ($App.FilesPath + "PresetsWallpapers.zip") -DestinationPath ($App.FilesPath + "PresetsWallpapers") -Force
 })
 
 $Logic.Runspace = $NewRunspace
