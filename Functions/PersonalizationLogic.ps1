@@ -204,11 +204,14 @@ $App.ActualPreset.Add_Click({
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
     $WallpaperPath = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
-    $FileDialog.FileName = $WallpaperPath
-    Update-GUI WallpaperBoxImage Source $WallpaperPath
-    Update-GUI WallpaperBox Height ($App.WallpaperBox.ActualWidth / 1.77)
-    Update-GUI WallpaperBoxLabel Visibility Collapsed
-    Update-GUI WallpaperBoxImage Visibility Visible
+
+    if (Test-Path $WallpaperPath) {
+        $FileDialog.FileName = $WallpaperPath
+        Update-GUI WallpaperBoxImage Source $WallpaperPath
+        Update-GUI WallpaperBox Height ($App.WallpaperBox.ActualWidth / 1.77)
+        Update-GUI WallpaperBoxLabel Visibility Collapsed
+        Update-GUI WallpaperBoxImage Visibility Visible
+    }
 })
 
 $App.PresetsList = Get-Content ($App.ResourcesPath + "Presets.json") -Raw | ConvertFrom-Json
