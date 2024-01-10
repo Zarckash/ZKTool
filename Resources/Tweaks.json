@@ -12,7 +12,7 @@
         "FunctionName": "UninstallXboxGameBar"
     },
     "Tweak5": {
-        "Name": "Ajustes de GPU",
+        "Name": "Reducir latencia de GPU",
         "FunctionName": "GPUInputLag"
     },
     "Tweak6": {
