@@ -557,7 +557,7 @@ function UninstallXboxGameBar {
     Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
 }
 
-function EnableMSIMode {
+function GPUInputLag {
     Write-UserOutput "Activando modo MSI en GPU"
     $GPUID = (Get-PnpDevice -Class Display).InstanceId
     $GPUName = (Get-PnpDevice -Class Display).Name
@@ -565,6 +565,16 @@ function EnableMSIMode {
     if (($GPUName -like "*GTX*") -or ($GPUName -like "*RTX*")) {
         New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management" -Name "MessageSignaledInterruptProperties" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$GPUID\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" -Name "MSISupported" -Type DWord -Value 1
+    }
+
+    Write-UserOutput "Aplicando ajustes para reducir input lag"
+    $ClassGuid = (Get-PnpDevice -Class Display).ClassGuid
+    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
+    if (Test-Path "$RegPath\0000") {
+        Set-ItemProperty -Path "$RegPath\0000" -Name "DisableDynamicPstate" -Type DWord -Value 1
+    }
+    elseif (Test-Path "$RegPath\0002") {
+        Set-ItemProperty -Path "$RegPath\0002" -Name "DisableDynamicPstate" -Type DWord -Value 1
     }
 
     $App.RequireRestart = $true
@@ -927,21 +937,6 @@ function UpdateGPUDrivers {
 
     & NvidiaSettings
     & EnableMSIMode
-}
-
-function LatencyTweaks {
-    Write-UserOutput "Aplicando ajustes para reducir input lag"
-    powercfg -setacvalueindex scheme_current 54533251-82be-4824-96c1-47b60b740d00 4d2b0152-7d5c-498b-88e2-34345392a2c5 5000
-    $ClassGuid = (Get-PnpDevice -Class Display).ClassGuid
-    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
-    if (Test-Path "$RegPath\0000") {
-        Set-ItemProperty -Path "$RegPath\0000" -Name "DisableDynamicPstate" -Type DWord -Value 1
-    }
-    elseif (Test-Path "$RegPath\0002") {
-        Set-ItemProperty -Path "$RegPath\0002" -Name "DisableDynamicPstate" -Type DWord -Value 1
-    }
-
-    $App.RequireRestart = $true
 }
 
 function HideSystemComponents {
