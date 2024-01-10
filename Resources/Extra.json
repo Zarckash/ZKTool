@@ -30,10 +30,6 @@
         "Name": "Actualizar drivers GPU",
         "FunctionName": "UpdateGPUDrivers"
     },
-    "Extra9": {
-        "Name": "Latencia",
-        "FunctionName": "LatencyTweaks"
-    },
     "Extra10": {
         "Name": "Desactivar Defender",
         "Installer": "DefenderRemover.exe",
