@@ -12,8 +12,8 @@
         "FunctionName": "UninstallXboxGameBar"
     },
     "Tweak5": {
-        "Name": "Activar modo MSI en GPU",
-        "FunctionName": "EnableMSIMode"
+        "Name": "Ajustes de GPU",
+        "FunctionName": "GPUInputLag"
     },
     "Tweak6": {
         "Name": "Resolution Timer",
