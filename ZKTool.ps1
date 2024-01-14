@@ -319,7 +319,7 @@ $PwShellGUI.AddScript({
     })
 
     $App.GUILoaded = $true
-    Start-Sleep .5
+    Start-Sleep 1
 
     $App.Window.ShowDialog()
 }) | Out-Null
@@ -328,7 +328,7 @@ $PwShellGUI.Runspace = $GUIRunspace
 $PwShellGUI.BeginInvoke() | Out-Null
 
 while (!$App.GUILoaded) {
-    Start-Sleep .5
+    Start-Sleep .3
 }
 
 $Hash.Window.Dispatcher.Invoke("Normal",[action]{$Hash.Window.Close()})
