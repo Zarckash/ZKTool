@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.2.0"
+$App.Version = "4.2.1"
 
 if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
     if (!(Test-Path "$env:ProgramFiles\ZKTool\Setup.exe")) {
@@ -19,6 +19,76 @@ if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVers
     }
     exit
 }
+$Global:Hash = [Hashtable]::Synchronized(@{})
+$Hash.ZKToolPath = "$env:ProgramFiles\ZKTool\"
+$Hash.HoverButtonColor = "#1AFFFFFF"
+$Hash.XamlPath = ($Hash.ZKToolPath + "\WPF\SetupWindow.xaml")
+
+$Runspace = [RunspaceFactory]::CreateRunspace()
+$Runspace.ApartmentState = "STA"
+$Runspace.ThreadOptions = "ReuseThread"
+$Runspace.Open()
+$Runspace.SessionStateProxy.SetVariable("Hash", $Hash)
+$PwShell = [PowerShell]::Create()
+
+$PwShell.AddScript({
+    $ErrorActionPreference = 'SilentlyContinue'
+    $ProgressPreference = 'SilentlyContinue'
+    $WarningPreference = 'SilentlyContinue'
+    $ConfirmPreference = 'None'
+
+    Add-Type -AssemblyName PresentationFramework
+    Add-Type -AssemblyName System.Windows.Forms
+
+    [xml]$XAML = (Get-Content -Path $Hash.XamlPath -Raw) -replace 'x:Name', 'Name'
+    $XAML.Window.RemoveAttribute("x:Class")
+    $Reader = New-Object System.Xml.XmlNodeReader $XAML
+    $Hash.Window = [Windows.Markup.XamlReader]::Load($Reader)
+
+    $XAML.SelectNodes("//*[@Name]") | ForEach-Object {
+        $Hash.Add($_.Name,$Hash.Window.FindName($_.Name))
+    }
+
+    $Hash.SetupTitleBar.Add_MouseDown({
+        $Hash.Window.DragMove()
+    })
+    
+    $InteractionButtons = @('Minimize','Close')
+    
+    $InteractionButtons | ForEach-Object {
+        if ($_ -ne "Close") {
+            $Hash.$_.Add_MouseEnter({
+                $this.Background = $Hash.HoverButtonColor
+            })
+        }
+        else {
+            $Hash.$_.Add_MouseEnter({
+                $this.Background = "#CC0000"
+            })
+        }
+    
+        $Hash.$_.Add_MouseLeave({
+            $this.Background = "Transparent"
+        })
+    
+    }
+    
+    $Hash.Minimize.Add_Click({
+        $Hash.Window.WindowState = "Minimized"
+    })
+    
+    $Hash.Close.Add_Click({
+        $Hash.Window.Close()
+    })
+
+    $Hash.Title.Text = "ZKTool"
+    $Hash.Status.Text = "Cargando aplicación..."
+
+    $Hash.Window.ShowDialog()
+}) | Out-Null
+
+$PwShell.Runspace = $Runspace
+$PwShell.BeginInvoke() | Out-Null
 
 # Creating GUI
 $GUIRunspace = [RunspaceFactory]::CreateRunspace()
@@ -26,8 +96,9 @@ $GUIRunspace.ApartmentState = "STA"
 $GUIRunspace.ThreadOptions = "ReuseThread"
 $GUIRunspace.Open()
 $GUIRunspace.SessionStateProxy.SetVariable("App", $App)
+$PwShellGUI = [PowerShell]::Create()
 
-$AppLogic = [PowerShell]::Create().AddScript({
+$PwShellGUI.AddScript({
     Add-Type -AssemblyName PresentationFramework
     Add-Type -AssemblyName System.Windows.Forms
     $ErrorActionPreference = 'SilentlyContinue'
@@ -247,8 +318,18 @@ $AppLogic = [PowerShell]::Create().AddScript({
         }
     })
 
-    $App.Window.ShowDialog()
-})
+    $App.GUILoaded = $true
+    Start-Sleep .5
 
-$AppLogic.Runspace = $GUIRunspace
-$AppLogic.BeginInvoke() | Out-Null
+    $App.Window.ShowDialog()
+}) | Out-Null
+
+$PwShellGUI.Runspace = $GUIRunspace
+$PwShellGUI.BeginInvoke() | Out-Null
+
+while (!$App.GUILoaded) {
+    Start-Sleep .5
+}
+
+$Hash.Window.Dispatcher.Invoke("Normal",[action]{$Hash.Window.Close()})
+$PwShell.EndInvoke($Handle) | Out-Null
