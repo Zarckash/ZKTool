@@ -581,12 +581,59 @@ function GPUInputLag {
     $App.RequireRestart = $true
 }
 
-function SetResolutionTimer {
-    Write-UserOutput "Instalando Set Timer Resolution Service"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/SetTimerResolutionService.exe"), ($App.FilesPath + "SetTimerResolutionService.exe"))
-    New-Item 'C:\Program Files\Set Timer Resolution Service\' -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
-    Move-Item -Path ($App.FilesPath + "SetTimerResolutionService.exe") -Destination 'C:\Program Files\Set Timer Resolution Service\SetTimerResolutionService.exe'
-    Start-Process "C:\Program Files\Set Timer Resolution Service\SetTimerResolutionService.exe" -ArgumentList "-install" | Out-File $App.LogPath -Encoding UTF8 -Append
+function SetTimerResolution {
+    Write-UserOutput "Configurando Timer Resolution"
+
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "/.zip/TimerResolution.zip"), ($App.FilesPath + "TimerResolution.zip"))
+    Expand-Archive -Path ($App.FilesPath + "TimerResolution.zip") -DestinationPath ($App.FilesPath + "TimerResolution") -Force
+
+    $increment = 0.001
+    $start = 0.5
+    $end = 0.6
+    $samples = 20
+
+    Stop-Process -Name "SetTimerResolution"
+
+    "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv")
+
+    for ($i = $start; $i -le $end; $i += $increment) {
+        Write-UserOutput "Probando $($i)ms"
+
+        Start-Process ".\SetTimerResolution.exe" -ArgumentList @("--resolution", ($i * 1E4), "--no-console")
+
+        Start-Sleep 1
+
+        $output = Start-Process ($App.FilesPath + "Timer Resolution\MeasureSleep.exe") -ArgumentList @("--samples", $samples)
+        $outputLines = $output -split "`n"
+
+        foreach ($line in $outputLines) {
+            $avgMatch = $line -match "Avg: (.*)"
+            $stdevMatch = $line -match "STDEV: (.*)"
+
+            if ($avgMatch) {
+                $avg = $matches[1] -replace "Avg: "
+            }
+            elseif ($stdevMatch) {
+                $stdev = $matches[1] -replace "STDEV: "
+            }
+        }
+
+        "$($i), $([math]::Round([double]$avg, 3)), $($stdev)" | Out-File results.txt -Append
+
+        Stop-Process -Name "SetTimerResolution"
+    }
+
+
+    $CSV = Import-Csv -Path ($App.FilesPath + "Resolution Timer/Results.csv")
+    $LowestDelta = 1
+
+    for ($i = 0; $i -lt $CSV.Length; $i++) {
+        if ($CSV[$i].DeltaMs -lt $LowestDelta) {
+            $LowestDelta = $CSV[$i].DeltaMs
+            $Resolution = $CSV[$i].RequestedResolutionMs
+        }
+    }
+
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 }
 
