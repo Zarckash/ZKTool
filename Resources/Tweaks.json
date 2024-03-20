@@ -16,8 +16,8 @@
         "FunctionName": "GPUInputLag"
     },
     "Tweak6": {
-        "Name": "Resolution Timer",
-        "FunctionName": "SetResolutionTimer"
+        "Name": "Timer Resolution",
+        "FunctionName": "SetTimerResolution"
     },
     "Tweak9": {
         "Name": "Desinstalar aplicaciones",
