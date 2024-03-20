@@ -634,6 +634,8 @@ function SetTimerResolution {
         }
     }
 
+    Write-UserOutput "Resolution $Resolution Delta $LowestDelta"
+
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 }
 
