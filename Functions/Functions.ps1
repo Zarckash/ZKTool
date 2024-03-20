@@ -585,11 +585,11 @@ function SetTimerResolution {
     Write-UserOutput "Configurando Timer Resolution"
 
     $App.Download.DownloadFile(($App.GitHubFilesPath + "/.zip/TimerResolution.zip"), ($App.FilesPath + "TimerResolution.zip"))
-    Expand-Archive -Path ($App.FilesPath + "TimerResolution.zip") -DestinationPath ($App.FilesPath + "TimerResolution") -Force
+    Expand-Archive -Path ($App.FilesPath + "TimerResolution.zip") -DestinationPath ($App.FilesPath + "Timer Resolution") -Force
 
     $increment = 0.001
     $start = 0.5
-    $end = 0.6
+    $end = 0.55
     $samples = 20
 
     Stop-Process -Name "SetTimerResolution"
@@ -599,7 +599,7 @@ function SetTimerResolution {
     for ($i = $start; $i -le $end; $i += $increment) {
         Write-UserOutput "Probando $($i)ms"
 
-        Start-Process ".\SetTimerResolution.exe" -ArgumentList @("--resolution", ($i * 1E4), "--no-console")
+        Start-Process ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -ArgumentList @("--resolution", ($i * 1E4), "--no-console")
 
         Start-Sleep 1
 
@@ -618,13 +618,13 @@ function SetTimerResolution {
             }
         }
 
-        "$($i), $([math]::Round([double]$avg, 3)), $($stdev)" | Out-File results.txt -Append
+        "$($i), $([math]::Round([double]$avg, 3)), $($stdev)" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv") -Append
 
         Stop-Process -Name "SetTimerResolution"
     }
 
 
-    $CSV = Import-Csv -Path ($App.FilesPath + "Resolution Timer/Results.csv")
+    $CSV = Import-Csv -Path ($App.FilesPath + "Timer Resolution/Results.csv")
     $LowestDelta = 1
 
     for ($i = 0; $i -lt $CSV.Length; $i++) {
