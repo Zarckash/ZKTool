@@ -589,8 +589,8 @@ function SetTimerResolution {
 
     $increment = 0.001
     $start = 0.5
-    $end = 0.55
-    $samples = 20
+    $end = 0.6
+    $samples = 30
 
     Stop-Process -Name "SetTimerResolution"
 
@@ -624,7 +624,7 @@ function SetTimerResolution {
     }
 
 
-    $CSV = Import-Csv -Path ($App.FilesPath + "Timer Resolution/Results.csv")
+    $CSV = Import-Csv -Path ($App.FilesPath + "Timer Resolution\Results.csv")
     $LowestDelta = 1
 
     for ($i = 0; $i -lt $CSV.Length; $i++) {
@@ -634,7 +634,18 @@ function SetTimerResolution {
         }
     }
 
-    Write-UserOutput "Resolution $Resolution Delta $LowestDelta"
+    New-Item "C:\Program Files\Timer Resolution\" -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
+    Move-Item -Path ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -Destination "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe"
+
+    $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Startup\Timer Resolution.lnk"
+    $ShortcutTarget = "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe"
+    $Shell = New-Object -ComObject ("WScript.Shell")
+    $Shortcut = $Shell.CreateShortcut($ShortcutPath)
+    $Shortcut.TargetPath = $ShortcutTarget
+    $Shortcut.Arguments = " --resolution " + ($Resolution * 1E4) + " --no-console"
+    $Shortcut.Save()
+
+    Write-UserOutput "Resolution aplicada: $Resolution"
 
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 }
