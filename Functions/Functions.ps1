@@ -109,12 +109,13 @@ function RegistryTweaks {
     lodctr /r
 
     # Install Bitsum Power Plan
-    Write-Output "Instalando Bitsum Power Plan"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "BitsumPowerPlan.pow"), ($App.FilesPath + "BitsumPowerPlan.pow"))
-    powercfg -import ($App.FilesPath + "BitsumPowerPlan.pow") 77777777-7777-7777-7777-777777777777 | Out-File $App.LogPath -Encoding UTF8 -Append
-    powercfg -SETACTIVE "77777777-7777-7777-7777-777777777777"
+    Write-Output "Instalando Core Power Plan"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "CorePowerPlan.pow"), ($App.FilesPath + "CorePowerPlan.pow"))
+    powercfg -import ($App.FilesPath + "CorePowerPlan.pow") 77777777-7777-7777-7777-777777777778 | Out-File $App.LogPath -Encoding UTF8 -Append
+    powercfg -setactive "77777777-7777-7777-7777-777777777778"
     powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c # Remove High Performance Profile
     powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a # Remove Power Saver Profile
+    powercfg -delete 77777777-7777-7777-7777-777777777777 # Remove Bitsum Profile
     powercfg -h off
     powercfg -change monitor-timeout-ac 15
     powercfg -change standby-timeout-ac 0
@@ -597,7 +598,7 @@ function SetTimerResolution {
 
     Stop-Process -Name "SetTimerResolution"
 
-    "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv")
+    "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv") -Encoding UTF8
 
     for ($i = $start; $i -le $end; $i += $increment) {
         Write-UserOutput "Probando $($i)ms"
@@ -621,7 +622,7 @@ function SetTimerResolution {
             }
         }
 
-        "$($i), $([math]::Round([double]$avg, 3)), $($stdev)" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv") -Append
+        "$($i), $([math]::Round([double]$avg, 3)), $($stdev)" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv") -Encoding UTF8 -Append
 
         Stop-Process -Name "SetTimerResolution"
     }
