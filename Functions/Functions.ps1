@@ -593,7 +593,7 @@ function SetTimerResolution {
 
     $increment = 0.001
     $start = 0.5
-    $end = 0.6
+    $end = 0.53
     $samples = 30
 
     Stop-Process -Name "SetTimerResolution"
@@ -655,6 +655,7 @@ function SetTimerResolution {
     $Shortcut.Arguments = (" --resolution $Resolution --no-console")
     $Shortcut.Save()
 
+    Write-UserOutput "Resolution aplicada: $Resolution" + ($Resolution*1E4)
 
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 }
