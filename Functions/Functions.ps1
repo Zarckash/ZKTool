@@ -649,7 +649,7 @@ function SetTimerResolution {
     $Shell = New-Object -ComObject ("WScript.Shell")
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
     $Shortcut.TargetPath = $ShortcutTarget
-    $Shortcut.Arguments = " --resolution " + ($Resolution * 1E4) + " --no-console"
+    $Shortcut.Arguments = (" --resolution " + ($Resolution * 1E4) + " --no-console")
     $Shortcut.Save()
 
     Write-UserOutput "Resolution aplicada: $Resolution"
