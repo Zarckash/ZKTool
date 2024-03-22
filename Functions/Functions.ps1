@@ -584,6 +584,9 @@ function GPUInputLag {
 function SetTimerResolution {
     Write-UserOutput "Configurando Timer Resolution"
 
+    sc.exe stop STR | Out-File $App.LogPath -Encoding UTF8 -Append
+    sc.exe delete STR | Out-File $App.LogPath -Encoding UTF8 -Append
+
     $App.Download.DownloadFile(($App.GitHubFilesPath + "/.zip/TimerResolution.zip"), ($App.FilesPath + "TimerResolution.zip"))
     Expand-Archive -Path ($App.FilesPath + "TimerResolution.zip") -DestinationPath ($App.FilesPath + "Timer Resolution") -Force
 
@@ -779,11 +782,11 @@ function AdobeCleaner {
 
 function RealtekCleaner {
     Write-UserOutput "Eliminando Realtek Audio Service"
-    pwsh -command {sc stop Audiosrv} | Out-File $App.LogPath -Encoding UTF8 -Append
-    pwsh -command {sc stop RtkAudioUniversalService} | Out-File $App.LogPath -Encoding UTF8 -Append
+    sc.exe stop Audiosrv | Out-File $App.LogPath -Encoding UTF8 -Append
+    sc.exe stop RtkAudioUniversalService | Out-File $App.LogPath -Encoding UTF8 -Append
     taskkill.exe /f /im RtkAudUService64.exe | Out-File $App.LogPath -Encoding UTF8 -Append
-    pwsh -command {sc delete RtkAudioUniversalService} | Out-File $App.LogPath -Encoding UTF8 -Append
-    pwsh -command {sc start Audiosrv} | Out-File $App.LogPath -Encoding UTF8 -Append
+    sc.exe delete RtkAudioUniversalService | Out-File $App.LogPath -Encoding UTF8 -Append
+    sc.exe start Audiosrv | Out-File $App.LogPath -Encoding UTF8 -Append
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
     Get-AppxPackage -All "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
 }
