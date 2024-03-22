@@ -603,7 +603,7 @@ function SetTimerResolution {
 
         Start-Sleep 1
 
-        $output = Start-Process ($App.FilesPath + "Timer Resolution\MeasureSleep.exe") -ArgumentList @("--samples", $samples)
+        $output = Start-Process ($App.FilesPath + "Timer Resolution\MeasureSleep.exe") -ArgumentList @("--samples", $samples) -NoNewWindow
         $outputLines = $output -split "`n"
 
         foreach ($line in $outputLines) {
