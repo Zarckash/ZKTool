@@ -642,6 +642,9 @@ function SetTimerResolution {
     Move-Item -Path ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -Destination "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe"
 
     $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Startup\Timer Resolution.lnk"
+
+    Remove-Item $ShortcutPath -Force
+
     $ShortcutTarget = "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe"
     $Shell = New-Object -ComObject ("WScript.Shell")
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
