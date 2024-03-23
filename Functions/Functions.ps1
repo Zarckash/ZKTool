@@ -593,8 +593,8 @@ function SetTimerResolution {
 
     $increment = 0.001
     $start = 0.5
-    $end = 0.51
-    $samples = 10
+    $end = 0.6
+    $samples = 35
 
     Stop-Process -Name "SetTimerResolution"
 
@@ -647,15 +647,13 @@ function SetTimerResolution {
 
     Remove-Item $ShortcutPath -Force
 
-    $Resolution = $Resolution * 10000
+    $Resolution = [Double]$Resolution * 1E4
     $ShortcutTarget = "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe"
     $Shell = New-Object -ComObject ("WScript.Shell")
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
     $Shortcut.TargetPath = $ShortcutTarget
     $Shortcut.Arguments = (" --resolution $Resolution --no-console")
     $Shortcut.Save()
-
-    Write-UserOutput "Resolution aplicada: $Resolution"
 
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 }
