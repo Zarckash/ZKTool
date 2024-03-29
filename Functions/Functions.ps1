@@ -598,7 +598,7 @@ function SetTimerResolution {
 
     Stop-Process -Name "SetTimerResolution"
 
-    "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv") -Encoding UTF8
+    "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.LogFolder + "TimerResolutionResults.log") -Encoding UTF8
 
     for ($i = $end; $i -ge $start; $i -= $increment) {
         Write-UserOutput "Probando $($i)ms"
@@ -622,14 +622,24 @@ function SetTimerResolution {
             }
         }
 
-        "$($i), $([math]::Round([double]$avg, 3)), $($stdev)" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv") -Encoding UTF8 -Append
+        "$($i), $([math]::Round([double]$avg, 3)), $($stdev)" | Out-File ($App.LogFolder + "TimerResolutionResults.log") -Encoding UTF8 -Append
 
         Stop-Process -Name "SetTimerResolution"
     }
 
+    $CSV = Import-Csv -Path ($App.LogFolder + "TimerResolutionResults.log")
+    "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.LogFolder + "TimerResolutionFilteredResults.log") -Encoding UTF8
+        
+    for ($i = 0; $i -lt $CSV.Length; $i++) {
+        if (($CSV[$i].DeltaMs -lt 0.09) -and ($CSV[$i].STDEV -lt 0.12)) {
+            "$($CSV[$i].RequestedResolutionMs),$($CSV[$i].DeltaMs),$($CSV[$i].STDEV)" | Out-File ($App.LogFolder + "TimerResolutionFilteredResults.log") -Encoding UTF8 -Append
+        }
+    }
 
-    $CSV = Import-Csv -Path ($App.FilesPath + "Timer Resolution\Results.csv")
-    $LowestDelta = 1
+
+    $CSV = Import-Csv -Path ($App.LogFolder + "TimerResolutionFilteredResults.log")
+
+    $LowestDelta = 0.1
 
     for ($i = 0; $i -lt $CSV.Length; $i++) {
         if ($CSV[$i].DeltaMs -lt $LowestDelta) {
