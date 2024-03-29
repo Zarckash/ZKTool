@@ -593,8 +593,8 @@ function SetTimerResolution {
 
     $increment = 0.001
     $start = 0.5
-    $end = 0.6
-    $samples = 60
+    $end = 0.55
+    $samples = 100
 
     Stop-Process -Name "SetTimerResolution"
 
@@ -655,12 +655,9 @@ function SetTimerResolution {
     $Shortcut.Arguments = (" --resolution $Resolution --no-console")
     $Shortcut.Save()
 
-    bcdedit /set disabledynamictick yes | Out-File $App.LogPath -Encoding UTF8 -Append
-    bcdedit /set useplatformtick yes | Out-File $App.LogPath -Encoding UTF8 -Append
-    bcdedit /set useplatformclock no | Out-File $App.LogPath -Encoding UTF8 -Append
-
-
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
+
+    $App.RequireRestart = $true
 }
 
 function UninstallBloat {
