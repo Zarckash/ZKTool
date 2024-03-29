@@ -600,7 +600,7 @@ function SetTimerResolution {
 
     "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.FilesPath + "Timer Resolution\Results.csv") -Encoding UTF8
 
-    for ($i = $start; $i -le $end; $i += $increment) {
+    for ($i = $end; $i -ge $start; $i -= $increment) {
         Write-UserOutput "Probando $($i)ms"
 
         Start-Process ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -ArgumentList @("--resolution", ($i * 1E4), "--no-console")
