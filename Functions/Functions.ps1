@@ -591,9 +591,9 @@ function SetTimerResolution {
     $App.Download.DownloadFile(($App.GitHubFilesPath + "/.zip/TimerResolution.zip"), ($App.FilesPath + "TimerResolution.zip"))
     Expand-Archive -Path ($App.FilesPath + "TimerResolution.zip") -DestinationPath ($App.FilesPath + "Timer Resolution") -Force
 
-    $increment = 0.001
+    $increment = 0.0001
     $start = 0.5
-    $end = 0.53
+    $end = 0.52
     $samples = 100
 
     Stop-Process -Name "SetTimerResolution"
@@ -642,7 +642,7 @@ function SetTimerResolution {
     $LowestSTDEV = 0.12
 
     for ($i = 0; $i -lt $CSV.Length; $i++) {
-        if ($CSV[$i].DeltaMs -lt $LowestSTDEV) {
+        if ($CSV[$i].STDEV -lt $LowestSTDEV) {
             $LowestSTDEV = $CSV[$i].STDEV
             $Resolution = $CSV[$i].RequestedResolutionMs
         }
