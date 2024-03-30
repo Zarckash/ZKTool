@@ -591,9 +591,9 @@ function SetTimerResolution {
     $App.Download.DownloadFile(($App.GitHubFilesPath + "/.zip/TimerResolution.zip"), ($App.FilesPath + "TimerResolution.zip"))
     Expand-Archive -Path ($App.FilesPath + "TimerResolution.zip") -DestinationPath ($App.FilesPath + "Timer Resolution") -Force
 
-    $increment = 0.0001
+    $increment = 0.001
     $start = 0.5
-    $end = 0.52
+    $end = 0.525
     $samples = 100
 
     Stop-Process -Name "SetTimerResolution"
