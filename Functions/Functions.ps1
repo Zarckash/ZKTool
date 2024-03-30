@@ -593,14 +593,14 @@ function SetTimerResolution {
 
     $increment = 0.001
     $start = 0.5
-    $end = 0.55
+    $end = 0.53
     $samples = 100
 
     Stop-Process -Name "SetTimerResolution"
 
     "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.LogFolder + "TimerResolutionResults.log") -Encoding UTF8
 
-    for ($i = $end; $i -ge $start; $i -= $increment) {
+    for ($i = $start; $i -le $end; $i += $increment) {
         Write-UserOutput "Probando $($i)ms"
 
         Start-Process ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -ArgumentList @("--resolution", ($i * 1E4), "--no-console")
@@ -639,11 +639,11 @@ function SetTimerResolution {
 
     $CSV = Import-Csv -Path ($App.LogFolder + "TimerResolutionFilteredResults.log")
 
-    $LowestDelta = 0.1
+    $LowestSTDEV = 0.12
 
     for ($i = 0; $i -lt $CSV.Length; $i++) {
-        if ($CSV[$i].DeltaMs -lt $LowestDelta) {
-            $LowestDelta = $CSV[$i].DeltaMs
+        if ($CSV[$i].DeltaMs -lt $LowestSTDEV) {
+            $LowestSTDEV = $CSV[$i].STDEV
             $Resolution = $CSV[$i].RequestedResolutionMs
         }
     }
