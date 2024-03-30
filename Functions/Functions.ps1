@@ -650,8 +650,8 @@ function SetTimerResolution {
 
     Write-UserOutput "Resolution aplicada: $Resolution"
 
-    New-Item "C:\Program Files\Timer Resolution\" -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
-    Move-Item -Path ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -Destination "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe"
+    New-Item "C:\Program Files\Timer Resolution\" -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+    Move-Item -Path ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -Destination "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe" -Force
 
     $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Startup\Timer Resolution.lnk"
 
@@ -667,7 +667,7 @@ function SetTimerResolution {
 
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 
-    $App.RequireRestart = $true
+    Start-Process "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe" -ArgumentList @("--resolution", $Resolution, "--no-console")
 }
 
 function UninstallBloat {
