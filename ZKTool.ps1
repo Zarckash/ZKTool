@@ -218,6 +218,7 @@ $PwShellGUI.AddScript({
                     $App.FunctionsToRun.Add($_)
                 }
                 elseif (($_ -eq "Export") -or ($_ -eq "Import")) {
+                    $App.Download.DownloadFile(($App.GitHubPath + "Functions/Export-Import.ps1"), ($App.FunctionsPath + "Export-Import.ps1"))
                     . ($App.FunctionsPath + "Export-Import.ps1")
                     if ($_ -eq "Export") {
                         & Export-Import -Export
