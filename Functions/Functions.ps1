@@ -1001,6 +1001,12 @@ function UpdateGPUDrivers {
         Set-ItemProperty -Path "$RegPath\0002" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
     }
 
+    # Check if MSI Afterburner is running
+    if ($null -ne (Get-Process "MSIAfterburner") ) {
+        $MSIABRunning = $true
+        Stop-Process -Name "MSIAfterburner"
+    }
+
     # Strip driver if GeForce Experience is not installed
     if (!$GeForce) {
         Write-UserOutput "Limpiando archivos de driver"
@@ -1014,6 +1020,11 @@ function UpdateGPUDrivers {
     else {
         Write-UserOutput "Instalando drivers $LatestVersion"
         Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
+        Remove-Item ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\GeForce Experience.lnk")
+    }
+
+    if ($MSIABRunning) {
+        Start-Process "${env:ProgramFiles(x86)}\MSI Afterburner\MSIAfterburner.exe"
     }
 
     Write-UserOutput "Drivers $LatestVersion instalados correctamente"
