@@ -37,4 +37,6 @@ if ($CurrentImagesSha -ne $LatestImagesSha) {
     $Images | ForEach-Object {
         $App.Download.DownloadFile(($App.GitHubPath + "Resources/Images" + $_),($App.ResourcesPath + "Images" + $_))
     }
+    $LatestImagesSha | Set-Content -Path ($App.ZKToolPath + "Imagessha")
+    attrib +h ($App.ZKToolPath + "Imagessha")
 }
