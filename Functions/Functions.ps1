@@ -581,8 +581,6 @@ function GPUInputLag {
     elseif (Test-Path "$RegPath\0002") {
         Set-ItemProperty -Path "$RegPath\0002" -Name "DisableDynamicPstate" -Type DWord -Value 1
     }
-
-    $App.RequireRestart = $true
 }
 
 function SetTimerResolution {
