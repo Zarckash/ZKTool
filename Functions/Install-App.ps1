@@ -60,6 +60,13 @@
 
     # Check winget installs
     $i = 1
+    $getEncoding = [Console]::OutputEncoding
+    [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
+    $WingetList = winget list -s winget | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}' 
+
+    [Console]::OutputEncoding = $getEncoding
+
     $App.WingetApps | ForEach-Object {
         if ($_ -like "App*") {
             $SourceList = "AppsList"
@@ -75,8 +82,7 @@
             Write-UserOutput -Message ("Comprobando instalación de " + $App.$SourceList.$_.Name) -Progress ("$i de " + $App.WingetApps.Count)
         }
 
-        $WingetListCheck = Winget List $App.$SourceList.$_.Installer | Select-String -Pattern $App.$SourceList.$_.Installer | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
-        if (!($WingetListCheck -eq $App.$SourceList.$_.Installer)) {
+        if (!($WingetList.Id -contains $App.$SourceList.$_.Installer)) {
             Update-GUI $_ Foreground Red
         }
         $i++
