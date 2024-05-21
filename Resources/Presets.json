@@ -6,5 +6,13 @@
         "ColorBox4": "#9382F4",
         "ColorBox5": "#ACA0F7",
         "Wallpaper": "BlackWindows11.jpg"
+    },
+    "Preset2": {
+        "ColorBox1": "#FFFFFF",
+        "ColorBox2": "#FFFFFF",
+        "ColorBox3": "#FFD7EB",
+        "ColorBox4": "#FF88C4",
+        "ColorBox5": "#FFD7EB",
+        "Wallpaper": "White.png"
     }
 }
