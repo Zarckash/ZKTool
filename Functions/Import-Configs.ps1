@@ -23,7 +23,9 @@ function ApexLegends {
 
 function XDefiant {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/XDefiant.zip"), ($App.FilesPath + "\XDefiant.zip"))
-    Expand-Archive -Path ($App.FilesPath + "XDefiant.zip") -DestinationPath -Destination "$DocumentsPath\My Games\XDefiant" -Force
+    Expand-Archive -Path ($App.FilesPath + "XDefiant.zip") -DestinationPath ($App.FilesPath + "XDefiant") -Force
+    Get-Item -Path ($App.FilesPath + "XDefiant\bc_general_settings_.cfg") | Rename-Item -NewName (Get-Item ($DocumentsPath + "\My Games\XDefiant\bc_general_settings_*")).Name -Force
+    Get-ChildItem -Path ($App.FilesPath + "XDefiant") | Move-Item -Destination "$DocumentsPath\My Games\XDefiant" -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config4.Name + " aplicada")
 }
 
