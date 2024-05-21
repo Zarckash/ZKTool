@@ -325,6 +325,9 @@ function RegistryTweaks {
     # Hide Recent Files In Start Menu
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocks" -Type DWord -Value 0
 
+    # Disable account notifications in Start Menu
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_AccountNotifications" -Type DWord -Value 0
+
     # Hide Windows Files
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
     if (!(Test-Path -Path "C:\PerfLogs")) {
@@ -1017,7 +1020,7 @@ function UpdateGPUDrivers {
     Start-Sleep 3
 
     & NvidiaSettings
-    & EnableMSIMode
+    & GPUInputLag
 }
 
 function HideSystemComponents {
