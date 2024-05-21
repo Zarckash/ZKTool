@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.2.1"
+$App.Version = "4.2.2"
 
 if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
     if (!(Test-Path "$env:ProgramFiles\ZKTool\Setup.exe")) {
@@ -149,18 +149,8 @@ $PwShellGUI.AddScript({
     New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-    $Uri = "https://api.github.com/repos/Zarckash/ZKTool/branches/main"
-    $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
-    $LatestSha = $WebRequest.commit.commit.tree.sha
-    $CurrentSha = Get-Content -Path ($App.ZKToolPath + "sha")
-
-    if ($CurrentSha -ne $LatestSha) {
-        $Lists = @('Apps.json','Configs.json','Extra.json','Presets.json','Tweaks.json')
-        $Lists | ForEach-Object {
-            $App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
-        }
-        $LatestSha | Set-Content -Path ($App.ZKToolPath + "sha")
-    }
+    . ($App.FunctionsPath + "Test-Sha.ps1")
+    Test-Sha
 
     $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
     $Functions | ForEach-Object {
