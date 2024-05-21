@@ -5,7 +5,7 @@ function ModernWarfareIII {
     Expand-Archive -Path (($App.FilesPath + "ModernWarfareIII.zip")) -DestinationPath (($App.FilesPath + "ModernWarfareIII")) -Force
     $CpuCores = (((Get-ComputerInfo -Property CsProcessors).CsProcessors).NumberOfCores) - 1
     (Get-Content -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst")).Replace("RendererWorkerCount:1.0 = `"`"","RendererWorkerCount:1.0 = `"$CpuCores`"") | Set-Content -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst")
-    Move-Item -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst") -Destination ("$DocumentsPath\Call of Duty\players") -Force
+    Move-Item -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst") -Destination "$DocumentsPath\Call of Duty\players" -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
 }
 
@@ -18,8 +18,15 @@ function PUBG {
 function ApexLegends {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Apex.zip"), ($App.FilesPath + "\Apex.zip"))
     Expand-Archive -Path ($App.FilesPath + "Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
+}
+
+function XDefiant {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/XDefiant.zip"), ($App.FilesPath + "\XDefiant.zip"))
+    Expand-Archive -Path ($App.FilesPath + "XDefiant.zip") -DestinationPath -Destination "$DocumentsPath\My Games\XDefiant" -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config4.Name + " aplicada")
 }
+
 
 function MSIAfterburner {
     $App.Download.DownloadFile(($App.GitHubFilesPathPath + ".zip/MSIAfterburner.zip"), ($App.FilesPath + "MSIAfterburner.zip"))

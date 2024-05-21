@@ -14,6 +14,11 @@
         "FunctionName": "ApexLegends",
         "Image": "ApexLegends.ico"
     },
+    "Config4": {
+        "Name": "XDefiant",
+        "FunctionName": "XDefiant",
+        "Image": "XDefiant.ico"
+    },
     "Config15": {
         "Name": "MSI Afterburner",
         "FunctionName": "MSIAfterburner",
