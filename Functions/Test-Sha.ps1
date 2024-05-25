@@ -9,6 +9,7 @@ if ($CurrentSha -ne $LatestSha) {
         $App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
     }
     $LatestSha | Set-Content -Path ($App.ZKToolPath + "sha")
+    "sha updated to $LatestSha"
 }
 
 for ($i = 0; $i -lt $WebRequest.tree.length; $i++) {
@@ -30,6 +31,11 @@ $Uri = $ImagesUrl
 $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
 
 $LatestImagesSha = $WebRequest.sha
+
+if (!(Test-Path ($App.ZKToolPath + "Imagessha"))) {
+    New-Item ($App.ZKToolPath + "Imagessha") | Out-Null
+}
+
 $CurrentImagesSha = Get-Content -Path ($App.ZKToolPath + "Imagessha")
 
 if ($CurrentImagesSha -ne $LatestImagesSha) {
@@ -39,4 +45,5 @@ if ($CurrentImagesSha -ne $LatestImagesSha) {
     }
     $LatestImagesSha | Set-Content -Path ($App.ZKToolPath + "Imagessha")
     attrib +h ($App.ZKToolPath + "Imagessha")
+    "imagessha updated to $LatestImagesSha" | Out-File $App.LogPath -Encoding UTF8 -Append
 }

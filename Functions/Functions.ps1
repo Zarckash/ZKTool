@@ -731,11 +731,12 @@ function UninstallBloat {
         "Disney.37853FC22B2CE"
         "Microsoft.549981C3F5F10"
         "Microsoft.OutlookForWindows"
+        "MicrosoftWindows.CrossDevice"
     )
 
     $Bloatware | ForEach-Object {
         if ($_ -eq (Get-AppxPackage -Name $_).Name) {
-            Write-Output ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
+            Write-Host ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
             Get-AppxPackage -Name $_ | Remove-AppPackage
         }
     }
