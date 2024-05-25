@@ -19,6 +19,10 @@
         "Name": "Timer Resolution",
         "FunctionName": "SetTimerResolution"
     },
+    "Tweak7": {
+        "Name": "Timer Resolution Preciso",
+        "FunctionName": "SetTimerResolutionPrecise"
+    },
     "Tweak9": {
         "Name": "Desinstalar aplicaciones",
         "FunctionName": "UninstallBloat"
