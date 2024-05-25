@@ -736,7 +736,7 @@ function UninstallBloat {
 
     $Bloatware | ForEach-Object {
         if ($_ -eq (Get-AppxPackage -Name $_).Name) {
-            Write-Host ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
+            Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
             Get-AppxPackage -Name $_ | Remove-AppPackage
         }
     }
