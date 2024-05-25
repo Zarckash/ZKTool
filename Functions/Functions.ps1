@@ -738,9 +738,9 @@ function UninstallBloat {
     )
 
     $Bloatware | ForEach-Object {
-        if ($_ -eq (Get-AppxPackage -Name $_).Name) {
+        if ($_ -eq (Get-AppxPackage -AllUsers -Name $_).Name) {
             Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
-            Get-AppxPackage -Name $_ | Remove-AppPackage
+            Get-AppxPackage -AllUsers -Name $_ | Remove-AppPackage -AllUsers
         }
     }
 
@@ -798,7 +798,7 @@ function UninstallOneDrive {
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $App.LogPath -Encoding UTF8 -Append
     Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse
     Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse
-    Get-AppxPackage Microsoft.OneDriveSync | Remove-AppxPackage
+    Get-AppxPackage -AllUsers -Name "Microsoft.OneDriveSync" | Remove-AppxPackage -AllUsers
 
     $App.RequireRestart = $true
 }
@@ -819,7 +819,7 @@ function RealtekCleaner {
     sc.exe delete RtkAudioUniversalService | Out-File $App.LogPath -Encoding UTF8 -Append
     sc.exe start Audiosrv | Out-File $App.LogPath -Encoding UTF8 -Append
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
-    Get-AppxPackage -All "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
+    Get-AppxPackage -AllUsers "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage -AllUsers
 }
 
 function ReduceIconsSpacing {
