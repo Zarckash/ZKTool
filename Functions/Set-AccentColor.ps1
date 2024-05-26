@@ -7,7 +7,7 @@
     $App.AccentColor = "#"
     $Color = $Color - 1
 
-    $GetWindowsAccentColor = (Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette") | Select-Object -Skip ($Color*4) | Select-Object -First 3
+    $GetWindowsAccentColor = (Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette") | Select-Object -Skip ($Color*4) -First 3
 
     $GetWindowsAccentColor | ForEach-Object {
         if ($_ -lt 10) {
@@ -19,7 +19,12 @@
     }
 
     if (($App.AccentColor -eq "#000000") -or ($App.AccentColor -eq "#FFFFFF")) {
-        $App.AccentColor = "#DBDBDB"
+        if ($Color -lt 5) {
+            Set-AccentColor ($Color + 3)
+        }
+        else {
+            $App.AccentColor = "#ACA5F3"
+        }
     }
 
     if ($App.AccentColor -eq "#4CC2FF") {
