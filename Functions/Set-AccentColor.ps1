@@ -19,7 +19,7 @@
     }
 
     if (($App.AccentColor -eq "#000000") -or ($App.AccentColor -eq "#FFFFFF")) {
-        Set-AccentColor 4
+        $App.AccentColor = "#DBDBDB"
     }
 
     if ($App.AccentColor -eq "#4CC2FF") {
