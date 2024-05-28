@@ -18,6 +18,10 @@
         }
     }
 
+    if ($App.AccentColor -eq "#4CC2FF") {
+        $App.AccentColor = "#ACA5F3" # Default app color
+    }
+
     if (($App.AccentColor -eq "#000000") -or ($App.AccentColor -eq "#FFFFFF")) {
         if ($Color -lt 5) {
             Set-AccentColor ($Color + 3)
@@ -25,10 +29,6 @@
         else {
             $App.AccentColor = "#ACA5F3"
         }
-    }
-
-    if ($App.AccentColor -eq "#4CC2FF") {
-        $App.AccentColor = "#ACA5F3" # Default app color
     }
 
     $Utf8WithBOM = New-Object System.Text.UTF8Encoding $true
