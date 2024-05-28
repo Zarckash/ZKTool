@@ -222,6 +222,7 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Scheduling Category" -Type String -Value "High"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "SFIO Priority" -Type String -Value "High"
     Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_FSEBehaviorMode" -Type DWord -Value 2
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 
     # Edge Settings
     Write-UserOutput "Optimizando Edge"
@@ -674,8 +675,6 @@ function SetTimerResolutionPrecise {
     $Shortcut.TargetPath = $ShortcutTarget
     $Shortcut.Arguments = (" --resolution $Resolution --no-console")
     $Shortcut.Save()
-
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 
     Start-Process "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe" -ArgumentList @("--resolution", $Resolution, "--no-console")
 }
@@ -1192,7 +1191,8 @@ function BlackIcons {
     $Shortcut = $Shell.CreateShortcut($ShortcutPath)
     $Shortcut.IconLocation = "$IconLocation, 0"
     $Shortcut.Save()
-    Copy-Item -Path $IconLocation -Destination "$env:userprofile\AppData\Local\Microsoft\Edge\User Data\Default\Edge Profile.ico" -Force
+    Copy-Item -Path $IconLocation -Destination "$env:localappdata\Microsoft\Edge\User Data\Default\Edge Profile.ico" -Force
+    Remove-Item -Path "$env:appdata\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge.lnk" -Force
 
     # Black Explorer
     $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\File Explorer.lnk"
