@@ -11,22 +11,10 @@
         "Arguments": "/aiV /gm2"
     },
     "Extra3": {
-        "Name": "Autoruns",
-        "Installer": "Autoruns.exe",
-        "Output": "Abriendo ",
-        "Source": ".exe"
-    },
-    "Extra4": {
-        "Name": "Rufus",
-        "Installer": "Rufus.exe",
-        "Output": "Abriendo ",
-        "Source": ".exe"
-    },
-    "Extra5": {
         "Name": "Paquete de undervolt AMD",
         "FunctionName": "AMDUndervoltPack"
     },
-    "Extra6": {
+    "Extra4": {
         "Name": "Actualizar drivers GPU",
         "FunctionName": "UpdateGPUDrivers"
     },
