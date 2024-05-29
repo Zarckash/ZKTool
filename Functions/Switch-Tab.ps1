@@ -1,4 +1,4 @@
-﻿$App.NavItemsList = @('Apps','Tweaks','Extra','Configs','UserFolders','NetConfig','Personalization')
+﻿$App.NavItemsList = @('Apps','Tweaks','Extra','Utilities','Configs','UserFolders','NetConfig','Personalization')
 $App.DisksList = @('Disk1','Disk2','Disk3','Disk4','Disk5','Disk6')
 
 if ($App.AppsBorder.Opacity -eq 1) {

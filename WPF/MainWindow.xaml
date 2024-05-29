@@ -126,7 +126,7 @@
                     <Border Background="{DynamicResource AppAccentColor}" CornerRadius="2" />
                 </Grid>
 
-                <StackPanel x:Name="Nav" Height="350">
+                <StackPanel x:Name="Nav" Height="370">
                     <ToggleButton
                         x:Name="Apps"
                         IsChecked="True"
@@ -205,7 +205,7 @@
                         </StackPanel>
                     </ToggleButton>
 
-                    <ToggleButton x:Name="Utilities" Style="{DynamicResource NavButtonStyle}">
+                    <ToggleButton x:Name="Utilidades" Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
