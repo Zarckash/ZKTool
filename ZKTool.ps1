@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.2.3"
+$App.Version = "4.2.4"
 
 if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
     if (!(Test-Path "$env:ProgramFiles\ZKTool\Setup.exe")) {
@@ -191,9 +191,10 @@ $PwShellGUI.AddScript({
             $App.SelectedButtons | ForEach-Object {
                 if ($_ -like "App*") {
                     $SourceList = "AppsList"
-                }
-                else {
+                } elseif ($_ -like "Extra*") {
                     $SourceList = "ExtraList"
+                } elseif ($_ -like "Utility*") {
+                    $SourceList = "UtilitiesList"
                 }
 
                 if (($App.$SourceList.$_.Source -eq "Winget") -or ($App.$SourceList.$_.Source -eq ".exe") -or ($App.$SourceList.$_.Source -eq ".appx")) {

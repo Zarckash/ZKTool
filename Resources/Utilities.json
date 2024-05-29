@@ -1,0 +1,20 @@
+﻿{
+    "Utility1": {
+        "Name": "Polling Rate Tester",
+        "Installer": "PollingRateTester.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "Utility2": {
+        "Name": "Autoruns",
+        "Installer": "Autoruns.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "Utility3": {
+        "Name": "Rufus",
+        "Installer": "Rufus.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    }
+}

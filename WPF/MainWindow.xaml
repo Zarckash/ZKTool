@@ -205,6 +205,31 @@
                         </StackPanel>
                     </ToggleButton>
 
+                    <ToggleButton x:Name="Utilities" Style="{DynamicResource NavButtonStyle}">
+                        <StackPanel
+                            Width="{Binding ActualWidth, ElementName=btnTweaks}"
+                            Height="{Binding ActualHeight, ElementName=btnTweaks}"
+                            Margin="-8,0,0,0"
+                            Orientation="Horizontal">
+                            <Border
+                                x:Name="UtilitiesBorder"
+                                Width="3"
+                                Height="18"
+                                Margin="-1,0,0,0"
+                                Background="{DynamicResource AppAccentColor}"
+                                CornerRadius="2"
+                                Opacity="0" />
+                            <Image
+                                Width="20"
+                                Margin="4,0,0,0"
+                                Source="C:\Program Files\ZKTool\WPF\Images\Utilities.ico" />
+                            <TextBlock
+                                Margin="4,0"
+                                VerticalAlignment="Center"
+                                Text="Utilities" />
+                        </StackPanel>
+                    </ToggleButton>
+
                     <ToggleButton x:Name="Configs" Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
@@ -553,6 +578,60 @@
                         <ToggleButton x:Name="Extra22" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Extra23" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Extra24" Style="{DynamicResource TweakButtonStyle}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid
+                x:Name="UtilitiesContentGrid"
+                Grid.Column="1"
+                Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="63" />
+                </Grid.RowDefinitions>
+                <Label Content="Utilities" Style="{DynamicResource ContentLabelStyle}" />
+                <Grid Grid.Row="1" Margin="8,0,0,0">
+                    <Border Background="{DynamicResource AppItemsColor}" CornerRadius="6" />
+                </Grid>
+                <Grid Grid.Row="1" Margin="8,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Label Content="Todo" Style="{DynamicResource CategoryLabelStyle}" />
+                        <ToggleButton x:Name="Utility1" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility2" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility3" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility4" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility5" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility6" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility7" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility8" Style="{DynamicResource TweakButtonStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label Content="" Style="{DynamicResource CategoryLabelStyle}" />
+                        <ToggleButton x:Name="Utility9" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility10" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility11" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility12" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility13" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility14" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility15" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility16" Style="{DynamicResource TweakButtonStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <Label Content="" Style="{DynamicResource CategoryLabelStyle}" />
+                        <ToggleButton x:Name="Utility17" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility18" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility19" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility20" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility21" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility22" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility23" Style="{DynamicResource TweakButtonStyle}" />
+                        <ToggleButton x:Name="Utility24" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                 </Grid>
             </Grid>
