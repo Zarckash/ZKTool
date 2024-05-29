@@ -659,6 +659,10 @@ function SetTimerResolutionPrecise {
         }
     }
 
+    if ($Resolution.Length -lt 1) {
+        $Resolution = "5000"
+    }
+
     Write-UserOutput "Resolution aplicada: $Resolution"
 
     New-Item "C:\Program Files\Timer Resolution\" -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
@@ -965,7 +969,7 @@ function UpdateGPUDrivers {
     if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
         Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
         Start-Sleep 3
-        return
+        #return
     }
     else {
         Write-UserOutput "Nueva versión $LatestVersion encontrada"
@@ -976,6 +980,8 @@ function UpdateGPUDrivers {
     if ($WingetListCheck -eq 'Nvidia.GeForceExperience') {
         $GeForce = $true
     }
+
+    $LatestVersion = "552.44"
 
     # Downloading latest Nvidia drivers
     Write-UserOutput "Descargando últimos drivers de Nvidia $LatestVersion"
