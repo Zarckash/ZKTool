@@ -590,7 +590,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="63" />
                 </Grid.RowDefinitions>
-                <Label Content="Utilities" Style="{DynamicResource ContentLabelStyle}" />
+                <Label Content="Utilidades" Style="{DynamicResource ContentLabelStyle}" />
                 <Grid Grid.Row="1" Margin="8,0,0,0">
                     <Border Background="{DynamicResource AppItemsColor}" CornerRadius="6" />
                 </Grid>

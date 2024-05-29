@@ -49,7 +49,7 @@ $App.Close.Add_Click({
 
 $App.SelectedButtons = New-Object System.Collections.Generic.List[System.Object]
 
-$App.AppsList.psobject.properties.name + $App.TweaksList.psobject.properties.name + $App.ExtraList.psobject.properties.name + $App.ConfigsList.psobject.properties.name + $UserFolders | ForEach-Object {
+$App.AppsList.psobject.properties.name + $App.TweaksList.psobject.properties.name + $App.ExtraList.psobject.properties.name + $App.UtilitiesList.psobject.properties.name + $App.ConfigsList.psobject.properties.name + $UserFolders | ForEach-Object {
 
     if ($_ -like "App*") {
         $SourceList = "AppsList"
