@@ -205,7 +205,7 @@
                         </StackPanel>
                     </ToggleButton>
 
-                    <ToggleButton x:Name="Utilidades" Style="{DynamicResource NavButtonStyle}">
+                    <ToggleButton x:Name="Utilities" Style="{DynamicResource NavButtonStyle}">
                         <StackPanel
                             Width="{Binding ActualWidth, ElementName=btnTweaks}"
                             Height="{Binding ActualHeight, ElementName=btnTweaks}"
@@ -226,7 +226,7 @@
                             <TextBlock
                                 Margin="4,0"
                                 VerticalAlignment="Center"
-                                Text="Utilities" />
+                                Text="Utilidades" />
                         </StackPanel>
                     </ToggleButton>
 
