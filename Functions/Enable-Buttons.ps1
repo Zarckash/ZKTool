@@ -1,6 +1,7 @@
 ﻿$App.AppsList = Get-Content ($App.ResourcesPath + "Apps.json") -Raw | ConvertFrom-Json
 $App.TweaksList = Get-Content ($App.ResourcesPath + "Tweaks.json") -Raw | ConvertFrom-Json
 $App.ExtraList = Get-Content ($App.ResourcesPath + "Extra.json") -Raw | ConvertFrom-Json
+$App.UtilitiesList = Get-Content ($App.ResourcesPath + "Utilities.json") -Raw | ConvertFrom-Json
 $App.ConfigsList = Get-Content ($App.ResourcesPath + "Configs.json") -Raw | ConvertFrom-Json
 $UserFolders = @("DesktopFolder","DownloadsFolder","DocumentsFolder","PicturesFolder","VideosFolder","MusicFolder")
 $App.IPList = @("IP1","IP2","IP3","IP4","IP5","IP6")
@@ -58,6 +59,9 @@ $App.AppsList.psobject.properties.name + $App.TweaksList.psobject.properties.nam
     }
     elseif ($_ -like "Extra*") {
         $SourceList = "ExtraList"
+    }
+    elseif ($_ -like "Utility*") {
+        $SourceList = "UtilitiesList"
     }
     elseif ($_ -like "Config*") {
         $SourceList = "ConfigsList"

@@ -6,8 +6,10 @@
         if ($_ -like "App*") {
             $SourceList = "AppsList"
         }
-        else {
+        elseif ($_ -like "Extra*") {
             $SourceList = "ExtraList"
+        }elseif ($_ -like "Utility*") {
+            $SourceList = "UtilitiesList"
         }
 
         Update-GUI $_ Foreground $App.AccentColor
