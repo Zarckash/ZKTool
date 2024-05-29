@@ -4,7 +4,7 @@ $LatestSha = $WebRequest.sha
 $CurrentSha = Get-Content -Path ($App.ZKToolPath + "sha")
 
 if ($CurrentSha -ne $LatestSha) {
-    $Lists = @('Apps.json','Configs.json','Extra.json','Presets.json','Tweaks.json')
+    $Lists = @('Apps.json','Configs.json','Extra.json','Utilities.json','Presets.json','Tweaks.json')
     $Lists | ForEach-Object {
         $App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
     }
