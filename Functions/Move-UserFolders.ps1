@@ -59,7 +59,7 @@
 $SelectedDisk = $App.($App.SelectedDisk + "Label")
 
 $App.FoldersToMove | ForEach-Object {
-    Write-UserOutput "Moviendo carpeta de usuario"
+    Write-UserOutput ("Moviendo carpeta " + ($_ -replace ('Folder','')) + " a (" + $SelectedDisk + ":)")
     Update-GUI $_ Foreground $App.AccentColor
     Update-GUI $App.SelectedDisk Foreground $App.AccentColor
     $Path = "$SelectedDisk" + ":\Users\$env:username\" + ($_ -replace "Folder","")
