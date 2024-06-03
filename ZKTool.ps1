@@ -191,9 +191,11 @@ $PwShellGUI.AddScript({
             $App.SelectedButtons | ForEach-Object {
                 if ($_ -like "App*") {
                     $SourceList = "AppsList"
-                } elseif ($_ -like "Extra*") {
+                }
+                elseif ($_ -like "Extra*") {
                     $SourceList = "ExtraList"
-                } elseif ($_ -like "Utility*") {
+                }
+                else {
                     $SourceList = "UtilitiesList"
                 }
 
