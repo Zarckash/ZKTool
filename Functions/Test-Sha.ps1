@@ -1,49 +1,83 @@
 ﻿$Uri =  "https://api.github.com/repos/Zarckash/ZKTool/git/trees/main"
 $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
 $LatestSha = $WebRequest.sha
-$CurrentSha = Get-Content -Path ($App.ZKToolPath + "sha")
+$ShaJson = Get-Content ($Hash.ZKToolPath + "Sha.json") -Raw | ConvertFrom-Json
 
-if ($CurrentSha -ne $LatestSha) {
-    $Lists = @('Apps.json','Configs.json','Extra.json','Utilities.json','Presets.json','Tweaks.json')
-    $Lists | ForEach-Object {
-        $App.Download.DownloadFile(($App.GitHubPath + "Resources/" + $_),($App.ResourcesPath + $_))
-    }
-    $LatestSha | Set-Content -Path ($App.ZKToolPath + "sha")
-    "sha updated to $LatestSha"
+if ($ShaJson.GlobalSha -ne $LatestSha) {
+    Test-FunctionsSha
+    Test-ResourcesSha
+
+    $ShaJson.GlobalSha = $LatestSha
+
+    $ShaJson | ConvertTo-Json | Out-File ($Hash.ZKToolPath + "Sha.json")
 }
 
-for ($i = 0; $i -lt $WebRequest.tree.length; $i++) {
-    if ($WebRequest.tree[$i].path -eq "Resources") {
-        $ResourcesUrl = $WebRequest.tree[$i].url
+function Test-FunctionsSha {
+    for ($i = 0; $i -lt $WebRequest.tree.length; $i++) {
+        if ($WebRequest.tree[$i].path -eq "Functions") {
+            $FunctionsLatestSha = $WebRequest.tree[$i].sha
+        }
+    }
+
+    if ($ShaJson.Functions.Sha -ne $FunctionsLatestSha) {
+        Update-GUI Status Text "Actualizando funciones..."
+
+        $FunctionsUri =  "https://api.github.com/repos/Zarckash/ZKTool/git/trees/$FunctionsLatestSha"
+        $FunctionsWebRequest = (Invoke-WebRequest -Uri $FunctionsUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
+
+        $FunctionsWebRequest.tree.path | ForEach-Object {
+            $Hash.Download.DownloadFile(($Hash.GitHubPath + "Functions/" + $_), ($Hash.ZKToolPath + "Functions/" + $_))
+        }
+        
+        $ShaJson.Functions.Sha = $FunctionsLatestSha
     }
 }
 
-$Uri = $ResourcesUrl
-$WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
+function Test-ResourcesSha {
+    for ($i = 0; $i -lt $WebRequest.tree.length; $i++) {
+        if ($WebRequest.tree[$i].path -eq "Resources") {
+            $ResourcesLatestSha = $WebRequest.tree[$i].sha
+        }
+    }
 
-for ($i = 0; $i -lt $WebRequest.tree.length; $i++) {
-    if ($WebRequest.tree[$i].path -eq "Images") {
-        $ImagesUrl = $WebRequest.tree[$i].url
+    if ($ShaJson.Resources.Sha -ne $ResourcesLatestSha) {
+        Update-GUI Status Text "Actualizando listas..."
+
+        $ShaJson.Resources.Sha = $ResourcesLatestSha
+
+        $ResourcesUri =  ("https://api.github.com/repos/Zarckash/ZKTool/git/trees/" + $ShaJson.Resources.Sha)
+        $ResourcesWebRequest = (Invoke-WebRequest -Uri $ResourcesUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
+    
+        $ResourcesWebRequest.tree.path | ForEach-Object {
+            if ($_ -eq "*.json") {
+                $Hash.Download.DownloadFile(($Hash.GitHubPath + "Resources/" + $_), ($Hash.ZKToolPath + "Resources/" + $_))
+            }
+        }
+        
+        Test-ImagesSha
     }
 }
 
-$Uri = $ImagesUrl
-$WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
+function Test-ImagesSha {
+    $ImagesUri =  ("https://api.github.com/repos/Zarckash/ZKTool/git/trees/" + $ShaJson.Resources.Sha)
+    $ImagesWebRequest = (Invoke-WebRequest -Uri $ImagesUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
 
-$LatestImagesSha = $WebRequest.sha
-
-if (!(Test-Path ($App.ZKToolPath + "Imagessha"))) {
-    New-Item ($App.ZKToolPath + "Imagessha") | Out-Null
-}
-
-$CurrentImagesSha = Get-Content -Path ($App.ZKToolPath + "Imagessha")
-
-if ($CurrentImagesSha -ne $LatestImagesSha) {
-    $Images = $WebRequest.tree.path
-    $Images | ForEach-Object {
-        $App.Download.DownloadFile(($App.GitHubPath + "Resources/Images" + $_),($App.ResourcesPath + "Images" + $_))
+    for ($i = 0; $i -lt $ImagesWebRequest.tree.length; $i++) {
+        if ($ImagesWebRequest.tree[$i].path -eq "Images") {
+            $ImagesLatestSha = $ImagesWebRequest.tree[$i].sha
+        }
     }
-    $LatestImagesSha | Set-Content -Path ($App.ZKToolPath + "Imagessha")
-    attrib +h ($App.ZKToolPath + "Imagessha")
-    "imagessha updated to $LatestImagesSha" | Out-File $App.LogPath -Encoding UTF8 -Append
+    
+    if ($ShaJson.Resources.Images.Sha -ne $ImagesLatestSha) {
+        Update-GUI Status Text "Actualizando imagenes..."
+
+        $ImagesUri =  ("https://api.github.com/repos/Zarckash/ZKTool/git/trees/" + $ImagesLatestSha)
+        $ImagesWebRequest = (Invoke-WebRequest -Uri $ImagesUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
+
+        $ImagesWebRequest.tree.path | ForEach-Object {
+            $Hash.Download.DownloadFile(($Hash.GitHubPath + "Resources/Images" + $_), ($Hash.ZKToolPath + "Resources/Images" + $_))
+        }
+
+        $ShaJson.Resources.Images.Sha = $ImagesLatestSha 
+    }
 }
