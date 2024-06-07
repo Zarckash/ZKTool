@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.2.6"
+$App.Version = "4.2.7"
 
 if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
     if (!(Test-Path "$env:ProgramFiles\ZKTool\Setup.exe")) {
@@ -22,6 +22,8 @@ if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVers
 
 $Global:Hash = [Hashtable]::Synchronized(@{})
 $Hash.ZKToolPath = "$env:ProgramFiles\ZKTool\"
+$Hash.GitHubPath = "https://github.com/Zarckash/ZKTool/raw/main/"
+$Hash.Download = New-Object System.Net.WebClient
 $Hash.HoverButtonColor = "#1AFFFFFF"
 $Hash.XamlPath = ($Hash.ZKToolPath + "\WPF\SetupWindow.xaml")
 
@@ -81,6 +83,18 @@ $PwShell.AddScript({
     $Hash.Close.Add_Click({
         $Hash.Window.Close()
     })
+
+    function Update-GUI {
+        Param (
+            $Control,
+            $Property,
+            $Value
+        )
+        $Hash.$Control.Dispatcher.Invoke([action]{$Hash.$Control.$Property = $Value},"Normal")
+    }
+
+    . ($Hash.ZKToolPath + "\Functions\Test-Sha.ps1")
+    & Test-Sha
 
     $Hash.Title.Text = "ZKTool"
     $Hash.Status.Text = "Cargando aplicación..."
@@ -150,9 +164,6 @@ $PwShellGUI.AddScript({
     New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-    . ($App.FunctionsPath + "Test-Sha.ps1")
-    & Test-Sha
-
     $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
     $Functions | ForEach-Object {
         . ($App.FunctionsPath + "$_.ps1")
@@ -168,7 +179,7 @@ $PwShellGUI.AddScript({
 
         $NewRunspace = [RunspaceFactory]::CreateRunspace()
         $NewRunspace.ApartmentState = "STA"
-        $NewRunspace.ThreadOptions = "ReuseThread"          
+        $NewRunspace.ThreadOptions = "ReuseThread"
         $NewRunspace.Open()
         $NewRunspace.SessionStateProxy.SetVariable("App", $App)
         $Logic = [PowerShell]::Create().AddScript({
