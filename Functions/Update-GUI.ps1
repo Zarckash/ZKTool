@@ -1,4 +1,4 @@
-﻿Function Update-GUI {
+﻿function Update-GUI {
     Param (
         $Control,
         $Property,
