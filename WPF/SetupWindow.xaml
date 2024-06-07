@@ -97,7 +97,7 @@
             FontFamily="{DynamicResource Font}"
             FontSize="18"
             Foreground="{DynamicResource AppTextColor}"
-            Text="..." />
+            Text="" />
         
     </Grid>
 </Window>
