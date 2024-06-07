@@ -181,7 +181,7 @@ function Script:Get-AccentColor {
     return $AccentColor
 }
 
-$App.ActualPreset.Add_Click({
+function Script:Get-CurrentPreset {
     Update-GUI ColorBox1 Background (Get-AccentColor -Color 2)
     Update-GUI ColorBox2 Background (Get-AccentColor -Color 1)
     Update-GUI ColorBox3 Background (Get-AccentColor -Color 6)
@@ -212,7 +212,10 @@ $App.ActualPreset.Add_Click({
         Update-GUI WallpaperBoxLabel Visibility Collapsed
         Update-GUI WallpaperBoxImage Visibility Visible
     }
-})
+    
+}
+
+Get-CurrentPreset
 
 $App.PresetsList = Get-Content ($App.ResourcesPath + "Presets.json") -Raw | ConvertFrom-Json
 $App.PresetsList.psobject.properties.name | ForEach-Object {
