@@ -3,16 +3,7 @@ $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content
 $LatestSha = $WebRequest.sha
 $ShaJson = Get-Content ($Hash.ZKToolPath + "Sha.json") -Raw | ConvertFrom-Json
 
-if ($ShaJson.GlobalSha -ne $LatestSha) {
-    Update-Splash "Comprobando actualizaciones..."
-
-    Test-FunctionsSha
-    Test-ResourcesSha
-
-    $ShaJson.GlobalSha = $LatestSha
-
-    $ShaJson | ConvertTo-Json | Set-Content ($Hash.ZKToolPath + "Sha.json") -Encoding UTF8
-}
+Update-Splash "Comprobando actualizaciones..."
 
 function Test-FunctionsSha {
     for ($i = 0; $i -lt $WebRequest.tree.length; $i++) {
@@ -82,4 +73,14 @@ function Test-ImagesSha {
 
         $ShaJson.Resources.Images.Sha = $ImagesLatestSha 
     }
+}
+
+if ($ShaJson.GlobalSha -ne $LatestSha) {
+
+    Test-FunctionsSha
+    Test-ResourcesSha
+
+    $ShaJson.GlobalSha = $LatestSha
+
+    $ShaJson | ConvertTo-Json | Set-Content ($Hash.ZKToolPath + "Sha.json") -Encoding UTF8
 }
