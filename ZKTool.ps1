@@ -124,11 +124,20 @@ $PwShellGUI.AddScript({
     $App.HoverColor = "#0DFFFFFF"
     $App.HoverButtonColor = "#1AFFFFFF"
 
+    # Resetting log file
+    Remove-Item $App.LogFolder -Recurse -Force | Out-Null
+
+    # Creating folders
+    New-Item $App.LogFolder -ItemType Directory -Force | Out-Null
+    New-Item $App.FilesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+    New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+    New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+
     function Update-Splash {
         Param (
             $Value
         )
-        $Hash.$Control.Dispatcher.Invoke([action]{$Hash.Status.Text = $Value},"Normal")
+        $Hash.Status.Dispatcher.Invoke([action]{$Hash.Status.Text = $Value},"Normal")
         $Value | Out-File ($App.LogFolder +  "SplashOutput.log") -Encoding UTF8 -Append
     }
 
@@ -155,15 +164,6 @@ $PwShellGUI.AddScript({
     $App.AppTitleBar.Add_MouseDown({
         $App.Window.DragMove()
     })
-
-    # Resetting log file
-    Remove-Item $App.LogFolder -Recurse -Force | Out-Null
-
-    # Creating folders
-    New-Item $App.LogFolder -ItemType Directory -Force | Out-Null
-    New-Item $App.FilesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-    New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-    New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
     Update-Splash "Cargando aplicación..."
     $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
@@ -326,6 +326,7 @@ $PwShellGUI.AddScript({
         }
     })
 
+    Start-Sleep 1
     $App.GUILoaded = $true
     Start-Sleep 1
 
