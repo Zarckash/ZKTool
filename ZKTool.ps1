@@ -124,20 +124,19 @@ $PwShellGUI.AddScript({
     $App.HoverColor = "#0DFFFFFF"
     $App.HoverButtonColor = "#1AFFFFFF"
 
-    function Update-GUI {
+    function Update-Splash {
         Param (
-            $Control,
-            $Property,
             $Value
         )
-        $Hash.$Control.Dispatcher.Invoke([action]{$Hash.$Control.$Property = $Value},"Normal")
+        $Hash.$Control.Dispatcher.Invoke([action]{$Hash.Status.Text = $Value},"Normal")
+        $Value | Out-File ($App.LogFolder +  "SplashOutput.log") -Encoding UTF8 -Append
     }
 
     . ($App.ZKToolPath + "\Functions\Test-Sha.ps1")
     & Test-Sha
 
     # Updating app accent color
-    Update-GUI Status Text "Cambiando colores..."
+    Update-Splash "Cambiando colores..."
     . ($App.FunctionsPath + "Set-AccentColor.ps1")
     Set-AccentColor
     
@@ -166,7 +165,7 @@ $PwShellGUI.AddScript({
     New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-    Update-GUI Status Text "Cargando aplicación..."
+    Update-Splash "Cargando aplicación..."
     $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
     $Functions | ForEach-Object {
         . ($App.FunctionsPath + "$_.ps1")

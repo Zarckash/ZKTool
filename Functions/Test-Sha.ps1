@@ -4,7 +4,7 @@ $LatestSha = $WebRequest.sha
 $ShaJson = Get-Content ($Hash.ZKToolPath + "Sha.json") -Raw | ConvertFrom-Json
 
 if ($ShaJson.GlobalSha -ne $LatestSha) {
-    Update-GUI Status Text "Comprobando actualizaciones..."
+    Update-Splash "Comprobando actualizaciones..."
 
     Test-FunctionsSha
     Test-ResourcesSha
@@ -22,7 +22,7 @@ function Test-FunctionsSha {
     }
 
     if ($ShaJson.Functions.Sha -ne $FunctionsLatestSha) {
-        Update-GUI Status Text "Actualizando funciones..."
+        Update-Splash "Actualizando funciones..."
 
         $FunctionsUri =  "https://api.github.com/repos/Zarckash/ZKTool/git/trees/$FunctionsLatestSha"
         $FunctionsWebRequest = (Invoke-WebRequest -Uri $FunctionsUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
@@ -43,7 +43,7 @@ function Test-ResourcesSha {
     }
 
     if ($ShaJson.Resources.Sha -ne $ResourcesLatestSha) {
-        Update-GUI Status Text "Actualizando listas..."
+        Update-Splash "Actualizando listas..."
 
         $ShaJson.Resources.Sha = $ResourcesLatestSha
 
@@ -71,7 +71,7 @@ function Test-ImagesSha {
     }
     
     if ($ShaJson.Resources.Images.Sha -ne $ImagesLatestSha) {
-        Update-GUI Status Text "Actualizando imagenes..."
+        Update-Splash "Actualizando imagenes..."
 
         $ImagesUri =  ("https://api.github.com/repos/Zarckash/ZKTool/git/trees/" + $ImagesLatestSha)
         $ImagesWebRequest = (Invoke-WebRequest -Uri $ImagesUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
