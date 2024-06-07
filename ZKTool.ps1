@@ -139,6 +139,7 @@ $PwShellGUI.AddScript({
         )
         $Hash.Status.Dispatcher.Invoke([action]{$Hash.Status.Text = $Value},"Normal")
         $Value | Out-File ($App.LogFolder +  "SplashOutput.log") -Encoding UTF8 -Append
+        Start-Sleep .3
     }
 
     . ($App.ZKToolPath + "\Functions\Test-Sha.ps1")
