@@ -4,12 +4,14 @@ $LatestSha = $WebRequest.sha
 $ShaJson = Get-Content ($Hash.ZKToolPath + "Sha.json") -Raw | ConvertFrom-Json
 
 if ($ShaJson.GlobalSha -ne $LatestSha) {
+    Update-GUI Status Text "Comprobando actualizaciones..."
+
     Test-FunctionsSha
     Test-ResourcesSha
 
     $ShaJson.GlobalSha = $LatestSha
 
-    $ShaJson | ConvertTo-Json | Out-File ($Hash.ZKToolPath + "Sha.json")
+    $ShaJson | ConvertTo-Json | Set-Content ($Hash.ZKToolPath + "Sha.json") -Encoding UTF8
 }
 
 function Test-FunctionsSha {
