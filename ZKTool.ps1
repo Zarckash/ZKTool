@@ -334,12 +334,15 @@ $PwShellGUI.AddScript({
     $App.Window.ShowDialog()
 }) | Out-Null
 
+# Start loading app GUI
 $PwShellGUI.Runspace = $GUIRunspace
 $PwShellGUI.BeginInvoke() | Out-Null
 
+# Wait until app GUI is loaded
 while (!$App.GUILoaded) {
     Start-Sleep .3
 }
 
+# Close Splash Screen GUI after app is loaded
 $Hash.Window.Dispatcher.Invoke("Normal",[action]{$Hash.Window.Close()})
 $PwShell.EndInvoke($Handle) | Out-Null
