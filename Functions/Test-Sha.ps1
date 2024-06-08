@@ -42,7 +42,7 @@ function Test-ResourcesSha {
         $ResourcesWebRequest = (Invoke-WebRequest -Uri $ResourcesUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
     
         $ResourcesWebRequest.tree.path | ForEach-Object {
-            if ($_ -eq "*.json") {
+            if ($_ -like "*.json") {
                 $Hash.Download.DownloadFile(($Hash.GitHubPath + "Resources/" + $_), ($Hash.ZKToolPath + "Resources/" + $_))
             }
         }
