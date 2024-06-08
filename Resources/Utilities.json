@@ -6,12 +6,18 @@
         "Source": ".exe"
     },
     "Utility2": {
+        "Name": "Measure Sleep",
+        "Installer": "MeasureSleep.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "Utility3": {
         "Name": "Autoruns",
         "Installer": "Autoruns.exe",
         "Output": "Abriendo ",
         "Source": ".exe"
     },
-    "Utility3": {
+    "Utility4": {
         "Name": "Rufus",
         "Installer": "Rufus.exe",
         "Output": "Abriendo ",
