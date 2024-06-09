@@ -601,7 +601,7 @@
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <Label Content="Todo" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Mouse" Style="{DynamicResource CategoryLabelStyle}" />
                         <ToggleButton x:Name="Utility1" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Utility2" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Utility3" Style="{DynamicResource TweakButtonStyle}" />
@@ -612,7 +612,7 @@
                         <ToggleButton x:Name="Utility8" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1">
-                        <Label Content="" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Rendimiento" Style="{DynamicResource CategoryLabelStyle}" />
                         <ToggleButton x:Name="Utility9" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Utility10" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Utility11" Style="{DynamicResource TweakButtonStyle}" />
@@ -623,7 +623,7 @@
                         <ToggleButton x:Name="Utility16" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <Label Content="" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Vario" Style="{DynamicResource CategoryLabelStyle}" />
                         <ToggleButton x:Name="Utility17" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Utility18" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Utility19" Style="{DynamicResource TweakButtonStyle}" />
