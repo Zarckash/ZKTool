@@ -623,7 +623,7 @@
                         <ToggleButton x:Name="Utility16" Style="{DynamicResource TweakButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <Label Content="Vario" Style="{DynamicResource CategoryLabelStyle}" />
+                        <Label Content="Misc" Style="{DynamicResource CategoryLabelStyle}" />
                         <ToggleButton x:Name="Utility17" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Utility18" Style="{DynamicResource TweakButtonStyle}" />
                         <ToggleButton x:Name="Utility19" Style="{DynamicResource TweakButtonStyle}" />
