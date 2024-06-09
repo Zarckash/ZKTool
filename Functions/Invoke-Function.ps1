@@ -10,9 +10,12 @@
         elseif ($_ -like "Extra*") {
             $SourceList = "ExtraList"
         }
-        else {
+        elseif ($_ -like "Config*") {
             . ($App.FunctionsPath + "Import-Configs.ps1")
             $SourceList = "ConfigsList"
+        }
+        else {
+            $SourceList = "UtilitiesList"
         }
 
         Update-GUI $_ Foreground $App.AccentColor
