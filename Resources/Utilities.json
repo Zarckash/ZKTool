@@ -6,18 +6,28 @@
         "Source": ".exe"
     },
     "Utility2": {
+        "Name": "Mouse Tester",
+        "FunctionName": "MouseTester"
+    },
+    "Utility3": {
+        "Name": "USB Tree Viewer",
+        "Installer": "USBTreeViewer.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "Utility4": {
         "Name": "Measure Sleep",
         "Installer": "MeasureSleep.exe",
         "Output": "Abriendo ",
         "Source": ".exe"
     },
-    "Utility3": {
+    "Utility5": {
         "Name": "Autoruns",
         "Installer": "Autoruns.exe",
         "Output": "Abriendo ",
         "Source": ".exe"
     },
-    "Utility4": {
+    "Utility6": {
         "Name": "Rufus",
         "Installer": "Rufus.exe",
         "Output": "Abriendo ",
