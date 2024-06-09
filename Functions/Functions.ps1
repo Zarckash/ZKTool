@@ -1271,6 +1271,7 @@ function InstallFFMPEG {
 }
 
 function MouseTester {
+    Write-UserOutput "Abriendo Mouse Tester"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/MouseTester.zip"), ($App.FilesPath + "MouseTester.zip"))
     Expand-Archive -Path ($App.FilesPath + "MouseTester.zip") -DestinationPath ($App.FilesPath + "MouseTester") -Force
     Start-Process ($App.FilesPath + "MouseTester/MouseTester.exe")
