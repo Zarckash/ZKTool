@@ -40,5 +40,9 @@
     "Extra19": {
         "Name": "Instalar FFMPEG",
         "FunctionName": "InstallFFMPEG"
+    },
+    "Extra20": {
+        "Name": "Test",
+        "FunctionName": "MouseTester"
     }
 }
