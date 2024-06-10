@@ -1057,6 +1057,7 @@ function HideSystemComponents {
         "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_HDAudio.Driver"
         "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_USBC"
         "{D2152F77-52A6-4EA7-AC89-8143E189D730}"
+        "{C6FD611E-7EFE-488C-A0E0-974C09EF6473}"
         "mstsc-4b0a31aa-df6a-4307-9b47-d5cc50009643"
     )
 
@@ -1068,6 +1069,8 @@ function HideSystemComponents {
         "Microsoft EdgeWebView"
         "UXPW_1_1_0"
     )
+
+    Write-UserOutput "Ocultando Visual C++"
 
     $VisualCApps64 = Get-ChildItem -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 
@@ -1086,10 +1089,14 @@ function HideSystemComponents {
     }
 
     $Components64 | ForEach-Object {
+        $AppName = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName
+        Write-UserOutput "Ocultando $AppName"
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
     }
 
     $Components32 | ForEach-Object {
+        $AppName = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName
+        Write-UserOutput "Ocultando $AppName"
         Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
     }
 }
