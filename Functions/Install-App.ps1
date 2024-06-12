@@ -43,7 +43,7 @@
                 }
                 
             }
-            Start-Job -Name ("Job-$WingetApp") -ScriptBlock $WingetInstall -ArgumentList @($WingetApp,$WingetLog)
+            Start-Job -Name ("Job-$WingetApp") -ScriptBlock $WingetInstall -ArgumentList @($WingetApp,$WingetArguments,$WingetLog)
         }
         elseif ($App.$SourceList.$_.Source -eq ".exe") {
             $App.Download.DownloadFile($GitHubPath, $LocalPath)
