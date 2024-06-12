@@ -85,7 +85,7 @@ $PwShell.AddScript({
     })
 
     $Hash.Title.Text = "ZKTool"
-    $Hash.Status.Text = "Cargando..."
+    $Hash.Status.Text = "Comprobando actualizaciones..."
 
     $Hash.Window.ShowDialog()
 }) | Out-Null
