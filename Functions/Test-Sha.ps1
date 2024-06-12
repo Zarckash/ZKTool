@@ -3,8 +3,6 @@ $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content
 $LatestSha = $WebRequest.sha
 $ShaJson = Get-Content ($Hash.ZKToolPath + "Sha.json") -Raw | ConvertFrom-Json
 
-Update-Splash "Comprobando actualizaciones..."
-
 function Test-FunctionsSha {
     for ($i = 0; $i -lt $WebRequest.tree.length; $i++) {
         if ($WebRequest.tree[$i].path -eq "Functions") {
