@@ -65,7 +65,8 @@
     $getEncoding = [Console]::OutputEncoding
     [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
-    $WingetList = winget list -s winget | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}' 
+    $WingetList = winget list -s winget | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
+    $WingetList += winget list -s msstore | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
 
     [Console]::OutputEncoding = $getEncoding
 
