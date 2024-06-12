@@ -99,9 +99,9 @@
     },
     "App17": {
         "Name": "Xbox App",
-        "Installer": "XboxApp.appx",
+        "Installer": "Microsoft.GamingApp_8wekyb3d8bbwe",
         "Output": "Instalando ",
-        "Source": ".appx"
+        "Source": "Winget"
     },
     "App18": {
         "Name": "Valorant",
