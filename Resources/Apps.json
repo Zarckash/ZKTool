@@ -36,22 +36,23 @@
         "Source": "Winget"
     },
     "App7": {
+        "Name": "7-Zip",
+        "Installer": "mcmilk.7zip-zstd",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App8": {
         "Name": "HW Monitor",
         "Installer": "CPUID.HWMonitor",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "App8": {
+    "App9": {
         "Name": "MSI Afterburner",
         "Installer": "Guru3D.Afterburner",
         "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "App9": {
-        "Name": "RivaTuner",
-        "Installer": "Guru3D.RTSS",
-        "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": "Winget",
+        "Arguments": "-i"
     },
     "App10": {
         "Name": "uTorrent Web",
@@ -133,9 +134,9 @@
     },
     "App23": {
         "Name": "Razer Synapse",
-        "Installer": "RazerSynapse.exe",
+        "Installer": "RazerInc.RazerInstaller",
         "Output": "Iniciando instalador de ",
-        "Source": ".exe"
+        "Source": "Winget"
     },
     "App24": {
         "Name": "SteelSeries GG",
