@@ -36,22 +36,22 @@
         "Source": "Winget"
     },
     "App7": {
-        "Name": "7-Zip",
-        "Installer": "mcmilk.7zip-zstd",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "App8": {
         "Name": "HW Monitor",
         "Installer": "CPUID.HWMonitor",
         "Output": "Instalando ",
         "Source": "Winget"
     },
-    "App9": {
+    "App8": {
         "Name": "MSI Afterburner",
-        "Installer": "MSIAfterburner.exe",
-        "Output": "Iniciando instalador de ",
-        "Source": ".exe"
+        "Installer": "Guru3D.Afterburner",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "App9": {
+        "Name": "RivaTuner",
+        "Installer": "Guru3D.RTSS",
+        "Output": "Instalando ",
+        "Source": "Winget"
     },
     "App10": {
         "Name": "uTorrent Web",
@@ -67,17 +67,15 @@
     },
     "App12": {
         "Name": "EA Desktop App",
-        "Installer": "EAApp.exe",
+        "Installer": "ElectronicArts.EADesktop",
         "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": "/S"
+        "Source": "Winget"
     },
     "App13": {
         "Name": "Ubisoft Connect",
-        "Installer": "UbisoftConnect.exe",
+        "Installer": "Ubisoft.Connect",
         "Output": "Instalando ",
-        "Source": ".exe",
-        "Arguments": "/S"
+        "Source": "Winget"
     },
     "App14": {
         "Name": "Battle.Net",
