@@ -29,12 +29,19 @@
             $App.WingetApps.Add($_)
 
             $WingetApp = $App.$SourceList.$_.Installer
+            $WingetArguments = $App.$SourceList.$_.Arguments
             $WingetInstall = {
                 param (
                     $WingetApp,
+                    $WingetArguments,
                     $WingetLog
                 )
-                winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $WingetApp | Out-File $WingetLog -Encoding UTF8 -Append
+                if (($WingetArguments).Length -eq 0) {
+                    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $WingetApp | Out-File $WingetLog -Encoding UTF8 -Append
+                }else {
+                    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $WingetApp --override "$WingetArguments" | Out-File $WingetLog -Encoding UTF8 -Append
+                }
+                
             }
             Start-Job -Name ("Job-$WingetApp") -ScriptBlock $WingetInstall -ArgumentList @($WingetApp,$WingetLog)
         }
