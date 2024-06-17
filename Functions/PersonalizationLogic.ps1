@@ -10,22 +10,22 @@ if ((Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersio
     Update-GUI HideSearchButtonToggle IsChecked $true
 }
 
-if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
-    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-    Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force
-    Install-Module -Name FP.SetWallpaper -AcceptLicense -Force
-}
-
-if ((Get-Monitor).Length -gt 1) {
-    Update-GUI WallpaperBox2 Visibility Visible
-}
-
 $NewRunspace = [RunspaceFactory]::CreateRunspace()
 $NewRunspace.ApartmentState = "STA"
 $NewRunspace.ThreadOptions = "ReuseThread"          
 $NewRunspace.Open()
 $NewRunspace.SessionStateProxy.SetVariable("App", $App)
 $Logic = [PowerShell]::Create().AddScript({
+    if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+        Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force
+        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force
+    }
+    
+    if ((Get-Monitor).Length -gt 1) {
+        Update-GUI WallpaperBox2 Visibility Visible
+    }
+
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PresetsWallpapers.zip"),($App.FilesPath + "PresetsWallpapers.zip"))
     Expand-Archive -Path ($App.FilesPath + "PresetsWallpapers.zip") -DestinationPath ($App.FilesPath + "PresetsWallpapers") -Force
 })
