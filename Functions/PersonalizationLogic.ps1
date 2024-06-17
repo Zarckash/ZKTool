@@ -140,8 +140,12 @@ $App.ApplyTheme.Add_Click({
 
     if (Test-Path $App.Wallpaper1) {
         New-Item -Path ($App.ZKToolPath + "Media\") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-        Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\" + ($App.Wallpaper1 | Split-Path -Leaf)) -Force
-        Get-Monitor | Select-Object -First 1 | Set-WallPaper -Path ($App.ZKToolPath + "Media\" + ($App.Wallpaper1 | Split-Path -Leaf))
+        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
+        Copy-Item -Path $App.Wallpaper2 -Destination "$env:appdata\Microsoft\Windows\Themes\TranscodedWallpaper" -Force
+        Start-Process Powershell -WindowStyle Hidden{
+            $File = "C:\Program Files\ZKTool\Media\Wallpaper1.png"
+            Get-Monitor | Select-Object -First 1 | Set-WallPaper -Path $File
+        }
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\" + ($App.Wallpaper1 | Split-Path -Leaf))
@@ -149,9 +153,11 @@ $App.ApplyTheme.Add_Click({
     }
 
     if (Test-Path $App.Wallpaper2) {
-        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\" + ($App.Wallpaper2 | Split-Path -Leaf)) -Force
-        Get-Monitor | Select-Object -Last 1 | Set-WallPaper -Path ($App.ZKToolPath + "Media\" + ($App.Wallpaper2 | Split-Path -Leaf))
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
+        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpaper2.png") -Force
+        Start-Process Powershell -WindowStyle Hidden{
+            $File = "C:\Program Files\ZKTool\Media\Wallpaper2.png"
+            Get-Monitor | Select-Object -Last 1 | Set-WallPaper -Path $File
+        }
     }
     
     Get-Process "Explorer" | Stop-Process
