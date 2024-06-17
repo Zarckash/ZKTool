@@ -10,7 +10,13 @@ if ((Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersio
     Update-GUI HideSearchButtonToggle IsChecked $true
 }
 
-if (@(Get-CimInstance -Namespace root\wmi -ClassName WmiMonitorBasicDisplayParams | where-object { $_.Active }).Length -gt 1) {
+if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
+    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+    Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force
+    Install-Module -Name FP.SetWallpaper -AcceptLicense -Force
+}
+
+if ((Get-Monitor).Length -gt 1) {
     Update-GUI WallpaperBox2 Visibility Visible
 }
 
@@ -131,12 +137,6 @@ $App.ApplyTheme.Add_Click({
     Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "Hilight" -Value $RGBColor
     Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor" -Value $RGBColor
     Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "MenuHilight" -Value $RGBColor
-
-    if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
-        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-        Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force
-        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force
-    }
 
     if (Test-Path $App.Wallpaper1) {
         New-Item -Path ($App.ZKToolPath + "Media\") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
