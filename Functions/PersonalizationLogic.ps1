@@ -16,6 +16,8 @@ $NewRunspace.ThreadOptions = "ReuseThread"
 $NewRunspace.Open()
 $NewRunspace.SessionStateProxy.SetVariable("App", $App)
 $Logic = [PowerShell]::Create().AddScript({
+    . ($App.FunctionsPath + "Update-GUI.ps1")
+
     if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
         Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force
