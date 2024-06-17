@@ -140,8 +140,8 @@ $App.ApplyTheme.Add_Click({
 
     if (Test-Path $App.Wallpaper1) {
         New-Item -Path ($App.ZKToolPath + "Media\") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
-        Copy-Item -Path $App.Wallpaper2 -Destination "$env:appdata\Microsoft\Windows\Themes\TranscodedWallpaper" -Force
+        Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
+        Copy-Item -Path $App.Wallpaper1 -Destination "$env:appdata\Microsoft\Windows\Themes\TranscodedWallpaper" -Force
         Start-Process Powershell -WindowStyle Hidden{
             $File = "C:\Program Files\ZKTool\Media\Wallpaper1.png"
             Get-Monitor | Select-Object -First 1 | Set-WallPaper -Path $File
