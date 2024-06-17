@@ -1513,27 +1513,27 @@
                         </Grid>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1">
+                    <StackPanel Grid.Column="1" Grid.RowSpan="2">
                         <Label Content="Fondo de pantalla:" Style="{DynamicResource CategoryLabelStyle}" />
-                        <Button x:Name="WallpaperBox" Style="{DynamicResource WallpaperBoxStyle}">
+                        <Button x:Name="WallpaperBox1" Style="{DynamicResource WallpaperBoxStyle}">
                             <Grid>
                                 <Border
-                                    x:Name="Mask"
+                                    x:Name="Mask1"
                                     Background="#2B2B2B"
                                     CornerRadius="6" />
                                 <StackPanel>
                                     <StackPanel.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                        <VisualBrush Visual="{Binding ElementName=Mask1}" />
                                     </StackPanel.OpacityMask>
                                     <Image
-                                        x:Name="WallpaperBoxImage"
-                                        Height="{Binding ActualHeight, ElementName=WallpaperBox}"
+                                        x:Name="WallpaperBox1Image"
+                                        Height="{Binding ActualHeight, ElementName=WallpaperBox1}"
                                         Stretch="Fill"
                                         Style="{DynamicResource ImageQuality}"
                                         Visibility="Collapsed" />
                                     <Label
-                                        x:Name="WallpaperBoxLabel"
-                                        Width="{Binding ActualWidth, ElementName=WallpaperBox}"
+                                        x:Name="WallpaperBox1Label"
+                                        Width="{Binding ActualWidth, ElementName=WallpaperBox1}"
                                         Height="40"
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
@@ -1544,6 +1544,36 @@
                                 </StackPanel>
                             </Grid>
                         </Button>
+                        <Button x:Name="WallpaperBox2" Style="{DynamicResource WallpaperBoxStyle}" Visibility="Hidden" Margin="8,0,8,8">
+                            <Grid>
+                                <Border
+                                    x:Name="Mask2"
+                                    Background="#2B2B2B"
+                                    CornerRadius="6" />
+                                <StackPanel>
+                                    <StackPanel.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Mask2}" />
+                                    </StackPanel.OpacityMask>
+                                    <Image
+                                        x:Name="WallpaperBox2Image"
+                                        Height="{Binding ActualHeight, ElementName=WallpaperBox2}"
+                                        Stretch="Fill"
+                                        Style="{DynamicResource ImageQuality}"
+                                        Visibility="Collapsed" />
+                                    <Label
+                                        x:Name="WallpaperBox2Label"
+                                        Width="{Binding ActualWidth, ElementName=WallpaperBox2}"
+                                        Height="40"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Content="Seleccionar imagen"
+                                        FontFamily="{DynamicResource Font}"
+                                        FontSize="18"
+                                        Foreground="White" />
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+
                     </StackPanel>
 
                     <StackPanel

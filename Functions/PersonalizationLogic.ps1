@@ -10,6 +10,10 @@ if ((Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersio
     Update-GUI HideSearchButtonToggle IsChecked $true
 }
 
+if ((Get-Monitor).Length -gt 1) {
+    Update-GUI WallpaperBox2 Visibility Visible
+}
+
 $NewRunspace = [RunspaceFactory]::CreateRunspace()
 $NewRunspace.ApartmentState = "STA"
 $NewRunspace.ThreadOptions = "ReuseThread"          
@@ -73,44 +77,25 @@ $Colors | ForEach-Object {
 $Script:FileDialog = New-Object System.Windows.Forms.OpenFileDialog
 $FileDialog.Filter = "Imágenes (*.png, *.jpg)|*.png;*.jpg"
 
-$App.WallpaperBox.Add_Click({
+$App.WallpaperBox1.Add_Click({
     if ($FileDialog.ShowDialog() -eq 'OK') {
-        Update-GUI WallpaperBoxImage Source $FileDialog.FileName
-        Update-GUI WallpaperBox Height ($App.WallpaperBox.ActualWidth / 1.77)
-        Update-GUI WallpaperBoxLabel Visibility Collapsed
-        Update-GUI WallpaperBoxImage Visibility Visible
+        $App.Wallpaper1 = $FileDialog.FileName
+        Update-GUI WallpaperBox1Image Source $App.Wallpaper1
+        Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
+        Update-GUI WallpaperBox1Label Visibility Collapsed
+        Update-GUI WallpaperBox1Image Visibility Visible
     }
 })
 
-function Script:Set-WallPaper {
-
-    param (
-        [parameter(Mandatory=$True)]
-        [string]$Path
-    )
- 
-    Add-Type -TypeDefinition @" 
-    using System; 
-    using System.Runtime.InteropServices;
-  
-    public class Params
-    { 
-        [DllImport("User32.dll",CharSet=CharSet.Unicode)] 
-        public static extern int SystemParametersInfo (Int32 uAction, 
-                                                       Int32 uParam, 
-                                                       String lpvParam, 
-                                                       Int32 fuWinIni);
+$App.WallpaperBox2.Add_Click({
+    if ($FileDialog.ShowDialog() -eq 'OK') {
+        $App.Wallpaper2 = $FileDialog.FileName
+        Update-GUI WallpaperBox2Image Source $App.Wallpaper2
+        Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
+        Update-GUI WallpaperBox2Label Visibility Collapsed
+        Update-GUI WallpaperBox2Image Visibility Visible
     }
-"@ 
-  
-    $SPI_SETDESKWALLPAPER = 0x0014
-    $UpdateIniFile = 0x01
-    $SendChangeEvent = 0x02
-  
-    $fWinIni = $UpdateIniFile -bor $SendChangeEvent
-  
-    [Params]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $Path, $fWinIni)
-}
+})
 
 $App.ApplyTheme.Add_Click({
 
@@ -147,14 +132,26 @@ $App.ApplyTheme.Add_Click({
     Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor" -Value $RGBColor
     Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "MenuHilight" -Value $RGBColor
 
-    if ($App.WallpaperBoxImage.Visibility -eq "Visible") {
+    if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+        Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force
+        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force
+    }
+
+    if (Test-Path $App.Wallpaper1) {
         New-Item -Path ($App.ZKToolPath + "Media\") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-        Copy-Item -Path $FileDialog.FileName -Destination ($App.ZKToolPath + "Media\" + ($FileDialog.FileName | Split-Path -Leaf)) -Force
-        & Set-WallPaper -Path ($App.ZKToolPath + "Media\" + ($FileDialog.FileName | Split-Path -Leaf))
+        Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\" + ($App.Wallpaper1 | Split-Path -Leaf)) -Force
+        Get-Monitor | Select-Object -First 1 | Set-WallPaper -Path ($App.ZKToolPath + "Media\" + ($App.Wallpaper1 | Split-Path -Leaf))
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\" + ($FileDialog.FileName | Split-Path -Leaf))
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\" + ($FileDialog.FileName | Split-Path -Leaf))
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\" + ($App.Wallpaper1 | Split-Path -Leaf))
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\" + ($App.Wallpaper1 | Split-Path -Leaf))
+    }
+
+    if (Test-Path $App.Wallpaper2) {
+        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\" + ($App.Wallpaper2 | Split-Path -Leaf)) -Force
+        Get-Monitor | Select-Object -Last 1 | Set-WallPaper -Path ($App.ZKToolPath + "Media\" + ($App.Wallpaper2 | Split-Path -Leaf))
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
     }
     
     Get-Process "Explorer" | Stop-Process
@@ -203,19 +200,22 @@ function Script:Get-CurrentPreset {
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
-    $WallpaperPath = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
+    $App.Wallpaper1 = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
 
-    if (Test-Path $WallpaperPath) {
-        $FileDialog.FileName = $WallpaperPath
-        Update-GUI WallpaperBoxImage Source $WallpaperPath
-        Update-GUI WallpaperBox Height ($App.WallpaperBox.ActualWidth / 1.77)
-        Update-GUI WallpaperBoxLabel Visibility Collapsed
-        Update-GUI WallpaperBoxImage Visibility Visible
+    if (Test-Path $App.Wallpaper1) {
+        Update-GUI WallpaperBox1Image Source $App.Wallpaper1
+        Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
+        Update-GUI WallpaperBox1Label Visibility Collapsed
+        Update-GUI WallpaperBox1Image Visibility Visible
     }
     
 }
 
 Get-CurrentPreset
+
+$App.ActualPreset.Add_Click({
+    Get-CurrentPreset
+})
 
 $App.PresetsList = Get-Content ($App.ResourcesPath + "Presets.json") -Raw | ConvertFrom-Json
 $App.PresetsList.psobject.properties.name | ForEach-Object {
@@ -225,9 +225,9 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
             Update-GUI $_ Background $App.PresetsList.($this.Name).$_
         }
         $FileDialog.FileName = ($App.FilesPath + "PresetsWallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
-        Update-GUI WallpaperBoxImage Source ($App.FilesPath + "PresetsWallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
-        Update-GUI WallpaperBoxLabel Visibility Collapsed
-        Update-GUI WallpaperBoxImage Visibility Visible
+        Update-GUI WallpaperBox1Image Source ($App.FilesPath + "PresetsWallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
+        Update-GUI WallpaperBox1Label Visibility Collapsed
+        Update-GUI WallpaperBox1Image Visibility Visible
     })
 }
 
