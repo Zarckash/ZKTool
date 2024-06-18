@@ -208,7 +208,12 @@ function Script:Get-CurrentPreset {
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
-    $App.Wallpaper1 = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
+    if (Test-Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_000") {
+        Copy-Item -Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_000" -Destination ($App.FilesPath + "Transcoded_000.png")
+        $App.Wallpaper1 = ($App.FilesPath + "Transcoded_000.png")
+    } else {
+        $App.Wallpaper1 = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
+    }
 
     if (Test-Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_001") {
         Copy-Item -Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_001" -Destination ($App.FilesPath + "Transcoded_001.png")
