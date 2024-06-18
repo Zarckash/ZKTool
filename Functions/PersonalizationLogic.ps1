@@ -232,10 +232,14 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
         $Colors | ForEach-Object {
             Update-GUI $_ Background $App.PresetsList.($this.Name).$_
         }
-        $FileDialog.FileName = ($App.FilesPath + "PresetsWallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
-        Update-GUI WallpaperBox1Image Source ($App.FilesPath + "PresetsWallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
+        $App.Wallpaper1 = ($App.FilesPath + "PresetsWallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
+        Update-GUI WallpaperBox1Image Source $App.Wallpaper1
         Update-GUI WallpaperBox1Label Visibility Collapsed
         Update-GUI WallpaperBox1Image Visibility Visible
+
+        Update-GUI WallpaperBox2Image Source $App.Wallpaper1
+        Update-GUI WallpaperBox2Label Visibility Collapsed
+        Update-GUI WallpaperBox2Image Visibility Visible
     })
 }
 
