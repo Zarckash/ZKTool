@@ -209,6 +209,7 @@ function Script:Get-CurrentPreset {
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
     $App.Wallpaper1 = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
+    $App.Wallpaper2 = $App.Wallpaper1
 
     if (Test-Path $App.Wallpaper1) {
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
@@ -216,7 +217,7 @@ function Script:Get-CurrentPreset {
         Update-GUI WallpaperBox1Label Visibility Collapsed
         Update-GUI WallpaperBox1Image Visibility Visible
 
-        Update-GUI WallpaperBox2Image Source $App.Wallpaper1
+        Update-GUI WallpaperBox2Image Source $App.Wallpaper2
         Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
         Update-GUI WallpaperBox2Label Visibility Collapsed
         Update-GUI WallpaperBox2Image Visibility Visible
@@ -237,14 +238,16 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
         $Colors | ForEach-Object {
             Update-GUI $_ Background $App.PresetsList.($this.Name).$_
         }
+
         $App.Wallpaper1 = ($App.FilesPath + "PresetsWallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
+        $App.Wallpaper2 = $App.Wallpaper1
 
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
         Update-GUI WallpaperBox1Label Visibility Collapsed
         Update-GUI WallpaperBox1Image Visibility Visible
 
         Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
-        Update-GUI WallpaperBox2Image Source $App.Wallpaper1
+        Update-GUI WallpaperBox2Image Source $App.Wallpaper2
         Update-GUI WallpaperBox2Label Visibility Collapsed
         Update-GUI WallpaperBox2Image Visibility Visible
     })
