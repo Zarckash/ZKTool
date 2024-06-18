@@ -154,7 +154,7 @@ $App.ApplyTheme.Add_Click({
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\Wallpaper1.png")
     }
 
-    if (Test-Path $App.Wallpaper2) {
+    if ((Test-Path $App.Wallpaper2) -and ($App.WallpaperBox2.Visibility -eq "Visible")) {
         Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpaper2.png") -Force
         Start-Process Powershell -WindowStyle Hidden{
             $File = 'C:\Program Files\ZKTool\Media\Wallpaper2.png'
@@ -209,7 +209,13 @@ function Script:Get-CurrentPreset {
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
     $App.Wallpaper1 = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
-    $App.Wallpaper2 = $App.Wallpaper1
+
+    if (Test-Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_001") {
+        Copy-Item -Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_001" -Destination ($App.FilesPath + "Transcoded_001.png")
+        $App.Wallpaper2 = ($App.FilesPath + "Transcoded_001.png")
+    } else {
+        $App.Wallpaper2 = $App.Wallpaper1
+    }
 
     if (Test-Path $App.Wallpaper1) {
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
