@@ -1287,3 +1287,9 @@ function MouseTester {
     Expand-Archive -Path ($App.FilesPath + "MouseTester.zip") -DestinationPath ($App.FilesPath + "MouseTester") -Force
     Start-Process ($App.FilesPath + "MouseTester/MouseTester.exe")
 }
+
+function Autounattend {
+    Write-UserOutput "Descargando unattend al escritorio"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "Autounattend.xml"), ($App.FilesPath + "autounattend.xml"))
+    Copy-Item -Path ($App.FilesPath + "autounattend.xml") -Destination ([Environment]::GetFolderPath('Desktop') + "\autounattend.xml") -Force
+}

@@ -32,5 +32,9 @@
         "Installer": "Rufus.exe",
         "Output": "Abriendo ",
         "Source": ".exe"
+    },
+    "Utility24": {
+        "Name": "Autounattend",
+        "FunctionName": "Autounattend"
     }
 }
