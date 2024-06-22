@@ -9,7 +9,7 @@ Start Date: July 7 2021
 ## Usage
 
 ```powershell
-Iex (Iwr -useb "https://rb.gy/ng4nh")
+Irm 'https://rb.gy/ng4nh' | Iex
 ```
 
 
