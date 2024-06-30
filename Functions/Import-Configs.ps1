@@ -30,7 +30,7 @@ function XDefiant {
 }
 
 function Plutonium {
-    $App.Download.DownloadFile(($App.GitHubFilesPathPath + ".zip/Plutonium.zip"), ($App.FilesPath + "Plutonium.zip"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Plutonium.zip"), ($App.FilesPath + "Plutonium.zip"))
     Expand-Archive -Path ($App.FilesPath + "Plutonium.zip") -DestinationPath ("$env:localappdata\Plutonium") -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config9.Name + " aplicada")
 }
