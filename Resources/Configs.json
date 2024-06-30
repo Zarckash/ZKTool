@@ -28,5 +28,10 @@
         "Name": "RivaTuner",
         "FunctionName": "RivaTuner",
         "Image": "RivaTuner.ico"
+    },
+    "Config17": {
+        "Name": "Plutonium",
+        "FunctionName": "Plutonium",
+        "Image": "Plutonium.ico"
     }
 }
