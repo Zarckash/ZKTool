@@ -29,6 +29,12 @@ function XDefiant {
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config4.Name + " aplicada")
 }
 
+function Plutonium {
+    $App.Download.DownloadFile(($App.GitHubFilesPathPath + ".zip/Plutonium.zip"), ($App.FilesPath + "Plutonium.zip"))
+    Expand-Archive -Path ($App.FilesPath + "Plutonium.zip") -DestinationPath ("$env:localappdata\Plutonium") -Force
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config9.Name + " aplicada")
+}
+
 function MSIAfterburner {
     $App.Download.DownloadFile(($App.GitHubFilesPathPath + ".zip/MSIAfterburner.zip"), ($App.FilesPath + "MSIAfterburner.zip"))
     Expand-Archive -Path ($App.FilesPath + "MSIAfterburner.zip") -DestinationPath ($App.FilesPath + "MSIAfterburner") -Force
@@ -43,10 +49,4 @@ function RivaTuner {
     Move-Item -Path ($App.FilesPath + "RivaTuner\Profiles\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -Force
     Move-Item -Path ($App.FilesPath + "RivaTuner\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates' -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config16.Name + " aplicada")
-}
-
-function Plutonium {
-    $App.Download.DownloadFile(($App.GitHubFilesPathPath + ".zip/Plutonium.zip"), ($App.FilesPath + "Plutonium.zip"))
-    Expand-Archive -Path ($App.FilesPath + "Plutonium.zip") -DestinationPath ("$env:localappdata\Plutonium") -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config17.Name + " aplicada")
 }
