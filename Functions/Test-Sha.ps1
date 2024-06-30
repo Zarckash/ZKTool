@@ -17,7 +17,7 @@ function Test-FunctionsSha {
         $FunctionsWebRequest = (Invoke-WebRequest -Uri $FunctionsUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
 
         $FunctionsWebRequest.tree.path | ForEach-Object {
-            $Hash.Download.DownloadFile(($Hash.GitHubPath + "Functions/" + $_), ($Hash.ZKToolPath + "Functions/" + $_))
+            $Hash.Download.DownloadFile(($Hash.GitHubPath + "Functions/" + $_), ($Hash.ZKToolPath + "Functions\" + $_))
         }
         
         $ShaJson.Functions.Sha = $FunctionsLatestSha
@@ -41,7 +41,7 @@ function Test-ResourcesSha {
     
         $ResourcesWebRequest.tree.path | ForEach-Object {
             if ($_ -like "*.json") {
-                $Hash.Download.DownloadFile(($Hash.GitHubPath + "Resources/" + $_), ($Hash.ZKToolPath + "Resources/" + $_))
+                $Hash.Download.DownloadFile(($Hash.GitHubPath + "Resources/" + $_), ($Hash.ZKToolPath + "Resources\" + $_))
             }
         }
         
@@ -66,7 +66,7 @@ function Test-ImagesSha {
         $ImagesWebRequest = (Invoke-WebRequest -Uri $ImagesUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
 
         $ImagesWebRequest.tree.path | ForEach-Object {
-            $Hash.Download.DownloadFile(($Hash.GitHubPath + "Resources/Images" + $_), ($Hash.ZKToolPath + "Resources/Images" + $_))
+            $Hash.Download.DownloadFile(($Hash.GitHubPath + "Resources/Images" + $_), ($Hash.ZKToolPath + "Resources\Images" + $_))
         }
 
         $ShaJson.Resources.Images.Sha = $ImagesLatestSha 

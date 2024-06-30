@@ -141,7 +141,8 @@ $PwShellGUI.AddScript({
         $Value | Out-File ($App.LogFolder +  "SplashOutput.log") -Encoding UTF8 -Append
     }
 
-    . ($App.ZKToolPath + "\Functions\Test-Sha.ps1")
+    Copy-Item -Path ($App.ZKToolPath + "\Functions\Test-Sha.ps1") -Destination ($App.FilesPath + "Test-Sha.ps1")
+    . ($App.FilesPath + "Test-Sha.ps1")
     & Test-Sha
 
     # Updating app accent color
