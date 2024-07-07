@@ -11,12 +11,16 @@
         "Arguments": "/aiV /gm2"
     },
     "Extra3": {
-        "Name": "Paquete de undervolt AMD",
-        "FunctionName": "AMDUndervoltPack"
+        "Name": "Optimización Ethernet",
+        "FunctionName": "EthernetOptimization"
     },
     "Extra4": {
         "Name": "Actualizar drivers GPU",
         "FunctionName": "UpdateGPUDrivers"
+    },
+    "Extra9": {
+        "Name": "Paquete de undervolt AMD",
+        "FunctionName": "AMDUndervoltPack"
     },
     "Extra10": {
         "Name": "Desactivar Defender",
@@ -24,10 +28,6 @@
         "Output": "Ejecutando ",
         "Source": ".exe",
         "Arguments": "/N"
-    },
-    "Extra11": {
-        "Name": "Optimización Ethernet",
-        "FunctionName": "EthernetOptimization"
     },
     "Extra17": {
         "Name": "Drivers de Red Z390",
