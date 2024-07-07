@@ -167,7 +167,6 @@ $App.SearchIp.Add_Click({
                 $FoundIPs++
             }
         }
-        $App.IndexIP--
 
         Update-GUI SearchIp Background $App.HoverColor
         Update-GUI SearchIp Content "Buscar más IPs"
