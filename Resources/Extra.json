@@ -18,7 +18,7 @@
         "Name": "Actualizar drivers GPU",
         "FunctionName": "UpdateGPUDrivers"
     },
-    "Extra9": {
+    "Extra8": {
         "Name": "Paquete de undervolt AMD",
         "FunctionName": "AMDUndervoltPack"
     },
