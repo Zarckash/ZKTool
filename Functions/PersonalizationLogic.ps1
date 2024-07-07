@@ -24,7 +24,7 @@ $Logic = [PowerShell]::Create().AddScript({
         Install-Module -Name FP.SetWallpaper -AcceptLicense -Force
     }
     
-    if ((Get-Monitor).Length -gt 1) {
+    if ((Get-WmiObject win32_desktopmonitor).Length -gt 1) {
         Update-GUI WallpaperBox2 Visibility Visible
     }
 
