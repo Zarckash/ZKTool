@@ -67,5 +67,4 @@ $App.FoldersToMove | ForEach-Object {
 }
 
 Update-GUI SelectAllFolders BorderThickness 0
-Update-GUI SelectAllFolders Content "Seleccionar todo"
-
+Update-GUI SelectAllFolders IsChecked $false
