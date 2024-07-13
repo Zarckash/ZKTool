@@ -7,7 +7,9 @@
     },
     "Utility2": {
         "Name": "Mouse Tester",
-        "FunctionName": "MouseTester"
+        "Installer": "MouseTester.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
     },
     "Utility3": {
         "Name": "USB Tree Viewer",

@@ -1281,13 +1281,6 @@ function InstallFFMPEG {
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe" -discord'
 }
 
-function MouseTester {
-    Write-UserOutput "Abriendo Mouse Tester"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/MouseTester.zip"), ($App.FilesPath + "MouseTester.zip"))
-    Expand-Archive -Path ($App.FilesPath + "MouseTester.zip") -DestinationPath ($App.FilesPath + "MouseTester") -Force
-    Start-Process ($App.FilesPath + "MouseTester/MouseTester.exe")
-}
-
 function Autounattend {
     Write-UserOutput "Descargando unattend al escritorio"
     $App.Download.DownloadFile(($App.GitHubFilesPath + "Autounattend.xml"), ($App.FilesPath + "autounattend.xml"))
