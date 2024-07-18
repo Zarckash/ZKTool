@@ -7,19 +7,15 @@
         "Name": "Ajustes de Nvidia",
         "FunctionName": "NvidiaSettings"
     },
-    "Tweak4": {
+    "Tweak3": {
         "Name": "Desinstalar Xbox Game Bar",
         "FunctionName": "UninstallXboxGameBar"
     },
-    "Tweak5": {
-        "Name": "Reducir latencia de GPU",
-        "FunctionName": "GPUInputLag"
-    },
-    "Tweak6": {
+    "Tweak4": {
         "Name": "Timer Resolution",
         "FunctionName": "SetTimerResolution"
     },
-    "Tweak7": {
+    "Tweak5": {
         "Name": "Timer Resolution Preciso",
         "FunctionName": "SetTimerResolutionPrecise"
     },

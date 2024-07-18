@@ -549,6 +549,8 @@ function NvidiaSettings {
     Set-ItemProperty -Path "HKCU:\Software\NVIDIA Corporation\NvTray" -Name "StartOnLogin" -Type DWord -Value 0
     Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+
+    & GPUInputLag
 }
 
 function UninstallXboxGameBar {
@@ -564,7 +566,6 @@ function UninstallXboxGameBar {
 }
 
 function GPUInputLag {
-    Write-UserOutput "Activando modo MSI en GPU"
     $GPUID = (Get-PnpDevice -Class Display).InstanceId
     $GPUName = (Get-PnpDevice -Class Display).Name
     

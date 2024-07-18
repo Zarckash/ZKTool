@@ -212,7 +212,7 @@ $App.GitHubLogo.Add_Click({
 })
 
 $App.ZKLogo.Add_Click({
-    $Buttons = @("App1","App2","App3","App4","App5","App8","App9","App11","Tweak1","Tweak2","Tweak3","Tweak4","Tweak6","Tweak9","Tweak10","Tweak13","Tweak17","Tweak18","Tweak19",
+    $Buttons = @("App1","App2","App3","App4","App5","App8","App9","App11","Tweak1","Tweak2","Tweak3","Tweak4","Tweak9","Tweak10","Tweak13","Tweak17","Tweak18","Tweak19",
     "Tweak21","Tweak22","Extra1","Extra2")
     $Buttons | ForEach-Object {
         Update-GUI $_ IsChecked $true
