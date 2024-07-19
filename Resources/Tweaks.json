@@ -1,19 +1,23 @@
 ﻿{
     "Tweak1": {
         "Name": "Ajustes de registro",
-        "FunctionName": "RegistryTweaks"
+        "FunctionName": "RegistryTweaks",
+        "Preset": "True"
     },
     "Tweak2": {
         "Name": "Ajustes de Nvidia",
-        "FunctionName": "NvidiaSettings"
+        "FunctionName": "NvidiaSettings",
+        "Preset": "True"
     },
     "Tweak3": {
         "Name": "Desinstalar Xbox Game Bar",
-        "FunctionName": "UninstallXboxGameBar"
+        "FunctionName": "UninstallXboxGameBar",
+        "Preset": "True"
     },
     "Tweak4": {
         "Name": "Timer Resolution",
-        "FunctionName": "SetTimerResolution"
+        "FunctionName": "SetTimerResolution",
+        "Preset": "True"
     },
     "Tweak5": {
         "Name": "Timer Resolution Preciso",
@@ -21,11 +25,13 @@
     },
     "Tweak9": {
         "Name": "Desinstalar aplicaciones",
-        "FunctionName": "UninstallBloat"
+        "FunctionName": "UninstallBloat",
+        "Preset": "True"
     },
     "Tweak10": {
         "Name": "Desinstalar OneDrive",
-        "FunctionName": "UninstallOneDrive"
+        "FunctionName": "UninstallOneDrive",
+        "Preset": "True"
     },
     "Tweak11": {
         "Name": "Eliminar procesos de Adobe",
@@ -37,19 +43,23 @@
     },
     "Tweak13": {
         "Name": "Ocultar componentes",
-        "FunctionName": "HideSystemComponents"
+        "FunctionName": "HideSystemComponents",
+        "Preset": "True"
     },
     "Tweak17": {
         "Name": "Reducir espacio entre iconos",
-        "FunctionName": "ReduceIconsSpacing"
+        "FunctionName": "ReduceIconsSpacing",
+        "Preset": "True"
     },
     "Tweak18": {
         "Name": "Ocultar icono acceso directo",
-        "FunctionName": "HideShortcutIcons"
+        "FunctionName": "HideShortcutIcons",
+        "Preset": "True"
     },
     "Tweak19": {
         "Name": "Cambiar cursor de W11",
-        "FunctionName": "SetW11Cursor"
+        "FunctionName": "SetW11Cursor",
+        "Preset": "True"
     },
     "Tweak20": {
         "Name": "Tweaks en menú contextual",
@@ -57,10 +67,12 @@
     },
     "Tweak21": {
         "Name": "Apariencia de la terminal",
-        "FunctionName": "WindowsTerminalAppearance"
+        "FunctionName": "WindowsTerminalAppearance",
+        "Preset": "True"
     },
     "Tweak22": {
         "Name": "Animaciones de Windows",
-        "FunctionName": "WindowsAnimations"
+        "FunctionName": "WindowsAnimations",
+        "Preset": "True"
     }
 }

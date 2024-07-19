@@ -3,31 +3,36 @@
         "Name": "Google Chrome",
         "Installer": "Google.Chrome",
         "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": "Winget",
+        "Preset": "True"
     },
     "App2": {
         "Name": "GeForce Experience",
         "Installer": "Nvidia.GeForceExperience",
         "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": "Winget",
+        "Preset": "True"
     },
     "App3": {
         "Name": "Discord",
         "Installer": "Discord.Discord",
         "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": "Winget",
+        "Preset": "True"
     },
     "App4": {
         "Name": "Spotify",
         "FunctionName": "Spotify",
         "Output": "Iniciando instalador de ",
-        "Source": "Function"
+        "Source": "Function",
+        "Preset": "True"
     },
     "App5": {
         "Name": "NanaZip",
         "Installer": "M2Team.NanaZip",
         "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": "Winget",
+        "Preset": "True"
     },
     "App6": {
         "Name": "WinRAR",
@@ -45,14 +50,16 @@
         "Name": "HW Monitor",
         "Installer": "CPUID.HWMonitor",
         "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": "Winget",
+        "Preset": "True"
     },
     "App9": {
         "Name": "MSI Afterburner",
         "Installer": "Guru3D.Afterburner",
         "Output": "Instalando ",
         "Source": "Winget",
-        "Arguments": "-i"
+        "Arguments": "-i",
+        "Preset": "True"
     },
     "App10": {
         "Name": "uTorrent Web",
@@ -64,7 +71,8 @@
         "Name": "Steam",
         "Installer": "Valve.Steam",
         "Output": "Instalando ",
-        "Source": "Winget"
+        "Source": "Winget",
+        "Preset": "True"
     },
     "App12": {
         "Name": "EA Desktop App",

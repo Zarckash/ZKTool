@@ -50,35 +50,37 @@ $App.Close.Add_Click({
 
 $App.SelectedButtons = New-Object System.Collections.Generic.List[System.Object]
 
-$App.AppsList.psobject.properties.name + $App.TweaksList.psobject.properties.name + $App.ExtraList.psobject.properties.name + $App.UtilitiesList.psobject.properties.name + $App.ConfigsList.psobject.properties.name + $UserFolders | ForEach-Object {
+$App.ListItemsNames = $App.AppsList.psobject.properties.name + $App.TweaksList.psobject.properties.name + $App.ExtraList.psobject.properties.name + $App.UtilitiesList.psobject.properties.name + $App.ConfigsList.psobject.properties.name + $UserFolders
+
+$App.ListItemsNames | ForEach-Object {
 
     if ($_ -like "App*") {
-        $SourceList = "AppsList"
+        $App.SourceList = "AppsList"
     }
     elseif ($_ -like "Tweak*") {
-        $SourceList = "TweaksList"
+        $App.SourceList = "TweaksList"
     }
     elseif ($_ -like "Extra*") {
-        $SourceList = "ExtraList"
+        $App.SourceList = "ExtraList"
     }
     elseif ($_ -like "Utility*") {
-        $SourceList = "UtilitiesList"
+        $App.SourceList = "UtilitiesList"
     }
     elseif ($_ -like "Config*") {
-        $SourceList = "ConfigsList"
+        $App.SourceList = "ConfigsList"
     }
 
     if ($_ -like "Config*") {
-        Update-GUI ($_ + "Text") Text $App.$SourceList.$_.Name
-        Update-GUI ($_ + "Image") Source ($App.ZKToolPath + "Resources\Images\" + $App.$SourceList.$_.Image)
+        Update-GUI ($_ + "Text") Text $App.($App.SourceList).$_.Name
+        Update-GUI ($_ + "Image") Source ($App.ZKToolPath + "Resources\Images\" + $App.($App.SourceList).$_.Image)
     }
     elseif ($_ -notlike "*Folder") {
-        Update-GUI $_ Content $App.$SourceList.$_.Name
+        Update-GUI $_ Content $App.($App.SourceList).$_.Name
     }
 
     Update-GUI $_ Visibility Visible
     
-    if ((($App.$SourceList.$_.Enabled).Length -gt 0) -and ($App.$SourceList.$_.Enabled -eq "False")) {
+    if ((($App.($App.SourceList).$_.Enabled).Length -gt 0) -and ($App.($App.SourceList).$_.Enabled -eq "False")) {
         Update-GUI $_ IsEnabled $false
         Update-GUI $_ Opacity ".5"
     }
@@ -212,9 +214,25 @@ $App.GitHubLogo.Add_Click({
 })
 
 $App.ZKLogo.Add_Click({
-    $Buttons = @("App1","App2","App3","App4","App5","App8","App9","App11","Tweak1","Tweak2","Tweak3","Tweak4","Tweak9","Tweak10","Tweak13","Tweak17","Tweak18","Tweak19",
-    "Tweak21","Tweak22","Extra1","Extra2")
-    $Buttons | ForEach-Object {
-        Update-GUI $_ IsChecked $true
+    $App.ListItemsNames | ForEach-Object {
+        if ($_ -like "App*") {
+            $App.SourceList = "AppsList"
+        }
+        elseif ($_ -like "Tweak*") {
+            $App.SourceList = "TweaksList"
+        }
+        elseif ($_ -like "Extra*") {
+            $App.SourceList = "ExtraList"
+        }
+        elseif ($_ -like "Utility*") {
+            $App.SourceList = "UtilitiesList"
+        }
+        elseif ($_ -like "Config*") {
+            $App.SourceList = "ConfigsList"
+        }
+
+        if ($App.($App.SourceList).$_.Preset -eq "True") {
+            Update-GUI $_ IsChecked $true
+        }
     }
 })

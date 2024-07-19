@@ -1,14 +1,16 @@
 ﻿{
     "Extra1": {
         "Name": "Activar Windows Pro",
-        "FunctionName": "ActivateWindowsPro"
+        "FunctionName": "ActivateWindowsPro",
+        "Preset": "True"
     },
     "Extra2": {
         "Name": "Visual C++",
         "Installer": "VisualCRuntimes.exe",
         "Output": "Instalando ",
         "Source": ".exe",
-        "Arguments": "/aiV /gm2"
+        "Arguments": "/aiV /gm2",
+        "Preset": "True"
     },
     "Extra3": {
         "Name": "Optimización Ethernet",

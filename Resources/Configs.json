@@ -27,11 +27,13 @@
     "Config15": {
         "Name": "MSI Afterburner",
         "FunctionName": "MSIAfterburner",
-        "Image": "MSIAfterburner.ico"
+        "Image": "MSIAfterburner.ico",
+        "Preset": "True"
     },
     "Config16": {
         "Name": "RivaTuner",
         "FunctionName": "RivaTuner",
-        "Image": "RivaTuner.ico"
+        "Image": "RivaTuner.ico",
+        "Preset": "True"
     }
 }
