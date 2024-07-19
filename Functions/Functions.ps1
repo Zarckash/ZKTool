@@ -589,8 +589,8 @@ function SetTimerResolution {
     Write-UserOutput "Configurando Timer Resolution"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/TimerResolutionService.exe"), ($App.FilesPath + "TimerResolutionService.exe"))
     New-Item 'C:\Program Files\Timer Resolution' -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
-    Move-Item -Path ($App.FilesPath + "TimerResolutionService.exe") -Destination 'C:\Program Files\Timer Resolution\TimerResolutionService.exe'
-    Start-Process "C:\Program Files\Set Timer Resolution Service\TimerResolutionService.exe" -ArgumentList "-install" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Move-Item -Path ($App.FilesPath + "TimerResolutionService.exe") -Destination "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe"
+    Start-Process "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe" -ArgumentList "-install" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 }
 
@@ -666,7 +666,7 @@ function SetTimerResolutionPrecise {
 
     Write-UserOutput "Resolution aplicada: $Resolution"
 
-    New-Item "C:\Program Files\Timer Resolution\" -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+    New-Item "$env:ProgramFiles\Timer Resolution\" -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     Move-Item -Path ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -Destination "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe" -Force
 
     $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Startup\Timer Resolution.lnk"
