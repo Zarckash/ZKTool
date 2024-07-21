@@ -592,6 +592,8 @@ function SetTimerResolution {
     Move-Item -Path ($App.FilesPath + "TimerResolutionService.exe") -Destination "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe"
     Start-Process "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe" -ArgumentList "-install" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
+
+    $App.RequireRestart = $true
 }
 
 function SetTimerResolutionPrecise {
@@ -1280,6 +1282,44 @@ function InstallFFMPEG {
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\" -Name "Position" -Value "Bottom"
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe" -discord'
+}
+
+function ForceDLAA {
+    & NvidiaSettings
+
+    $NvidiaProfiles = Get-Content -Path ($App.FilesPath + "NvidiaProfiles.nip")
+    $ForceDLAA = @"
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>283385331</SettingID>
+        <SettingValue>3</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>283385332</SettingID>
+        <SettingValue>1</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>283385333</SettingID>
+        <SettingValue>1065353216</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+    </Settings>
+  </Profile>
+</ArrayOfProfile>
+"@
+
+    Write-UserOutput "Forzando DLAA globalmente"
+
+    Set-Content -Path ($App.FilesPath + "NvidiaProfiles.nip") -Value (($NvidiaProfiles | Select-Object -SkipLast 3) + $ForceDLAA)
+    & ($App.FilesPath + "ProfileInspector.exe") -SilentImport ($App.FilesPath + "NvidiaProfiles.nip")
+
+    $App.Download.DownloadFile(($App.GitHubFilesPath + "nvngx_dlss.dll"), ($App.FilesPath + "nvngx_dlss.dll"))
+    $DlssDllPath = $App.FilesPath + "nvngx_dlss.dll"
+    Start-Process Explorer -ArgumentList "/select, ""$DlssDllPath"""
 }
 
 function Autounattend {

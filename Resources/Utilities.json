@@ -35,6 +35,10 @@
         "Output": "Abriendo ",
         "Source": ".exe"
     },
+    "Utility23": {
+        "Name": "ForceDLAA",
+        "FunctionName": "ForceDLAA"
+    },
     "Utility24": {
         "Name": "Autounattend",
         "FunctionName": "Autounattend"
