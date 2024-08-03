@@ -26,7 +26,7 @@
         Write-UserOutput "Exportando Documentos"        
         Get-ChildItem -Path ($Path.Documents) -Name | ForEach-Object {New-Item -Path ($Path.Temp + "\Documents\" + $_) -ItemType Directory | Out-Null}
 
-        $ExcludeList = @("*.mcache","*.PcDx12","*.bin","*.dat","*.cache","*.binperf","*.png","*.jpg","*.jpeg","*.gif","*.mp4","*.webm","*.dds","*.wav","*.ogg","library_0x*","*.js","*.db","*.mdmp","*.html")        
+        $ExcludeList = @("*.mcache","*.PcDx12","*.bin","*.dat","*.cache","*.log","*.binperf","*.png","*.jpg","*.mbytecode","*.jpeg","*.gif","*.mp4","*.webm","*.dds","*.wav","*.ogg","library_0x*","*.js","*.db","*.mdmp","*.html")        
         Get-ChildItem -Path ($Path.Documents) | ForEach-Object {$_ | Copy-Item -Destination ($Path.Temp + "\Documents\") -Recurse -Force -Exclude $ExcludeList}
         Get-ChildItem -Path ($Path.Temp + "\Documents\") -Recurse | Where-Object { $_.PSISContainer -and @( $_ | Get-ChildItem ).Count -eq 0 } | Remove-Item -Recurse -Force | Out-Null
         Compress-Archive -Path ($Path.Temp + "\Documents\*") -DestinationPath ($Path.Compressed + "\Documents.zip")
