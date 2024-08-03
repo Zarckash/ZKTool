@@ -166,8 +166,9 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace_41040327\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Name "(default)" -Value "{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
 
     # Reduce svchost Process Amount
-    Write-UserOutput "Reduciendo los procesos de Windows a la mitad"
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value 4294967295
+    #Write-UserOutput "Reduciendo los procesos de Windows a la mitad"
+    #Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value 4294967295
+    #Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control" -Name "SvcHostSplitThresholdInKB" -Type DWord -Value 4294967295
 
     # Disable Mouse Acceleration
     Write-UserOutput "Desactivando aceleración del ratón"
@@ -211,6 +212,10 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseHoverTime" -Value 200
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" -Name "Win32PrioritySeparation" -Type DWord -Value 38
     Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "HungAppTimeout" -ErrorAction SilentlyContinue
+    Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name FeatureSettingsOverride -Force -ErrorAction SilentlyContinue
+    Remove-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" -Name FeatureSettingsOverride -Force -ErrorAction SilentlyContinue
+    Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name FeatureSettingsOverrideMask -Force -ErrorAction SilentlyContinue
+    Remove-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" -Name FeatureSettingsOverrideMask -Force -ErrorAction SilentlyContinue
 
     # Games Performance Optimizations
     Write-UserOutput "Optimizando registros de juegos"
@@ -483,7 +488,6 @@ function RegistryTweaks {
         "SharedAccess"                              # Internet Connection Sharing (ICS)
         "Spooler"                                   # Printing
         "stisvc"                                    # Windows Image Acquisition (WIA)
-        "SysMain"                                   # Analyses System Usage and Improves Performance
         "TrkWks"                                    # Distributed Link Tracking Client
         "WbioSrvc"                                  # Windows Biometric Service (required for Fingerprint reader / facial detection)
         "WerSvc"                                    # Windows error reporting
@@ -547,6 +551,8 @@ function NvidiaSettings {
     $App.Download.DownloadFile(($App.GitHubFilesPath + "NvidiaProfiles.nip"), ($App.FilesPath + "NvidiaProfiles.nip"))
     & ($App.FilesPath + "ProfileInspector.exe") -SilentImport ($App.FilesPath + "NvidiaProfiles.nip")
     Set-ItemProperty -Path "HKCU:\Software\NVIDIA Corporation\NvTray" -Name "StartOnLogin" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\NVIDIA Corporation\Global\NGXCore" -Name "ShowDlssIndicator" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\NVIDIA Corporation\Global\NvTweak" -Name "Gestalt" -Type DWord -Value 2
     Remove-Item -Path "C:\Windows\System32\drivers\NVIDIA Corporation" -Recurse -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
