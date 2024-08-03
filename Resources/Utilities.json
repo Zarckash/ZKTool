@@ -36,7 +36,7 @@
         "Source": ".exe"
     },
     "Utility23": {
-        "Name": "ForceDLAA",
+        "Name": "Forzar DLAA global",
         "FunctionName": "ForceDLAA"
     },
     "Utility24": {
