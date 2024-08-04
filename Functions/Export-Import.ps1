@@ -14,10 +14,11 @@
             SavedGames = ($env:userprofile + "\Saved Games")
             OBS        = ($env:appdata + "\obs-studio")
             PUBG       = ($env:localappdata + "\TslGame\Saved\Config\WindowsNoEditor")
+            RoN        = ($env:localappdata + "\ReadyOrNot\Saved")
             Spotify    = ($env:appdata + "\Spotify")
             CSGO       = (${env:ProgramFiles(x86)} + "\Steam\userdata")
             Valorant   = ($env:localappdata + "\VALORANT\Saved\Config")
-            LoL        = ($env:HOMEDRIVE + "\Riot Games\League of Legends\Config") 
+            LoL        = ($env:HOMEDRIVE + "\Riot Games\League of Legends\Config")
             MSIAfterburner = (${env:ProgramFiles(x86)} + "\MSI Afterburner\Profiles")
             RivaTuner  = (${env:ProgramFiles(x86)} + "\RivaTuner Statistics Server")
             Compressed = ($env:temp + "\ZKTool\Files\Compress")
@@ -43,6 +44,10 @@
         if (Test-Path $Path.PUBG) {
             Write-UserOutput "Exportando PUBG"
             Compress-Archive -Path ($Path.PUBG + "\*") -DestinationPath ($Path.Compressed + "\PUBG.zip")
+        }
+        if (Test-Path $Path.RoN) {
+            Write-UserOutput "Exportando Ready Or Not"
+            Compress-Archive -Path ($Path.RoN + "\*") -DestinationPath ($Path.Compressed + "\RoN.zip")
         }
         if (Test-Path $Path.Spotify) {
             Write-UserOutput "Exportando Spotify"
@@ -120,6 +125,7 @@
             SavedGames = ($env:userprofile + "\Saved Games")
             OBS        = ($env:appdata + "\obs-studio")
             PUBG       = ($env:localappdata + "\TslGame\Saved\Config\WindowsNoEditor")
+            RoN        = ($env:localappdata + "\ReadyOrNot\Saved")
             Spotify    = ($env:appdata + "\Spotify")
             CSGO       = (${env:ProgramFiles(x86)} + "\Steam\userdata")
             Valorant   = ($env:localappdata + "\VALORANT\Saved\Config")
@@ -158,7 +164,7 @@
         Expand-Archive -Path ($Path.Temp + "\$env:username" + "Backup.zip") -DestinationPath $Path.Backup -Force
 
         Get-ChildItem -Path $Path.Backup | ForEach-Object {
-            Write-UserOutput ("Importando " + $_.BaseName.Replace("Documents","Documentos").Replace("SavedGames","Juegos Guardados") + "")
+            Write-UserOutput ("Importando " + $_.BaseName.Replace("Documents","Documentos").Replace("SavedGames","Juegos Guardados").Replace("RoN","Ready Or Not") + "")
             Expand-Archive -Path $_.FullName -DestinationPath $Path.($_.BaseName) -Force
         }
 
