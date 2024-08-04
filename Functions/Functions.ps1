@@ -1,4 +1,26 @@
-﻿function Spotify {
+﻿$WinAPI = Add-Type -Name WinAPI -NameSpace System -passThru -memberDefinition '
+[DllImport("user32.dll")]
+ public static extern bool SystemParametersInfo(
+    uint uiAction,
+    uint uiParam ,
+    int pvParam ,
+    uint fWinIni
+ );
+'
+
+$WinAPIArray = Add-Type -Name WinAPIArray -NameSpace System -passThru -memberDefinition '
+[DllImport("user32.dll")]
+ public static extern bool SystemParametersInfo(
+    uint uiAction,
+    uint uiParam ,
+    int[] pvParam ,
+    uint fWinIni
+ );
+'
+
+#https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfoa
+
+function Spotify {
     Write-UserOutput "Instalando Spotify"
     $App.Download.DownloadFile(($App.GitHubFilesPath + "Spotify.ps1"), ($App.FilesPath + "Spotify.ps1"))
     Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\Spotify.ps1 ; exit"
@@ -175,6 +197,14 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSpeed" -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold1" -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold2" -Value 0
+
+    $WinAPIArray::SystemParametersInfo(0x0004, 0, @(0,0,0), 2) | Out-Null
+
+    if ($env:USERNAME -eq "Zarckash") {
+        $WinAPI::SystemParametersInfo(0x0071, 0, 8, 2) | Out-Null
+
+        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value $MouseSens
+    }
 
     # Disable Keyboard Layout Shortcut
     Write-UserOutput "Desactivando cambio de idioma del teclado"
@@ -435,9 +465,7 @@ function RegistryTweaks {
 
     # Set Desktop Icons Size To Small
     Write-UserOutput "Reduciendo el tamaño de los iconos del Escritorio"
-    taskkill /f /im explorer.exe
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
-    explorer.exe
 
     # Disable Feedback
     Write-UserOutput "Deshabilitando Feedback"
@@ -541,6 +569,8 @@ function RegistryTweaks {
     Stop-Service "SysMain" -WarningAction SilentlyContinue
     Set-Service "SysMain" -StartupType Disabled
 
+    Stop-Process "Explorer"
+
     $App.RequireRestart = $true
 }
 
@@ -598,8 +628,6 @@ function SetTimerResolution {
     Move-Item -Path ($App.FilesPath + "TimerResolutionService.exe") -Destination "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe"
     Start-Process "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe" -ArgumentList "-install" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
-
-    $App.RequireRestart = $true
 }
 
 function SetTimerResolutionPrecise {
@@ -801,7 +829,7 @@ function UninstallOneDrive {
     }
     Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
     Start-Sleep -s 2
-    Stop-Process -Name "explorer"
+    Stop-Process -Name "Explorer"
     Start-Sleep -s 2
     Remove-Item -Path "$env:USERPROFILE\OneDrive" -Force -Recurse
     Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse
@@ -863,7 +891,7 @@ function SetW11Cursor {
     $App.Download.DownloadFile(($App.GitHubFilesPath + "FluentCursor.reg"), ($App.FilesPath + "FluentCursor.reg"))
     regedit /s ($App.FilesPath + "FluentCursor.reg")
 
-    $App.RequireRestart = $true
+    $WinAPI::SystemParametersInfo(0x0057, 0, $null, 0) | Out-Null
 }
 
 function TweaksInContextMenu {
@@ -1203,8 +1231,6 @@ function Z390LanDrivers {
 function BlackIcons {
     Write-UserOutput "Cambiando iconos a negro"
 
-    taskkill /f /im explorer.exe
-
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BlackIcons.zip"), ($App.FilesPath + "BlackIcons.zip"))
     Expand-Archive -Path ($App.FilesPath + "BlackIcons.zip") -DestinationPath ($App.ZKToolPath + "\Media") -Force
 
@@ -1258,7 +1284,7 @@ function BlackIcons {
     $Shortcut.IconLocation = "$IconLocation, 0"
     $Shortcut.Save()
 
-    explorer.exe
+    Stop-Process "Explorer"
 }
 
 function InstallFFMPEG {
