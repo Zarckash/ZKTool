@@ -234,5 +234,9 @@ $App.ZKLogo.Add_Click({
         if ($App.($App.SourceList).$_.Preset -eq "True") {
             Update-GUI $_ IsChecked $true
         }
+
+        if ($App.($App.SourceList).$_.Enabled -eq "False") {
+            Update-GUI $_ IsEnabled $false
+        }
     }
 })
