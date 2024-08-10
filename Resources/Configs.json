@@ -19,6 +19,12 @@
         "FunctionName": "XDefiant",
         "Image": "XDefiant.ico"
     },
+    "Config5": {
+        "Name": "Delta Force",
+        "FunctionName": "DeltaForce",
+        "Image": "DeltaForce.png",
+        "Enabled": "False"
+    },
     "Config9": {
         "Name": "Plutonium",
         "FunctionName": "Plutonium",
