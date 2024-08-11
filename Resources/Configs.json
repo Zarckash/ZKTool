@@ -20,8 +20,14 @@
         "Image": "XDefiant.ico"
     },
     "Config5": {
-        "Name": "Delta Force",
-        "FunctionName": "DeltaForce",
+        "Name": "Delta Force (Clean)",
+        "FunctionName": "DeltaForceClean",
+        "Image": "DeltaForce.png",
+        "Enabled": "False"
+    },
+    "Config6": {
+        "Name": "Delta Force (FPS)",
+        "FunctionName": "DeltaForceFPS",
         "Image": "DeltaForce.png",
         "Enabled": "False"
     },
