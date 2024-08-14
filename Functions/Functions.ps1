@@ -1357,5 +1357,7 @@ function ForceDLAA {
 function Autounattend {
     Write-UserOutput "Descargando unattend al escritorio"
     $App.Download.DownloadFile(($App.GitHubFilesPath + "Autounattend.xml"), ($App.FilesPath + "autounattend.xml"))
-    Copy-Item -Path ($App.FilesPath + "autounattend.xml") -Destination ([Environment]::GetFolderPath('Desktop') + "\autounattend.xml") -Force
+    $AutounattendPath = ([Environment]::GetFolderPath('Desktop') + "\autounattend.xml")
+    Copy-Item -Path ($App.FilesPath + "autounattend.xml") -Destination $AutounattendPath -Force
+    Start-Process Explorer -ArgumentList "/select, ""$AutounattendPath"""
 }
