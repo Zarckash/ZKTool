@@ -1331,6 +1331,8 @@ function RAMTest {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/RAMTest.zip"), ($App.FilesPath + "RAMTest.zip"))
     Expand-Archive -Path ($App.FilesPath + "RAMTest.zip") -DestinationPath ($App.FilesPath + "RAMTest") -Force
 
+    (Get-Content ($App.FilesPath + "RAMTest\imlcgui.properties")) -replace "username",$env:USERNAME | Set-Content ($App.FilesPath + "RAMTest\imlcgui.properties")
+
     Start-Process ($App.FilesPath + "RAMTest\RAMTest.exe")
 }
 
