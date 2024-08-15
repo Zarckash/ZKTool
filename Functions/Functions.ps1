@@ -1337,7 +1337,7 @@ function RAMTest {
 }
 
 function HWiNFO {
-    Write-UserOutput "Abriendo RAM Tester"
+    Write-UserOutput "Abriendo HWiNFO"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/HWiNFO.zip"), ($App.FilesPath + "HWiNFO.zip"))
     Expand-Archive -Path ($App.FilesPath + "HWiNFO.zip") -DestinationPath ($App.FilesPath + "HWiNFO") -Force
 

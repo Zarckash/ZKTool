@@ -29,7 +29,7 @@
     },
     "Utility11": {
         "Name": "CPU-Z",
-        "FunctionName": "CPUZ.exe",
+        "Installer": "CPUZ.exe",
         "Output": "Abriendo ",
         "Source": ".exe"
     },
