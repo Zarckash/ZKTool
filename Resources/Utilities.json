@@ -23,6 +23,20 @@
         "Output": "Abriendo ",
         "Source": ".exe"
     },
+    "Utility10": {
+        "Name": "RAM Test",
+        "FunctionName": "RAMTest"
+    },
+    "Utility11": {
+        "Name": "CPU-Z",
+        "FunctionName": "CPUZ.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "Utility12": {
+        "Name": "HWiNFO",
+        "FunctionName": "HWiNFO"
+    },
     "Utility17": {
         "Name": "Autoruns",
         "Installer": "Autoruns.exe",

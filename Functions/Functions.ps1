@@ -1152,24 +1152,34 @@ function EthernetOptimization {
     Enable-NetAdapterBinding -Name "Ethernet" -ComponentID "ms_msclient"
     Enable-NetAdapterBinding -Name "Ethernet" -ComponentID "ms_tcpip"
 
+    $NetAdapterName = (Get-NetAdapter).InterfaceDescription | Select-Object -First 1
+    $NetworkPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\000"
+
+    $i = 0
+    while ($FoundName -ne $NetAdapterName) {
+        $FoundName = Get-ItemPropertyValue -Path ($NetworkPath + $i) -Name "DriverDesc"
+        $NetAdapterPath = ($NetworkPath + $i)
+        $i++
+    }
+
     # Net adapter settings
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "AdaptiveIFS" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "EEELinkAdvertisement" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*FlowControl" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*JumboPacket" -Type String -Value 1514
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*LsoV2IPv4" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*LsoV2IPv6" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "LogLinkStateEvent" -Type String -Value 16
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*PMNSOffload" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*TransmitBuffers" -Type String -Value 2048
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*ReceiveBuffers" -Type String -Value 1024
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*RSS" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*PMARPOffload" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "ReduceSpeedOnPowerDown" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*SoftwareTimestamp" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "*PtpHardwareTimestamp" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "SipsEnabled" -Type String -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002" -Name "ULPMode" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "AdaptiveIFS" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "EEELinkAdvertisement" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "*FlowControl" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "*JumboPacket" -Type String -Value 1514
+    Set-ItemProperty -Path $NetAdapterPath -Name "*LsoV2IPv4" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "*LsoV2IPv6" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "LogLinkStateEvent" -Type String -Value 16
+    Set-ItemProperty -Path $NetAdapterPath -Name "*PMNSOffload" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "*TransmitBuffers" -Type String -Value 2048
+    Set-ItemProperty -Path $NetAdapterPath -Name "*ReceiveBuffers" -Type String -Value 1024
+    Set-ItemProperty -Path $NetAdapterPath -Name "*RSS" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "*PMARPOffload" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "ReduceSpeedOnPowerDown" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "*SoftwareTimestamp" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "*PtpHardwareTimestamp" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "SipsEnabled" -Type String -Value 0
+    Set-ItemProperty -Path $NetAdapterPath -Name "ULPMode" -Type String -Value 0
 
     # TCP Optimizer settings
     Set-NetTCPSetting -SettingName internet -AutoTuningLevelLocal normal
@@ -1314,6 +1324,22 @@ function InstallFFMPEG {
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\" -Name "Position" -Value "Bottom"
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe" -discord'
+}
+
+function RAMTest {
+    Write-UserOutput "Abriendo RAM Tester"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/RAMTest.zip"), ($App.FilesPath + "RAMTest.zip"))
+    Expand-Archive -Path ($App.FilesPath + "RAMTest.zip") -DestinationPath ($App.FilesPath + "RAMTest") -Force
+
+    Start-Process ($App.FilesPath + "RAMTest\RAMTest.exe")
+}
+
+function HWiNFO {
+    Write-UserOutput "Abriendo RAM Tester"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/HWiNFO.zip"), ($App.FilesPath + "HWiNFO.zip"))
+    Expand-Archive -Path ($App.FilesPath + "HWiNFO.zip") -DestinationPath ($App.FilesPath + "HWiNFO") -Force
+
+    Start-Process ($App.FilesPath + "HWiNFO\HWiNFO64.exe")
 }
 
 function ForceDLAA {
