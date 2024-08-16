@@ -19,6 +19,7 @@ $WinAPIArray = Add-Type -Name WinAPIArray -NameSpace System -passThru -memberDef
 '
 
 #https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfoa
+#
 
 function Spotify {
     Write-UserOutput "Instalando Spotify"
