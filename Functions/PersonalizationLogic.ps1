@@ -105,7 +105,8 @@ $App.WallpaperBox2.Add_Click({
     }
 })
 
-function Set-Theme {
+$App.ApplyTheme.Add_Click({
+
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -Type DWord -Value 0
 
     # Convert colors to hex
@@ -160,12 +161,7 @@ function Set-Theme {
             Get-Monitor | Select-Object -Last 1 | Set-WallPaper -Path $File
         }
     }
-}
-
-$App.ApplyTheme.Add_Click({
-    Set-Theme
-    Set-Theme
-
+    
     Get-Process "Explorer" | Stop-Process
 })
 
