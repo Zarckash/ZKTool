@@ -19,7 +19,6 @@ $WinAPIArray = Add-Type -Name WinAPIArray -NameSpace System -passThru -memberDef
 '
 
 #https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfoa
-#
 
 function Spotify {
     Write-UserOutput "Instalando Spotify"
@@ -151,6 +150,10 @@ function RegistryTweaks {
             Add-MpPreference -ExclusionPath ($_ + "Games")
             Add-MpPreference -ExclusionProcess ($_ + "Games\*")
         }
+        if (Test-Path ($_ + "Juegos")) {
+            Add-MpPreference -ExclusionPath ($_ + "Juegos")
+            Add-MpPreference -ExclusionProcess ($_ + "Juegos\*")
+        }
     }
     Add-MpPreference -ExclusionPath (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal")
     Add-MpPreference -ExclusionPath "$env:ProgramFiles\Windows Defender"
@@ -204,7 +207,7 @@ function RegistryTweaks {
     if ($env:USERNAME -eq "Zarckash") {
         $WinAPI::SystemParametersInfo(0x0071, 0, 8, 2) | Out-Null
 
-        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value $MouseSens
+        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 8
     }
 
     # Disable Keyboard Layout Shortcut
