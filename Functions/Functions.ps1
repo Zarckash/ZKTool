@@ -430,7 +430,7 @@ function RegistryTweaks {
 
     # Disable Dynamic Lightning
     Write-UserOutput "Desactivando iluminación dinámica"
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Lighting" -Name "AmbientLightningEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Lighting" -Name "AmbientLightingEnabled" -Type DWord -Value 0
 
     # Hide Recent Files And Folders In Explorer
     Write-UserOutput "Ocultando recientes de Acceso Rápido"
@@ -459,7 +459,7 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Multimedia\Audio" -Name "UserDuckingPreference" -Type DWord -Value 3
 
     # Hide Buttons From Power Button
-    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "FlyoutMenuSettings" | Out-File $App.LogPath -Encoding UTF8 -Append
+    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "FlyoutMenuSettings" -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowHibernateOption" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowSleepOption" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowLockOption" -Type DWord -Value 0
@@ -480,6 +480,14 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DoNotShowFeedbackNotifications" -Type DWord -Value 1
     Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-File $App.LogPath -Encoding UTF8 -Append
     Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" -ErrorAction SilentlyContinue | Out-File $App.LogPath -Encoding UTF8 -Append
+
+    # Notifications settings
+    Write-UserOutput "Desactivando notificaciones"
+    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" -Name "Microsoft.ScreenSketch_8wekyb3d8bbwe!App" -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Microsoft.ScreenSketch_8wekyb3d8bbwe!App" -Name "ShowBanner" -Type DWord -Value 0
+    New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" -Name "com.squirrel.Discord.Discord" -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\com.squirrel.Discord.Discord" -Name "ShowBanner" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\com.squirrel.Discord.Discord" -Name "ShowInActionCenter" -Type DWord -Value 0
 
     # Service Tweaks To Manual 
     Write-UserOutput "Desactivando servicios de Windows"
