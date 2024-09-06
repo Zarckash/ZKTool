@@ -3,7 +3,8 @@
 
 Start Date: July 7 2021  
 
-## [Download](https://github.com/Zarckash/ZKTool/raw/main/ZKToolInstaller.exe)
+## Usage
+[Download installer](https://github.com/Zarckash/ZKTool/raw/main/ZKToolInstaller.exe)
 
 ## Screenshots
 
