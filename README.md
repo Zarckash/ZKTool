@@ -3,15 +3,7 @@
 
 Start Date: July 7 2021  
 
-
-
-
-## Usage
-
-```powershell
-Irm 'https://rb.gy/ng4nh' | Iex
-```
-
+## [Download](https://github.com/Zarckash/ZKTool/raw/main/ZKToolInstaller.exe)
 
 ## Screenshots
 
