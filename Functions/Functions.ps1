@@ -581,7 +581,7 @@ function RegistryTweaks {
     Stop-Service "SysMain" -WarningAction SilentlyContinue
     Set-Service "SysMain" -StartupType Disabled
 
-    Stop-Process "Explorer"
+    Get-Process "Explorer" | Stop-Process
 
     $App.RequireRestart = $true
 }
@@ -1306,7 +1306,7 @@ function BlackIcons {
     $Shortcut.IconLocation = "$IconLocation, 0"
     $Shortcut.Save()
 
-    Stop-Process "Explorer"
+    Get-Process "Explorer" | Stop-Process
 }
 
 function InstallFFMPEG {
