@@ -1323,8 +1323,10 @@ function InstallFFMPEG {
     if (!(Test-Path ($App.ZKToolPath + "Apps"))) {
         New-Item -Path ($App.ZKToolPath + "Apps") -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
     }
+
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/Compress.exe"), ($App.ZKToolPath + "Apps\Compress.exe"))
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+    New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\" -Name "Shell" | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Compress" | Out-Null
     New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "command" | Out-Null
     Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
