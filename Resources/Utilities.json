@@ -34,6 +34,12 @@
         "Source": ".exe"
     },
     "Utility12": {
+        "Name": "GPU-Z",
+        "Installer": "GPUZ.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
+    },
+    "Utility13": {
         "Name": "HWiNFO",
         "FunctionName": "HWiNFO"
     },
