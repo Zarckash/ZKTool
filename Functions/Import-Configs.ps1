@@ -1,4 +1,5 @@
 ﻿$DocumentsPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
+$SteamPath = (Get-Content "${env:ProgramFiles(x86)}\Steam\config\libraryfolders.vdf" | Select-String "Path") -replace '"Path"','' -replace "`t","" -replace '"','' -replace '\\\\','\' | ForEach-Object {"$_\steamapps\common\"}
 
 function ModernWarfareIII {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/ModernWarfareIII.zip"), ($App.FilesPath + "ModernWarfareIII.zip"))
@@ -27,6 +28,17 @@ function XDefiant {
     Get-Item -Path ($App.FilesPath + "XDefiant\bc_general_settings_.cfg") | Rename-Item -NewName (Get-Item ($DocumentsPath + "\My Games\XDefiant\bc_general_settings_*")).Name -Force
     Get-ChildItem -Path ($App.FilesPath + "XDefiant") | Move-Item -Destination "$DocumentsPath\My Games\XDefiant" -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config4.Name + " aplicada")
+}
+
+function DeltaForce {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DeltaForce.zip"), ($App.FilesPath + "\DeltaForce.zip"))
+
+    $SteamPath | ForEach-Object {
+        if (Test-Path ($_ + "Delta Force Demo")) {
+            $DeltaForcePath = ($_ + "Delta Force Demo\Game\DeltaForce\Saved\Config\WindowsClient")
+            Expand-Archive -Path ($App.FilesPath + "DeltaForce.zip") -DestinationPath $DeltaForcePath -Force
+        }
+    }
 }
 
 function Plutonium {
