@@ -39,6 +39,8 @@ function DeltaForce {
             Expand-Archive -Path ($App.FilesPath + "DeltaForce.zip") -DestinationPath $DeltaForcePath -Force
         }
     }
+
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config5.Name + " aplicada")
 }
 
 function Plutonium {
