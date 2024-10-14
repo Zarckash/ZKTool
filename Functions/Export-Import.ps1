@@ -27,7 +27,7 @@
         Write-UserOutput "Exportando Documentos"        
         Get-ChildItem -Path ($Path.Documents) -Name | ForEach-Object {New-Item -Path ($Path.Temp + "\Documents\" + $_) -ItemType Directory | Out-Null}
 
-        $ExcludeList = @("*.mcache","*.PcDx12","*.bin","*.dat","*.cache","*.log","*.binperf","*.map","*.png","*.jpg","*.rpak","*.mbytecode","*.jpeg","*.gif","*.mp4","*.webm","*.dds","*.wav","*.ogg","library_0x*","*.js","*.db","*.mdmp","*.html")        
+        $ExcludeList = @("*.mcache","*.PcDx12","*.pso","*.bin","*.dat","*.cache","*.log","*.binperf","*.map","*.png","*.jpg","*.rpak","*.mbytecode","*.jpeg","*.gif","*.mp4","*.webm","*.dds","*.wav","*.ogg","library_0x*","*.js","*.db","*.mdmp","*.html")        
         Get-ChildItem -Path ($Path.Documents) | ForEach-Object {$_ | Copy-Item -Destination ($Path.Temp + "\Documents\") -Recurse -Force -Exclude $ExcludeList}
         Get-ChildItem -Path ($Path.Temp + "\Documents\Battlefield*\twinkle") | Remove-Item -Recurse -Force | Out-Null
         Get-ChildItem -Path ($Path.Temp + "\Documents\") -Recurse | Where-Object { $_.PSISContainer -and @( $_ | Get-ChildItem ).Count -eq 0 } | Remove-Item -Recurse -Force | Out-Null
@@ -37,8 +37,6 @@
             Write-UserOutput "Exportando Juegos Guardados"
 
             Get-ChildItem -Path ($Path.SavedGames) -Name | ForEach-Object {New-Item -Path ($Path.Temp + "\SavedGames\" + $_) -ItemType Directory | Out-Null}
-
-            $ExcludeList = @("*.mcache","*.PcDx12","*.bin","*.dat","*.cache","*.log","*.binperf","*.png","*.jpg","*.rpak","*.mbytecode","*.jpeg","*.gif","*.mp4","*.webm","*.dds","*.wav","*.ogg","library_0x*","*.js","*.db","*.mdmp","*.html")        
             Get-ChildItem -Path ($Path.SavedGames) | ForEach-Object {$_ | Copy-Item -Destination ($Path.Temp + "\SavedGames\") -Recurse -Force -Exclude $ExcludeList}
             Get-ChildItem -Path ($Path.Temp + "\SavedGames\") -Recurse | Where-Object { $_.PSISContainer -and @( $_ | Get-ChildItem ).Count -eq 0 } | Remove-Item -Recurse -Force | Out-Null
             Compress-Archive -Path ($Path.Temp + "\SavedGames\*") -DestinationPath ($Path.Compressed + "\SavedGames.zip")
