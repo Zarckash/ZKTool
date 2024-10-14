@@ -35,7 +35,6 @@
 
         if (Test-Path ($Path.SavedGames + "\*")) {
             Write-UserOutput "Exportando Juegos Guardados"
-
             Get-ChildItem -Path ($Path.SavedGames) -Name | ForEach-Object {New-Item -Path ($Path.Temp + "\SavedGames\" + $_) -ItemType Directory | Out-Null}
             Get-ChildItem -Path ($Path.SavedGames) | ForEach-Object {$_ | Copy-Item -Destination ($Path.Temp + "\SavedGames\") -Recurse -Force -Exclude $ExcludeList}
             Get-ChildItem -Path ($Path.Temp + "\SavedGames\") -Recurse | Where-Object { $_.PSISContainer -and @( $_ | Get-ChildItem ).Count -eq 0 } | Remove-Item -Recurse -Force | Out-Null
