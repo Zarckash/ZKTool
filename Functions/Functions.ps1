@@ -1014,20 +1014,23 @@ function UpdateGPUDrivers {
     $Uri = "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=120&pfid=929&osID=57&languageCode=1033&isWHQL=1&dch=1&sort1=0&numberOfResults=1"
     $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
     $LatestVersion = $WebRequest.IDS.downloadInfo.Version
+    $LatestStable = "561.09"
     
     if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
         Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
-        Start-Sleep 3
-        return
+        Start-Sleep 1
+        Write-UserOutput "Instalando la ultima versión estable $LatestStable"
+        $LatestVersion = $LatestStable
     }
     else {
         Write-UserOutput "Nueva versión $LatestVersion encontrada"
     }
 
     # Check if GeForce Experience installed
-    $WingetListCheck = Winget List 'Nvidia.GeForceExperience' | Select-String -Pattern 'Nvidia.GeForceExperience' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
-    if ($WingetListCheck -eq 'Nvidia.GeForceExperience') {
-        $GeForce = $true
+    $GeForceCheck = Winget List 'Nvidia.GeForceExperience' | Select-String -Pattern 'Nvidia.GeForceExperience' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
+    $NvidiaAppCheck = Winget List 'ARP\Machine\X64\{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | Select-String -Pattern 'ARP\\Machine\\X64\\{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
+    if (($GeForceCheck -eq 'Nvidia.GeForceExperience') -or ($NvidiaAppCheck -eq 'ARP\Machine\X64\{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp')) {
+        $FullInstall = $true
     }
 
     # Downloading latest Nvidia drivers
@@ -1065,13 +1068,18 @@ function UpdateGPUDrivers {
     }
 
     # Check if MSI Afterburner is running
-    if ($null -ne (Get-Process "MSIAfterburner") ) {
+    if ($null -ne (Get-Process "MSIAfterburner")) {
         $MSIABRunning = $true
         Stop-Process -Name "MSIAfterburner"
     }
 
-    # Strip driver if GeForce Experience is not installed
-    if (!$GeForce) {
+    # Strip driver if GeForce Experience or Nvidia App is not installed
+    if ($FullInstall) {
+        Write-UserOutput "Instalando drivers $LatestVersion"
+        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
+        Remove-Item ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\GeForce Experience.lnk")
+    }
+    else {
         Write-UserOutput "Limpiando archivos de driver"
         $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt','FunctionalConsent_*')
         Get-ChildItem ($App.FilesPath + "NVCleanstall\GFExperience") -Exclude $ExcludeList | ForEach-Object {
@@ -1079,11 +1087,6 @@ function UpdateGPUDrivers {
         }
         Write-UserOutput "Instalando drivers $LatestVersion"
         Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-clean -s" -Wait
-    }
-    else {
-        Write-UserOutput "Instalando drivers $LatestVersion"
-        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
-        Remove-Item ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\GeForce Experience.lnk")
     }
 
     if ($MSIABRunning) {
