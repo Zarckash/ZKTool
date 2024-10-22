@@ -1034,7 +1034,7 @@ function UpdateGPUDrivers {
     }
 
     # Downloading latest Nvidia drivers
-    Write-UserOutput "Descargando últimos drivers de Nvidia $LatestVersion"
+    Write-UserOutput "Descargando drivers de Nvidia $LatestVersion"
     $Url = "https://us.download.nvidia.com/Windows/$LatestVersion/$LatestVersion-desktop-win10-win11-64bit-international-dch-whql.exe"
     (New-Object System.Net.WebClient).DownloadFile($Url,($App.FilesPath + "Driver.exe"))
 
@@ -1316,7 +1316,9 @@ function InstallFFMPEG {
     Write-UserOutput "Instalando FFMPEG"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".appx/HEVC.appx"), ($App.FilesPath + "HEVC.appx"))
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".appx/HEIF.appx"), ($App.FilesPath + "HEIF.appx"))
+    Get-AppxPackage "Microsoft.HEVCVideoExtension" | Remove-AppxPackage 
     Add-AppxPackage ($App.FilesPath + "HEVC.appx")
+    Get-AppxPackage "Microsoft.HEIFImageExtension" | Remove-AppxPackage 
     Add-AppxPackage ($App.FilesPath + "HEIF.appx")
 
     if (!(Test-Path "$env:localappdata\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source*")) {
@@ -1329,18 +1331,25 @@ function InstallFFMPEG {
 
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/Compress.exe"), ($App.ZKToolPath + "Apps\Compress.exe"))
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-    New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\" -Name "Shell" | Out-Null
-    New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Compress" | Out-Null
-    New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "command" | Out-Null
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\" -Name "Position" -Value "Bottom"
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe"'
 
-    New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\" -Name "Compress Discord" | Out-Null
-    New-Item -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\" -Name "command" | Out-Null
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\" -Name "Position" -Value "Bottom"
-    Set-ItemProperty -Path "HKCR:\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\Compress Discord\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe" -discord'
+    $FileAssociations = @("AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt","AppXgc41cpjz8gfdmjvg8h8vcnemkbfknn6w","AppXcezf6bjsrpbyaqwyjdehhb46y5e5mm3a","AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h","AppX7tycjjv3satx1c8myac3gpn9ktrwns6b","AppX6365235j7azx11tebzeay2a9hd0ngfk5","AppX4mntx4h978m1v9gtzv0ewksfd6pmwsre","AppX43hnxtbyyps62jhe9sqpdzxn1790zetc")
+
+    $FileAssociations | ForEach-Object {
+        New-Item -Path "HKCR:\$_\" -Name "Shell" | Out-Null
+        New-Item -Path "HKCR:\$_\Shell\" -Name "Compress" | Out-Null
+        New-Item -Path "HKCR:\$_\Shell\Compress\" -Name "command" | Out-Null
+        Set-ItemProperty -Path "HKCR:\$_\Shell\Compress\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
+        Set-ItemProperty -Path "HKCR:\$_\Shell\Compress\" -Name "Position" -Value "Bottom"
+        Set-ItemProperty -Path "HKCR:\$_\Shell\Compress\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe"'
+    
+        New-Item -Path "HKCR:\$_\Shell\" -Name "Compress Discord" | Out-Null
+        New-Item -Path "HKCR:\$_\Shell\Compress Discord\" -Name "command" | Out-Null
+        Set-ItemProperty -Path "HKCR:\$_\Shell\Compress Discord\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
+        Set-ItemProperty -Path "HKCR:\$_\Shell\Compress Discord\" -Name "Position" -Value "Bottom"
+        Set-ItemProperty -Path "HKCR:\$_\Shell\Compress Discord\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe" -discord'
+    }
+
+    
 }
 
 function RAMTest {
