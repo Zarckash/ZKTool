@@ -1,8 +1,8 @@
 ﻿{
     "Config1": {
-        "Name": "Modern Warfare III",
-        "FunctionName": "ModernWarfareIII",
-        "Image": "MWIII.png"
+        "Name": "Black Ops 6",
+        "FunctionName": "BlackOps6",
+        "Image": "BO6.png"
     },
     "Config2": {
         "Name": "PUBG",

@@ -1,13 +1,9 @@
 ﻿$DocumentsPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
 $SteamPath = (Get-Content "${env:ProgramFiles(x86)}\Steam\config\libraryfolders.vdf" | Select-String "Path") -replace '"Path"','' -replace "`t","" -replace '"','' -replace '\\\\','\' | ForEach-Object {"$_\steamapps\common\"}
 
-function ModernWarfareIII {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/ModernWarfareIII.zip"), ($App.FilesPath + "ModernWarfareIII.zip"))
-    Expand-Archive -Path (($App.FilesPath + "ModernWarfareIII.zip")) -DestinationPath (($App.FilesPath + "ModernWarfareIII")) -Force
-    $CpuCores = (((Get-ComputerInfo -Property CsProcessors).CsProcessors).NumberOfCores) - 1
-    (Get-Content -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst")).Replace("RendererWorkerCount:1.0 = `"`"","RendererWorkerCount:1.0 = `"$CpuCores`"") | Set-Content -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst")
-    Move-Item -Path ($App.FilesPath + "ModernWarfareIII\options.4.cod23.cst") -Destination "$DocumentsPath\Call of Duty\players" -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
+function BlackOps6 {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BO6.zip"), ($App.FilesPath + "BO6.zip"))
+    Expand-Archive -Path (($App.FilesPath + "BO6.zip")) -DestinationPath "$DocumentsPath\Call of Duty\players\" -Force
 }
 
 function PUBG {
