@@ -961,7 +961,7 @@ function WindowsTerminalAppearance {
     Write-UserOutput "Cambiando apariencia de Windows Terminal"
     $PWSH = 'Microsoft.Powershell'
     if (!($PWSH -eq (Winget list $PWSH | Select-String -Pattern $PWSH | ForEach-Object {$_.Matches} | Select-Object -ExpandProperty Value))) {
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell  | Out-File $App.LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell  | Out-File ($App.LogFolder + "PowerShell7.log") -Encoding UTF8 -Append
     }
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/WindowsTerminalSettings.zip"), ($App.FilesPath + "WindowsTerminalSettings.zip"))
     Remove-Item -Path $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
@@ -1322,7 +1322,7 @@ function InstallFFMPEG {
     Add-AppxPackage ($App.FilesPath + "HEIF.appx")
 
     if (!(Test-Path "$env:localappdata\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source*")) {
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File $App.LogPath -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File ($App.LogFolder + "FFmpeg.log") -Encoding UTF8 -Append
     }
 
     if (!(Test-Path ($App.ZKToolPath + "Apps"))) {
