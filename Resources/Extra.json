@@ -9,8 +9,7 @@
         "Installer": "VisualCRuntimes.exe",
         "Output": "Instalando ",
         "Source": ".exe",
-        "Arguments": "/aiV /gm2",
-        "Preset": "True"
+        "Arguments": "/aiV /gm2"
     },
     "Extra3": {
         "Name": "Optimización Ethernet",
