@@ -62,5 +62,9 @@
     "Utility24": {
         "Name": "Autounattend",
         "FunctionName": "Autounattend"
+    },
+    "Utility25": {
+        "Name": "DDU Driver Uninstaller",
+        "FunctionName": "DDU"
     }
 }

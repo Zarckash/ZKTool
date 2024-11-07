@@ -1416,3 +1416,11 @@ function Autounattend {
     Copy-Item -Path ($App.FilesPath + "autounattend.xml") -Destination $AutounattendPath -Force
     Start-Process Explorer -ArgumentList "/select, ""$AutounattendPath"""
 }
+
+function DDU {
+    Write-UserOutput "Abriendo Display Driver Uninstaller (DDU)"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DDU.zip"), ($App.FilesPath + "DDU.zip"))
+    Expand-Archive -Path ($App.FilesPath + "DDU.zip") -DestinationPath ($App.FilesPath + "DDU") -Force
+
+    Start-Process ($App.FilesPath + "DDU\Display Driver Uninstaller.exe")
+}
