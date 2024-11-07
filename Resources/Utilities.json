@@ -56,7 +56,7 @@
         "Source": ".exe"
     },
     "Utility19": {
-        "Name": "DDU Driver Uninstaller",
+        "Name": "Driver Uninstaller (DDU)",
         "FunctionName": "DDU"
     },
     "Utility23": {
