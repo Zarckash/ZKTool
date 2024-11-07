@@ -55,6 +55,10 @@
         "Output": "Abriendo ",
         "Source": ".exe"
     },
+    "Utility19": {
+        "Name": "DDU Driver Uninstaller",
+        "FunctionName": "DDU"
+    },
     "Utility23": {
         "Name": "Forzar DLAA global",
         "FunctionName": "ForceDLAA"
@@ -62,9 +66,5 @@
     "Utility24": {
         "Name": "Autounattend",
         "FunctionName": "Autounattend"
-    },
-    "Utility25": {
-        "Name": "DDU Driver Uninstaller",
-        "FunctionName": "DDU"
     }
 }
