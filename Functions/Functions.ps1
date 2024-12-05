@@ -205,9 +205,9 @@ function RegistryTweaks {
     $WinAPIArray::SystemParametersInfo(0x0004, 0, @(0,0,0), 2) | Out-Null
 
     if ($env:USERNAME -eq "Zarckash") {
-        $WinAPI::SystemParametersInfo(0x0071, 0, 8, 2) | Out-Null
+        $WinAPI::SystemParametersInfo(0x0071, 0, 7, 2) | Out-Null
 
-        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 8
+        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 7
     }
 
     # Disable Keyboard Layout Shortcut
@@ -1332,7 +1332,7 @@ function InstallFFMPEG {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/Compress.exe"), ($App.ZKToolPath + "Apps\Compress.exe"))
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
 
-    $FileAssociations = @("AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt","AppXgc41cpjz8gfdmjvg8h8vcnemkbfknn6w","AppX0qr5fm35mn9t8hydzp6rgj2m2tkzhfrd","AppXcezf6bjsrpbyaqwyjdehhb46y5e5mm3a","AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h","AppX7tycjjv3satx1c8myac3gpn9ktrwns6b","AppX6365235j7azx11tebzeay2a9hd0ngfk5","AppX4mntx4h978m1v9gtzv0ewksfd6pmwsre","AppX43hnxtbyyps62jhe9sqpdzxn1790zetc")
+    $FileAssociations = Get-Item -Path "HKCR:\.mp4\OpenWithProgids\" | Select-Object -ExpandProperty Property
 
     $FileAssociations | ForEach-Object {
         New-Item -Path "HKCR:\$_\" -Name "Shell" | Out-Null
