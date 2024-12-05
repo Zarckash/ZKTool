@@ -30,8 +30,8 @@ function DeltaForce {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DeltaForce.zip"), ($App.FilesPath + "\DeltaForce.zip"))
 
     $SteamPath | ForEach-Object {
-        if (Test-Path ($_ + "Delta Force Demo")) {
-            $DeltaForcePath = ($_ + "Delta Force Demo\Game\DeltaForce\Saved\Config\WindowsClient")
+        if (Test-Path ($_ + "Delta Force")) {
+            $DeltaForcePath = ($_ + "Delta Force\Game\DeltaForce\Saved\Config\WindowsClient")
             Expand-Archive -Path ($App.FilesPath + "DeltaForce.zip") -DestinationPath $DeltaForcePath -Force
         }
     }
