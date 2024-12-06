@@ -12,10 +12,15 @@
         "Arguments": "/aiV /gm2"
     },
     "Extra3": {
+        "Name": "Extensiones de vídeo",
+        "FunctionName": "VideoExtensions",
+        "Preset": "True"
+    },
+    "Extra4": {
         "Name": "Optimización Ethernet",
         "FunctionName": "EthernetOptimization"
     },
-    "Extra4": {
+    "Extra5": {
         "Name": "Actualizar drivers GPU",
         "FunctionName": "UpdateGPUDrivers"
     },

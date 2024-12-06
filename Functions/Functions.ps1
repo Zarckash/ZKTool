@@ -1157,6 +1157,16 @@ function HideSystemComponents {
     }
 }
 
+function VideoExtensions {
+    Write-UserOutput "Instalando extensiones de vídeo"
+    $AppIds = @('9N4D0MSMP0PT','9N4WGH0Z6VHQ','9PMMSR1CGPWG','9PG2DK419DRG','9MVZQVXJBQ9V')
+
+    $AppIds | ForEach-Object {
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppId_$_" + ".log") -Encoding UTF8 -Append
+    }
+    
+}
+
 function EthernetOptimization {
     Write-UserOutput "Optimizando ajustes de red"
 
@@ -1314,12 +1324,6 @@ function BlackIcons {
 
 function InstallFFMPEG {
     Write-UserOutput "Instalando FFMPEG"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".appx/HEVC.appx"), ($App.FilesPath + "HEVC.appx"))
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".appx/HEIF.appx"), ($App.FilesPath + "HEIF.appx"))
-    Get-AppxPackage "Microsoft.HEVCVideoExtension" | Remove-AppxPackage 
-    Add-AppxPackage ($App.FilesPath + "HEVC.appx")
-    Get-AppxPackage "Microsoft.HEIFImageExtension" | Remove-AppxPackage 
-    Add-AppxPackage ($App.FilesPath + "HEIF.appx")
 
     if (!(Test-Path "$env:localappdata\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source*")) {
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Gyan.FFmpeg | Out-File ($App.LogFolder + "FFmpeg.log") -Encoding UTF8 -Append
@@ -1349,6 +1353,7 @@ function InstallFFMPEG {
         Set-ItemProperty -Path "HKCR:\$_\Shell\Compress Discord\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe" -discord'
     }
 
+    & VideoExtensions
     
 }
 
