@@ -20,9 +20,14 @@
         "Image": "XDefiant.ico"
     },
     "Config5": {
-        "Name": "Delta Force (Steam)",
+        "Name": "Delta Force",
         "FunctionName": "DeltaForce",
         "Image": "DeltaForce.png"
+    },
+    "Config6": {
+        "Name": "Marvel Rivals",
+        "FunctionName": "MarvelRivals",
+        "Image": "MarvelRivals.png"
     },
     "Config9": {
         "Name": "Plutonium",

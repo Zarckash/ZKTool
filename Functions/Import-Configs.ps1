@@ -13,13 +13,13 @@ function PUBG {
 }
 
 function ApexLegends {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Apex.zip"), ($App.FilesPath + "\Apex.zip"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Apex.zip"), ($App.FilesPath + "Apex.zip"))
     Expand-Archive -Path ($App.FilesPath + "Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
 }
 
 function XDefiant {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/XDefiant.zip"), ($App.FilesPath + "\XDefiant.zip"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/XDefiant.zip"), ($App.FilesPath + "XDefiant.zip"))
     Expand-Archive -Path ($App.FilesPath + "XDefiant.zip") -DestinationPath ($App.FilesPath + "XDefiant") -Force
     Get-Item -Path ($App.FilesPath + "XDefiant\bc_general_settings_.cfg") | Rename-Item -NewName (Get-Item ($DocumentsPath + "\My Games\XDefiant\bc_general_settings_*")).Name -Force
     Get-ChildItem -Path ($App.FilesPath + "XDefiant") | Move-Item -Destination "$DocumentsPath\My Games\XDefiant" -Force
@@ -27,7 +27,7 @@ function XDefiant {
 }
 
 function DeltaForce {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DeltaForce.zip"), ($App.FilesPath + "\DeltaForce.zip"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DeltaForce.zip"), ($App.FilesPath + "DeltaForce.zip"))
 
     $SteamPath | ForEach-Object {
         if (Test-Path ($_ + "Delta Force")) {
@@ -37,6 +37,12 @@ function DeltaForce {
     }
 
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config5.Name + " aplicada")
+}
+
+function MarvelRivals {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/MarvelRivals.zip"), ($App.FilesPath + "MarvelRivals.zip"))
+    Expand-Archive -Path ($App.FilesPath + "MarvelRivals.zip") -DestinationPath "$env:localappadata\Marvel\Saved\Config\Windows" -Force
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config6.Name + " aplicada")
 }
 
 function Plutonium {
