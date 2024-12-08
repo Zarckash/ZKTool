@@ -103,7 +103,7 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
 
     # Enable Borderless Optimizations
-    If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\DirectX")) {
+    if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\DirectX")) {
         New-Item -Path "HKCU:\Software\Microsoft" -Name "DirectX" | Out-File $App.LogPath -Encoding UTF8 -Append 
         New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "GraphicsSettings" | Out-File $App.LogPath -Encoding UTF8 -Append
         New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "UserGpuPreferences" | Out-File $App.LogPath -Encoding UTF8 -Append
@@ -1428,4 +1428,427 @@ function DDU {
     Expand-Archive -Path ($App.FilesPath + "DDU.zip") -DestinationPath ($App.FilesPath + "DDU") -Force
 
     Start-Process ($App.FilesPath + "DDU\Display Driver Uninstaller.exe")
+}
+
+function Masha {
+    Write-UserOutput "Iniciando Optimización"
+
+    # Create Restore Point
+    Write-UserOutput "Creando punto de restauración"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
+    Enable-ComputerRestore -Drive "C:\"
+    Checkpoint-Computer -Description "Pre Optimización ZKTool" -RestorePointType "MODIFY_SETTINGS"
+    
+    # Disable UAC
+    Write-UserOutput "Desactivando UAC para Administradores"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
+
+    # Disable Device Set Up Suggestions
+    Write-UserOutput "Desactivando sugerencias de configuración de dispositivo"
+    New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "UserProfileEngagement"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement" -Name "ScoobeSystemSettingEnabled" -Type DWord -Value 0
+    
+    # Disable Fast Boot
+    Write-UserOutput "Desactivando Fast Boot"
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Type DWord -Value 0
+
+    # Enable Hardware Acceleration
+    Write-UserOutput "Activando aceleración de hardware"
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name "HwSchMode" -Type Dword -Value 2
+
+    # Rebuild Performance Counters
+    Write-UserOutput "Reconstruyendo contadores de rendimiento"
+    lodctr /r
+    lodctr /r
+
+    # Install Bitsum Power Plan
+    Write-Output "Activando High Performance Profile"
+    powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c # Remove High Performance Profile
+    powercfg -h off
+    powercfg -change monitor-timeout-ac 15
+    powercfg -change standby-timeout-ac 0
+
+    # Windows Defender Exclusions
+    Write-UserOutput "Añadiendo exclusiones a Windows Defender"
+    $ActiveDrives = Get-Volume | Where-Object {(($_.DriveType -eq "Fixed") -and ($_.DriveLetter -like "?") -and ($_.FileSystemLabel -notlike ""))} | Select-Object -ExpandProperty DriveLetter | ForEach-Object {$_ + ":\"}
+    $ActiveDrives | ForEach-Object {
+        if (Test-Path ($_ + "Games")) {
+            Add-MpPreference -ExclusionPath ($_ + "Games")
+            Add-MpPreference -ExclusionProcess ($_ + "Games\*")
+        }
+        if (Test-Path ($_ + "Juegos")) {
+            Add-MpPreference -ExclusionPath ($_ + "Juegos")
+            Add-MpPreference -ExclusionProcess ($_ + "Juegos\*")
+        }
+    }
+    Add-MpPreference -ExclusionPath (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal")
+    Add-MpPreference -ExclusionPath "$env:ProgramFiles\Windows Defender"
+    Add-MpPreference -ExclusionPath "$env:windir\security\database"
+    Add-MpPreference -ExclusionPath "$env:windir\SoftwareDistribution\DataStore"
+    Add-MpPreference -ExclusionPath "$env:temp\NVIDIA Corporation\NV_Cache"
+
+    # Show File Extensions
+    Write-UserOutput "Activando extensiones de archivos"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
+    
+    # Open File Explorer In This PC Page
+    Write-UserOutput "Estableciendo abrir Explorador en `"Este Equipo`""
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
+
+    # Disable Mouse Acceleration
+    Write-UserOutput "Desactivando aceleración del ratón"
+    Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSpeed" -Value 0
+    Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold1" -Value 0
+    Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold2" -Value 0
+
+    $WinAPIArray::SystemParametersInfo(0x0004, 0, @(0,0,0), 2) | Out-Null
+    
+    # Disable Error Reporting
+    Write-UserOutput "Desactivando informar de errores"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-Null
+
+    # 100% Wallpaper Quality
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "JPEGImportQuality" -Type DWord -Value 100
+
+    # Performance Optimizations
+    Write-UserOutput "Optimizando registros de rendimiento"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" -Name "SearchOrderConfig" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "WaitToKillServiceTimeout" -Value 2000
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Value 100
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WaitToKillAppTimeout" -Value 5000
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoEndTasks" -Value 1
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "LowLevelHooksTimeout" -Value 1000
+    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WaitToKillServiceTimeout" -Value 2000
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "AutoGameModeEnabled" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "UseNexusForGameBarEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "ClearPageFileAtShutdown" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseHoverTime" -Value 200
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" -Name "Win32PrioritySeparation" -Type DWord -Value 38
+    Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "HungAppTimeout" -ErrorAction SilentlyContinue
+    Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name FeatureSettingsOverride -Force -ErrorAction SilentlyContinue
+    Remove-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" -Name FeatureSettingsOverride -Force -ErrorAction SilentlyContinue
+    Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name FeatureSettingsOverrideMask -Force -ErrorAction SilentlyContinue
+    Remove-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Session Manager\Memory Management" -Name FeatureSettingsOverrideMask -Force -ErrorAction SilentlyContinue
+
+    # Games Performance Optimizations
+    Write-UserOutput "Optimizando registros de juegos"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Affinity" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Background Only" -Type String -Value "False"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Clock Rate" -Type DWord -Value 10000
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "GPU Priority" -Type DWord -Value 8
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Priority" -Type DWord -Value 6
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "Scheduling Category" -Type String -Value "High"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -Name "SFIO Priority" -Type String -Value "High"
+    Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_FSEBehaviorMode" -Type DWord -Value 2
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
+
+    # Edge Settings
+    Write-UserOutput "Optimizando Edge"
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft" -Name "Edge" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "BackgroundModeEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "ShowDownloadsToolbarButton" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "SleepingTabsEnabled" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "SleepingTabsTimeout" -Type DWord -Value 300
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "StartupBoostEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "EfficiencyModeEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "HubsSidebarEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "HideFirstRunExperience" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "PerformanceDetectorEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "QuickSearchShowMiniMenu" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "EdgeFollowEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "NewTabPagePrerendererEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "NewTabPageAllowedBackgroundTypes" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "NewTabPageContentAllowed" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "GamerModeEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "NewTabPageSearchBox" -Value "redirect"
+
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft" -Name "EdgeUpdate" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -Name "UpdateDefault" -Type DWord -Value 2
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" -Name "Start" -Type DWord -Value 4
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate" -Name "Start" -Type DWord -Value 4
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem" -Name "Start" -Type DWord -Value 4
+    Disable-ScheduledTask -TaskName 'MicrosoftEdgeUpdateTaskMachineCore*' | Out-File $App.LogPath -Encoding UTF8 -Append
+    Disable-ScheduledTask -TaskName 'MicrosoftEdgeUpdateTaskMachineUA*' | Out-File $App.LogPath -Encoding UTF8 -Append
+
+    # Chrome Settings
+    Write-UserOutput "Optimizando Chrome"
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Google" -Name "Chrome" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Google\Chrome" -Name "BackgroundModeEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Google\Chrome" -Name "HardwareAccelerationModeEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Google\Chrome" -Name "StartupBoostEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" -Name "Start" -Type DWord -Value 4
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdate" -Name "Start" -Type DWord -Value 4
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\gupdatem" -Name "Start" -Type DWord -Value 4
+
+    # Disable VBS
+    Write-UserOutput "Desactivando aislamiento del núcleo"
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard" -Name "EnableVirtualizationBasedSecurity" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" -Name "Enabled" -Type DWord -Value 0
+
+    # Disable Background Apps
+    Write-UserOutput "Desactivando aplicaciones en segundo plano"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Name "GlobalUserDisabled" -Type DWord -Value 1
+
+    # Disable Power Throttling
+    New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Power" -Name "PowerThrottling" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" -Name "PowerThrottlingOff" -Type DWord -Value 1
+
+    # Disable Telemetry
+    Write-UserOutput "Deshabilitando telemetría de Windows"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-File $App.LogPath -Encoding UTF8 -Append
+
+    # Disable Aplication Sugestions
+    Write-UserOutput "Deshabilitando sugerencias de aplicaciones"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "ContentDeliveryAllowed" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "OemPreInstalledAppsEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "PreInstalledAppsEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "PreInstalledAppsEverEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SilentInstalledAppsEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-338387Enabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-338388Enabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-338389Enabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-353698Enabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SystemPaneSuggestionsEnabled" -Type DWord -Value 0
+
+    # Disable Activity History
+    Write-UserOutput "Deshabilitando historial de actividad"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SYSTEM\Maps" -Name "AutoUpdateEnabled" -Type DWord -Value 0
+
+    # Disable Nearby Sharing
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP" -Name "CdpSessionUserAuthzPolicy" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP" -Name "RomeSdkChannelUserAuthzPolicy" -Type DWord -Value 0
+
+    # Disable Storage Sense
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" -Name "01" -Type DWord -Value 0
+
+    # Disable MPO
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\Dwm" -Name "OverlayTestMode" -Type DWord -Value 5
+
+    # Disable account notifications in Start Menu
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_AccountNotifications" -Type DWord -Value 0
+
+    # Hide Windows Files
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
+    if (!(Test-Path -Path "C:\PerfLogs")) {
+        New-Item "C:\PerfLogs" -ItemType Directory
+    }
+    (Get-Item "C:\PerfLogs").Attributes = 'Hidden'
+    if (!(Test-Path -Path "C:\Intel")) {
+        New-Item "C:\Intel" -ItemType Directory
+    }
+    (Get-Item "C:\Intel").Attributes = 'Hidden'
+
+    # Stop Microsoft Store From Updating Apps Automatically
+    Write-UserOutput "Desactivando actualizaciones de Microsoft Store"
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "WindowsStore" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -Name "AutoDownload" -Type DWord -Value 2
+
+    # Hide TaskBar View Button
+    Write-UserOutput "Ocultando botón vista de tareas"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
+
+    # Hide Meet Now Button
+    Write-UserOutput "Ocultando botón de Reunirse Ahora"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Value 1
+
+    # Hide Search Button
+    Write-UserOutput "Ocultando botón de búsqueda"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+
+    # Disable Windows Copilot Button
+    New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "WindowsCopilot" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
+
+    # Disable Widgets
+    Write-UserOutput "Desactivando Widgets"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarDa" -Type DWord -Value 0
+    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "Dsh"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests" -Type DWord -Value 0
+
+    # Disable Web Search
+    Write-UserOutput "Desactivando búsqueda en la web con Bing"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
+
+    # Hide Search Recomendations
+    Write-UserOutput "Desactivando recomendaciones de búsqueda"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
+
+    # Disable Microsoft Account In Windows Search
+    Write-UserOutput "Desactivando cuenta de Microsoft en Windows Search"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsMSACloudSearchEnabled" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsAADCloudSearchEnabled" -Type DWord -Value 0
+    
+    # Hide Chat Button
+    Write-UserOutput "Ocultando botón de chats"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
+
+    # Set Dark Theme
+    Write-UserOutput "Estableciendo modo oscuro"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
+
+    # Hide Recent Files And Folders In Explorer
+    Write-UserOutput "Ocultando recientes de Acceso Rápido"
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowRecent" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "ShowFrequent" -Type DWord -Value 0
+
+    # Clipboard History
+    Write-UserOutput "Activando el historial del portapapeles"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
+
+    # Change Computer Name
+    $PCName = $env:username.ToUpper() + "-PC"
+    Write-UserOutput "Cambiando nombre del equipo a $PCName"
+    Rename-Computer -NewName $PCName
+
+    # Set Private Network
+    Write-UserOutput "Estableciendo Red Privada"
+    Set-NetConnectionProfile -NetworkCategory Private
+
+    # Show File Operations Details
+    Write-UserOutput "Mostrando detalles de transferencias de archivos"
+    New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "OperationStatusManager" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" -Name "EnthusiastMode" -Type DWord -Value 1
+
+    # Sounds Communications Do Nothing
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Multimedia\Audio" -Name "UserDuckingPreference" -Type DWord -Value 3
+
+    # Hide Buttons From Power Button
+    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\" -Name "FlyoutMenuSettings" -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowHibernateOption" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowSleepOption" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowLockOption" -Type DWord -Value 0
+
+    # Alt Tab Open Windows Only
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Type DWord -Value 3
+
+    # Set Desktop Icons Size To Small
+    Write-UserOutput "Reduciendo el tamaño de los iconos del Escritorio"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
+
+    # Disable Feedback
+    Write-UserOutput "Deshabilitando Feedback"
+    If (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules")) {
+        New-Item -Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules" -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+    }
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Siuf\Rules" -Name "NumberOfSIUFInPeriod" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DoNotShowFeedbackNotifications" -Type DWord -Value 1
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-File $App.LogPath -Encoding UTF8 -Append
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" -ErrorAction SilentlyContinue | Out-File $App.LogPath -Encoding UTF8 -Append
+
+    # Service Tweaks To Manual 
+    Write-UserOutput "Desactivando servicios de Windows"
+    $Services = @(
+        "ALG"                                       # Application Layer Gateway Service(Provides support for 3rd party protocol plug-ins for Internet Connection Sharing)
+        "AJRouter"                                  # Needed for AllJoyn Router Service
+        "BcastDVRUserService_48486de"               # GameDVR and Broadcast is used for Game Recordings and Live Broadcasts
+        "Browser"                                   # Let users browse and locate shared resources in neighboring computers
+        "diagnosticshub.standardcollector.service"  # Microsoft (R) Diagnostics Hub Standard Collector Service
+        "DiagTrack"                                 # Diagnostics Tracking Service
+        "dmwappushservice"                          # WAP Push Message Routing Service
+        "DPS"                                       # Diagnostic Policy Service (Detects and Troubleshoots Potential Problems)
+        "edgeupdate"                                # Edge Update Service
+        "edgeupdatem"                               # Another Update Service
+        "Fax"                                       # Fax Service
+        "fhsvc"                                     # Fax History
+        "FontCache"                                 # Windows font cache
+        "gupdate"                                   # Google Update
+        "gupdatem"                                  # Another Google Update Service
+        "iphlpsvc"                                  # ipv6(Most websites use ipv4 instead)
+        "lfsvc"                                     # Geolocation Service
+        "lmhosts"                                   # TCP/IP NetBIOS Helper
+        "MapsBroker"                                # Downloaded Maps Manager
+        "MicrosoftEdgeElevationService"             # Another Edge Update Service
+        "MSDTC"                                     # Distributed Transaction Coordinator
+        "NahimicService"                            # Nahimic Service
+        "NetTcpPortSharing"                         # Net.Tcp Port Sharing Service
+        "PcaSvc"                                    # Program Compatibility Assistant Service
+        "PerfHost"                                  # Remote users and 64-bit processes to query performance.
+        "PhoneSvc"                                  # Phone Service(Manages the telephony state on the device)
+        "RemoteAccess"                              # Routing and Remote Access
+        "RemoteRegistry"                            # Remote Registry
+        "RetailDemo"                                # Demo Mode for Store Display
+        "RtkBtManServ"                              # Realtek Bluetooth Device Manager Service
+        "SCardSvr"                                  # Windows Smart Card Service
+        "seclogon"                                  # Secondary Logon (Disables other credentials only password will work)
+        "SEMgrSvc"                                  # Payments and NFC/SE Manager (Manages payments and Near Field Communication (NFC) based secure elements)
+        "SharedAccess"                              # Internet Connection Sharing (ICS)
+        "Spooler"                                   # Printing
+        "stisvc"                                    # Windows Image Acquisition (WIA)
+        "TrkWks"                                    # Distributed Link Tracking Client
+        "WbioSrvc"                                  # Windows Biometric Service (required for Fingerprint reader / facial detection)
+        "WerSvc"                                    # Windows error reporting
+        "wisvc"                                     # Windows Insider program(Windows Insider will not work if Disabled)
+        "WMPNetworkSvc"                             # Windows Media Player Network Sharing Service
+        "WpcMonSvc"                                 # Parental Controls
+        "WPDBusEnum"                                # Portable Device Enumerator Service
+        "XblAuthManager"                            # Xbox Live Auth Manager (Disabling Breaks Xbox Live Games)
+        "XblGameSave"                               # Xbox Live Game Save Service (Disabling Breaks Xbox Live Games)
+        "XboxNetApiSvc"                             # Xbox Live Networking Service (Disabling Breaks Xbox Live Games)
+        "XboxGipSvc"                                # Xbox Accessory Management Service
+        "tzautoupdate"                              # Automatically sets the system time zone
+        "PimIndexMaintenanceSvc"                    # Disable Contacts in search    
+        "HPAppHelperCap"
+        "HPDiagsCap"
+        "HPNetworkCap"
+        "HPSysInfoCap"
+        "HpTouchpointAnalyticsService"
+        "HvHost"
+        "vmicguestinterface"
+        "vmicheartbeat"
+        "vmickvpexchange"
+        "vmicrdv"
+        "vmicshutdown"
+        "vmictimesync"
+        "vmicvmsession"
+    )
+
+    $Services | ForEach-Object {
+        try {
+            Write-UserOutput ("Desactivando " + (Get-Service -Name $_ -ErrorAction Stop).DisplayName)
+        }
+        catch {}
+        Get-Service -Name $_ -ErrorAction SilentlyContinue | Set-Service -StartupType Manual
+    }
+
+    Stop-Service "DiagTrack"
+    Set-Service "DiagTrack" -StartupType Disabled
+
+    Stop-Service "DiagTrack" -WarningAction SilentlyContinue
+    Set-Service "DiagTrack" -StartupType Disabled
+
+    Stop-Service "dmwappushservice" -WarningAction SilentlyContinue
+    Set-Service "dmwappushservice" -StartupType Disabled
+
+    Stop-Service "HomeGroupListener" -WarningAction SilentlyContinue
+    Set-Service "HomeGroupListener" -StartupType Disabled
+    Stop-Service "HomeGroupProvider" -WarningAction SilentlyContinue
+    Set-Service "HomeGroupProvider" -StartupType Disabled
+
+    Stop-Service "SysMain" -WarningAction SilentlyContinue
+    Set-Service "SysMain" -StartupType Disabled
+
+    Get-Process "Explorer" | Stop-Process
+
+    $App.RequireRestart = $true
+    
+    & NvidiaSettings
+    & UninstallXboxGameBar
+    & UninstallBloat
+    & UninstallOneDrive
+    & WindowsAnimations
+    & ReduceIconsSpacing
+    & HideShortcutIcons
 }
