@@ -6,24 +6,10 @@ function BlackOps6 {
     Expand-Archive -Path (($App.FilesPath + "BO6.zip")) -DestinationPath "$DocumentsPath\Call of Duty\players\" -Force
 }
 
-function PUBG {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PUBG.zip"), ($App.FilesPath + "PUBG.zip"))
-    Expand-Archive -Path ($App.FilesPath + "PUBG.zip") -DestinationPath "$env:localappdata\TslGame\Saved\Config\WindowsNoEditor" -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config2.Name + " aplicada")
-}
-
 function ApexLegends {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Apex.zip"), ($App.FilesPath + "Apex.zip"))
     Expand-Archive -Path ($App.FilesPath + "Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
-}
-
-function XDefiant {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/XDefiant.zip"), ($App.FilesPath + "XDefiant.zip"))
-    Expand-Archive -Path ($App.FilesPath + "XDefiant.zip") -DestinationPath ($App.FilesPath + "XDefiant") -Force
-    Get-Item -Path ($App.FilesPath + "XDefiant\bc_general_settings_.cfg") | Rename-Item -NewName (Get-Item ($DocumentsPath + "\My Games\XDefiant\bc_general_settings_*")).Name -Force
-    Get-ChildItem -Path ($App.FilesPath + "XDefiant") | Move-Item -Destination "$DocumentsPath\My Games\XDefiant" -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config4.Name + " aplicada")
 }
 
 function DeltaForce {
@@ -41,7 +27,8 @@ function DeltaForce {
 
 function MarvelRivals {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/MarvelRivals.zip"), ($App.FilesPath + "MarvelRivals.zip"))
-    Expand-Archive -Path ($App.FilesPath + "MarvelRivals.zip") -DestinationPath "$env:localappadata\Marvel\Saved\Config\Windows" -Force
+    Expand-Archive -Path ($App.FilesPath + "MarvelRivals.zip") -DestinationPath "$env:localappdata\Marvel\Saved\Config\Windows" -Force
+
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config6.Name + " aplicada")
 }
 

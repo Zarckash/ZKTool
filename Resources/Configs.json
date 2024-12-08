@@ -4,20 +4,10 @@
         "FunctionName": "BlackOps6",
         "Image": "BO6.png"
     },
-    "Config2": {
-        "Name": "PUBG",
-        "FunctionName": "PUBG",
-        "Image": "PUBG.png"
-    },
     "Config3": {
         "Name": "Apex Legends",
         "FunctionName": "ApexLegends",
         "Image": "ApexLegends.ico"
-    },
-    "Config4": {
-        "Name": "XDefiant",
-        "FunctionName": "XDefiant",
-        "Image": "XDefiant.ico"
     },
     "Config5": {
         "Name": "Delta Force",
