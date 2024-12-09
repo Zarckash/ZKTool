@@ -392,6 +392,9 @@ function RegistryTweaks {
     Write-UserOutput "Ocultando botón de Reunirse Ahora"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Value 1
 
+    # Disable News and Interests (Windows 10)
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds" -Name "ShellFeedsTaskbarViewMode" -Value 2
+
     # Hide Search Button
     Write-UserOutput "Ocultando botón de búsqueda"
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
@@ -608,6 +611,7 @@ function UninstallXboxGameBar {
     Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage 
     Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
     Get-AppxPackage "Microsoft.GamingApp" | Remove-AppxPackage
+    Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
     Get-AppxPackage "Microsoft.GamingServices" | Remove-AppxPackage
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
@@ -759,6 +763,7 @@ function UninstallBloat {
         "Microsoft.Office.OneNote"
         "Microsoft.Office.Sway"
         "Microsoft.OneConnect"
+        "Microsoft.SkypeApp"
         "Microsoft.People"
         "Microsoft.Print3D"
         "Microsoft.Paint"
@@ -787,6 +792,7 @@ function UninstallBloat {
         "Microsoft.Copilot"
         "MSTeams"
         "Microsoft.BingSearch"
+        "Microsoft.ZuneVideo"
     )
 
     $Bloatware | ForEach-Object {
@@ -1494,6 +1500,10 @@ function Masha {
     # Open File Explorer In This PC Page
     Write-UserOutput "Estableciendo abrir Explorador en `"Este Equipo`""
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
+
+    Set-WinLanguageBarOption -UseLegacyLanguageBar: $false
+
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds" -Name "ShellFeedsTaskbarViewMode" -Value 2
 
     # Disable Mouse Acceleration
     Write-UserOutput "Desactivando aceleración del ratón"
