@@ -73,7 +73,7 @@ function Test-ImagesSha {
     }
 }
 
-if ($ShaJson.GlobalSha -ne $LatestSha) {
+if (($ShaJson.GlobalSha -ne $LatestSha) -or ($ShaJson.Functions.Sha -eq "")) {
 
     Test-FunctionsSha
     Test-ResourcesSha
