@@ -35,10 +35,6 @@
         "Source": ".exe",
         "Arguments": "/N"
     },
-    "Extra11": {
-        "Name": "Masha",
-        "FunctionName": "Masha"
-    },
     "Extra17": {
         "Name": "Drivers de Red Z390",
         "FunctionName": "Z390LanDrivers"
