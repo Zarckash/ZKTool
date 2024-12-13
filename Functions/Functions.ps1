@@ -21,9 +21,12 @@ $WinAPIArray = Add-Type -Name WinAPIArray -NameSpace System -passThru -memberDef
 #https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfoa
 
 function Spotify {
-    Write-UserOutput "Instalando Spotify"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "Spotify.ps1"), ($App.FilesPath + "Spotify.ps1"))
-    Start-Process powershell -ArgumentList "-noexit -command powershell.exe -ExecutionPolicy Bypass $env:temp\ZKTool\Files\Spotify.ps1 ; exit"
+    Write-UserOutput "Abriendo instalador de Spotify"
+    Start-Process Powershell {
+        $host.UI.RawUI.WindowTitle = 'Spotify Installer'
+        [Net.ServicePointManager]::SecurityProtocol = 3072
+        Invoke-Expression \"& { $(Invoke-WebRequest -useb 'https://spotx-official.github.io/run.ps1') } -new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -block_update_on -cache_limit 100 -DisableStartup -start_spoti -no_shortcut\"
+    }
 }
 
 function OpenRGB {
