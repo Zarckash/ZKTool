@@ -21,12 +21,14 @@ $WinAPIArray = Add-Type -Name WinAPIArray -NameSpace System -passThru -memberDef
 #https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfoa
 
 function Spotify {
-    Write-UserOutput "Abriendo instalador de Spotify"
-    Start-Process Powershell -WindowStyle Hidden {
+    Write-UserOutput "Instalando Spotify"
+    Start-Process Powershell -WindowStyle Hidden -Wait {
         $host.UI.RawUI.WindowTitle = 'Spotify Installer'
         [Net.ServicePointManager]::SecurityProtocol = 3072
-        Invoke-Expression \"& { $(Invoke-WebRequest -useb 'https://spotx-official.github.io/run.ps1') } -new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -block_update_on -cache_limit 100 -DisableStartup -start_spoti -no_shortcut\"
+        Invoke-Expression \"& { $(Invoke-WebRequest -useb 'https://spotx-official.github.io/run.ps1') } -new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -block_update_on -cache_limit 100 -no_shortcut\"
     }
+
+    Start-Sleep 1
 
     Add-Content $env:appdata\Spotify\prefs "app.autostart-configured=true`nui.hardware_acceleration=false`napp.autostart-mode=`"off`""
     New-Item -Path "HKCU:\Software" -Name "Spotify" | Out-File $App.LogPath -Encoding UTF8 -Append 
