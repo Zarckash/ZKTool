@@ -22,11 +22,20 @@ $WinAPIArray = Add-Type -Name WinAPIArray -NameSpace System -passThru -memberDef
 
 function Spotify {
     Write-UserOutput "Abriendo instalador de Spotify"
-    Start-Process Powershell {
+    Start-Process Powershell -WindowStyle Hidden {
         $host.UI.RawUI.WindowTitle = 'Spotify Installer'
         [Net.ServicePointManager]::SecurityProtocol = 3072
         Invoke-Expression \"& { $(Invoke-WebRequest -useb 'https://spotx-official.github.io/run.ps1') } -new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -podcasts_off -block_update_on -cache_limit 100 -DisableStartup -start_spoti -no_shortcut\"
     }
+
+    Add-Content $env:appdata\Spotify\prefs "app.autostart-configured=true`nui.hardware_acceleration=false`napp.autostart-mode=`"off`""
+    New-Item -Path "HKCU:\Software" -Name "Spotify" | Out-Null
+    New-Item -Path "HKCU:\Software\Spotify" -Name "Window Position" | Out-Null
+    Set-ItemProperty -Path "HKCU:\Software\Spotify\Window Position" -Name "Height" -Type DWord -Value 634 
+    Set-ItemProperty -Path "HKCU:\Software\Spotify\Window Position" -Name "Left" -Type DWord -Value 457
+    Set-ItemProperty -Path "HKCU:\Software\Spotify\Window Position" -Name "Show State" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKCU:\Software\Spotify\Window Position" -Name "Top" -Type DWord -Value 203
+    Set-ItemProperty -Path "HKCU:\Software\Spotify\Window Position" -Name "Width" -Type DWord -Value 1003
 }
 
 function OpenRGB {
@@ -94,7 +103,7 @@ function RegistryTweaks {
 
     # Disable Device Set Up Suggestions
     Write-UserOutput "Desactivando sugerencias de configuración de dispositivo"
-    New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "UserProfileEngagement"
+    New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\" -Name "UserProfileEngagement" | Out-File $App.LogPath -Encoding UTF8 -Append 
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement" -Name "ScoobeSystemSettingEnabled" -Type DWord -Value 0
     
     # Disable Fast Boot
@@ -374,11 +383,11 @@ function RegistryTweaks {
     # Hide Windows Files
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "EnableLogFile" -Type DWord -Value 0
     if (!(Test-Path -Path "C:\PerfLogs")) {
-        New-Item "C:\PerfLogs" -ItemType Directory
+        New-Item "C:\PerfLogs" -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append 
     }
     (Get-Item "C:\PerfLogs").Attributes = 'Hidden'
     if (!(Test-Path -Path "C:\Intel")) {
-        New-Item "C:\Intel" -ItemType Directory
+        New-Item "C:\Intel" -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append 
     }
     (Get-Item "C:\Intel").Attributes = 'Hidden'
 
@@ -912,7 +921,7 @@ function SetW11Cursor {
     $App.Download.DownloadFile(($App.GitHubFilesPath + "FluentCursor.reg"), ($App.FilesPath + "FluentCursor.reg"))
     regedit /s ($App.FilesPath + "FluentCursor.reg")
 
-    $WinAPI::SystemParametersInfo(0x0057, 0, $null, 0) | Out-Null
+    $WinAPI::SystemParametersInfo(0x0057, 0, $null, 0) | Out-File $App.LogPath -Encoding UTF8 -Append 
 }
 
 function TweaksInContextMenu {
@@ -921,24 +930,24 @@ function TweaksInContextMenu {
     # Enable App Submenu
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/ContextMenuTweaks.zip"), ($App.FilesPath + "ContextMenuTweaks.zip"))
     Expand-Archive -Path ($App.FilesPath + "ContextMenuTweaks.zip") -DestinationPath ($App.ZKToolPath + "Apps") -Force
-    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $App.LogPath -Encoding UTF8 -Append 
     Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "Subcommands" -Value ""
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "shell" | Out-Null
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "01App" | Out-Null
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\" -Name "shell" | Out-File $App.LogPath -Encoding UTF8 -Append 
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "01App" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "Icon" -Value ($App.ZKToolPath + "\ZKTool.exe,0")
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "MUIVerb" -Value "App"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "command" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
             Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\01App\command" -Name "(default)" -Value ($App.ZKToolPath + "ZKTool.exe")
 
     # LogitechOMM
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "02LogitechOMM" | Out-Null
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "02LogitechOMM" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "Icon" -Value ($App.ZKToolPath + "Apps\LogitechOMM.exe,0")
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "MUIVerb" -Value "Logitech OMM"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "command" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\LogitechOMM.exe")
     
     # SteamBlock
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03SteamBlock" | Out-Null
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03SteamBlock" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "Icon" -Value "C:\Program Files (x86)\Steam\steam.exe,0"
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "MUIVerb" -Value "Disable Steam"
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "command" | Out-Null
