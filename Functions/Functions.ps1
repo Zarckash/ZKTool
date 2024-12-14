@@ -29,8 +29,8 @@ function Spotify {
     }
 
     Add-Content $env:appdata\Spotify\prefs "app.autostart-configured=true`nui.hardware_acceleration=false`napp.autostart-mode=`"off`""
-    New-Item -Path "HKCU:\Software" -Name "Spotify" | Out-Null
-    New-Item -Path "HKCU:\Software\Spotify" -Name "Window Position" | Out-Null
+    New-Item -Path "HKCU:\Software" -Name "Spotify" | Out-File $App.LogPath -Encoding UTF8 -Append 
+    New-Item -Path "HKCU:\Software\Spotify" -Name "Window Position" | Out-File $App.LogPath -Encoding UTF8 -Append 
     Set-ItemProperty -Path "HKCU:\Software\Spotify\Window Position" -Name "Height" -Type DWord -Value 634 
     Set-ItemProperty -Path "HKCU:\Software\Spotify\Window Position" -Name "Left" -Type DWord -Value 457
     Set-ItemProperty -Path "HKCU:\Software\Spotify\Window Position" -Name "Show State" -Type DWord -Value 1
@@ -214,10 +214,10 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold1" -Value 0
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold2" -Value 0
 
-    $WinAPIArray::SystemParametersInfo(0x0004, 0, @(0,0,0), 2) | Out-Null
+    $WinAPIArray::SystemParametersInfo(0x0004, 0, @(0,0,0), 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
 
     if ($env:USERNAME -eq "Zarckash") {
-        $WinAPI::SystemParametersInfo(0x0071, 0, 7, 2) | Out-Null
+        $WinAPI::SystemParametersInfo(0x0071, 0, 7, 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
 
         Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 7
     }
@@ -238,7 +238,7 @@ function RegistryTweaks {
     Write-UserOutput "Desactivando informar de errores"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
-    Disable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-Null
+    Disable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-File $App.LogPath -Encoding UTF8 -Append 
 
     # 100% Wallpaper Quality
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "JPEGImportQuality" -Type DWord -Value 100
@@ -950,28 +950,28 @@ function TweaksInContextMenu {
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03SteamBlock" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "Icon" -Value "C:\Program Files (x86)\Steam\steam.exe,0"
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "MUIVerb" -Value "Disable Steam"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "command" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
             Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\BlockSteam.exe")
     
     # Clean Standby List Memory
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04EmptyStandbyList" | Out-Null
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04EmptyStandbyList" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "Icon" -Value "SHELL32.dll,12"
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "MUIVerb" -Value "Clear RAM"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "command" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\EmptyStandbyList.exe")
 
     # Clean Files
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "05CleanFiles" | Out-Null
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "05CleanFiles" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "Icon" -Value "SHELL32.dll,32"
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "MUIVerb" -Value "Clean Files"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "command" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\CleanFiles.exe")
 
     # Bufferbloat
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "99BufferbloatFix" | Out-Null
+    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "99BufferbloatFix" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "Icon" -Value "inetcpl.cpl,21"
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "MUIVerb" -Value "Bufferbloat Fix Disabled"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "command" | Out-Null
+        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
             Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\Bufferbloat.exe")
 }
 
@@ -1016,7 +1016,7 @@ function AMDUndervoltPack {
     Expand-Archive -Path ($App.FilesPath + "AMDUndervoltPack.zip") -DestinationPath ($App.FilesPath + "AMD Undervolt Pack") -Force
     Move-Item -Path ($App.FilesPath + "AMD Undervolt Pack\AMD Undervolt") -Destination 'C:\Program Files\'
     $DesktopPath = (Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop") + "\AMD Undervolt"
-    New-Item -Path $DesktopPath -ItemType Directory -Force | Out-Null
+    New-Item -Path $DesktopPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append 
     Move-Item -Path ($App.FilesPath + "AMD Undervolt Pack\CPU Undervolt.lnk") -Destination $DesktopPath
     Move-Item -Path ($App.FilesPath + "AMD Undervolt Pack\Prime95") -Destination $DesktopPath
     Move-Item -Path ($App.FilesPath + "AMD Undervolt Pack\CPUZ.exe") -Destination $DesktopPath
@@ -1227,7 +1227,7 @@ function EthernetOptimization {
     # TCP Optimizer settings
     Set-NetTCPSetting -SettingName internet -AutoTuningLevelLocal normal
     Set-NetTCPSetting -SettingName internet -ScalingHeuristics disabled
-    netsh int tcp set supplemental internet congestionprovider=ctcp | Out-Null
+    netsh int tcp set supplemental internet congestionprovider=ctcp | Out-File $App.LogPath -Encoding UTF8 -Append 
     Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing disabled
     Set-NetOffloadGlobalSetting -ReceiveSideScaling disabled
     Disable-NetAdapterLso -Name *
@@ -1240,10 +1240,10 @@ function EthernetOptimization {
     Set-NetTCPSetting -SettingName internet -NonSackRttResiliency disabled
     Set-NetTCPSetting -SettingName internet -InitialRto 2000
     Set-NetTCPSetting -SettingName internet -MinRto 300
-    netsh interface ipv4 set subinterface "Ethernet" mtu=1500 store=persistent | Out-Null
-    netsh interface ipv6 set subinterface "Ethernet" mtu=1500 store=persistent | Out-Null
-    netsh interface ipv4 set subinterface "Ethernet 2" mtu=0 store=persistent | Out-Null
-    netsh interface ipv6 set subinterface "Ethernet 2" mtu=0 store=persistent | Out-Null
+    netsh interface ipv4 set subinterface "Ethernet" mtu=1500 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh interface ipv6 set subinterface "Ethernet" mtu=1500 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh interface ipv4 set subinterface "Ethernet 2" mtu=0 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh interface ipv6 set subinterface "Ethernet 2" mtu=0 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
 
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPER1_0SERVER" -Name "explorer.exe" -Type DWord -Value 10
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPER1_0SERVER" -Name "explore.exe" -Type DWord -Value 10
@@ -1352,20 +1352,20 @@ function InstallFFMPEG {
     }
 
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/Compress.exe"), ($App.ZKToolPath + "Apps\Compress.exe"))
-    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $App.LogPath -Encoding UTF8 -Append 
 
     $FileAssociations = Get-Item -Path "HKCR:\.mp4\OpenWithProgids\" | Select-Object -ExpandProperty Property
 
     $FileAssociations | ForEach-Object {
-        New-Item -Path "HKCR:\$_\" -Name "Shell" | Out-Null
-        New-Item -Path "HKCR:\$_\Shell\" -Name "Compress" | Out-Null
-        New-Item -Path "HKCR:\$_\Shell\Compress\" -Name "command" | Out-Null
+        New-Item -Path "HKCR:\$_\" -Name "Shell" | Out-File $App.LogPath -Encoding UTF8 -Append 
+        New-Item -Path "HKCR:\$_\Shell\" -Name "Compress" | Out-File $App.LogPath -Encoding UTF8 -Append 
+        New-Item -Path "HKCR:\$_\Shell\Compress\" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\$_\Shell\Compress\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
         Set-ItemProperty -Path "HKCR:\$_\Shell\Compress\" -Name "Position" -Value "Bottom"
         Set-ItemProperty -Path "HKCR:\$_\Shell\Compress\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe"'
     
-        New-Item -Path "HKCR:\$_\Shell\" -Name "Compress Discord" | Out-Null
-        New-Item -Path "HKCR:\$_\Shell\Compress Discord\" -Name "command" | Out-Null
+        New-Item -Path "HKCR:\$_\Shell\" -Name "Compress Discord" | Out-File $App.LogPath -Encoding UTF8 -Append 
+        New-Item -Path "HKCR:\$_\Shell\Compress Discord\" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\$_\Shell\Compress Discord\" -Name "Icon" -Value ($App.ZKToolPath + "Apps\Compress.exe,0")
         Set-ItemProperty -Path "HKCR:\$_\Shell\Compress Discord\" -Name "Position" -Value "Bottom"
         Set-ItemProperty -Path "HKCR:\$_\Shell\Compress Discord\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe" -discord'
