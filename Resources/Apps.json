@@ -41,19 +41,13 @@
         "Source": "Winget"
     },
     "App7": {
-        "Name": "7-Zip",
-        "Installer": "mcmilk.7zip-zstd",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
-    "App8": {
         "Name": "HW Monitor",
         "Installer": "CPUID.HWMonitor",
         "Output": "Instalando ",
         "Source": "Winget",
         "Preset": "True"
     },
-    "App9": {
+    "App8": {
         "Name": "MSI Afterburner",
         "Installer": "Guru3D.Afterburner",
         "Output": "Instalando ",
@@ -61,11 +55,17 @@
         "Arguments": "-i",
         "Preset": "True"
     },
-    "App10": {
+    "App9": {
         "Name": "uTorrent Web",
         "Installer": "uTorrentWeb.exe",
         "Output": "Iniciando instalador de ",
         "Source": ".exe"
+    },
+    "App10": {
+        "Name": "qBitTorrent",
+        "Installer": "qBittorrent.qBittorrent",
+        "Output": "Instalando ",
+        "Source": "Winget"
     },
     "App11": {
         "Name": "Steam",
