@@ -1150,23 +1150,14 @@ function HideSystemComponents {
 }
 
 function VideoExtensions {
+    Param (
+        $AppIds = @('9N4D0MSMP0PT','9N4WGH0Z6VHQ','9PMMSR1CGPWG','9PG2DK419DRG','9MVZQVXJBQ9V')
+    )
+
     Write-UserOutput "Instalando extensiones de vídeo"
 
-    #Check if installed already
-    $getEncoding = [Console]::OutputEncoding
-    [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
-
-    $WingetList = winget list -s winget | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
-    $WingetList += winget list -s msstore | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
-
-    [Console]::OutputEncoding = $getEncoding
-
-    $AppIds = @('9N4D0MSMP0PT','9N4WGH0Z6VHQ','9PMMSR1CGPWG','9PG2DK419DRG','9MVZQVXJBQ9V')
-
     $AppIds | ForEach-Object {
-        if (!($WingetList.Id -contains $_)) {
-            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppId_$_" + ".log") -Encoding UTF8 -Append
-        }
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppId_$_" + ".log") -Encoding UTF8 -Append
     }
 }
 
@@ -1356,8 +1347,28 @@ function InstallFFMPEG {
         Set-ItemProperty -Path "HKCR:\$_\Shell\Compress Discord\command\" -Name "(default)" -Value 'cmd.exe /c echo | set /p = %1| clip | exit && "C:\Program Files\ZKTool\Apps\Compress.exe" -discord'
     }
 
-    & VideoExtensions
+    #Check if video extensions are installed
+    $getEncoding = [Console]::OutputEncoding
+    [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
+    $WingetList = winget list -s winget | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
+    $WingetList += winget list -s msstore | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
+
+    [Console]::OutputEncoding = $getEncoding
+
+    $AppIds = @('9N4D0MSMP0PT','9N4WGH0Z6VHQ','9PMMSR1CGPWG','9PG2DK419DRG','9MVZQVXJBQ9V')
+
+    $AppsIdsToInstall = New-Object System.Collections.Generic.List[System.Object]
+
+    $AppIds | ForEach-Object {
+        if (!($WingetList.Id -contains $_)) {
+            $AppsIdsToInstall.Add($_)
+        }
+    }
     
+    if ($AppsIdsToInstall.Count -gt 0) {
+        & VideoExtensions($AppsIdsToInstall)
+    }
 }
 
 function RAMTest {
