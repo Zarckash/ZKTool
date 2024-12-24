@@ -1134,7 +1134,8 @@ function HideSystemComponents {
 
     $Components64 | ForEach-Object {
         $AppName = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName
-        if ($AppName.Length -gt 0) {
+        $AppIsHidden = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name SystemComponent
+        if (($AppName.Length -gt 0) -and ($AppIsHidden -ne 1)) {
             Write-UserOutput "Ocultando $AppName"
         }
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
@@ -1142,7 +1143,8 @@ function HideSystemComponents {
 
     $Components32 | ForEach-Object {
         $AppName = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName
-        if ($AppName.Length -gt 0) {
+        $AppIsHidden = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name SystemComponent
+        if (($AppName.Length -gt 0) -and ($AppIsHidden -ne 1)) {
             Write-UserOutput "Ocultando $AppName"
         }
         Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
