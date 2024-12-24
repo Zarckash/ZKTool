@@ -941,40 +941,12 @@ function TweaksInContextMenu {
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\01App" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
             Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\01App\command" -Name "(default)" -Value ($App.ZKToolPath + "ZKTool.exe")
 
-    # LogitechOMM
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "02LogitechOMM" | Out-File $App.LogPath -Encoding UTF8 -Append 
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "Icon" -Value ($App.ZKToolPath + "Apps\LogitechOMM.exe,0")
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "MUIVerb" -Value "Logitech OMM"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\02LogitechOMM\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\LogitechOMM.exe")
-    
-    # SteamBlock
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "03SteamBlock" | Out-File $App.LogPath -Encoding UTF8 -Append 
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "Icon" -Value "C:\Program Files (x86)\Steam\steam.exe,0"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "MUIVerb" -Value "Disable Steam"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
-            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\03SteamBlock\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\BlockSteam.exe")
-    
-    # Clean Standby List Memory
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "04EmptyStandbyList" | Out-File $App.LogPath -Encoding UTF8 -Append 
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "Icon" -Value "SHELL32.dll,12"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "MUIVerb" -Value "Clear RAM"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
-            Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\04EmptyStandbyList\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\EmptyStandbyList.exe")
-
     # Clean Files
     New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "05CleanFiles" | Out-File $App.LogPath -Encoding UTF8 -Append 
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "Icon" -Value "SHELL32.dll,32"
         Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "MUIVerb" -Value "Clean Files"
         New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
             Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\05CleanFiles\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\CleanFiles.exe")
-
-    # Bufferbloat
-    New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell" -Name "99BufferbloatFix" | Out-File $App.LogPath -Encoding UTF8 -Append 
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "Icon" -Value "inetcpl.cpl,21"
-        Set-ItemProperty -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "MUIVerb" -Value "Bufferbloat Fix Disabled"
-        New-Item -Path "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix" -Name "command" | Out-File $App.LogPath -Encoding UTF8 -Append 
-            Set-ItemProperty "HKCR:\Directory\Background\shell\ZKTool\shell\99BufferbloatFix\command" -Name "(default)" -Value ($App.ZKToolPath + "Apps\Bufferbloat.exe")
 }
 
 function WindowsTerminalAppearance {
