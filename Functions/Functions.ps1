@@ -1151,12 +1151,23 @@ function HideSystemComponents {
 
 function VideoExtensions {
     Write-UserOutput "Instalando extensiones de vídeo"
+
+    #Check if installed already
+    $getEncoding = [Console]::OutputEncoding
+    [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
+    $WingetList = winget list -s winget | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
+    $WingetList += winget list -s msstore | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
+
+    [Console]::OutputEncoding = $getEncoding
+
     $AppIds = @('9N4D0MSMP0PT','9N4WGH0Z6VHQ','9PMMSR1CGPWG','9PG2DK419DRG','9MVZQVXJBQ9V')
 
     $AppIds | ForEach-Object {
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppId_$_" + ".log") -Encoding UTF8 -Append
+        if (!($WingetList.Id -contains $_)) {
+            winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppId_$_" + ".log") -Encoding UTF8 -Append
+        }
     }
-    
 }
 
 function EthernetOptimization {
