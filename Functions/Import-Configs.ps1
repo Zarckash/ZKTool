@@ -32,20 +32,6 @@ function MarvelRivals {
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config6.Name + " aplicada")
 }
 
-function MarvelRivalsWashed {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/RivalsWashed.zip"), ($App.FilesPath + "RivalsWashed.zip"))
-    Expand-Archive -Path ($App.FilesPath + "RivalsWashed.zip") -DestinationPath "$env:localappdata\Marvel\Saved\Config\Windows" -Force
-
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config6.Name + " aplicada")
-}
-
-function MarvelRivalsExtra {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/RivalsExtra.zip"), ($App.FilesPath + "RivalsExtra.zip"))
-    Expand-Archive -Path ($App.FilesPath + "RivalsExtra.zip") -DestinationPath "$env:localappdata\Marvel\Saved\Config\Windows" -Force
-
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config6.Name + " aplicada")
-}
-
 function Plutonium {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Plutonium.zip"), ($App.FilesPath + "Plutonium.zip"))
     Expand-Archive -Path ($App.FilesPath + "Plutonium.zip") -DestinationPath ("$env:localappdata\Plutonium") -Force
