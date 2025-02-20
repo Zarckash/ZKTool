@@ -39,7 +39,7 @@ function Plutonium {
 }
 
 function MSIAfterburner {
-    $App.Download.DownloadFile(($App.GitHubFilesPathPath + ".zip/MSIAfterburner.zip"), ($App.FilesPath + "MSIAfterburner.zip"))
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/MSIAfterburner.zip"), ($App.FilesPath + "MSIAfterburner.zip"))
     Expand-Archive -Path ($App.FilesPath + "MSIAfterburner.zip") -DestinationPath ($App.FilesPath + "MSIAfterburner") -Force
     Move-Item -Path ($App.FilesPath + "MSIAfterburner\Profiles\*") -Destination 'C:\Program Files (x86)\MSI Afterburner\Profiles' -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config15.Name + " aplicada")
