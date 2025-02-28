@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.3.7"
+$App.Version = "4.4"
 
 if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
     Start-Process Powershell -WindowStyle Hidden{
@@ -18,7 +18,7 @@ $Global:Hash = [Hashtable]::Synchronized(@{})
 $Hash.ZKToolPath = "$env:ProgramFiles\ZKTool\"
 $Hash.GitHubPath = "https://github.com/Zarckash/ZKTool/raw/main/"
 $Hash.Download = New-Object System.Net.WebClient
-$Hash.HoverButtonColor = "#1AFFFFFF"
+$Hash.HoverButtonColor = "#33FFFFFF"
 $Hash.XamlPath = ($Hash.ZKToolPath + "\WPF\SetupWindow.xaml")
 
 $Runspace = [RunspaceFactory]::CreateRunspace()
@@ -115,8 +115,8 @@ $PwShellGUI.AddScript({
     $App.FilesPath = ($App.TempPath + "Files\")
     $App.ResourcesPath = ($App.ZKToolPath + "Resources\")
     $App.FunctionsPath = ($App.ZKToolPath + "Functions\")
-    $App.HoverColor = "#0DFFFFFF"
-    $App.HoverButtonColor = "#1AFFFFFF"
+    $App.HoverColor = "#33FFFFFF"
+    $App.HoverButtonColor = "#33FFFFFF"
 
     # Resetting log file
     Remove-Item $App.LogFolder -Recurse -Force | Out-Null
