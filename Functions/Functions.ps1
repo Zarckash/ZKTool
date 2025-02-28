@@ -219,9 +219,9 @@ function RegistryTweaks {
     $WinAPIArray::SystemParametersInfo(0x0004, 0, @(0,0,0), 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
 
     if ($env:USERNAME -eq "Zarckash") {
-        $WinAPI::SystemParametersInfo(0x0071, 0, 7, 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
+        $WinAPI::SystemParametersInfo(0x0071, 0, 8, 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
 
-        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 7
+        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 8
     }
 
     # Disable Keyboard Layout Shortcut
