@@ -84,7 +84,7 @@
                             x:Name="navButtonRectangle"
                             Width="3"
                             Height="0"
-                            Margin="-1,0,0,0"
+                            Margin="0,0,0,0"
                             HorizontalAlignment="Left"
                             Fill="{DynamicResource AppAccentColor}"
                             RadiusX="3"

@@ -29,7 +29,7 @@
                 BorderBrush="#FFFFFF"
                 BorderThickness="1"
                 CornerRadius="8"
-                Opacity=".4" />
+                Opacity=".2" />
         </Border>
 
         <Grid
