@@ -4,7 +4,10 @@
 Start Date: July 7 2021  
 
 ## Usage
-[Download installer](https://github.com/Zarckash/ZKTool/raw/main/Installer.exe)
+
+```powershell
+Iwr -useb "https://shorturl.at/lyd30" | Iex
+```
 
 ## Screenshots
 
@@ -15,5 +18,3 @@ Start Date: July 7 2021
 [//]: # (Old App Design https://i.imgur.com/NyIGReh.png)
 
 ![App Screenshot](https://i.imgur.com/POz2q91.png)
-
-
