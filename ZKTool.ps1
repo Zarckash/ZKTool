@@ -1,4 +1,11 @@
-﻿$Global:App = [Hashtable]::Synchronized(@{})
+﻿if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
+    Start-Process Powershell -Verb RunAs {
+        Start-Process "$env:ProgramFiles\ZKTool\Setup.exe" -ArgumentList "-Open"
+    }
+    exit
+}
+
+$Global:App = [Hashtable]::Synchronized(@{})
 
 $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
