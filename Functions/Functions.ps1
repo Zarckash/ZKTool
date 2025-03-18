@@ -217,12 +217,8 @@ function RegistryTweaks {
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold2" -Value 0
 
     $WinAPIArray::SystemParametersInfo(0x0004, 0, @(0,0,0), 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
-
-    if ($env:USERNAME -eq "Zarckash") {
-        $WinAPI::SystemParametersInfo(0x0071, 0, 8, 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
-
-        Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 8
-    }
+    $WinAPI::SystemParametersInfo(0x0071, 0, 10, 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
+    Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 10
 
     # Disable Keyboard Layout Shortcut
     Write-UserOutput "Desactivando cambio de idioma del teclado"
