@@ -5,7 +5,7 @@
         "ColorBox3": "#DAD5F3",
         "ColorBox4": "#9382F4",
         "ColorBox5": "#ACA0F7",
-        "Wallpaper": "BlackWindows11.jpg"
+        "Wallpaper": "9.jpg"
     },
     "Preset2": {
         "ColorBox1": "#FFFFFF",
@@ -13,6 +13,14 @@
         "ColorBox3": "#FFD7EB",
         "ColorBox4": "#FF88C4",
         "ColorBox5": "#FFD7EB",
-        "Wallpaper": "White.png"
+        "Wallpaper": "8.jpg"
+    },
+    "Preset3": {
+        "ColorBox1": "#5B5BFF",
+        "ColorBox2": "#FFFFFF",
+        "ColorBox3": "#CABCE0",
+        "ColorBox4": "#A78FCB",
+        "ColorBox5": "#E6E6E6",
+        "Wallpaper": "6.jpg"
     }
 }
