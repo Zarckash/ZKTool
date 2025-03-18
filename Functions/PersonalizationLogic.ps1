@@ -28,8 +28,8 @@ $Logic = [PowerShell]::Create().AddScript({
         Update-GUI WallpaperBox2 Visibility Visible
     }
 
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PresetsWallpapers.zip"),($App.FilesPath + "PresetsWallpapers.zip"))
-    Expand-Archive -Path ($App.FilesPath + "PresetsWallpapers.zip") -DestinationPath ($App.FilesPath + "PresetsWallpapers") -Force
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
+    Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.FilesPath + "Wallpapers") -Force
 })
 
 $Logic.Runspace = $NewRunspace
@@ -84,6 +84,7 @@ $Colors | ForEach-Object {
 
 $Script:FileDialog = New-Object System.Windows.Forms.OpenFileDialog
 $FileDialog.Filter = "Imágenes (*.png, *.jpg)|*.png;*.jpg"
+$FileDialog.InitialDirectory = ($App.FilesPath + "Wallpapers")
 
 $App.WallpaperBox1.Add_Click({
     if ($FileDialog.ShowDialog() -eq 'OK') {
