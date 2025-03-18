@@ -251,7 +251,7 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
             Update-GUI $_ Background $App.PresetsList.($this.Name).$_
         }
 
-        $App.Wallpaper1 = ($App.FilesPath + "PresetsWallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
+        $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
         $App.Wallpaper2 = $App.Wallpaper1
 
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
