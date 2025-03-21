@@ -6,8 +6,8 @@
     $Script:Interface = "Ethernet"
     $Script:Interfaces = Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias
     if (($Interfaces.GetType()).IsArray) {
-    $Interfaces | ForEach-Object {Disable-NetAdapter $_ -Confirm:$false}
-    Enable-NetAdapter "Ethernet" -Confirm:$false
+        $Interfaces | ForEach-Object {Disable-NetAdapter $_ -Confirm:$false}
+        Enable-NetAdapter "Ethernet" -Confirm:$false
     }
 
     $Script:Gateway = Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4DefaultGateway | Select-Object -ExpandProperty NextHop

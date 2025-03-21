@@ -82,9 +82,10 @@ $Colors | ForEach-Object {
     })
 }
 
-$Script:FileDialog = New-Object System.Windows.Forms.OpenFileDialog
-$FileDialog.Filter = "Imágenes (*.png, *.jpg)|*.png;*.jpg"
-$FileDialog.InitialDirectory = ($App.FilesPath + "Wallpapers")
+$Script:FileDialog = New-Object System.Windows.Forms.OpenFileDialog -Property @{
+    InitialDirectory = ($App.FilesPath + "Wallpapers")
+    Filter = "Imágenes (*.png, *.jpg)|*.png;*.jpg"
+}
 
 $App.WallpaperBox1.Add_Click({
     if ($FileDialog.ShowDialog() -eq 'OK') {
