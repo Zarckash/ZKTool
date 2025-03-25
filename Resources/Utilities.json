@@ -56,8 +56,14 @@
         "Source": ".exe"
     },
     "Utility19": {
-        "Name": "Driver Uninstaller (DDU)",
+        "Name": "GPU Driver Uninstaller",
         "FunctionName": "DDU"
+    },
+    "Utility20": {
+        "Name": "Driver Uninstaller",
+        "Installer": "DriverUninstaller.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe"
     },
     "Utility23": {
         "Name": "Forzar DLAA global",
