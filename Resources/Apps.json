@@ -7,10 +7,11 @@
         "Preset": "True"
     },
     "App2": {
-        "Name": "GeForce Experience",
-        "Installer": "Nvidia.GeForceExperience",
+        "Name": "NVIDIA App",
+        "Installer": "NVIDIAApp.exe",
         "Output": "Instalando ",
-        "Source": "Winget",
+        "Source": ".exe",
+        "Arguments": "/s",
         "Preset": "True"
     },
     "App3": {
