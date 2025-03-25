@@ -97,7 +97,8 @@
         "Name": "Rockstar Games",
         "Installer": "RockstarGamesLauncher.exe",
         "Output": "Iniciando instalador de ",
-        "Source": ".exe"
+        "Source": ".exe",
+        "Url": "https://gamedownloads.rockstargames.com/public/installer/Rockstar-Games-Launcher.exe"
     },
     "App16": {
         "Name": "Epic Games",

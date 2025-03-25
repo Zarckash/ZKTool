@@ -46,7 +46,12 @@
             Start-Job -Name ("Job-$WingetApp") -ScriptBlock $WingetInstall -ArgumentList @($WingetApp,$WingetArguments,$WingetLog)
         }
         elseif ($App.$SourceList.$_.Source -eq ".exe") {
-            $App.Download.DownloadFile($GitHubPath, $LocalPath)
+            if (($App.$SourceList.$_.Url).Length -eq 0) {
+                $App.Download.DownloadFile($GitHubPath, $LocalPath)
+            }else {
+                $App.Download.DownloadFile($App.$SourceList.$_.Url,$LocalPath)
+            }
+            
             if (($App.$SourceList.$_.Arguments).Length -eq 0) {
                 Start-Process $LocalPath
             }else {
