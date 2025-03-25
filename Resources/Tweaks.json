@@ -16,8 +16,7 @@
     },
     "Tweak4": {
         "Name": "Timer Resolution",
-        "FunctionName": "SetTimerResolution",
-        "Preset": "True"
+        "FunctionName": "SetTimerResolution"
     },
     "Tweak5": {
         "Name": "Timer Resolution Preciso",
