@@ -28,10 +28,6 @@
         "Name": "Paquete de undervolt AMD",
         "FunctionName": "AMDUndervoltPack"
     },
-    "Extra9": {
-        "Name": "Masha",
-        "FunctionName": "Masha"
-    },
     "Extra10": {
         "Name": "Desactivar Defender",
         "Installer": "DefenderRemover.exe",
