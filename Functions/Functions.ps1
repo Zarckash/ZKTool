@@ -1004,15 +1004,18 @@ function UpdateGPUDrivers {
     $LatestVersion = $WebRequest.IDS.downloadInfo.Version
     $LatestStable = "561.09"
     
-    if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
-        Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
-        Start-Sleep 1
-        Write-UserOutput "Instalando la ultima versión estable $LatestStable"
-        $LatestVersion = $LatestStable
-    }
-    else {
-        Write-UserOutput "Nueva versión $LatestVersion encontrada"
-    }
+    #if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
+     #   Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
+     #   Start-Sleep 1
+     #   Write-UserOutput "Instalando la ultima versión estable $LatestStable"
+     #   $LatestVersion = $LatestStable
+    #}
+    #else {
+     #   Write-UserOutput "Nueva versión $LatestVersion encontrada"
+    #}
+
+            Write-UserOutput "Instalando la ultima versión estable $LatestStable"
+            $LatestVersion = $LatestStable
 
     # Check if GeForce Experience installed
     $GeForceCheck = Winget List 'Nvidia.GeForceExperience' | Select-String -Pattern 'Nvidia.GeForceExperience' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
