@@ -8,7 +8,7 @@
 
     if ($Export.IsPresent) {
         $Path = @{
-            File       = "https://github.com/Zarckash/ZKTool/raw/main/Files/.exe/MEGAcmdSetup64.exe"
+            File       = "https://mega.nz/MEGAcmdSetup64.exe"
             Temp       = ($env:temp + "\ZKTool\Files")
             Documents  = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
             SavedGames = ($env:userprofile + "\Saved Games")
@@ -123,7 +123,7 @@
 
     elseif ($Import.IsPresent) {
         $Path = @{
-            File       = "https://github.com/Zarckash/ZKTool/raw/main/Files/.exe/MEGAcmdSetup64.exe"
+            File       = "https://mega.nz/MEGAcmdSetup64.exe"
             Temp       = ($env:temp + "\ZKTool\Files")
             Documents  = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
             SavedGames = ($env:userprofile + "\Saved Games")
