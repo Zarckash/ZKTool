@@ -123,7 +123,7 @@ function RegistryTweaks {
         New-Item -Path "HKCU:\Software\Microsoft\DirectX" -Name "UserGpuPreferences" | Out-File $App.LogPath -Encoding UTF8 -Append
     }
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\GraphicsSettings" -Name "SwapEffectUpgradeCache" -Type DWord -Value 1
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -Name "DirectXUserGlobalSettings" -Value "SwapEffectUpgradeEnable=1;"
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -Name "DirectXUserGlobalSettings" -Value "VRROptimizeEnable=0;SwapEffectUpgradeEnable=1;"
 
     # Set-PageFile Size
     Write-UserOutput "Comprobando cantidad de RAM"
@@ -198,7 +198,12 @@ function RegistryTweaks {
     Write-UserOutput "Estableciendo abrir Explorador en `"Este Equipo`""
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
 
-    # Hide gallery in File explorer
+    # Hide Home in File explorer
+    Write-UserOutput "Ocultando Incio en el Explorador de archivos"
+    Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}" -Name "(default)" -Value "CLSID_MSGraphHomeFolder"
+    Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}" -Name "HiddenByDefault" -Type DWord -Value 1
+
+    # Hide Gallery in File explorer
     Write-UserOutput "Ocultando galería en el Explorador de archivos"
     New-Item -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" -Name "System.IsPinnedToNameSpaceTree" -Type DWord -Value 0
@@ -638,12 +643,12 @@ function GPUInputLag {
 
     Write-UserOutput "Aplicando ajustes para reducir input lag"
     $ClassGuid = (Get-PnpDevice -Class Display).ClassGuid
-    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
-    if (Test-Path "$RegPath\0000") {
-        Set-ItemProperty -Path "$RegPath\0000" -Name "DisableDynamicPstate" -Type DWord -Value 1
-    }
-    elseif (Test-Path "$RegPath\0002") {
-        Set-ItemProperty -Path "$RegPath\0002" -Name "DisableDynamicPstate" -Type DWord -Value 1
+    $RegPath = Get-ChildItem -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
+
+    $RegPath.Name | Split-Path -Leaf | ForEach-Object {
+        if ($_ -notlike "Configuration") {
+            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid\$_" -Name "DisableDynamicPstate" -Type DWord -Value 1
+        }
     }
 }
 
@@ -881,13 +886,13 @@ function AdobeCleaner {
 
 function RealtekCleaner {
     Write-UserOutput "Eliminando Realtek Audio Service"
+    Get-AppxPackage "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
+    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
     sc.exe stop Audiosrv | Out-File $App.LogPath -Encoding UTF8 -Append
     sc.exe stop RtkAudioUniversalService | Out-File $App.LogPath -Encoding UTF8 -Append
     taskkill.exe /f /im RtkAudUService64.exe | Out-File $App.LogPath -Encoding UTF8 -Append
     sc.exe delete RtkAudioUniversalService | Out-File $App.LogPath -Encoding UTF8 -Append
     sc.exe start Audiosrv | Out-File $App.LogPath -Encoding UTF8 -Append
-    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "RtkAudUService"
-    Get-AppxPackage "RealtekSemiconductorCorp.RealtekAudioControl" | Remove-AppxPackage
 }
 
 function ReduceIconsSpacing {
@@ -1173,8 +1178,9 @@ function EthernetOptimization {
     Enable-NetAdapterBinding -Name "Ethernet" -ComponentID "ms_tcpip"
 
     $NetAdapterName = (Get-NetAdapter).InterfaceDescription | Select-Object -First 1
+    $NetAdapterGUIDPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\" + (Get-NetAdapter).InterfaceGuid
     $NetworkPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\000"
-
+    
     $i = 0
     while ($FoundName -ne $NetAdapterName) {
         $FoundName = Get-ItemPropertyValue -Path ($NetworkPath + $i) -Name "DriverDesc"
@@ -1201,6 +1207,11 @@ function EthernetOptimization {
     Set-ItemProperty -Path $NetAdapterPath -Name "SipsEnabled" -Type String -Value 0
     Set-ItemProperty -Path $NetAdapterPath -Name "ULPMode" -Type String -Value 0
 
+    Set-ItemProperty -Path $NetAdapterGUIDPath -Name "TPCAckFrequency" -Type DWord -Value 1
+    Set-ItemProperty -Path $NetAdapterGUIDPath -Name "TPCNoDelay" -Type DWord -Value 1
+    
+    Set-ItemProperty -Path "HKLM:SYSTEM\CurrentControlSet\Services\PnP\Parameters" -Name "Enable8021p" -Type DWord -Value 1
+    
     # TCP Optimizer settings
     Set-NetTCPSetting -SettingName internet -AutoTuningLevelLocal normal
     Set-NetTCPSetting -SettingName internet -ScalingHeuristics disabled
@@ -1221,6 +1232,13 @@ function EthernetOptimization {
     netsh interface ipv6 set subinterface "Ethernet" mtu=1500 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
     netsh interface ipv4 set subinterface "Ethernet 2" mtu=0 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
     netsh interface ipv6 set subinterface "Ethernet 2" mtu=0 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh int tcp set global rss=enabled | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh int tcp set global autotuninglevel=normal | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh int tcp set global chimney=disabled | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh int tcp set global netdma=disabled | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh int tcp set global dca=enabled | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh int tcp set global ecncapability=disabled | Out-File $App.LogPath -Encoding UTF8 -Append 
+    netsh int tcp set global timestamps=disabled | Out-File $App.LogPath -Encoding UTF8 -Append 
 
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPER1_0SERVER" -Name "explorer.exe" -Type DWord -Value 10
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPER1_0SERVER" -Name "explore.exe" -Type DWord -Value 10
