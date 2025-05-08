@@ -44,7 +44,25 @@ $App.Maximize.Add_Click({
 })
 
 $App.Close.Add_Click({
-    $App.Window.Close()
+    # Checking Restart
+    if ($App.RequireRestart) {
+        Write-UserOutput "Reinicio necesario"
+        $MessageBox = [System.Windows.Forms.MessageBox]::Show("El equipo requiere reiniciarse para aplicar los cambios`r`nReiniciar equipo ahora?", "Reiniciar equipo", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Information)
+        if ($MessageBox -ne [System.Windows.Forms.DialogResult]::No) {
+            Write-UserOutput "Reiniciando pc en 5 segundos"
+            Start-Sleep 1
+            4..1 | ForEach-Object {
+                Update-GUI OutputBox Text "Reiniciando pc en $_ segundos..."
+                Start-Sleep 1
+            }
+            $App.Window.Close()
+            Start-Process Powershell -WindowStyle Hidden {
+                Restart-Computer
+            }
+        }
+    } else {
+        $App.Window.Close()
+    }
 })
 
 
