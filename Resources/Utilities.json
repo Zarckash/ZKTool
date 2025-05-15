@@ -43,6 +43,10 @@
         "Name": "HWiNFO",
         "FunctionName": "HWiNFO"
     },
+    "Utility14": {
+        "Name": "TreeSize",
+        "FunctionName": "TreeSize"
+    },
     "Utility17": {
         "Name": "Autoruns",
         "Installer": "Autoruns.exe",

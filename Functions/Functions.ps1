@@ -1409,6 +1409,14 @@ function HWiNFO {
     Start-Process ($App.FilesPath + "HWiNFO\HWiNFO64.exe")
 }
 
+function TreeSize {
+    Write-UserOutput "Abriendo TreeSize"
+    $App.Download.DownloadFile("https://downloads.jam-software.de/treesize_free/TreeSizeFree-Portable.zip", ($App.FilesPath + "TreeSize.zip"))
+    Expand-Archive -Path ($App.FilesPath + "TreeSize.zip") -DestinationPath ($App.FilesPath + "TreeSize") -Force
+
+    Start-Process ($App.FilesPath + "TreeSize\TreeSizeFree.exe")
+}
+
 function ForceDLAA {
     & NvidiaSettings
 
