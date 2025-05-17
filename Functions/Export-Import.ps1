@@ -21,6 +21,7 @@
             LoL        = ($env:HOMEDRIVE + "\Riot Games\League of Legends\Config")
             MSIAfterburner = (${env:ProgramFiles(x86)} + "\MSI Afterburner\Profiles")
             RivaTuner  = (${env:ProgramFiles(x86)} + "\RivaTuner Statistics Server")
+            Peace      = ($env:ProgramFiles + "\EqualizerAPO\config")
             Compressed = ($env:temp + "\ZKTool\Files\Compress")
         }
 
@@ -91,6 +92,10 @@
             Write-UserOutput "Exportando RivaTuner"
             Compress-Archive -Path ($Path.RivaTuner + "\Profiles"),($Path.RivaTuner + "\ProfileTemplates\Config") -DestinationPath ($Path.Compressed + "\RivaTuner.zip")
         }
+        if (Test-Path $Path.PeaceProfile) {
+            Write-UserOutput "Exportando perfil activo de Peace"
+            Compress-Archive -Path ($Path.PeaceProfile + "\peace.txt") -DestinationPath ($Path.Compressed + "\PeaceProfile.zip")
+        }
     
         Write-UserOutput "Comprimiendo Settings"
         Get-ChildItem -Path ($Path.Compressed) | Compress-Archive -DestinationPath ($Path.Temp + "\SettingsBackup.zip")
@@ -136,6 +141,7 @@
             LoL        = ($env:HOMEDRIVE + "\Riot Games\League of Legends\Config")
             MSIAfterburner = (${env:ProgramFiles(x86)} + "\MSI Afterburner\Profiles")
             RivaTuner  = (${env:ProgramFiles(x86)} + "\RivaTuner Statistics Server")
+            Peace      = ($env:ProgramFiles + "\EqualizerAPO\config")
             Backup     = ($env:temp + "\ZKTool\Files\SettingsBackup")
         }
 
