@@ -92,9 +92,9 @@
             Write-UserOutput "Exportando RivaTuner"
             Compress-Archive -Path ($Path.RivaTuner + "\Profiles"),($Path.RivaTuner + "\ProfileTemplates\Config") -DestinationPath ($Path.Compressed + "\RivaTuner.zip")
         }
-        if (Test-Path $Path.PeaceProfile) {
+        if (Test-Path $Path.Peace) {
             Write-UserOutput "Exportando perfil activo de Peace"
-            Compress-Archive -Path ($Path.PeaceProfile + "\peace.txt") -DestinationPath ($Path.Compressed + "\PeaceProfile.zip")
+            Compress-Archive -Path ($Path.Peace + "\peace.txt") -DestinationPath ($Path.Compressed + "\Peace.zip")
         }
     
         Write-UserOutput "Comprimiendo Settings"
