@@ -1415,6 +1415,9 @@ function TreeSize {
     Expand-Archive -Path ($App.FilesPath + "TreeSize.zip") -DestinationPath ($App.FilesPath + "TreeSize") -Force
 
     Start-Process ($App.FilesPath + "TreeSize\TreeSizeFree.exe")
+
+    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $App.LogPath -Encoding UTF8 -Append 
+    Remove-Item -Path "HKCR:\Directory\Background\shell\TreeSize Free" -Recurse -Force
 }
 
 function ForceDLAA {
