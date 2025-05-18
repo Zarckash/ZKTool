@@ -30,7 +30,7 @@
     },
     "Extra10": {
         "Name": "Desactivar Defender",
-        "Installer": "DefenderRemover.exe",
+        "Installer": "DisableDefender.exe",
         "Output": "Ejecutando ",
         "Source": ".exe",
         "Arguments": "/N"
