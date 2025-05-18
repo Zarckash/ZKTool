@@ -12,6 +12,7 @@
         "Output": "Instalando ",
         "Source": ".exe",
         "Arguments": "/s",
+        "Url": "https://es.download.nvidia.com/nvapp/client/11.0.1.189/NVIDIA_app_v11.0.1.189.exe",
         "Preset": "True"
     },
     "App3": {
