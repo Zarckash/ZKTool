@@ -1180,9 +1180,9 @@ function EthernetOptimization {
     Enable-NetAdapterBinding -Name "Ethernet" -ComponentID "ms_msclient"
     Enable-NetAdapterBinding -Name "Ethernet" -ComponentID "ms_tcpip"
 
-    $NetAdapterName = (Get-NetAdapter).InterfaceDescription | Select-Object -First 1
+    $NetAdapterName = (Get-NetAdapter).InterfaceDescription | Select-String "Intel*","Realtek*"
     $NetAdapterGUIDPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\" + (Get-NetAdapter).InterfaceGuid
-    $NetworkPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\000"
+    $NetworkPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\000"    
     
     $i = 0
     while ($FoundName -ne $NetAdapterName) {
@@ -1236,9 +1236,9 @@ function LanDriversRealtek {
     Write-UserOutput "Instalando drivers de Red para Realtek"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/LanDriversRealtek.zip"), ($App.FilesPath + "LanDriversRealtek.zip"))
     Expand-Archive -Path ($App.FilesPath + "LanDriversRealtek.zip") -DestinationPath ($App.FilesPath + "LanDriversRealtek") -Force
-    pnputil /add-driver ($App.FilesPath + "LanDriversRealtek\rt25cx21x64.inf") /install
     $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Realtek Gaming 2.5GbE Family Controller" | Select-Object -ExpandProperty InfName
     pnputil /delete-driver $OldDriver /uninstall /force
+    pnputil /add-driver ($App.FilesPath + "LanDriversRealtek\rt25cx21x64.inf") /install
 }
 
 function BlackIcons {
