@@ -1236,9 +1236,9 @@ function LanDriversRealtek {
     Write-UserOutput "Instalando drivers de Red para Realtek"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/LanDriversRealtek.zip"), ($App.FilesPath + "LanDriversRealtek.zip"))
     Expand-Archive -Path ($App.FilesPath + "LanDriversRealtek.zip") -DestinationPath ($App.FilesPath + "LanDriversRealtek") -Force
-    pnputil /add-driver ($App.FilesPath + "LanDriversRealtek\rtots640x64.inf") /install
-    #$OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Realtek Gaming 2.5GbE Family Controller" | Select-Object -ExpandProperty InfName
-    #pnputil /delete-driver $OldDriver /uninstall /force
+    pnputil /add-driver ($App.FilesPath + "LanDriversRealtek\rt25cx21x64.inf") /install
+    $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Realtek Gaming 2.5GbE Family Controller" | Select-Object -ExpandProperty InfName
+    pnputil /delete-driver $OldDriver /uninstall /force
 }
 
 function BlackIcons {
