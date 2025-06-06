@@ -1165,6 +1165,9 @@ function VideoExtensions {
     $AppIds | ForEach-Object {
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppId_$_" + ".log") -Encoding UTF8 -Append
     }
+
+    Dism.exe /Online /Add-Package:Dolby24H2\Microsoft-Windows-DolbyCodec-Package~31bf3856ad364e35~amd64~~10.0.26100.1.mum
+    Dism.exe /Online /Add-Package:Dolby24H2\Microsoft-Windows-DolbyCodec-WOW64-Package~31bf3856ad364e35~wow64~~10.0.26100.1.mum
 }
 
 function EthernetOptimization {
@@ -1211,53 +1214,6 @@ function EthernetOptimization {
     Set-ItemProperty -Path $NetAdapterGUIDPath -Name "TPCNoDelay" -Type DWord -Value 1
     
     Set-ItemProperty -Path "HKLM:SYSTEM\CurrentControlSet\Services\PnP\Parameters" -Name "Enable8021p" -Type DWord -Value 1
-    
-    # TCP Optimizer settings
-    Set-NetTCPSetting -SettingName internet -AutoTuningLevelLocal normal
-    Set-NetTCPSetting -SettingName internet -ScalingHeuristics disabled
-    netsh int tcp set supplemental internet congestionprovider=ctcp | Out-File $App.LogPath -Encoding UTF8 -Append 
-    Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing disabled
-    Set-NetOffloadGlobalSetting -ReceiveSideScaling disabled
-    Disable-NetAdapterLso -Name *
-    Disable-NetAdapterChecksumOffload -Name *
-    Set-NetTCPSetting -SettingName internet -EcnCapability enabled
-    Set-NetTCPSetting -SettingName internet -EcnCapability enabled
-    Set-NetOffloadGlobalSetting -Chimney disabled
-    Set-NetTCPSetting -SettingName internet -Timestamps enabled
-    Set-NetTCPSetting -SettingName internet -MaxSynRetransmissions 2
-    Set-NetTCPSetting -SettingName internet -NonSackRttResiliency disabled
-    Set-NetTCPSetting -SettingName internet -InitialRto 2000
-    Set-NetTCPSetting -SettingName internet -MinRto 300
-    netsh interface ipv4 set subinterface "Ethernet" mtu=1500 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh interface ipv6 set subinterface "Ethernet" mtu=1500 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh interface ipv4 set subinterface "Ethernet 2" mtu=0 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh interface ipv6 set subinterface "Ethernet 2" mtu=0 store=persistent | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh int tcp set global rss=enabled | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh int tcp set global autotuninglevel=normal | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh int tcp set global chimney=disabled | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh int tcp set global netdma=disabled | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh int tcp set global dca=enabled | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh int tcp set global ecncapability=disabled | Out-File $App.LogPath -Encoding UTF8 -Append 
-    netsh int tcp set global timestamps=disabled | Out-File $App.LogPath -Encoding UTF8 -Append 
-
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPER1_0SERVER" -Name "explorer.exe" -Type DWord -Value 10
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPER1_0SERVER" -Name "explore.exe" -Type DWord -Value 10
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPERSERVER" -Name "explorer.exe" -Type DWord -Value 10
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONSPERSERVER" -Name "explore.exe" -Type DWord -Value 10
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched" -Name "NonBestEffortLimit" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -Name "NetworkThrottlingIndex" -Type DWord -Value 4294967295
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -Name "SystemResponsiveness" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\MSMQ\Parameters" -Name "SystemResponsiveness" -Type DWord -Value 0
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" -Name "LocalPriority" -Type DWord -Value 4
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" -Name "HostsPriority" -Type DWord -Value 5
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" -Name "DnsPriority" -Type DWord -Value 6
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" -Name "NetbtPriority" -Type DWord -Value 7
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS" -Name "Do not use NLA" -Type String -Value 1
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "Size" -Type DWord -Value 3
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "LargeSystemCache" -Type DWord -Value 1
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -Name "MaxUserPort" -Type DWord -Value 65534
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -Name "TcpTimedWaitDelay" -Type DWord -Value 30
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -Name "DefaultTTL" -Type DWord -Value 64
 
     # Enable the Network Adapter Onboard Processor
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -Name "DisableTaskOffload" -Type DWord -Value 0
@@ -1267,13 +1223,22 @@ function EthernetOptimization {
     $App.RequireRestart = $true
 }
 
-function Z390LanDrivers {
-    Write-UserOutput "Instalando drivers de Red para Z390"
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/LanDrivers.zip"), ($App.FilesPath + "LanDrivers.zip"))
-    Expand-Archive -Path ($App.FilesPath + "LanDrivers.zip") -DestinationPath ($App.FilesPath + "LanDrivers") -Force
-    pnputil /add-driver ($App.FilesPath + "LanDrivers\e1d68x64.inf") /install
+function LanDriversI219V {
+    Write-UserOutput "Instalando drivers de Red para Intel I219-V"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/LanDriversI219V.zip"), ($App.FilesPath + "LanDriversI219V.zip"))
+    Expand-Archive -Path ($App.FilesPath + "LanDriversI219V.zip") -DestinationPath ($App.FilesPath + "LanDriversI219V") -Force
+    pnputil /add-driver ($App.FilesPath + "LanDriversI219V\e1d68x64.inf") /install
     $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Intel(R) Ethernet Connection (7) I219-V" | Select-Object -ExpandProperty InfName
     pnputil /delete-driver $OldDriver /uninstall /force
+}
+
+function LanDriversRealtek {
+    Write-UserOutput "Instalando drivers de Red para Realtek"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/LanDriversRealtek.zip"), ($App.FilesPath + "LanDriversRealtek.zip"))
+    Expand-Archive -Path ($App.FilesPath + "LanDriversRealtek.zip") -DestinationPath ($App.FilesPath + "LanDriversRealtek") -Force
+    pnputil /add-driver ($App.FilesPath + "LanDriversRealtek\rtots640x64.inf") /install
+    #$OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Realtek Gaming 2.5GbE Family Controller" | Select-Object -ExpandProperty InfName
+    #pnputil /delete-driver $OldDriver /uninstall /force
 }
 
 function BlackIcons {
