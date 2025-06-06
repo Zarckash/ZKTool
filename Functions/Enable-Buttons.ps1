@@ -60,6 +60,9 @@ $App.Close.Add_Click({
                 Restart-Computer
             }
         }
+        else {
+            $App.Window.Close()
+        }
     } else {
         $App.Window.Close()
     }
