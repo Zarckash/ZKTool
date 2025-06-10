@@ -62,6 +62,8 @@
                         x:Name="Close"
                         Content=""
                         FontSize="14"
+                        IsEnabled="False"
+                        Opacity=".5"
                         Style="{DynamicResource InteractionButtonStyle}" />
                 </StackPanel>
             </Grid>
