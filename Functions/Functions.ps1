@@ -1232,6 +1232,15 @@ function LanDriversI219V {
     pnputil /delete-driver $OldDriver /uninstall /force
 }
 
+function LanDriversI210 {
+    Write-UserOutput "Instalando drivers de Red para Intel I210"
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/LanDriversI210.zip"), ($App.FilesPath + "LanDriversI210.zip"))
+    Expand-Archive -Path ($App.FilesPath + "LanDriversI210.zip") -DestinationPath ($App.FilesPath + "LanDriversI210") -Force
+    $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -like "*Intel*Ethernet*" | Select-Object -ExpandProperty InfName
+    pnputil /delete-driver $OldDriver /uninstall /force
+    pnputil /add-driver ($App.FilesPath + "LanDriversI210\e1r.inf") /install
+}
+
 function LanDriversRealtek {
     Write-UserOutput "Instalando drivers de Red para Realtek"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/LanDriversRealtek.zip"), ($App.FilesPath + "LanDriversRealtek.zip"))
