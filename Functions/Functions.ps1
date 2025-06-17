@@ -1019,9 +1019,6 @@ function UpdateGPUDrivers {
         Write-UserOutput "Nueva versión $LatestVersion encontrada"
     }
 
-            Write-UserOutput "Instalando la ultima versión estable $LatestStable"
-            $LatestVersion = $LatestStable
-
     # Check if GeForce Experience installed
     $GeForceCheck = Winget List 'Nvidia.GeForceExperience' | Select-String -Pattern 'Nvidia.GeForceExperience' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
     $NvidiaAppCheck = Winget List 'ARP\Machine\X64\{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | Select-String -Pattern 'ARP\\Machine\\X64\\{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
