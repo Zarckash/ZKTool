@@ -1086,7 +1086,13 @@ function UpdateGPUDrivers {
         Start-Process "${env:ProgramFiles(x86)}\MSI Afterburner\MSIAfterburner.exe"
     }
 
-    Write-UserOutput "Drivers $LatestVersion instalados correctamente"
+    $GetNewCurrentVersion = Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion | Where-Object {$_.devicename -Like "*nvidia*tx*"} | Select-Object -ExpandProperty DriverVersion
+    $NewCurrentVersion = $GetCurrentVersion.Replace('.','').Substring($GetCurrentVersion.Length - 8).Insert(3,'.')
+
+    if ($NewCurrentVersion.Replace('.','') -eq $LatestVersion.Replace('.','')) {
+        Write-UserOutput "Drivers $LatestVersion instalados correctamente"
+    }
+    
     Start-Sleep 3
 
     & NvidiaSettings
