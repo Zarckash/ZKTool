@@ -1009,7 +1009,7 @@ function UpdateGPUDrivers {
     $LatestVersion = $WebRequest.IDS.downloadInfo.Version
     $LatestStable = "561.09"
     
-    if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
+    if ($LatestVersion -eq $CurrentVersion) {
         Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
         Start-Sleep 1
         Write-UserOutput "Instalando la ultima versión estable $LatestStable"
@@ -1040,7 +1040,17 @@ function UpdateGPUDrivers {
     Write-UserOutput "Extrayendo drivers"
     New-Item -Path ($App.FilesPath + "NVCleanstall") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-    $FilesToExtract = "Display.Driver GFExperience NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe"
+    if ($LatestVersion -ge '566.36') {
+        $FilesToExtract = "Display.Driver NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe"
+        $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt','CEF', 'Unified_EULA', 'EULA')
+        $FilesPath = $App.FilesPath + "NVCleanstall\NvApp"
+    }
+    else {
+        $FilesToExtract = "Display.Driver GFExperience NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe"
+        $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt')
+        $FilesPath = $App.FilesPath + "NVCleanstall\GFExperience"
+    }
+    
     $DriverPath = ($App.FilesPath + "Driver.exe")
     $ExtractPath = ($App.FilesPath + "NVCleanstall")
 
@@ -1074,8 +1084,7 @@ function UpdateGPUDrivers {
     }
     else {
         Write-UserOutput "Limpiando archivos de driver"
-        $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt','FunctionalConsent_*')
-        Get-ChildItem ($App.FilesPath + "NVCleanstall\GFExperience") -Exclude $ExcludeList | ForEach-Object {
+        Get-ChildItem $FilesPath -Exclude $ExcludeList | ForEach-Object {
             Remove-Item $_ -Recurse -Force
         }
         Write-UserOutput "Instalando drivers $LatestVersion"
@@ -1087,9 +1096,9 @@ function UpdateGPUDrivers {
     }
 
     $GetNewCurrentVersion = Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion | Where-Object {$_.devicename -Like "*nvidia*tx*"} | Select-Object -ExpandProperty DriverVersion
-    $NewCurrentVersion = $GetCurrentVersion.Replace('.','').Substring($GetCurrentVersion.Length - 8).Insert(3,'.')
+    $NewCurrentVersion = $GetNewCurrentVersion.Replace('.','').Substring($GetNewCurrentVersion.Length - 8).Insert(3,'.')
 
-    if ($NewCurrentVersion.Replace('.','') -eq $LatestVersion.Replace('.','')) {
+    if ($NewCurrentVersion -eq $LatestVersion) {
         Write-UserOutput "Drivers $LatestVersion instalados correctamente"
     }
     
