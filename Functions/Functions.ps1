@@ -617,6 +617,8 @@ function NvidiaSettings {
     Get-ChildItem -Path "C:\Windows\System32\DriverStore\FileRepository\" -Recurse | Where-Object {$_.Name -eq "NvTelemetry64.dll"} | Remove-Item -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
     Set-ItemProperty -Path "HKLM:\SOFTWARE\NVIDIA Corporation\Global\NGXCore" -Name "ShowDlssIndicator" -Type DWord -Value 1
+
+    & GPUInputLag
 }
 
 function UninstallXboxGameBar {
