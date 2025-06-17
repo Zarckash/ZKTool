@@ -1001,8 +1001,7 @@ function AMDUndervoltPack {
 function UpdateGPUDrivers {
     Write-UserOutput "Comprobando versión instalada"
 
-    $GetCurrentVersion = Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion | Where-Object {$_.devicename -Like "*nvidia*tx*"} | Select-Object -ExpandProperty DriverVersion
-    $CurrentVersion = $GetCurrentVersion.Replace('.','').Substring($GetCurrentVersion.Length - 8).Insert(3,'.')
+    $CurrentVersion = (nvidia-smi --query-gpu=driver_version --format=csv)[1]
     
     $Uri = "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=120&pfid=929&osID=57&languageCode=1033&isWHQL=1&dch=1&sort1=0&numberOfResults=1"
     $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
@@ -1079,7 +1078,7 @@ function UpdateGPUDrivers {
     # Strip driver if GeForce Experience or Nvidia App is not installed
     if ($FullInstall) {
         Write-UserOutput "Instalando drivers $LatestVersion"
-        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
+        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s -noreboot" -Wait
         Remove-Item ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\GeForce Experience.lnk")
     }
     else {
@@ -1088,15 +1087,14 @@ function UpdateGPUDrivers {
             Remove-Item $_ -Recurse -Force
         }
         Write-UserOutput "Instalando drivers $LatestVersion"
-        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-clean -s" -Wait
+        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-clean -s -noreboot" -Wait
     }
 
     if ($MSIABRunning) {
         Start-Process "${env:ProgramFiles(x86)}\MSI Afterburner\MSIAfterburner.exe"
     }
 
-    $GetNewCurrentVersion = Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion | Where-Object {$_.devicename -Like "*nvidia*tx*"} | Select-Object -ExpandProperty DriverVersion
-    $NewCurrentVersion = $GetNewCurrentVersion.Replace('.','').Substring($GetNewCurrentVersion.Length - 8).Insert(3,'.')
+    $NewCurrentVersion = (nvidia-smi --query-gpu=driver_version --format=csv)[1]
 
     if ($NewCurrentVersion -eq $LatestVersion) {
         Write-UserOutput "Drivers $LatestVersion instalados correctamente"
