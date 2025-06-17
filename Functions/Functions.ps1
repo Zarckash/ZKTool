@@ -1009,15 +1009,15 @@ function UpdateGPUDrivers {
     $LatestVersion = $WebRequest.IDS.downloadInfo.Version
     $LatestStable = "561.09"
     
-    #if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
-     #   Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
-     #   Start-Sleep 1
-     #   Write-UserOutput "Instalando la ultima versión estable $LatestStable"
-     #   $LatestVersion = $LatestStable
-    #}
-    #else {
-     #   Write-UserOutput "Nueva versión $LatestVersion encontrada"
-    #}
+    if ($CurrentVersion.Replace('.','') -ge $LatestVersion.Replace('.','')) {
+        Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
+        Start-Sleep 1
+        Write-UserOutput "Instalando la ultima versión estable $LatestStable"
+        $LatestVersion = $LatestStable
+    }
+    else {
+        Write-UserOutput "Nueva versión $LatestVersion encontrada"
+    }
 
             Write-UserOutput "Instalando la ultima versión estable $LatestStable"
             $LatestVersion = $LatestStable
@@ -1227,9 +1227,10 @@ function LanDriversI219V {
     Write-UserOutput "Instalando drivers de Red para Intel I219-V"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/LanDriversI219V.zip"), ($App.FilesPath + "LanDriversI219V.zip"))
     Expand-Archive -Path ($App.FilesPath + "LanDriversI219V.zip") -DestinationPath ($App.FilesPath + "LanDriversI219V") -Force
-    pnputil /add-driver ($App.FilesPath + "LanDriversI219V\e1d68x64.inf") /install
     $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Intel(R) Ethernet Connection (7) I219-V" | Select-Object -ExpandProperty InfName
     pnputil /delete-driver $OldDriver /uninstall /force
+    pnputil /add-driver ($App.FilesPath + "LanDriversI219V\e1d68x64.inf") /install
+    & EthernetOptimization
 }
 
 function LanDriversI210 {
@@ -1239,6 +1240,7 @@ function LanDriversI210 {
     $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -like "*Intel*Connection*" | Select-Object -ExpandProperty InfName
     pnputil /delete-driver $OldDriver /uninstall /force
     pnputil /add-driver ($App.FilesPath + "LanDriversI210\e1r.inf") /install
+    & EthernetOptimization
 }
 
 function LanDriversRealtek {
@@ -1248,6 +1250,7 @@ function LanDriversRealtek {
     $OldDriver = Get-WMIObject win32_PnPSignedDriver | Where-Object DeviceName -eq "Realtek Gaming 2.5GbE Family Controller" | Select-Object -ExpandProperty InfName
     pnputil /delete-driver $OldDriver /uninstall /force
     pnputil /add-driver ($App.FilesPath + "LanDriversRealtek\rt25cx21x64.inf") /install
+    & EthernetOptimization
 }
 
 function BlackIcons {
