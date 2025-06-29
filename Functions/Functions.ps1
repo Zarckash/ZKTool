@@ -1024,8 +1024,8 @@ function UpdateGPUDrivers {
 
     # Check if GeForce Experience installed
     $GeForceCheck = Winget List 'Nvidia.GeForceExperience' | Select-String -Pattern 'Nvidia.GeForceExperience' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
-    $NvidiaAppCheck = Winget List 'ARP\Machine\X64\{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | Select-String -Pattern 'ARP\\Machine\\X64\\{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
-    if (($GeForceCheck -eq 'Nvidia.GeForceExperience') -or ($NvidiaAppCheck -eq 'ARP\Machine\X64\{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp')) {
+    $NvidiaAppCheck = Winget List '{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | Select-String -Pattern '{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
+    if (($GeForceCheck -eq 'Nvidia.GeForceExperience') -or ($NvidiaAppCheck -eq '{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp')) {
         $FullInstall = $true
     }
 
