@@ -18,10 +18,13 @@ $NewRunspace.SessionStateProxy.SetVariable("App", $App)
 $Logic = [PowerShell]::Create().AddScript({
     . ($App.FunctionsPath + "Update-GUI.ps1")
 
-    if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
+    if (!(Get-Module -Name PowerShellGet) -or !(Get-Module -Name FP.SetWallpaper)) {
         "Installing modules not found" | Out-File $App.LogPath -Encoding UTF8 -Append
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-        Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+
+        $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PowerShellGet.zip"),($App.FilesPath + "PowerShellGet.zip"))
+        Expand-Archive -Path ($App.FilesPath + "PowerShellGet.zip") -DestinationPath "$env:ProgramFiles\WindowsPowerShell\Modules"
+
         Install-Module -Name FP.SetWallpaper -AcceptLicense -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     }
     
@@ -261,7 +264,7 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
             Update-GUI $_ Background $App.PresetsList.($this.Name).$_
         }
 
-        $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
+        $App.Wallpaper1 = ($App.ZKToolPath + "Media\Wallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
         $App.Wallpaper2 = $App.Wallpaper1
 
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
