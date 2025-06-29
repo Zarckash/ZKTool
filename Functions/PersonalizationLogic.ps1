@@ -19,17 +19,20 @@ $Logic = [PowerShell]::Create().AddScript({
     . ($App.FunctionsPath + "Update-GUI.ps1")
 
     if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
-        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-        Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force
-        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force
+        "Installing modules not found" | Out-File $App.LogPath -Encoding UTF8 -Append
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+        Install-Module -Name PowerShellGet -RequiredVersion 2.2.5.1 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     }
     
     if ((Get-WmiObject win32_desktopmonitor).Length -gt 1) {
         Update-GUI WallpaperBox2 Visibility Visible
     }
 
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
-    Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.FilesPath + "Wallpapers") -Force
+    if (!(Test-Path ($App.ZKToolPath + "Media\Wallpapers"))) {
+        $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
+        Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.ZKToolPath + "Media\Wallpapers") -Force
+    }
 })
 
 $Logic.Runspace = $NewRunspace
@@ -83,7 +86,7 @@ $Colors | ForEach-Object {
 }
 
 $Script:FileDialog = New-Object System.Windows.Forms.OpenFileDialog -Property @{
-    InitialDirectory = ($App.FilesPath + "Wallpapers")
+    InitialDirectory = ($App.ZKToolPath + "Media\Wallpapers")
     Filter = "Imágenes (*.png, *.jpg)|*.png;*.jpg"
 }
 
@@ -144,65 +147,34 @@ $App.ApplyTheme.Add_Click({
 
     New-Item -Path ($App.ZKToolPath + "Media\") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-    if ((Test-Path $App.Wallpaper1) -and ((Test-Path $App.Wallpaper2) -and ($App.WallpaperBox2.Visibility -eq "Visible"))) {
-        Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
-        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpaper2.png") -Force
+    if (Test-Path $App.Wallpaper1) {
+        Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpapers\Wallpaper1.png") -Force
 
-        Start-Process Powershell -WindowStyle Hidden{
-            $File1 = 'C:\Program Files\ZKTool\Media\Wallpaper1.png'
-            $File2 = 'C:\Program Files\ZKTool\Media\Wallpaper2.png'
+        Start-Process Powershell -WindowStyle Hidden {
+            $File = 'C:\Program Files\ZKTool\Media\Wallpaper1.png'
+            
 
-            Get-Monitor | Select-Object -First 1 | Set-WallPaper -Path $File1
-            Get-Monitor | Select-Object -Last 1 | Set-WallPaper -Path $File2
+            Get-Monitor | Select-Object -First 1 | Set-WallPaper -Path $File
+            
         }
 
 
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\Wallpaper1.png")
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\Wallpaper1.png")
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\Wallpapers\Wallpaper1.png")
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\Wallpapers\Wallpaper1.png")
     }
-    elseif (Test-Path $App.Wallpaper1) {
-        Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
-        Set-SingleMonitorWallpaper -Path ($App.ZKToolPath + "Media\Wallpaper1.png")
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\Wallpaper1.png")
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\Wallpaper1.png")
+    if ((Test-Path $App.Wallpaper2) -and ($App.WallpaperBox2.Visibility -eq "Visible")) {
+        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpapers\Wallpaper2.png") -Force
+
+        Start-Process Powershell -WindowStyle Hidden { 
+            $File = 'C:\Program Files\ZKTool\Media\Wallpaper2.png'
+            Get-Monitor | Select-Object -Last 1 | Set-WallPaper -Path $File
+        }
     }
     
     Get-Process "Explorer" | Stop-Process
 })
-
-function Script:Set-SingleMonitorWallpaper {
-
-    param (
-        [parameter(Mandatory=$True)]
-        [string]$Path
-    )
- 
-    Add-Type -TypeDefinition @" 
-    using System; 
-    using System.Runtime.InteropServices;
-  
-    public class Params
-    { 
-        [DllImport("User32.dll",CharSet=CharSet.Unicode)] 
-        public static extern int SystemParametersInfo (Int32 uAction, 
-                                                       Int32 uParam, 
-                                                       String lpvParam, 
-                                                       Int32 fuWinIni);
-    }
-"@ 
-  
-    $SPI_SETDESKWALLPAPER = 0x0014
-    $UpdateIniFile = 0x01
-    $SendChangeEvent = 0x02
-  
-    $fWinIni = $UpdateIniFile -bor $SendChangeEvent
-  
-    [Params]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $Path, $fWinIni)
-}
 
 function Script:Get-AccentColor {
     param (
