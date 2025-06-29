@@ -958,6 +958,7 @@ function WindowsTerminalAppearance {
     if (!($PWSH -eq (Winget list $PWSH | Select-String -Pattern $PWSH | ForEach-Object {$_.Matches} | Select-Object -ExpandProperty Value))) {
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell  | Out-File ($App.LogFolder + "PowerShell7.log") -Encoding UTF8 -Append
     }
+    DISM /Online /Add-Capability /CapabilityName:WMIC~~~~ /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append 
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/WindowsTerminalSettings.zip"), ($App.FilesPath + "WindowsTerminalSettings.zip"))
     Remove-Item -Path $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
     Expand-Archive -Path ($App.FilesPath + "WindowsTerminalSettings.zip") -DestinationPath $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
@@ -1046,11 +1047,13 @@ function UpdateGPUDrivers {
         $FilesToExtract = "Display.Driver NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe"
         $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt','CEF', 'Unified_EULA', 'EULA')
         $FilesPath = $App.FilesPath + "NVCleanstall\NvApp"
+        $DesktopShortcut = ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\NVIDIA App.lnk")
     }
     else {
         $FilesToExtract = "Display.Driver GFExperience NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe"
         $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt')
         $FilesPath = $App.FilesPath + "NVCleanstall\GFExperience"
+        $DesktopShortcut = ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\GeForce Experience.lnk")
     }
     
     $DriverPath = ($App.FilesPath + "Driver.exe")
@@ -1082,7 +1085,7 @@ function UpdateGPUDrivers {
     if ($FullInstall) {
         Write-UserOutput "Instalando drivers $LatestVersion"
         Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
-        Remove-Item ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\GeForce Experience.lnk")
+        Remove-Item $DesktopShortcut
     }
     else {
         Write-UserOutput "Limpiando archivos de driver"
@@ -1455,6 +1458,14 @@ function ForceDLAA {
 function Autounattend {
     Write-UserOutput "Descargando unattend al escritorio"
     $App.Download.DownloadFile(($App.GitHubFilesPath + "Autounattend.xml"), ($App.FilesPath + "autounattend.xml"))
+
+    $SystemLanguage = (Get-Culture).Name
+    $KeyboardLanguage = ((Get-WinUserLanguageList).InputMethodTips | Select-Object -First 1).ToLower()
+    $UserName = $Env:USERNAME
+    $ComputerName = ($Env:USERNAME).ToUpper() + "-PC"
+
+    (Get-Content ($App.FilesPath + "autounattend.xml")) -replace 'lang-LANG',$SystemLanguage -replace 'KeyboardCode',$KeyboardLanguage -replace 'AccName',$UserName -replace 'PC-Name',$ComputerName | Set-Content -Path ($App.FilesPath + "autounattend.xml")
+
     $AutounattendPath = ([Environment]::GetFolderPath('Desktop') + "\autounattend.xml")
     Copy-Item -Path ($App.FilesPath + "autounattend.xml") -Destination $AutounattendPath -Force
     Start-Process Explorer -ArgumentList "/select, ""$AutounattendPath"""
