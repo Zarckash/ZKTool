@@ -10,33 +10,47 @@ if ((Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersio
     Update-GUI HideSearchButtonToggle IsChecked $true
 }
 
-. ($App.FunctionsPath + "Update-GUI.ps1")
-if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
-    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-
-    [Net.ServicePointManager]::SecurityProtocol =
-    [Net.ServicePointManager]::SecurityProtocol -bor
-    [Net.SecurityProtocolType]::Tls12
-
-    Install-Module PowerShellGet -AllowClobber -Force
-
-    Remove-Module -Name PowerShellGet
-    Import-Module -Name PowerShellGet
-
-    Install-Module -Name FP.SetWallpaper -AcceptLicense -Force 
-}
-
-Remove-Module -Name FP.SetWallpaper
-Import-Module -Name FP.SetWallpaper
-
 if ((Get-Monitor).Count -gt 1) {
     Update-GUI WallpaperBox2 Visibility Visible
 }
 
-if (!(Test-Path ($App.ZKToolPath + "Media\Wallpapers"))) {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"), ($App.FilesPath + "Wallpapers.zip"))
-    Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.ZKToolPath + "Media\Wallpapers") -Force
-}
+$NewRunspace = [RunspaceFactory]::CreateRunspace()
+$NewRunspace.ApartmentState = "STA"
+$NewRunspace.ThreadOptions = "ReuseThread"          
+$NewRunspace.Open()
+$NewRunspace.SessionStateProxy.SetVariable("App", $App)
+$Logic = [PowerShell]::Create().AddScript({
+    . ($App.FunctionsPath + "Update-GUI.ps1")
+
+    if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
+        "Installing modules not found" | Out-File $App.LogPath -Encoding UTF8 -Append
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+
+        [Net.ServicePointManager]::SecurityProtocol =
+        [Net.ServicePointManager]::SecurityProtocol -bor
+        [Net.SecurityProtocolType]::Tls12
+
+        Install-Module PowerShellGet -AllowClobber -Force
+        Remove-Module -Name PowerShellGet
+        Import-Module -Name PowerShellGet
+
+        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force 
+    }
+    
+    Import-Module -Name FP.SetWallpaper
+
+    if ((Get-Monitor).Count -gt 1) {
+        Update-GUI WallpaperBox2 Visibility Visible
+    }
+
+    if (!(Test-Path ($App.ZKToolPath + "Media\Wallpapers"))) {
+        $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
+        Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.ZKToolPath + "Media\Wallpapers") -Force
+    }
+})
+
+$Logic.Runspace = $NewRunspace
+$Logic.BeginInvoke() | Out-Null
 
 $Script:ColorDialog = New-Object System.Windows.Forms.ColorDialog
 $ColorDialog.FullOpen = $true
@@ -152,7 +166,7 @@ $App.ApplyTheme.Add_Click({
 
         Start-Process Powershell -WindowStyle Hidden {
             $File = 'C:\Program Files\ZKTool\Media\Wallpapers\Wallpaper1.png'
-            (Get-Monitor)[1] | Set-WallPaper -Path $File
+            (Get-Monitor)[0] | Set-WallPaper -Path $File
         }
 
 
@@ -166,7 +180,7 @@ $App.ApplyTheme.Add_Click({
 
         Start-Process Powershell -WindowStyle Hidden { 
             $File = 'C:\Program Files\ZKTool\Media\Wallpapers\Wallpaper2.png'
-            Get-Monitor[0] | Set-WallPaper -Path $File
+            Get-Monitor[1] | Set-WallPaper -Path $File
         }
     }
     
