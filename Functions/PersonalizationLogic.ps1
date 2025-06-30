@@ -107,6 +107,7 @@ $App.WallpaperBox1.Add_Click({
         Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
         Update-GUI WallpaperBox1Label Visibility Collapsed
         Update-GUI WallpaperBox1Image Visibility Visible
+        (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
     }
 })
 
@@ -117,6 +118,7 @@ $App.WallpaperBox2.Add_Click({
         Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
         Update-GUI WallpaperBox2Label Visibility Collapsed
         Update-GUI WallpaperBox2Image Visibility Visible
+        Get-Monitor[1] | Set-WallPaper -Path $App.Wallpaper2
     }
 })
 
@@ -157,17 +159,10 @@ $App.ApplyTheme.Add_Click({
 
     New-Item -Path ($App.ZKToolPath + "Media\") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-    if (Test-Path $App.Wallpaper1) {
-        (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
-
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\Wallpapers\Wallpaper1.png")
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\Wallpapers\Wallpaper1.png")
-    }
-    if ((Test-Path $App.Wallpaper2) -and ($App.WallpaperBox2.Visibility -eq "Visible")) {
-        Get-Monitor[1] | Set-WallPaper -Path $App.Wallpaper2
-    }
+    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $App.Wallpaper1
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $App.Wallpaper1
     
     Get-Process "Explorer" | Stop-Process
 })
