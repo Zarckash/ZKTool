@@ -157,8 +157,6 @@ $App.ApplyTheme.Add_Click({
     Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor" -Value $RGBColor
     Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "MenuHilight" -Value $RGBColor
 
-    New-Item -Path ($App.ZKToolPath + "Media\") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $App.Wallpaper1
@@ -209,6 +207,23 @@ function Script:Get-CurrentPreset {
     }
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
+
+    $App.Wallpaper1 = ((Get-Monitor)[0] | Get-Wallpaper).Path
+    if (Test-Path $App.Wallpaper1) {
+        Update-GUI WallpaperBox1Image Source $App.Wallpaper1
+        Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
+        Update-GUI WallpaperBox1Label Visibility Collapsed
+        Update-GUI WallpaperBox1Image Visibility Visible
+    }
+
+    $App.Wallpaper2 = ((Get-Monitor)[1] | Get-Wallpaper).Path
+    
+    if (Test-Path $App.Wallpaper2) {
+        Update-GUI WallpaperBox2Image Source $App.Wallpaper2
+        Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
+        Update-GUI WallpaperBox2Label Visibility Collapsed
+        Update-GUI WallpaperBox2Image Visibility Visible
+    }     
 }
 
 Get-CurrentPreset
