@@ -22,9 +22,11 @@ $Logic = [PowerShell]::Create().AddScript({
         "Installing modules not found" | Out-File $App.LogPath -Encoding UTF8 -Append
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-        $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PowerShellGet.zip"),($App.FilesPath + "PowerShellGet.zip"))
-        Expand-Archive -Path ($App.FilesPath + "PowerShellGet.zip") -DestinationPath "$env:ProgramFiles\WindowsPowerShell\Modules"
+        [Net.ServicePointManager]::SecurityProtocol =
+            [Net.ServicePointManager]::SecurityProtocol -bor
+            [Net.SecurityProtocolType]::Tls12
 
+        Install-Module PowerShellGet -AllowClobber -Force | Out-File $App.LogPath -Encoding UTF8 -Append
         Install-Module -Name FP.SetWallpaper -AcceptLicense -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     }
     
