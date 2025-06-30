@@ -9,6 +9,7 @@ $DNSList = @("DNS1","DNS2","DNS3")
 
 $InteractionButtons = @('Minimize','Maximize','Close')
 
+. ($App.FunctionsPath + "Update-GUI.ps1")
 
 $InteractionButtons | ForEach-Object {
     if ($_ -ne "Close") {
@@ -39,6 +40,7 @@ $App.Maximize.Add_Click({
     else {
         $App.Window.WindowState = "Normal"
     }
+    
     Update-GUI Wallpaper1Box Height ($App.Wallpaper1Box.ActualWidth / 1.77)
     Update-GUI Wallpaper2Box Height ($App.Wallpaper2Box.ActualWidth / 1.77)
 })
