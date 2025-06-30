@@ -162,7 +162,7 @@ $App.ApplyTheme.Add_Click({
 
         Start-Process Powershell -WindowStyle Hidden {
             $File = 'C:\Program Files\ZKTool\Media\Wallpaper1.png'
-            Get-Monitor | Select-Object -First 1 | Set-WallPaper -Path $File
+            (Get-Monitor)[0] | Set-WallPaper -Path $File
         }
 
 
@@ -176,7 +176,7 @@ $App.ApplyTheme.Add_Click({
 
         Start-Process Powershell -WindowStyle Hidden { 
             $File = 'C:\Program Files\ZKTool\Media\Wallpaper2.png'
-            Get-Monitor | Select-Object -Last 1 | Set-WallPaper -Path $File
+            Get-Monitor[1] | Set-WallPaper -Path $File
         }
     }
     
