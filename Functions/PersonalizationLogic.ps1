@@ -22,20 +22,20 @@ $Logic = [PowerShell]::Create().AddScript({
         "Installing modules not found" | Out-File $App.LogPath -Encoding UTF8 -Append
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-        Start-Process Powershell -WindowStyle Hidden -Wait {
-            [Net.ServicePointManager]::SecurityProtocol =
-            [Net.ServicePointManager]::SecurityProtocol -bor
-            [Net.SecurityProtocolType]::Tls12
+        [Net.ServicePointManager]::SecurityProtocol =
+        [Net.ServicePointManager]::SecurityProtocol -bor
+        [Net.SecurityProtocolType]::Tls12
 
-            Install-Module PowerShellGet -AllowClobber -Force
-        }
+        Install-Module PowerShellGet -AllowClobber -Force
+        Remove-Module -Name PowerShellGet
+        Import-Module -Name PowerShellGet
 
-        Start-Process Powershell -WindowStyle Hidden {
-            Install-Module -Name FP.SetWallpaper -AcceptLicense -Force 
-        }
+        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force 
     }
     
-    if ((Get-WmiObject win32_desktopmonitor).Length -gt 1) {
+    Import-Module -Name FP.SetWallpaper
+
+    if ((Get-Monitor).Count -gt 1) {
         Update-GUI WallpaperBox2 Visibility Visible
     }
 
