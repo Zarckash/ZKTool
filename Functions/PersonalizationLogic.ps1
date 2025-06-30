@@ -10,10 +10,6 @@ if ((Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersio
     Update-GUI HideSearchButtonToggle IsChecked $true
 }
 
-if ((Get-Monitor).Count -gt 1) {
-    Update-GUI WallpaperBox2 Visibility Visible
-}
-
 $NewRunspace = [RunspaceFactory]::CreateRunspace()
 $NewRunspace.ApartmentState = "STA"
 $NewRunspace.ThreadOptions = "ReuseThread"          
@@ -229,33 +225,6 @@ function Script:Get-CurrentPreset {
     }
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
-
-    if (Test-Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_000") {
-        Copy-Item -Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_000" -Destination ($App.FilesPath + "Transcoded_000.png")
-        $App.Wallpaper1 = ($App.FilesPath + "Transcoded_000.png")
-    } else {
-        $App.Wallpaper1 = Get-ItemPropertyValue -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
-    }
-
-    if (Test-Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_001") {
-        Copy-Item -Path "$env:APPDATA\Microsoft\Windows\Themes\Transcoded_001" -Destination ($App.FilesPath + "Transcoded_001.png")
-        $App.Wallpaper2 = ($App.FilesPath + "Transcoded_001.png")
-    } else {
-        $App.Wallpaper2 = $App.Wallpaper1
-    }
-
-    if (Test-Path $App.Wallpaper1) {
-        Update-GUI WallpaperBox1Image Source $App.Wallpaper1
-        Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
-        Update-GUI WallpaperBox1Label Visibility Collapsed
-        Update-GUI WallpaperBox1Image Visibility Visible
-
-        Update-GUI WallpaperBox2Image Source $App.Wallpaper2
-        Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
-        Update-GUI WallpaperBox2Label Visibility Collapsed
-        Update-GUI WallpaperBox2Image Visibility Visible
-    }
-    
 }
 
 Get-CurrentPreset
