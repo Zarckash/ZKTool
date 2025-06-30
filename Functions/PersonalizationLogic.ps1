@@ -18,16 +18,21 @@ $NewRunspace.SessionStateProxy.SetVariable("App", $App)
 $Logic = [PowerShell]::Create().AddScript({
     . ($App.FunctionsPath + "Update-GUI.ps1")
 
-    if (!(Get-Module -Name PowerShellGet) -or !(Get-Module -Name FP.SetWallpaper)) {
+    if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
         "Installing modules not found" | Out-File $App.LogPath -Encoding UTF8 -Append
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-        [Net.ServicePointManager]::SecurityProtocol =
+        Start-Process Powershell -WindowStyle Hidden -Wait {
+            [Net.ServicePointManager]::SecurityProtocol =
             [Net.ServicePointManager]::SecurityProtocol -bor
             [Net.SecurityProtocolType]::Tls12
 
-        Install-Module PowerShellGet -AllowClobber -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+            Install-Module PowerShellGet -AllowClobber -Force
+        }
+
+        Start-Process Powershell -WindowStyle Hidden {
+            Install-Module -Name FP.SetWallpaper -AcceptLicense -Force 
+        }
     }
     
     if ((Get-WmiObject win32_desktopmonitor).Length -gt 1) {
@@ -157,10 +162,7 @@ $App.ApplyTheme.Add_Click({
 
         Start-Process Powershell -WindowStyle Hidden {
             $File = 'C:\Program Files\ZKTool\Media\Wallpaper1.png'
-            
-
             Get-Monitor | Select-Object -First 1 | Set-WallPaper -Path $File
-            
         }
 
 
