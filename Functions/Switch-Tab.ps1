@@ -79,7 +79,12 @@ function LoadNetConfig {
 function LoadPersonalization {
     $App.PersonalizationLoaded = $false
     Update-GUI OutputContentGrid Visibility Hidden
-    Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
+    if (Test-Path $App.Wallpaper1) {
+        Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
+    }
+    if (Test-Path $App.Wallpaper2) {
+        Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
+    }
     if ($App.PersonalizationLogicLoaded -ne $true) {
         $App.PersonalizationLogicLoaded = $true
         . ($App.FunctionsPath + "PersonalizationLogic.ps1")
