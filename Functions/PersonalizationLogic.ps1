@@ -161,7 +161,7 @@ $App.ApplyTheme.Add_Click({
         Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpapers\Wallpaper1.png") -Force
 
         Start-Process Powershell -WindowStyle Hidden {
-            $File = 'C:\Program Files\ZKTool\Media\Wallpaper1.png'
+            $File = 'C:\Program Files\ZKTool\Media\Wallpapers\Wallpaper1.png'
             (Get-Monitor)[0] | Set-WallPaper -Path $File
         }
 
@@ -175,7 +175,7 @@ $App.ApplyTheme.Add_Click({
         Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpapers\Wallpaper2.png") -Force
 
         Start-Process Powershell -WindowStyle Hidden { 
-            $File = 'C:\Program Files\ZKTool\Media\Wallpaper2.png'
+            $File = 'C:\Program Files\ZKTool\Media\Wallpapers\Wallpaper2.png'
             Get-Monitor[1] | Set-WallPaper -Path $File
         }
     }
