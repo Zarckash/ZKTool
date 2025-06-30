@@ -158,13 +158,7 @@ $App.ApplyTheme.Add_Click({
     New-Item -Path ($App.ZKToolPath + "Media\") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
     if (Test-Path $App.Wallpaper1) {
-        Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpapers\Wallpaper1.png") -Force
-
-        Start-Process Powershell -WindowStyle Hidden {
-            $File = 'C:\Program Files\ZKTool\Media\Wallpapers\Wallpaper1.png'
-            (Get-Monitor)[0] | Set-WallPaper -Path $File
-        }
-
+        (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
 
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
@@ -172,12 +166,7 @@ $App.ApplyTheme.Add_Click({
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\Wallpapers\Wallpaper1.png")
     }
     if ((Test-Path $App.Wallpaper2) -and ($App.WallpaperBox2.Visibility -eq "Visible")) {
-        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpapers\Wallpaper2.png") -Force
-
-        Start-Process Powershell -WindowStyle Hidden { 
-            $File = 'C:\Program Files\ZKTool\Media\Wallpapers\Wallpaper2.png'
-            Get-Monitor[1] | Set-WallPaper -Path $File
-        }
+        Get-Monitor[1] | Set-WallPaper -Path $App.Wallpaper2
     }
     
     Get-Process "Explorer" | Stop-Process
