@@ -118,7 +118,7 @@ $App.WallpaperBox2.Add_Click({
         Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
         Update-GUI WallpaperBox2Label Visibility Collapsed
         Update-GUI WallpaperBox2Image Visibility Visible
-        Get-Monitor[1] | Set-WallPaper -Path $App.Wallpaper2
+        (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
     }
 })
 
