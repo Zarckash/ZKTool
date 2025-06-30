@@ -26,11 +26,13 @@ if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name F
     Install-Module -Name FP.SetWallpaper -AcceptLicense -Force 
 }
 
+Remove-Module -Name FP.SetWallpaper
 Import-Module -Name FP.SetWallpaper
 
 if ((Get-Monitor).Count -gt 1) {
     Update-GUI WallpaperBox2 Visibility Visible
 }
+
 if (!(Test-Path ($App.ZKToolPath + "Media\Wallpapers"))) {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"), ($App.FilesPath + "Wallpapers.zip"))
     Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.ZKToolPath + "Media\Wallpapers") -Force

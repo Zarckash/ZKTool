@@ -77,12 +77,22 @@ function LoadNetConfig {
 }
 
 function LoadPersonalization {
-    $App.PersonalizationLoaded = $false
-    Update-GUI OutputContentGrid Visibility Hidden
-    Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
     if ($App.PersonalizationLogicLoaded -ne $true) {
-        $App.PersonalizationLogicLoaded = $true
-        . ($App.FunctionsPath + "PersonalizationLogic.ps1")
+        $NewRunspace = [RunspaceFactory]::CreateRunspace()
+        $NewRunspace.ApartmentState = "STA"
+        $NewRunspace.ThreadOptions = "ReuseThread"          
+        $NewRunspace.Open()
+        $NewRunspace.SessionStateProxy.SetVariable("App", $App)
+        $Logic = [PowerShell]::Create().AddScript({
+                . ($App.FunctionsPath + "Update-GUI.ps1")
+                . ($App.FunctionsPath + "PersonalizationLogic.ps1")
+                $App.PersonalizationLogicLoaded = $true
+                $App.PersonalizationLoaded = $false
+                Update-GUI OutputContentGrid Visibility Hidden
+                Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
+            })
+        $Logic.Runspace = $NewRunspace
+        $Logic.BeginInvoke() | Out-Null
     }
 }
 
