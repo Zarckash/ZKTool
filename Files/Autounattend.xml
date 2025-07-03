@@ -564,7 +564,7 @@ reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\BitLocker" /v "PreventDeviceE
 reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\EnhancedStorageDevices" /v TCGSecurityActivationDisabled /t REG_DWORD /d 1 /f
 		</File>
 		<File path="C:\Windows\Setup\Scripts\unattend-02.ps1">
-$path = "C:\Users\Default\Desktop\INSTALL-ZKTOOL.ps1"
+$path = "C:\Users\Public\Desktop\INSTALL-ZKTOOL.ps1"
 $content = 'Iwr -useb "https://tinyurl.com/ZKTool" | Iex'
 New-Item -Path $path -ItemType File -Force
 $content | Out-File -FilePath $path -Encoding UTF8 -Force
