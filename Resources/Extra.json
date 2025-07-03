@@ -9,7 +9,8 @@
         "Installer": "VisualCRuntimes.exe",
         "Output": "Instalando ",
         "Source": ".exe",
-        "Arguments": "/aiV /gm2"
+        "Arguments": "/aiV /gm2",
+        "Preset": "True"
     },
     "Extra3": {
         "Name": "Extensiones de vídeo",
