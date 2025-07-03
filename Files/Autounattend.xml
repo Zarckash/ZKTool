@@ -576,9 +576,13 @@ Start-Sleep 10
 Iwr -useb "https://tinyurl.com/ZKTool" | Iex
 		</File>
 		<File path="C:\Windows\Setup\Scripts\unattend-04.ps1">
-if ([System.Environment]::OSVersion.Version.Build -ge 26100) {
-    $WingetPath = "$env:LOCALAPPDATA\Microsoft\WindowsApps\winget.exe"
-    &amp; $WingetPath install -h --force --accept-package-agreements --accept-source-agreements -e --id Discord.Discord
+$WingetApiUrl = "https://api.github.com/repos/microsoft/winget-cli/releases/latest"
+$WingetDownloadUrl = $(Invoke-RestMethod -UseBasicParsing $WingetApiUrl).assets.browser_download_url | Where-Object {$_.EndsWith(".msixbundle")} 
+(New-Object System.Net.WebClient).DownloadFile($WingetDownloadUrl, "$env:TEMP\Winget.msixbundle")
+Add-AppxPackage "$env:TEMP\Winget.msixbundle"
+
+Start-Process Powershell -WindowStyle Hidden {
+    winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Discord.Discord
 }
 		</File>
 		<File path="C:\Windows\Setup\Scripts\Specialize.ps1">
