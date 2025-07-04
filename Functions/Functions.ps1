@@ -1183,9 +1183,6 @@ function VideoExtensions {
     $AppIds | ForEach-Object {
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppId_$_" + ".log") -Encoding UTF8 -Append
     }
-
-    Dism.exe /Online /Add-Package:Dolby24H2\Microsoft-Windows-DolbyCodec-Package~31bf3856ad364e35~amd64~~10.0.26100.1.mum
-    Dism.exe /Online /Add-Package:Dolby24H2\Microsoft-Windows-DolbyCodec-WOW64-Package~31bf3856ad364e35~wow64~~10.0.26100.1.mum
 }
 
 function EthernetOptimization {
