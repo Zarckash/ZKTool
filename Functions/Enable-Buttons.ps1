@@ -3,9 +3,13 @@ $App.TweaksList = Get-Content ($App.ResourcesPath + "Tweaks.json") -Raw | Conver
 $App.ExtraList = Get-Content ($App.ResourcesPath + "Extra.json") -Raw | ConvertFrom-Json
 $App.UtilitiesList = Get-Content ($App.ResourcesPath + "Utilities.json") -Raw | ConvertFrom-Json
 $App.ConfigsList = Get-Content ($App.ResourcesPath + "Configs.json") -Raw | ConvertFrom-Json
-$UserFolders = @("DesktopFolder","DownloadsFolder","DocumentsFolder","PicturesFolder","VideosFolder","MusicFolder")
-$App.IPList = @("IP1","IP2","IP3","IP4","IP5","IP6")
-$DNSList = @("DNS1","DNS2","DNS3")
+
+$AppKeys = $App.Keys | Sort-Object {[regex]::Replace($_, '\d+',{$args[0].Value.Padleft(20)})}
+
+$ToExport = $AppKeys | Where-Object {$_ -Like "ToExport*"}
+$UserFolders = $AppKeys | Where-Object {$_ -Like "*Folder"} | Select-Object -Skip 1
+$App.IPList = $AppKeys | Where-Object {$_ -Like "IP[0-9]"}
+$DNSList = $AppKeys | Where-Object {$_ -Like "DNS[0-9]"}
 
 $InteractionButtons = @('Minimize','Maximize','Close')
 
@@ -129,6 +133,11 @@ $App.ListItemsNames | ForEach-Object {
     $App.$_.Add_Unchecked({
         $App.SelectedButtons.Remove($this.Name)
     })
+}
+
+$ToExportText = @("Documentos","Partidas guardadas","OBS","PUBG","Ready Or Not","Spotify","CSGO","Valorant","League of Legends","MSI Afterburner","RivaTuner")
+for ($i = 0; $i -lt $ToExport.Count; $i++) {
+    Update-GUI $ToExport[$i] Text $ToExportText[$i]
 }
 
 $App.SelectAllFolders.Add_Checked({

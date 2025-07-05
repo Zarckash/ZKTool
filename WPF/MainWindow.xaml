@@ -888,30 +888,43 @@
                             <TextBlock
                                 Margin="8,0,0,4"
                                 Foreground="{DynamicResource AppTextColor}"
+                                FontSize="15"
                                 TextWrapping="Wrap">
-                                <Run Foreground="{DynamicResource AppAccentColor}" Text="Se exportarán los siguientes ajustes:" />
+                                <Run Foreground="{DynamicResource AppAccentColor}" Text="Configuraciones a exportar:" />
                                 <LineBreak />
-                                <Run Text="Documentos" />
+                                <Run x:Name="ToExport1"/>
                                 <LineBreak />
-                                <Run Text="Partidas guardadas" />
+                                <Run x:Name="ToExport2"/>
                                 <LineBreak />
-                                <Run Text="OBS" />
+                                <Run x:Name="ToExport3"/>
                                 <LineBreak />
-                                <Run Text="PUBG" />
+                                <Run x:Name="ToExport4"/>
                                 <LineBreak />
-                                <Run Text="Spotify" />
+                                <Run x:Name="ToExport5"/>
                                 <LineBreak />
-                                <Run Text="CSGO" />
+                                <Run x:Name="ToExport6"/>
                                 <LineBreak />
-                                <Run Text="Valorant" />
+                                <Run x:Name="ToExport7"/>
                                 <LineBreak />
-                                <Run Text="League of Legends" />
+                                <Run x:Name="ToExport8"/>
                                 <LineBreak />
-                                <Run Text="MSI Afterburner" />
+                                <Run x:Name="ToExport9"/>
                                 <LineBreak />
-                                <Run Text="RivaTuner" />
+                                <Run x:Name="ToExport10"/>
+                                <LineBreak />
+                                <Run x:Name="ToExport11"/>
+                                <LineBreak />
+                                <Run x:Name="ToExport12"/>
+                                <LineBreak />
+                                <Run x:Name="ToExport13"/>
+                                <LineBreak />
+                                <Run x:Name="ToExport14"/>
+                                <LineBreak />
+                                <Run x:Name="ToExport15"/>
+                                <LineBreak />
+                                <Run x:Name="ToExport16" Text="Diis"/>
                             </TextBlock>
-                            <ToggleButton x:Name="Import" Style="{DynamicResource ConfigButtonStyle}">
+                            <ToggleButton x:Name="Import" Style="{DynamicResource ConfigButtonStyle}" Margin="8,14,8,4">
                                 <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
                                     <Image
                                         x:Name="ImportImage"
