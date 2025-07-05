@@ -7,7 +7,7 @@ $App.ConfigsList = Get-Content ($App.ResourcesPath + "Configs.json") -Raw | Conv
 $AppKeys = $App.Keys | Sort-Object {[regex]::Replace($_, '\d+',{$args[0].Value.Padleft(20)})}
 
 $ToExport = $AppKeys | Where-Object {$_ -Like "ToExport*"}
-$UserFolders = $AppKeys | Where-Object {$_ -Like "*Folder"} | Select-Object -Skip 1
+$UserFolders = $AppKeys | Where-Object {$_ -Like "*Folder"} | Where-Object {$_ -NotLike "LogFolder"}
 $App.IPList = $AppKeys | Where-Object {$_ -Like "IP[0-9]"}
 $DNSList = $AppKeys | Where-Object {$_ -Like "DNS[0-9]"}
 
