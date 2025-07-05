@@ -300,7 +300,7 @@
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="Height" Value="52" />
+        <Setter Property="Height" Value="51" />
         <Setter Property="Margin" Value="8,4" />
         <Setter Property="FontFamily" Value="{DynamicResource Font}" />
         <Setter Property="FontSize" Value="18" />
