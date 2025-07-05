@@ -69,6 +69,17 @@
             </Grid>
         </Grid>
 
+        <Border
+            Width="48"
+            Height="48"
+            Margin="11"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Panel.ZIndex="10"
+            BorderBrush="{DynamicResource AppAccentColor}"
+            BorderThickness="2"
+            CornerRadius="24" />
+
         <Image
             x:Name="ZKToolLogo"
             Width="46"
