@@ -1486,6 +1486,6 @@ function DDU {
 }
 
 function AppxTest {
-    $Pack = (Get-AppPackage "Microsoft.GamingServices").Name
+    $Pack = Get-AppxPackage -Name "Microsoft.GamingServices" | Select-Object -ExpandProperty Name
     Write-UserOutput $Pack
 }
