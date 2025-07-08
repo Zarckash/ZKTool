@@ -623,13 +623,24 @@ function NvidiaSettings {
 
 function UninstallXboxGameBar {
     Write-UserOutput "Desinstalando Xbox Game Bar"
-    Get-AppxPackage "Microsoft.XboxGamingOverlay" | Remove-AppxPackage 
-    Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage 
-    Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage 
-    Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
-    Get-AppxPackage "Microsoft.GamingApp" | Remove-AppxPackage
-    Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
-    Get-AppxPackage "Microsoft.GamingServices" | Remove-AppxPackage
+
+    $XboxApps = @(
+        "Microsoft.XboxGamingOverlay"
+        "Microsoft.XboxGameOverlay"
+        "Microsoft.XboxSpeechToTextOverlay"
+        "Microsoft.Xbox.TCUI"
+        "Microsoft.GamingApp"
+        "Microsoft.XboxApp"
+        "Microsoft.GamingServices"
+    )
+
+    $XboxApps | ForEach-Object {
+        if ($_ -eq (Get-AppxPackage -Name $_).Name) {
+            Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
+            Get-AppxPackage -Name $_ | Remove-AppxPackage
+        }
+    }
+
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
 }
