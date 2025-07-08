@@ -641,6 +641,14 @@ function UninstallXboxGameBar {
         }
     }
 
+    $XboxApps | ForEach-Object {
+        Start-Process Powershell -WindowStyle Hidden -Wait "
+            if ($_ -eq (Get-AppxPackage -Name $_).Name) {
+                Get-AppxPackage -Name $_ | Remove-AppxPackage
+            }
+        "
+    }
+
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
 }
@@ -828,6 +836,14 @@ function UninstallBloat {
             Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.', ''))
             Get-AppxPackage -Name $_ | Remove-AppxPackage
         }
+    }
+
+    $Bloatware | ForEach-Object {
+        Start-Process Powershell -WindowStyle Hidden -Wait "
+            if ($_ -eq (Get-AppxPackage -Name $_).Name) {
+                Get-AppxPackage -Name $_ | Remove-AppxPackage
+            }
+        "
     }
 
     # Clean "New" In Context Menu
