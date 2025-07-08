@@ -635,12 +635,8 @@ function UninstallXboxGameBar {
     )
 
     $XboxApps | ForEach-Object {
-        if ($_ -eq (Get-AppxPackage -Name $_).Name) {
-            Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
-            Start-Process Powershell -WindowStyle Hidden -Wait "
-                Get-AppxPackage -Name $_ | Remove-AppxPackage
-            "
-        }
+        Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
+        Get-AppxPackage -Name $_ | Remove-AppxPackage
     }
 
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
@@ -1189,14 +1185,12 @@ function HideSystemComponents {
 }
 
 function VideoExtensions {
-    Param (
-        $AppIds = @('9N4D0MSMP0PT','9N4WGH0Z6VHQ','9PMMSR1CGPWG','9PG2DK419DRG','9MVZQVXJBQ9V')
-    )
+    $AppIds = @('9N4D0MSMP0PT','9N4WGH0Z6VHQ','9PMMSR1CGPWG','9PG2DK419DRG','9MVZQVXJBQ9V')
 
     Write-UserOutput "Instalando extensiones de vídeo"
 
     $AppIds | ForEach-Object {
-        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppId_$_" + ".log") -Encoding UTF8 -Append
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppVideoExtensionId_$_" + ".log") -Encoding UTF8 -Append
     }
 }
 
@@ -1206,9 +1200,9 @@ function EthernetOptimization {
     (Get-NetAdapter).Name | ForEach-Object {Disable-NetAdapter $_ -Confirm:$false}
 
     # Disable bindings
-    Disable-NetAdapterBinding -Name "Ethernet" -ComponentID "*"
-    Enable-NetAdapterBinding -Name "Ethernet" -ComponentID "ms_msclient"
-    Enable-NetAdapterBinding -Name "Ethernet" -ComponentID "ms_tcpip"
+    Disable-NetAdapterBinding -Name "Ethernet*" -ComponentID "*"
+    Enable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_msclient"
+    Enable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_tcpip"
 
     $NetAdapterName = (Get-NetAdapter).InterfaceDescription | Select-String "Intel*","Realtek*"
     $NetAdapterGUIDPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\" + (Get-NetAdapter).InterfaceGuid
@@ -1248,7 +1242,7 @@ function EthernetOptimization {
     # Enable the Network Adapter Onboard Processor
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -Name "DisableTaskOffload" -Type DWord -Value 0
 
-    Enable-NetAdapter "Ethernet" -Confirm:$false
+    Enable-NetAdapter "Ethernet*" -Confirm:$false
 
     $App.RequireRestart = $true
 }
