@@ -635,8 +635,10 @@ function UninstallXboxGameBar {
     )
 
     $XboxApps | ForEach-Object {
-        Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
-        Get-AppxPackage -Name $_ | Remove-AppxPackage
+        if ($_ -eq (Get-AppxPackage -Name $_).Name) {
+            Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.', ''))
+            Get-AppxPackage -Name $_ | Remove-AppxPackage
+        }
     }
 
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
@@ -823,10 +825,8 @@ function UninstallBloat {
 
     $Bloatware | ForEach-Object {
         if ($_ -eq (Get-AppxPackage -Name $_).Name) {
-            Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
-            Start-Process Powershell -WindowStyle Hidden -Wait "
-                Get-AppxPackage -Name $_ | Remove-AppxPackage
-            "
+            Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.', ''))
+            Get-AppxPackage -Name $_ | Remove-AppxPackage
         }
     }
 
@@ -1483,9 +1483,4 @@ function DDU {
     Expand-Archive -Path ($App.FilesPath + "DDU.zip") -DestinationPath ($App.FilesPath + "DDU") -Force
 
     Start-Process ($App.FilesPath + "DDU\Display Driver Uninstaller.exe")
-}
-
-function AppxTest {
-    $Pack = Get-AppxPackage -Name "Microsoft.GamingServices" | Select-Object -ExpandProperty Name
-    Write-UserOutput $Pack
 }

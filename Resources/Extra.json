@@ -36,10 +36,6 @@
         "Source": ".exe",
         "Arguments": "/N"
     },
-    "Extra11": {
-        "Name": "AppxTest",
-        "FunctionName": "AppxTest"
-    },
     "Extra17": {
         "Name": "Drivers de Red I219-V",
         "FunctionName": "LanDriversI219V"
