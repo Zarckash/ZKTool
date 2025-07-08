@@ -637,7 +637,9 @@ function UninstallXboxGameBar {
     $XboxApps | ForEach-Object {
         if ($_ -eq (Get-AppxPackage -Name $_).Name) {
             Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
-            Get-AppxPackage -Name $_ | Remove-AppxPackage
+            Start-Process Powershell -WindowStyle Hidden -Wait "
+                Get-AppxPackage -Name $_ | Remove-AppxPackage
+            "
         }
     }
 
@@ -826,7 +828,9 @@ function UninstallBloat {
     $Bloatware | ForEach-Object {
         if ($_ -eq (Get-AppxPackage -Name $_).Name) {
             Write-UserOutput ("Desinstalando " + ($_ -replace 'Microsoft\.',''))
-            Get-AppxPackage -Name $_ | Remove-AppxPackage
+            Start-Process Powershell -WindowStyle Hidden -Wait "
+                Get-AppxPackage -Name $_ | Remove-AppxPackage
+            "
         }
     }
 
