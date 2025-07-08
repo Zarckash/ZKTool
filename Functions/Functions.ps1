@@ -1484,3 +1484,8 @@ function DDU {
 
     Start-Process ($App.FilesPath + "DDU\Display Driver Uninstaller.exe")
 }
+
+function AppxTest {
+    $Pack = (Get-AppxPackage "Microsoft.GamingServices").Name
+    Write-UserOutput $Pack
+}
