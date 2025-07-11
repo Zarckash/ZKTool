@@ -17,4 +17,6 @@ Iwr -useb "https://tinyurl.com/ZKTool" | Iex
 
 [//]: # (Old App Design https://i.imgur.com/NyIGReh.png)
 
-![App Screenshot](https://i.imgur.com/POz2q91.png)
+[//]: # (Old App Design https://i.imgur.com/POz2q91.png)
+
+![App Screenshot](https://i.imgur.com/lDdm7WK.png)
