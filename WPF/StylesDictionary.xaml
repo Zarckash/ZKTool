@@ -4,7 +4,7 @@
     <SolidColorBrush x:Key="AppItemsColor" Color="#00FF0000" />
     <SolidColorBrush x:Key="AppTextColor" Color="#FFFFFF" />
     <SolidColorBrush x:Key="AppSubTextColor" Color="#C8C8C8" />
-    <SolidColorBrush x:Key="AppAccentColor" Color="#ACA5F3" />
+    <SolidColorBrush x:Key="AppAccentColor" Color="#5B5BFF" />
     <SolidColorBrush x:Key="AppHoverColor" Color="#26FFFFFF" />
     <SolidColorBrush x:Key="AppHoverButtonColor" Color="#33FFFFFF" />
 
@@ -128,12 +128,49 @@
         </Setter>
     </Style>
 
+    <Style x:Key="NavUrlButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="navUrlButtonBorder"
+                        Width="28"
+                        Height="28"
+                        Margin="0,4,4,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Margin="4"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="navUrlButtonBorder" Property="Background" Value="{DynamicResource AppHoverColor}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="navUrlButtonBorder" Property="Background" Value="{DynamicResource AppAccentColor}" />
+                            <Setter TargetName="navUrlButtonBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="navUrlButtonBorder" Property="BorderThickness" Value="1.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ContentLabelStyle" TargetType="Label">
         <Setter Property="Foreground" Value="{DynamicResource AppTextColor}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Margin" Value="8,0,0,0" />
+        <Setter Property="Margin" Value="16,0,0,0" />
         <Setter Property="FontFamily" Value="{DynamicResource FontBold}" />
         <Setter Property="FontSize" Value="24" />
         <Setter Property="FontWeight" Value="Normal" />

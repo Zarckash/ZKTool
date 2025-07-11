@@ -352,7 +352,7 @@
 
                     <TextBlock
                         x:Name="AppVersion"
-                        Margin="8,0,70,0"
+                        Margin="8,4,70,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontFamily="{DynamicResource Font}"
@@ -362,22 +362,15 @@
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button
                             x:Name="GitHubLogo"
-                            Background="Transparent"
-                            BorderThickness="0">
+                            Style="{DynamicResource NavUrlButtonStyle}">
                             <Image
-                                Width="20"
-                                Height="20"
                                 Source="C:\Program Files\ZKTool\WPF\Images\GitHub.png"
                                 Style="{DynamicResource ImageQuality}" />
                         </Button>
                         <Button
                             x:Name="ZKLogo"
-                            Background="Transparent"
-                            BorderThickness="0">
+                            Style="{DynamicResource NavUrlButtonStyle}">
                             <Image
-                                Width="30"
-                                Height="30"
-                                Margin="8,0"
                                 Source="C:\Program Files\ZKTool\WPF\Images\ZK.png"
                                 Style="{DynamicResource ImageQuality}" />
                         </Button>
