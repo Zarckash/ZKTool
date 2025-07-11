@@ -107,7 +107,6 @@ $App.WallpaperBox1.Add_Click({
         Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
         Update-GUI WallpaperBox1Label Visibility Collapsed
         Update-GUI WallpaperBox1Image Visibility Visible
-        (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
     }
 })
 
@@ -118,7 +117,6 @@ $App.WallpaperBox2.Add_Click({
         Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
         Update-GUI WallpaperBox2Label Visibility Collapsed
         Update-GUI WallpaperBox2Image Visibility Visible
-        (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
     }
 })
 
@@ -161,6 +159,9 @@ $App.ApplyTheme.Add_Click({
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $App.Wallpaper1
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $App.Wallpaper1
+
+    (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
+    (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
     
     Get-Process "Explorer" | Stop-Process
 })
