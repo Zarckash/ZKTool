@@ -160,6 +160,8 @@ $App.ApplyTheme.Add_Click({
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $App.Wallpaper1
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $App.Wallpaper1
 
+    Import-Module -Name FP.SetWallpaper
+
     (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
     (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
     
