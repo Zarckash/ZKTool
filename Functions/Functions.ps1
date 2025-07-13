@@ -670,98 +670,10 @@ function SetTimerResolution {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/TimerResolutionService.exe"), ($App.FilesPath + "TimerResolutionService.exe"))
     New-Item 'C:\Program Files\Timer Resolution' -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
     Move-Item -Path ($App.FilesPath + "TimerResolutionService.exe") -Destination "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe"
-    Start-Process "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe" -ArgumentList "-install" | Out-File $App.LogPath -Encoding UTF8 -Append
+    New-Service -Name "Timer Resolution Service" -BinaryPathName "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-Service -Name "Timer Resolution Service" -StartupType Automatic | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-Service -Name "Timer Resolution Service" -Status Running | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
-}
-
-function SetTimerResolutionPrecise {
-    Write-UserOutput "Configurando Timer Resolution de manera precisa"
-
-    sc.exe stop STR | Out-File $App.LogPath -Encoding UTF8 -Append
-    sc.exe delete STR | Out-File $App.LogPath -Encoding UTF8 -Append
-
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "/.zip/TimerResolution.zip"), ($App.FilesPath + "TimerResolution.zip"))
-    Expand-Archive -Path ($App.FilesPath + "TimerResolution.zip") -DestinationPath ($App.FilesPath + "Timer Resolution") -Force
-
-    $increment = 0.001
-    $start = 0.5
-    $end = 0.525
-    $samples = 100
-
-    Stop-Process -Name "SetTimerResolution"
-
-    "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.LogFolder + "TimerResolutionResults.log") -Encoding UTF8
-
-    for ($i = $start; $i -le $end; $i += $increment) {
-        Write-UserOutput "Probando $($i)ms"
-
-        Start-Process ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -ArgumentList @("--resolution", ($i * 1E4), "--no-console")
-
-        Start-Sleep 1
-
-        $output = & ($App.FilesPath + "Timer Resolution\MeasureSleep.exe") --samples $samples
-        $outputLines = $output -split "`n"
-
-        foreach ($line in $outputLines) {
-            $avgMatch = $line -match "Avg: (.*)"
-            $stdevMatch = $line -match "STDEV: (.*)"
-
-            if ($avgMatch) {
-                $avg = $matches[1] -replace "Avg: "
-            }
-            elseif ($stdevMatch) {
-                $stdev = $matches[1] -replace "STDEV: "
-            }
-        }
-
-        "$($i), $([math]::Round([double]$avg, 3)), $($stdev)" | Out-File ($App.LogFolder + "TimerResolutionResults.log") -Encoding UTF8 -Append
-
-        Stop-Process -Name "SetTimerResolution"
-    }
-
-    $CSV = Import-Csv -Path ($App.LogFolder + "TimerResolutionResults.log")
-    "RequestedResolutionMs,DeltaMs,STDEV" | Out-File ($App.LogFolder + "TimerResolutionFilteredResults.log") -Encoding UTF8
-        
-    for ($i = 0; $i -lt $CSV.Length; $i++) {
-        if (($CSV[$i].DeltaMs -lt 0.09) -and ($CSV[$i].STDEV -lt 0.12)) {
-            "$($CSV[$i].RequestedResolutionMs),$($CSV[$i].DeltaMs),$($CSV[$i].STDEV)" | Out-File ($App.LogFolder + "TimerResolutionFilteredResults.log") -Encoding UTF8 -Append
-        }
-    }
-
-
-    $CSV = Import-Csv -Path ($App.LogFolder + "TimerResolutionFilteredResults.log")
-
-    $LowestSTDEV = 0.12
-
-    for ($i = 0; $i -lt $CSV.Length; $i++) {
-        if ($CSV[$i].STDEV -lt $LowestSTDEV) {
-            $LowestSTDEV = $CSV[$i].STDEV
-            $Resolution = $CSV[$i].RequestedResolutionMs
-        }
-    }
-
-    if ($Resolution.Length -lt 1) {
-        $Resolution = "5000"
-    }
-
-    Write-UserOutput "Resolution aplicada: $Resolution"
-
-    New-Item "$env:ProgramFiles\Timer Resolution\" -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-    Move-Item -Path ($App.FilesPath + "Timer Resolution\SetTimerResolution.exe") -Destination "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe" -Force
-
-    $ShortcutPath = "$env:appdata\Microsoft\Windows\Start Menu\Programs\Startup\Timer Resolution.lnk"
-
-    Remove-Item $ShortcutPath -Force
-
-    $Resolution = [Double]$Resolution * 1E4
-    $ShortcutTarget = "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe"
-    $Shell = New-Object -ComObject ("WScript.Shell")
-    $Shortcut = $Shell.CreateShortcut($ShortcutPath)
-    $Shortcut.TargetPath = $ShortcutTarget
-    $Shortcut.Arguments = (" --resolution $Resolution --no-console")
-    $Shortcut.Save()
-
-    Start-Process "$env:ProgramFiles\Timer Resolution\SetTimerResolution.exe" -ArgumentList @("--resolution", $Resolution, "--no-console")
 }
 
 function UninstallBloat {
@@ -969,7 +881,7 @@ function WindowsTerminalAppearance {
     if (!($PWSH -eq (Winget list $PWSH | Select-String -Pattern $PWSH | ForEach-Object {$_.Matches} | Select-Object -ExpandProperty Value))) {
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell  | Out-File ($App.LogFolder + "PowerShell7.log") -Encoding UTF8 -Append
     }
-    DISM /Online /Add-Capability /CapabilityName:WMIC~~~~ /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append 
+    DISM /Online /Add-Capability /CapabilityName:WMIC~~~~ /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/WindowsTerminalSettings.zip"), ($App.FilesPath + "WindowsTerminalSettings.zip"))
     Remove-Item -Path $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
     Expand-Archive -Path ($App.FilesPath + "WindowsTerminalSettings.zip") -DestinationPath $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
