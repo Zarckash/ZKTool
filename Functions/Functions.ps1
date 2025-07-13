@@ -1097,8 +1097,10 @@ function HideSystemComponents {
 }
 
 function VideoExtensions {
-    $AppIds = @('9N4D0MSMP0PT','9N4WGH0Z6VHQ','9PMMSR1CGPWG','9PG2DK419DRG','9MVZQVXJBQ9V')
-
+    param (
+        $AppIds = @('9N4D0MSMP0PT', '9N4WGH0Z6VHQ', '9PMMSR1CGPWG', '9PG2DK419DRG', '9MVZQVXJBQ9V')
+    )
+    
     Write-UserOutput "Instalando extensiones de vídeo"
 
     $AppIds | ForEach-Object {
@@ -1298,8 +1300,12 @@ function InstallFFMPEG {
         }
     }
     
+    if (($WingetList.Name -like "*Microsoft.HEVCVideoExtension*").Length -gt 0) {
+        $AppsIdsToInstall.Remove('9N4WGH0Z6VHQ')
+    }
+
     if ($AppsIdsToInstall.Count -gt 0) {
-        & VideoExtensions($AppsIdsToInstall)
+        & VideoExtensions -AppIds $AppsIdsToInstall
     }
 }
 
