@@ -18,8 +18,7 @@ New-Item "$env:temp\ZKTool\Files\" -ItemType Directory -Force | Out-Null
 (New-Object System.Net.WebClient).DownloadFile("https://github.com/Zarckash/ZKTool/raw/main/Resources/ZKTool.zip", "$env:temp\ZKTool\Files\ZKTool.zip")
 Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:temp\ZKTool\Files\Temp" -Force
 
-Rename-Item "$env:temp\ZKTool\Files\Temp\Setup.exe" -NewName "SetupInstall.exe"
-Start-Process "$env:temp\ZKTool\Files\Temp\SetupInstall.exe" -ArgumentList "-Install"
+Start-Process "$env:temp\ZKTool\Files\Temp\Setup.exe" -ArgumentList "-Install"
 
 Start-Sleep 1
 
