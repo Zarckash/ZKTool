@@ -262,13 +262,20 @@ $App.ZKLogo.Add_Click({
         elseif ($_ -like "Config*") {
             $App.SourceList = "ConfigsList"
         }
-
-        if ($App.($App.SourceList).$_.Preset -eq "True") {
+        
+        if (($App.($App.SourceList).$_.Preset -eq "True") -and !($App.ZKLogoPressed)) {
             Update-GUI $_ IsChecked $true
+        } elseif (($App.($App.SourceList).$_.Preset -eq "True") -and ($App.ZKLogoPressed)) {
+            Update-GUI $_ IsChecked $false
         }
 
         if ($App.($App.SourceList).$_.Enabled -eq "False") {
             Update-GUI $_ IsEnabled $false
         }
     }
+    if ($App.ZKLogoPressed) {
+        $App.ZKLogoPressed = $false
+    } else {
+        $App.ZKLogoPressed = $true
+    }          
 })
