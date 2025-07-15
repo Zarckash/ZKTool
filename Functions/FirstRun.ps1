@@ -10,8 +10,8 @@ Set-ExecutionPolicy Bypass
 
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Type DWord -Value 0
 
-Add-MpPreference -ExclusionPath "$env:temp\ZKTool\"
-Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool"
+Add-MpPreference -ExclusionPath "$env:temp\ZKTool\" -ErrorAction SilentlyContinue
+Add-MpPreference -ExclusionPath "$env:ProgramFiles\ZKTool" -ErrorAction SilentlyContinue
 
 New-Item "$env:temp\ZKTool\Files\" -ItemType Directory -Force | Out-Null
 
