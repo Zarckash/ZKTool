@@ -138,8 +138,8 @@
                             Orientation="Horizontal">
                             <Border
                                 x:Name="AppsBorder"
-                                Width="3"
-                                Height="18"
+                                Width="2.5"
+                                Height="17"
                                 Margin="0,0,0,0"
                                 Background="{DynamicResource AppAccentColor}"
                                 CornerRadius="2" />

@@ -7,6 +7,7 @@
     <SolidColorBrush x:Key="AppAccentColor" Color="#5B5BFF" />
     <SolidColorBrush x:Key="AppHoverColor" Color="#26FFFFFF" />
     <SolidColorBrush x:Key="AppHoverButtonColor" Color="#33FFFFFF" />
+    <SolidColorBrush x:Key="AppPressedButtonColor" Color="#1AFFFFFF" />
 
     <FontFamily x:Key="Font">BMWTypeNext Pro Light</FontFamily>
     <FontFamily x:Key="FontBold">BMWTypeNext Pro</FontFamily>
@@ -82,13 +83,13 @@
                         </Border>
                         <Rectangle
                             x:Name="navButtonRectangle"
-                            Width="3"
+                            Width="2.5"
                             Height="0"
                             Margin="0,0,0,0"
                             HorizontalAlignment="Left"
                             Fill="{DynamicResource AppAccentColor}"
-                            RadiusX="3"
-                            RadiusY="3" />
+                            RadiusX="2"
+                            RadiusY="2" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <EventTrigger RoutedEvent="Checked">
@@ -97,7 +98,7 @@
                                     <DoubleAnimation
                                         Storyboard.TargetName="navButtonRectangle"
                                         Storyboard.TargetProperty="Height"
-                                        To="18"
+                                        To="17"
                                         Duration="0:0:0.15" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -117,7 +118,7 @@
                             <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverColor}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
+                            <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppPressedButtonColor}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="navButtonBorder" Property="Background" Value="{DynamicResource AppHoverButtonColor}" />
@@ -274,9 +275,6 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="appButtonBorder" Property="BorderThickness" Value="1.5" />
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="False">
-                            <Setter TargetName="appButtonBorder" Property="BorderThickness" Value="0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
