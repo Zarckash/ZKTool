@@ -1,13 +1,18 @@
 ﻿{
     "Config1": {
-        "Name": "Black Ops 6",
-        "FunctionName": "BlackOps6",
-        "Image": "BO6.png"
+        "Name": "Battlefield Labs",
+        "FunctionName": "BattlefieldLabs",
+        "Image": "BFLabs.png"
     },
-    "Config3": {
+    "Config2": {
         "Name": "Apex Legends",
         "FunctionName": "ApexLegends",
         "Image": "ApexLegends.ico"
+    },
+    "Config3": {
+        "Name": "Black Ops 6",
+        "FunctionName": "BlackOps6",
+        "Image": "BO6.png"
     },
     "Config5": {
         "Name": "Delta Force",

@@ -1,15 +1,27 @@
 ﻿$DocumentsPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
 $SteamPath = (Get-Content "${env:ProgramFiles(x86)}\Steam\config\libraryfolders.vdf" | Select-String "Path") -replace '"Path"','' -replace "`t","" -replace '"','' -replace '\\\\','\' | ForEach-Object {"$_\steamapps\common\"}
+$GetDisk = Get-Volume | Where-Object {(($_.DriveType -eq "Fixed") -and ($_.DriveLetter -like "?") -and ($_.FileSystemLabel -notlike ""))} | Sort-Object -Property DriveLetter | Select-Object -ExpandProperty DriveLetter
 
-function BlackOps6 {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BO6.zip"), ($App.FilesPath + "BO6.zip"))
-    Expand-Archive -Path (($App.FilesPath + "BO6.zip")) -DestinationPath "$DocumentsPath\Call of Duty\players\" -Force
+function BFLabs {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BFLabs.zip"), ($App.FilesPath + "BFLabs.zip"))
+    Expand-Archive -Path (($App.FilesPath + "BFLabs.zip")) -DestinationPath "$DocumentsPath\Battlefield Labs\settings\" -Force
+
+    $GetDisk | ForEach-Object {
+        $GameInstallPath += Get-ChildItem ("$_" + ":") -Recurse -Directory | Where-Object {($_.Name -Like "Battlefield Labs") -and ($_.FullName -notmatch "Documents|Videos")}
+    }
+
+    Copy-Item -Path "$DocumentsPath\Battlefield Labs\settings\user.cfg" -Destination ($GameInstallPath.FullName + "\user.cfg")
 }
 
 function ApexLegends {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Apex.zip"), ($App.FilesPath + "Apex.zip"))
     Expand-Archive -Path ($App.FilesPath + "Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
+}
+
+function BlackOps6 {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BO6.zip"), ($App.FilesPath + "BO6.zip"))
+    Expand-Archive -Path (($App.FilesPath + "BO6.zip")) -DestinationPath "$DocumentsPath\Call of Duty\players\" -Force
 }
 
 function DeltaForce {
