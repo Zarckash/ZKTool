@@ -667,12 +667,21 @@ function GPUInputLag {
 
 function SetTimerResolution {
     Write-UserOutput "Configurando Timer Resolution"
+
+    $ServiceName = "Timer Resolution Service"
+    
+    if (Get-Service $ServiceName) {
+        sc.exe stop $ServiceName
+        sc.exe delete $ServiceName
+        Remove-Item "$env:ProgramFiles\Timer Resolution" -Recurse -Force
+    }
+
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/TimerResolutionService.exe"), ($App.FilesPath + "TimerResolutionService.exe"))
-    New-Item 'C:\Program Files\Timer Resolution' -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
+    New-Item "$env:ProgramFiles\Timer Resolution" -ItemType Directory | Out-File $App.LogPath -Encoding UTF8 -Append
     Move-Item -Path ($App.FilesPath + "TimerResolutionService.exe") -Destination "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe"
-    New-Service -Name "Timer Resolution Service" -BinaryPathName "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe" | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-Service -Name "Timer Resolution Service" -StartupType Automatic | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-Service -Name "Timer Resolution Service" -Status Running | Out-File $App.LogPath -Encoding UTF8 -Append
+    New-Service -Name $ServiceName -BinaryPathName "$env:ProgramFiles\Timer Resolution\TimerResolutionService.exe" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-Service -Name $ServiceName -StartupType Automatic | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-Service -Name $ServiceName -Status Running | Out-File $App.LogPath -Encoding UTF8 -Append
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" -Name "GlobalTimerResolutionRequests" -Type DWord -Value 1
 }
 
