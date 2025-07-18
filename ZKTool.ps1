@@ -94,8 +94,6 @@ $PwShell.AddScript({
 $PwShell.Runspace = $Runspace
 $PwShell.BeginInvoke() | Out-Null
 
-Focus-Window "ZKTool"
-
 # Creating GUI
 $GUIRunspace = [RunspaceFactory]::CreateRunspace()
 $GUIRunspace.ApartmentState = "STA"
@@ -310,9 +308,7 @@ $PwShellGUI.AddScript({
         }
     })
 
-    Start-Sleep 1
     $App.GUILoaded = $true
-    Start-Sleep 1
 
     $App.Window.ShowDialog()
 }) | Out-Null
@@ -320,8 +316,6 @@ $PwShellGUI.AddScript({
 # Start loading app GUI
 $PwShellGUI.Runspace = $GUIRunspace
 $PwShellGUI.BeginInvoke() | Out-Null
-
-Focus-Window "ZKTool"
 
 # Wait until app GUI is loaded
 while (!$App.GUILoaded) {
@@ -331,3 +325,5 @@ while (!$App.GUILoaded) {
 # Close Splash Screen GUI after app is loaded
 $Hash.Window.Dispatcher.Invoke("Normal",[action]{$Hash.Window.Close()})
 $PwShell.EndInvoke($Handle) | Out-Null
+
+Focus-Window "ZKTool"
