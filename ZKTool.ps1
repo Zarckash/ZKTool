@@ -309,7 +309,10 @@ $PwShellGUI.AddScript({
     })
 
     $App.GUILoaded = $true
-    Start-Sleep .7
+
+    while (!$App.GUIClosed) {
+        Start-Sleep .1
+    }
 
     $App.Window.ShowDialog()
 }) | Out-Null
@@ -326,6 +329,7 @@ while (!$App.GUILoaded) {
 # Close Splash Screen GUI after app is loaded
 $Hash.Window.Dispatcher.Invoke("Normal",[action]{$Hash.Window.Close()})
 $PwShell.EndInvoke($Handle) | Out-Null
+$App.GUIClosed = $true
 
 Start-Sleep 1
 Focus-Window "ZKTool"
