@@ -651,106 +651,50 @@
                         <Label Content="Archivos de juegos" Style="{DynamicResource CategoryLabelStyle}" />
                         <ToggleButton x:Name="Config1" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config1Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config1Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config1Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config1Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config2" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config2Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config2Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config2Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config2Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config3" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config3Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config3Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config3Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config3Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config4" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config4Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config4Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config4Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config4Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config5" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config5Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config5Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config5Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config5Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config6" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config6Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config6Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config6Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config6Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config7" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config7Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config7Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config7Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config7Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config8" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config8Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config8Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config8Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config8Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                     </StackPanel>
@@ -758,106 +702,50 @@
                         <Label Content="Archivos de aplicaciones" Style="{DynamicResource CategoryLabelStyle}" />
                         <ToggleButton x:Name="Config9" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config9Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config9Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config9Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config9Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config10" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config10Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config10Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config10Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config10Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config11" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config11Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config11Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config11Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config11Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config12" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config12Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config12Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config12Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config12Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config13" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config13Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config13Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config13Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config13Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config14" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config14Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config14Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config14Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config14Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config15" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config15Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config15Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image x:Name="Config15Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config15Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="Config16" Style="{DynamicResource TweakButtonStyle}">
-                            <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    x:Name="Config16Image"
-                                    Width="24"
-                                    Margin="8,0,0,0" />
-                                <TextBlock
-                                    x:Name="Config16Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
+                                <Image x:Name="Config16Image" Style="{DynamicResource StackImageStyle}"/>
+                                <TextBlock x:Name="Config16Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                     </StackPanel>
@@ -965,28 +853,14 @@
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\DesktopFolderBig.png" />
-                                <TextBlock
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
-                                    Text="Escritorio" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\DesktopFolderBig.png" />
+                                <TextBlock Style="{DynamicResource StackTextStyle}" Text="Escritorio" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="PicturesFolder" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\PicturesFolderBig.png" />
-                                <TextBlock
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
-                                    Text="Imágenes" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\PicturesFolderBig.png" />
+                                <TextBlock Style="{DynamicResource StackTextStyle}" Text="Imágenes" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton
@@ -1006,28 +880,14 @@
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\DownloadsFolderBig.png" />
-                                <TextBlock
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
-                                    Text="Descargas" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\DownloadsFolderBig.png" />
+                                <TextBlock Style="{DynamicResource StackTextStyle}" Text="Descargas" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="VideosFolder" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\VideosFolderBig.png" />
-                                <TextBlock
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
-                                    Text="Vídeos" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\VideosFolderBig.png" />
+                                <TextBlock Style="{DynamicResource StackTextStyle}" Text="Vídeos" />
                             </StackPanel>
                         </ToggleButton>
                     </StackPanel>
@@ -1038,28 +898,14 @@
                             Margin="8,4,8,8"
                             Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\DocumentsFolderBig.png" />
-                                <TextBlock
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
-                                    Text="Documentos" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\DocumentsFolderBig.png" />
+                                <TextBlock Style="{DynamicResource StackTextStyle}" Text="Documentos" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton x:Name="MusicFolder" Style="{DynamicResource TweakButtonStyle}">
                             <StackPanel Margin="-8,0,0,0" Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\MusicFolderBig.png" />
-                                <TextBlock
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
-                                    Text="Música" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\MusicFolderBig.png" />
+                                <TextBlock Style="{DynamicResource StackTextStyle}" Text="Música" />
                             </StackPanel>
                         </ToggleButton>
                     </StackPanel>
@@ -1078,16 +924,8 @@
                                 Height="{Binding ActualHeight, ElementName=btnTweaks}"
                                 Margin="-8,0,0,0"
                                 Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
-                                    Style="{DynamicResource ImageQuality}" />
-                                <TextBlock
-                                    x:Name="Disk1Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                <TextBlock x:Name="Disk1Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton
@@ -1099,16 +937,8 @@
                                 Height="{Binding ActualHeight, ElementName=btnTweaks}"
                                 Margin="-8,0,0,0"
                                 Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
-                                    Style="{DynamicResource ImageQuality}" />
-                                <TextBlock
-                                    x:Name="Disk4Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                <TextBlock x:Name="Disk4Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                     </StackPanel>
@@ -1127,16 +957,8 @@
                                 Height="{Binding ActualHeight, ElementName=btnTweaks}"
                                 Margin="-8,0,0,0"
                                 Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
-                                    Style="{DynamicResource ImageQuality}" />
-                                <TextBlock
-                                    x:Name="Disk2Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                <TextBlock x:Name="Disk2Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton
@@ -1148,16 +970,8 @@
                                 Height="{Binding ActualHeight, ElementName=btnTweaks}"
                                 Margin="-8,0,0,0"
                                 Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
-                                    Style="{DynamicResource ImageQuality}" />
-                                <TextBlock
-                                    x:Name="Disk5Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                <TextBlock x:Name="Disk5Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                     </StackPanel>
@@ -1176,16 +990,8 @@
                                 Height="{Binding ActualHeight, ElementName=btnTweaks}"
                                 Margin="-8,0,0,0"
                                 Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
-                                    Style="{DynamicResource ImageQuality}" />
-                                <TextBlock
-                                    x:Name="Disk3Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                <TextBlock x:Name="Disk3Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton
@@ -1197,16 +1003,8 @@
                                 Height="{Binding ActualHeight, ElementName=btnTweaks}"
                                 Margin="-8,0,0,0"
                                 Orientation="Horizontal">
-                                <Image
-                                    Width="24"
-                                    Margin="8,0,0,0"
-                                    Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico"
-                                    Style="{DynamicResource ImageQuality}" />
-                                <TextBlock
-                                    x:Name="Disk6Text"
-                                    Margin="4,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="18" />
+                                <Image Style="{DynamicResource StackImageStyle}" Source="C:\Program Files\ZKTool\WPF\Images\Disk.ico" />
+                                <TextBlock x:Name="Disk6Text" Style="{DynamicResource StackTextStyle}" />
                             </StackPanel>
                         </ToggleButton>
                     </StackPanel>
