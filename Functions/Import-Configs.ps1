@@ -2,9 +2,9 @@
 $SteamPath = (Get-Content "${env:ProgramFiles(x86)}\Steam\config\libraryfolders.vdf" | Select-String "Path") -replace '"Path"','' -replace "`t","" -replace '"','' -replace '\\\\','\' | ForEach-Object {"$_\steamapps\common\"}
 $GetDisk = Get-Volume | Where-Object {(($_.DriveType -eq "Fixed") -and ($_.DriveLetter -like "?") -and ($_.FileSystemLabel -notlike ""))} | Sort-Object -Property DriveLetter | Select-Object -ExpandProperty DriveLetter
 
-function BFLabs {
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BFLabs.zip"), ($App.FilesPath + "BFLabs.zip"))
-    Expand-Archive -Path (($App.FilesPath + "BFLabs.zip")) -DestinationPath "$DocumentsPath\Battlefield Labs\settings\" -Force
+function BattlefieldLabs {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BattlefieldLabs.zip"), ($App.FilesPath + "BattlefieldLabs.zip"))
+    Expand-Archive -Path (($App.FilesPath + "BattlefieldLabs.zip")) -DestinationPath "$DocumentsPath\Battlefield Labs\settings\" -Force
 
     $GetDisk | ForEach-Object {
         $GameInstallPath += Get-ChildItem ("$_" + ":") -Recurse -Directory | Where-Object {($_.Name -Like "Battlefield Labs") -and ($_.FullName -notmatch "Documents|Videos")}
