@@ -60,7 +60,7 @@ function Test-ImagesSha {
     }
     
     if ($ShaJson.Resources.Images.Sha -ne $ImagesLatestSha) {
-        Update-Splash "Actualizando imagenes..."
+        Update-Splash "Actualizando imágenes..."
 
         $ImagesUri =  ("https://api.github.com/repos/Zarckash/ZKTool/git/trees/" + $ImagesLatestSha)
         $ImagesWebRequest = (Invoke-WebRequest -Uri $ImagesUri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
