@@ -11,17 +11,19 @@ function BattlefieldLabs {
     }
 
     Copy-Item -Path "$DocumentsPath\Battlefield Labs\settings\user.cfg" -Destination ($GameInstallPath.FullName + "\user.cfg")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
 }
 
 function ApexLegends {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Apex.zip"), ($App.FilesPath + "Apex.zip"))
     Expand-Archive -Path ($App.FilesPath + "Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config2.Name + " aplicada")
 }
 
 function BlackOps6 {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BO6.zip"), ($App.FilesPath + "BO6.zip"))
     Expand-Archive -Path (($App.FilesPath + "BO6.zip")) -DestinationPath "$DocumentsPath\Call of Duty\players\" -Force
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
 }
 
 function DeltaForce {
