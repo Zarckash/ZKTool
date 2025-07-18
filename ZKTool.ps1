@@ -289,6 +289,7 @@ $PwShellGUI.AddScript({
             Update-GUI StartScript Background $App.HoverColor
             Update-GUI OutputBox Text "Script finalizado"
             "Script finalizado" | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
+            Focus-Window "ZKTool"
         })
 
         # Catching texboxes values
