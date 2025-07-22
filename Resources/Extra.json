@@ -55,5 +55,9 @@
     "Extra21": {
         "Name": "Instalar FFMPEG",
         "FunctionName": "InstallFFMPEG"
+    },
+    "Extra22": {
+        "Name": "Hosts File",
+        "FunctionName": "HostsFile"
     }
 }

@@ -1318,6 +1318,13 @@ function InstallFFMPEG {
     }
 }
 
+function HostsFile {
+    $HostFile = "$env:SystemRoot\System32\Drivers\etc\hosts"
+    "127.0.0.1 zktool.ddns.net" | Add-Content -Path $HostFile
+    "127.0.0.1 ota-downloads.nvidia.com" | Add-Content -Path $HostFile
+    "127.0.0.1 ota.nvidia.com" | Add-Content -Path $HostFile
+}
+
 function RAMTest {
     Write-UserOutput "Abriendo RAM Tester"
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/RAMTest.zip"), ($App.FilesPath + "RAMTest.zip"))
