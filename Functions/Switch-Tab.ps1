@@ -87,7 +87,7 @@ function LoadPersonalization {
     }
     if ($App.PersonalizationLogicLoaded -ne $true) {
         $App.PersonalizationLogicLoaded = $true
-        . ($App.FunctionsPath + "PersonalizationLogic.ps1")
+        . ($App.FunctionsPath + "Set-Personalization.ps1")
     }
 }
 
