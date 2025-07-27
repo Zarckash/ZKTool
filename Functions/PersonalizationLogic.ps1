@@ -42,8 +42,9 @@ $Logic = [PowerShell]::Create().AddScript({
     if (!(Test-Path ($App.ZKToolPath + "Media\Wallpapers"))) {
         $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
         Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.ZKToolPath + "Media\Wallpapers") -Force
-        $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
     }
+
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
 })
 
 $Logic.Runspace = $NewRunspace
