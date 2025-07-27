@@ -302,8 +302,9 @@ $PwShellGUI.AddScript({
 
     $App.Window.Add_Closing({
         Start-Process Powershell -WindowStyle Hidden {
-            Start-Sleep 2
+            Start-Sleep .5
             Get-Process "ZKTool" | Stop-Process
+            Start-Sleep 5
             Remove-Item -Path "$env:temp\ZKTool\Files" -Recurse -Force
         }
     })
