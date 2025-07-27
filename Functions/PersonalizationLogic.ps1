@@ -43,8 +43,6 @@ $Logic = [PowerShell]::Create().AddScript({
         $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
         Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.ZKToolPath + "Media\Wallpapers") -Force
     }
-
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
 })
 
 $Logic.Runspace = $NewRunspace
@@ -164,6 +162,7 @@ $App.ApplyTheme.Add_Click({
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $App.Wallpaper1
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $App.Wallpaper1
 
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
     Start-Process -Path ($App.FilesPath + "AccentColorizer.exe") -ArgumentList "-Apply"
     
     Get-Process -Name "Explorer" | Stop-Process
