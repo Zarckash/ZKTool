@@ -1,4 +1,11 @@
-﻿if ((Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme") -eq 0) {
+﻿$App.PersonalizationDisabledButtons = @('WallpaperBox1','WallpaperBox2','ActualPreset','Preset1','Preset2','Preset3','Preset4')
+
+$App.PersonalizationDisabledButtons | ForEach-Object {
+    Update-GUI $_ IsEnabled $false
+    Update-GUI $_ Opacity ".5"
+}
+
+if ((Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme") -eq 0) {
     Update-GUI DarkThemeToggle IsChecked $true
 }
 
@@ -44,7 +51,9 @@ $Logic = [PowerShell]::Create().AddScript({
 
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
 
-    $App.WallpapersReady = $true
+    $App.PersonalizationDisabledButtons | ForEach-Object {
+        Update-GUI $_ IsEnabled $true
+    }
 })
 
 $Logic.Runspace = $NewRunspace
@@ -310,13 +319,3 @@ $App.HideSearchButtonToggle.Add_Unchecked({
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 3
     Get-Process "Explorer" | Stop-Process
 })
-
-while (!$App.WallpapersReady) {
-    Start-Sleep .1
-}
-
-$DisabledButtons = @('WallpaperBox1','WallpaperBox2','Preset1','Preset2','Preset3','Preset4')
-
-$DisabledButtons | ForEach-Object {
-    Update-GUI $_ IsEnabled $false
-}
