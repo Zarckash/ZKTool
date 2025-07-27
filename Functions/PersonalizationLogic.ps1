@@ -163,7 +163,7 @@ $App.ApplyTheme.Add_Click({
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $App.Wallpaper1
 
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
-    Start-Process -FilePath ($App.FilesPath + "AccentColorizer.exe") -ArgumentList "-Apply"
+    Start-Process ($App.FilesPath + "AccentColorizer.exe") -ArgumentList "-Apply"
     
     Get-Process -Name "Explorer" | Stop-Process
     Get-Process -Name "AccentColorizer" | Stop-Process
