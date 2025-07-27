@@ -6,7 +6,7 @@ Start Date: July 7 2021
 ## Usage
 
 ```powershell
-Iwr -useb "https://tinyurl.com/ZKTool" | Iex
+Iwr -useb "https://tinyurl.com/ZKToolInstaller" | Iex
 ```
 
 ## Screenshots
