@@ -42,6 +42,7 @@ $Logic = [PowerShell]::Create().AddScript({
     if (!(Test-Path ($App.ZKToolPath + "Media\Wallpapers"))) {
         $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
         Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.ZKToolPath + "Media\Wallpapers") -Force
+        $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
     }
 })
 
@@ -161,8 +162,11 @@ $App.ApplyTheme.Add_Click({
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $App.Wallpaper1
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $App.Wallpaper1
+
+    Start-Process -Path ($App.FilesPath + "AccentColorizer.exe") -ArgumentList "-Apply"
     
-    Get-Process "Explorer" | Stop-Process
+    Get-Process -Name "Explorer" | Stop-Process
+    Get-Process -Name "AccentColorizer" | Stop-Process
 })
 
 function Script:Get-AccentColor {
