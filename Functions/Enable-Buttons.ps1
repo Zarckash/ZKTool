@@ -241,12 +241,8 @@ $DNSList | ForEach-Object {
     })
 }
 
-$App.PersonalizationDisabledButtons = @('ApplyTheme','WallpaperBox1','WallpaperBox2')
-
-$App.PersonalizationDisabledButtons | ForEach-Object {
-    Update-GUI $_ IsEnabled $false
-    Update-GUI $_ Opacity ".5"
-}
+Update-GUI ApplyTheme IsEnabled $false
+Update-GUI ApplyTheme Opacity ".5"
 
 $App.GitHubLogo.Add_Click({
     Start-Process "https://github.com/Zarckash/ZKTool"

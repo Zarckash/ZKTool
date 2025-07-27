@@ -1,11 +1,4 @@
-﻿$App.PersonalizationDisabledButtons = @('WallpaperBox1','WallpaperBox2','ActualPreset','Preset1','Preset2','Preset3','Preset4','ApplyTheme')
-
-$App.PersonalizationDisabledButtons | ForEach-Object {
-    Update-GUI $_ IsEnabled $false
-    Update-GUI $_ Opacity ".5"
-}
-
-if ((Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme") -eq 0) {
+﻿if ((Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme") -eq 0) {
     Update-GUI DarkThemeToggle IsChecked $true
 }
 
@@ -16,55 +9,6 @@ if ((Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersio
 if ((Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode") -eq 0) {
     Update-GUI HideSearchButtonToggle IsChecked $true
 }
-
-$NewRunspace = [RunspaceFactory]::CreateRunspace()
-$NewRunspace.ApartmentState = "STA"
-$NewRunspace.ThreadOptions = "ReuseThread"          
-$NewRunspace.Open()
-$NewRunspace.SessionStateProxy.SetVariable("App", $App)
-$Logic = [PowerShell]::Create().AddScript({
-    . ($App.FunctionsPath + "Update-GUI.ps1")
-
-    if (!(Get-InstalledModule -Name PowerShellGet) -or !(Get-InstalledModule -Name FP.SetWallpaper)) {
-        "Installing modules not found" | Out-File $App.LogPath -Encoding UTF8 -Append
-        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-
-        [Net.ServicePointManager]::SecurityProtocol =
-        [Net.ServicePointManager]::SecurityProtocol -bor
-        [Net.SecurityProtocolType]::Tls12
-
-        Install-Module PowerShellGet -AllowClobber -Force
-        Remove-Module -Name PowerShellGet
-        Import-Module -Name PowerShellGet
-
-        Install-Module -Name FP.SetWallpaper -AcceptLicense -Force 
-    }
-    
-    Import-Module -Name FP.SetWallpaper
-
-    if ((Get-Monitor).Count -gt 1) {
-        Update-GUI WallpaperBox2 Visibility Visible
-    }
-
-    if (!(Test-Path ($App.ZKToolPath + "Media"))) {
-        New-Item ($App.ZKToolPath + "Media") -ItemType Directory -Force | Out-Null
-    }
-
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
-    Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.FilesPath + "Wallpapers") -Force
-
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
-
-    $App.PersonalizationDisabledButtons | ForEach-Object {
-        Update-GUI $_ IsEnabled $true
-        Update-GUI $_ Opacity "1"
-    }
-
-    Update-GUI PresetsPanel Visibility Visible
-})
-
-$Logic.Runspace = $NewRunspace
-$Logic.BeginInvoke() | Out-Null
 
 $Script:ColorDialog = New-Object System.Windows.Forms.ColorDialog
 $ColorDialog.FullOpen = $true
@@ -341,3 +285,5 @@ $App.HideSearchButtonToggle.Add_Unchecked({
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 3
     Get-Process "Explorer" | Stop-Process
 })
+
+$App.PersonalizationLogicLoaded = $true
