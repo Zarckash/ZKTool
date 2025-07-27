@@ -131,8 +131,11 @@ function Script:Get-CurrentPreset {
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
-    Copy-Item -Path (((Get-Monitor)[0] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\CurrentWallpaper1.png") -Force
-    $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\CurrentWallpaper1.png")
+    $i = 0
+    Copy-Item -Path (((Get-Monitor)[0] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\TempWallpaper$i.png") -Force
+    $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\TempWallpaper$i.png")
+    $i++
+
     if (Test-Path $App.Wallpaper1) {
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
         Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
@@ -140,9 +143,10 @@ function Script:Get-CurrentPreset {
         Update-GUI WallpaperBox1Image Visibility Visible
     }
 
-    Copy-Item -Path (((Get-Monitor)[1] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\CurrentWallpaper2.png") -Force
-    $App.Wallpaper2 = ($App.FilesPath + "Wallpapers\CurrentWallpaper2.png")
-    
+    Copy-Item -Path (((Get-Monitor)[1] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\TempWallpaper$i.png") -Force
+    $App.Wallpaper2 = ($App.FilesPath + "Wallpapers\TempWallpaper$i.png")
+    $i++
+
     if (Test-Path $App.Wallpaper2) {
         Update-GUI WallpaperBox2Image Source $App.Wallpaper2
         Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
