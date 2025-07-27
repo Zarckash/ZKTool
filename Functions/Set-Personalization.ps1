@@ -55,16 +55,18 @@ $Logic = [PowerShell]::Create().AddScript({
         Update-GUI $_ IsEnabled $true
         Update-GUI $_ Opacity "1"
     }
+
+    Update-GUI PresetsPanel Visibility Visible
 })
 
 $Logic.Runspace = $NewRunspace
 $Logic.BeginInvoke() | Out-Null
 
-$ColorDialog = New-Object System.Windows.Forms.ColorDialog
+$Script:ColorDialog = New-Object System.Windows.Forms.ColorDialog
 $ColorDialog.FullOpen = $true
 $ColorDialog.AnyColor = $true
 
-function Set-Color {
+function Script:Set-Color {
     param (
         $ControlName
     )
@@ -99,7 +101,7 @@ function Set-Color {
     Update-GUI $ControlName Background $SelectedColor
 }
 
-$Colors = @('ColorBox1','ColorBox2','ColorBox3','ColorBox4','ColorBox5')
+$Script:Colors = @('ColorBox1','ColorBox2','ColorBox3','ColorBox4','ColorBox5')
 
 $Colors | ForEach-Object {
     $App.$_.Add_Click({
@@ -107,7 +109,7 @@ $Colors | ForEach-Object {
     })
 }
 
-function Set-WallPaperBox {
+function Script:Set-WallPaperBox {
     param (
         $Box
     )
@@ -125,12 +127,12 @@ function Set-WallPaperBox {
     Update-GUI ($Box + "Image") Visibility Visible
 }
 
-$FileDialog = New-Object System.Windows.Forms.OpenFileDialog -Property @{
+$Script:FileDialog = New-Object System.Windows.Forms.OpenFileDialog -Property @{
     InitialDirectory = ($App.FilesPath + "Wallpapers")
     Filter = "Imágenes (*.png, *.jpg)|*.png;*.jpg"
 }
 
-$WallpaperBoxes = @('WallpaperBox1','WallpaperBox2')
+$Script:WallpaperBoxes = @('WallpaperBox1','WallpaperBox2')
 
 $WallpaperBoxes | ForEach-Object {
     $App.$_.Add_Click({
@@ -138,7 +140,7 @@ $WallpaperBoxes | ForEach-Object {
     })
 }
 
-function Get-AccentColor {
+function Script:Get-AccentColor {
     param (
         $Color
     )
@@ -159,7 +161,7 @@ function Get-AccentColor {
     return $AccentColor
 }
 
-function Get-CurrentPreset {
+function Script:Get-CurrentPreset {
     Update-GUI ColorBox1 Background (Get-AccentColor -Color 2)
     Update-GUI ColorBox2 Background (Get-AccentColor -Color 1)
     Update-GUI ColorBox3 Background (Get-AccentColor -Color 6)
@@ -181,7 +183,8 @@ function Get-CurrentPreset {
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
-    $App.Wallpaper1 = ((Get-Monitor)[0] | Get-Wallpaper).Path
+    Copy-Item -Path (((Get-Monitor)[0] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\CurrentWallpaper1.png") -Force
+    $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\CurrentWallpaper1.png")
     if (Test-Path $App.Wallpaper1) {
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
         Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
@@ -189,7 +192,8 @@ function Get-CurrentPreset {
         Update-GUI WallpaperBox1Image Visibility Visible
     }
 
-    $App.Wallpaper2 = ((Get-Monitor)[1] | Get-Wallpaper).Path
+    Copy-Item -Path (((Get-Monitor)[1] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\CurrentWallpaper2.png") -Force
+    $App.Wallpaper2 = ($App.FilesPath + "Wallpapers\CurrentWallpaper2.png")
     
     if (Test-Path $App.Wallpaper2) {
         Update-GUI WallpaperBox2Image Source $App.Wallpaper2
@@ -199,7 +203,7 @@ function Get-CurrentPreset {
     }     
 }
 
-function Set-AccentColor {
+function Script:Set-AccentColor {
     # Get color boxes values and convert format
     $App.ColorBox1.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color1ToHex += ($_ + ",")}
     $App.ColorBox2.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color2ToHex += ($_ + ",")}
@@ -233,16 +237,20 @@ function Set-AccentColor {
     Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "MenuHilight" -Value $RGBColor
 
     # Set accent color in windows glyphs
-    Start-Process ($App.FilesPath + "AccentColorizer.exe")
+    Start-Process ($App.FilesPath + "AccentColorizer.exe") -ArgumentList "-Apply"
 }
 
-function Set-SelectedWallpaper {
+function Script:Set-SelectedWallpaper {
     if (Test-Path $App.Wallpaper1) {
         Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
 
         $App.Wallpaper1 = ($App.ZKToolPath + "Media\Wallpaper1.png")
-
-        (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
+        
+        Start-Process Powershell -WindowStyle Minimized {
+            $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper1.png')
+            (Get-Monitor)[0] | Set-Wallpaper -Path $Wallpaper
+        }
+        
 
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
@@ -255,7 +263,10 @@ function Set-SelectedWallpaper {
 
         $App.Wallpaper2 = ($App.ZKToolPath + "Media\Wallpaper2.png")
 
-        (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
+        Start-Process Powershell -WindowStyle Minimized {
+            $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper2.png')
+            (Get-Monitor)[1] | Set-Wallpaper -Path $Wallpaper
+        }
     }
 }
 
@@ -284,6 +295,7 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
         $App.Wallpaper2 = $App.Wallpaper1
 
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
+        Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
         Update-GUI WallpaperBox1Label Visibility Collapsed
         Update-GUI WallpaperBox1Image Visibility Visible
 
@@ -291,9 +303,6 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
         Update-GUI WallpaperBox2Image Source $App.Wallpaper2
         Update-GUI WallpaperBox2Label Visibility Collapsed
         Update-GUI WallpaperBox2Image Visibility Visible
-
-        (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
-        (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
     })
 }
 

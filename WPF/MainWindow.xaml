@@ -1381,6 +1381,8 @@
                     </StackPanel>
 
                     <StackPanel
+                        x:Name="PresetsPanel"
+                        Visibility="Hidden"
                         Grid.Row="1"
                         Width="180"
                         Margin="0,15,0,0"
