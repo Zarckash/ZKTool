@@ -46,6 +46,10 @@ $Logic = [PowerShell]::Create().AddScript({
         Update-GUI WallpaperBox2 Visibility Visible
     }
 
+    if (!(Test-Path ($App.ZKToolPath + "Media"))) {
+        New-Item ($App.ZKToolPath + "Media") -ItemType Directory -Force | Out-Null
+    }
+
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
     Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.FilesPath + "Wallpapers") -Force
 
