@@ -1,4 +1,4 @@
-﻿$App.PersonalizationDisabledButtons = @('WallpaperBox1','WallpaperBox2','ActualPreset','Preset1','Preset2','Preset3','Preset4')
+﻿$App.PersonalizationDisabledButtons = @('WallpaperBox1','WallpaperBox2','ActualPreset','Preset1','Preset2','Preset3','Preset4','ApplyTheme')
 
 $App.PersonalizationDisabledButtons | ForEach-Object {
     Update-GUI $_ IsEnabled $false
@@ -53,6 +53,7 @@ $Logic = [PowerShell]::Create().AddScript({
 
     $App.PersonalizationDisabledButtons | ForEach-Object {
         Update-GUI $_ IsEnabled $true
+        Update-GUI $_ Opacity "1"
     }
 })
 
@@ -237,6 +238,10 @@ function Set-AccentColor {
 
 function Set-SelectedWallpaper {
     if (Test-Path $App.Wallpaper1) {
+        Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
+
+        $App.Wallpaper1 = ($App.ZKToolPath + "Media\Wallpaper1.png")
+
         (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
 
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
@@ -246,6 +251,10 @@ function Set-SelectedWallpaper {
     }
 
     if ((Test-Path $App.Wallpaper2) -and ($App.WallpaperBox2.Visibility -eq "Visible")) {
+        Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpaper2.png") -Force
+
+        $App.Wallpaper2 = ($App.ZKToolPath + "Media\Wallpaper2.png")
+
         (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
     }
 }
