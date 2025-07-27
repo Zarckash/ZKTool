@@ -39,20 +39,22 @@ $Logic = [PowerShell]::Create().AddScript({
         Update-GUI WallpaperBox2 Visibility Visible
     }
 
-    if (!(Test-Path ($App.ZKToolPath + "Media\Wallpapers"))) {
-        $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
-        Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.ZKToolPath + "Media\Wallpapers") -Force
-    }
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Wallpapers.zip"),($App.FilesPath + "Wallpapers.zip"))
+    Expand-Archive -Path ($App.FilesPath + "Wallpapers.zip") -DestinationPath ($App.FilesPath + "Wallpapers") -Force
+
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
+
+    $App.WallpapersReady = $true
 })
 
 $Logic.Runspace = $NewRunspace
 $Logic.BeginInvoke() | Out-Null
 
-$Script:ColorDialog = New-Object System.Windows.Forms.ColorDialog
+$ColorDialog = New-Object System.Windows.Forms.ColorDialog
 $ColorDialog.FullOpen = $true
 $ColorDialog.AnyColor = $true
 
-function Script:Set-Color {
+function Set-Color {
     param (
         $ControlName
     )
@@ -87,7 +89,7 @@ function Script:Set-Color {
     Update-GUI $ControlName Background $SelectedColor
 }
 
-$Script:Colors = @('ColorBox1','ColorBox2','ColorBox3','ColorBox4','ColorBox5')
+$Colors = @('ColorBox1','ColorBox2','ColorBox3','ColorBox4','ColorBox5')
 
 $Colors | ForEach-Object {
     $App.$_.Add_Click({
@@ -95,81 +97,38 @@ $Colors | ForEach-Object {
     })
 }
 
-$Script:FileDialog = New-Object System.Windows.Forms.OpenFileDialog -Property @{
-    InitialDirectory = ($App.ZKToolPath + "Media\Wallpapers")
+function Set-WallPaperBox {
+    param (
+        $Box
+    )
+
+    $Dialog = $FileDialog.ShowDialog()
+
+    if ($Dialog -eq 'Cancel') {
+        return
+    }
+
+    $App.($Box -replace 'Box','') = $FileDialog.FileName
+    Update-GUI ($Box + "Image") Source $App.($Box -replace 'Box','')
+    Update-GUI $Box Height ($App.$Box.ActualWidth / 1.77)
+    Update-GUI ($Box + "Label") Visibility Collapsed
+    Update-GUI ($Box + "Image") Visibility Visible
+}
+
+$FileDialog = New-Object System.Windows.Forms.OpenFileDialog -Property @{
+    InitialDirectory = ($App.FilesPath + "Wallpapers")
     Filter = "Imágenes (*.png, *.jpg)|*.png;*.jpg"
 }
 
-$App.WallpaperBox1.Add_Click({
-    if ($FileDialog.ShowDialog() -eq 'OK') {
-        $App.Wallpaper1 = $FileDialog.FileName
-        Update-GUI WallpaperBox1Image Source $App.Wallpaper1
-        Update-GUI WallpaperBox1 Height ($App.WallpaperBox1.ActualWidth / 1.77)
-        Update-GUI WallpaperBox1Label Visibility Collapsed
-        Update-GUI WallpaperBox1Image Visibility Visible
-        (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
-    }
-})
+$WallpaperBoxes = @('WallpaperBox1','WallpaperBox2')
 
-$App.WallpaperBox2.Add_Click({
-    if ($FileDialog.ShowDialog() -eq 'OK') {
-        $App.Wallpaper2 = $FileDialog.FileName
-        Update-GUI WallpaperBox2Image Source $App.Wallpaper2
-        Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
-        Update-GUI WallpaperBox2Label Visibility Collapsed
-        Update-GUI WallpaperBox2Image Visibility Visible
-        (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
-    }
-})
+$WallpaperBoxes | ForEach-Object {
+    $App.$_.Add_Click({
+        Set-WallPaperBox -Box $this.Name
+    })
+}
 
-$App.ApplyTheme.Add_Click({
-
-    Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -Type DWord -Value 0
-
-    # Convert colors to hex
-    $App.ColorBox1.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color1ToHex += ($_ + ",")}
-    $App.ColorBox2.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color2ToHex += ($_ + ",")}
-    $App.ColorBox3.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color3ToHex += ($_ + ",")}
-    $App.ColorBox4.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color4ToHex += ($_ + ",")}
-
-    $MainColor    = $Color1ToHex.Substring(3,9) + "00,"
-    $SecondColor  = $Color2ToHex.Substring(3,9) + "00,"
-    $TaskManagerH = $Color4ToHex.Substring(3,9) + "00,"
-    $TaskManagerT = $Color3ToHex.Substring(3,9) + "00,"
-    $Color1       = "FF,FF,FF,00,"
-    $Color2       = "FF,FF,FF,00"
-    $MaskValue = $SecondColor + $MainColor + $MainColor + $SecondColor + $TaskManagerH + $TaskManagerT + $Color1 + $Color2
-    $MaskValueToHex = $MaskValue.Split(',') | ForEach-Object { "0x$_" }
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Type Binary -Value ([byte[]]$MaskValueToHex)
-
-    # Hot tracking color to rgb
-    $HEXColor = ($App.ColorBox5.Background -replace '#','').Substring(2,6)
-    $red = $HEXColor.Remove(2, 4)
-    $Green = $HEXColor.Remove(4, 2)
-    $Green = $Green.remove(0, 2)
-    $Blue = $HEXColor.Remove(0, 4)
-    $Red = [convert]::ToInt32($Red, 16)
-    $Green = [convert]::ToInt32($Green, 16)
-    $Blue = [convert]::ToInt32($Blue, 16)
-
-    $RGBColor = "$Red " + "$Green " + $Blue
-    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "Hilight" -Value $RGBColor
-    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor" -Value $RGBColor
-    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "MenuHilight" -Value $RGBColor
-
-    New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value $App.Wallpaper1
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value $App.Wallpaper1
-
-    $App.Download.DownloadFile(($App.GitHubFilesPath + ".exe/AccentColorizer.exe"),($App.FilesPath + "AccentColorizer.exe"))
-    Start-Process ($App.FilesPath + "AccentColorizer.exe") -ArgumentList "-Apply"
-    
-    Get-Process -Name "Explorer" | Stop-Process
-    Get-Process -Name "AccentColorizer" | Stop-Process
-})
-
-function Script:Get-AccentColor {
+function Get-AccentColor {
     param (
         $Color
     )
@@ -190,7 +149,7 @@ function Script:Get-AccentColor {
     return $AccentColor
 }
 
-function Script:Get-CurrentPreset {
+function Get-CurrentPreset {
     Update-GUI ColorBox1 Background (Get-AccentColor -Color 2)
     Update-GUI ColorBox2 Background (Get-AccentColor -Color 1)
     Update-GUI ColorBox3 Background (Get-AccentColor -Color 6)
@@ -230,6 +189,65 @@ function Script:Get-CurrentPreset {
     }     
 }
 
+function Set-AccentColor {
+    # Get color boxes values and convert format
+    $App.ColorBox1.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color1ToHex += ($_ + ",")}
+    $App.ColorBox2.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color2ToHex += ($_ + ",")}
+    $App.ColorBox3.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color3ToHex += ($_ + ",")}
+    $App.ColorBox4.Background -replace '#','' -split '(..)' -ne '' | ForEach-Object {$Color4ToHex += ($_ + ",")}
+
+    # Set accent colors in binary values
+    $MainColor    = $Color1ToHex.Substring(3,9) + "00,"
+    $SecondColor  = $Color2ToHex.Substring(3,9) + "00,"
+    $TaskManagerH = $Color4ToHex.Substring(3,9) + "00,"
+    $TaskManagerT = $Color3ToHex.Substring(3,9) + "00,"
+    $Color1       = "FF,FF,FF,00,"
+    $Color2       = "FF,FF,FF,00"
+    $MaskValue = $SecondColor + $MainColor + $MainColor + $SecondColor + $TaskManagerH + $TaskManagerT + $Color1 + $Color2
+    $MaskValueToHex = $MaskValue.Split(',') | ForEach-Object { "0x$_" }
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Type Binary -Value ([byte[]]$MaskValueToHex)
+
+    # Get hot tracking color value and convert to rgb
+    $HEXColor = ($App.ColorBox5.Background -replace '#','').Substring(2,6)
+    $Red = $HEXColor.Remove(2, 4)
+    $Green = $HEXColor.Remove(4, 2)
+    $Green = $Green.remove(0, 2)
+    $Blue = $HEXColor.Remove(0, 4)
+    $Red = [convert]::ToInt32($Red, 16)
+    $Green = [convert]::ToInt32($Green, 16)
+    $Blue = [convert]::ToInt32($Blue, 16)
+
+    $RGBColor = "$Red " + "$Green " + $Blue
+    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "Hilight" -Value $RGBColor
+    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor" -Value $RGBColor
+    Set-ItemProperty -Path "HKCU:\Control Panel\Colors" -Name "MenuHilight" -Value $RGBColor
+
+    # Set accent color in windows glyphs
+    Start-Process ($App.FilesPath + "AccentColorizer.exe")
+}
+
+function Set-SelectedWallpaper {
+    if (Test-Path $App.Wallpaper1) {
+        (Get-Monitor)[0] | Set-WallPaper -Path $App.Wallpaper1
+
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImagePath" -Value ($App.ZKToolPath + "Media\Wallpaper1.png")
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageUrl" -Value ($App.ZKToolPath + "Media\Wallpaper1.png")
+    }
+
+    if ((Test-Path $App.Wallpaper2) -and ($App.WallpaperBox2.Visibility -eq "Visible")) {
+        (Get-Monitor)[1] | Set-WallPaper -Path $App.Wallpaper2
+    }
+}
+
+$App.ApplyTheme.Add_Click({
+    Set-AccentColor
+    Set-SelectedWallpaper
+
+    Get-Process -Name "Explorer" | Stop-Process
+})
+
 Get-CurrentPreset
 
 $App.ActualPreset.Add_Click({
@@ -244,7 +262,7 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
             Update-GUI $_ Background $App.PresetsList.($this.Name).$_
         }
 
-        $App.Wallpaper1 = ($App.ZKToolPath + "Media\Wallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
+        $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
         $App.Wallpaper2 = $App.Wallpaper1
 
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
@@ -292,3 +310,13 @@ $App.HideSearchButtonToggle.Add_Unchecked({
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 3
     Get-Process "Explorer" | Stop-Process
 })
+
+while (!$App.WallpapersReady) {
+    Start-Sleep .1
+}
+
+$DisabledButtons = @('WallpaperBox1','WallpaperBox2','Preset1','Preset2','Preset3','Preset4')
+
+$DisabledButtons | ForEach-Object {
+    Update-GUI $_ IsEnabled $false
+}
