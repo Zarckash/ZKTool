@@ -1,7 +1,7 @@
 # Run Script As Administrator
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
     Start-Process Powershell -Verb RunAs {
-        Invoke-Expression (Invoke-WebRequest -useb "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Functions/FirstRun.ps1")
+        Invoke-Expression (Invoke-WebRequest -useb "https://raw.githubusercontent.com/Zarckash/ZKTool/main/Functions/Run-Initializer.ps1")
     }
     exit
 }
