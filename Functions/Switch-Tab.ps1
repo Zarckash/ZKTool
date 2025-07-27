@@ -82,6 +82,7 @@ function LoadPersonalization {
     Update-GUI OutputContentGrid Visibility Hidden
 
     if ($App.PersonalizationLogicLoaded -ne $true) {
+        New-Item -Path ($App.FilesPath + "Wallpapers") -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
         . ($App.FunctionsPath + "Set-Personalization.ps1")
     }
     
