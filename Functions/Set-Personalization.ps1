@@ -109,6 +109,7 @@ function Script:Get-AccentColor {
     return $AccentColor
 }
 
+$Script:i = 0
 function Script:Get-CurrentPreset {
     Update-GUI ColorBox1 Background (Get-AccentColor -Color 2)
     Update-GUI ColorBox2 Background (Get-AccentColor -Color 1)
@@ -131,7 +132,6 @@ function Script:Get-CurrentPreset {
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
-    $i = 0
     Copy-Item -Path (((Get-Monitor)[0] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\TempWallpaper$i.png") -Force
     $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\TempWallpaper$i.png")
     $i++
@@ -197,6 +197,7 @@ function Script:Set-SelectedWallpaper {
         Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
 
         $App.Wallpaper1 = ($App.ZKToolPath + "Media\Wallpaper1.png")
+        Update-GUI WallpaperBox1Image Source $App.Wallpaper1
         
         Start-Process Powershell -WindowStyle Minimized {
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper1.png')
@@ -214,6 +215,7 @@ function Script:Set-SelectedWallpaper {
         Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpaper2.png") -Force
 
         $App.Wallpaper2 = ($App.ZKToolPath + "Media\Wallpaper2.png")
+        Update-GUI WallpaperBox2Image Source $App.Wallpaper2
 
         Start-Process Powershell -WindowStyle Minimized {
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper2.png')
