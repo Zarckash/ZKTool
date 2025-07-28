@@ -16,7 +16,8 @@
     },
     "Tweak4": {
         "Name": "Timer Resolution",
-        "FunctionName": "SetTimerResolution"
+        "FunctionName": "SetTimerResolution",
+        "Preset": "True"
     },
     "Tweak9": {
         "Name": "Desinstalar aplicaciones",
