@@ -13,7 +13,7 @@
         "Preset": "True"
     },
     "Extra3": {
-        "Name": "NET Framework 35",
+        "Name": "NET Framework 3.5",
         "FunctionName": "NETFramework",
         "Preset": "True"
     },
