@@ -1105,6 +1105,12 @@ function HideSystemComponents {
     }
 }
 
+function NETFramework {
+    Write-UserOutput "Instalando NET Framework 3.5"
+    Dism /online /Enable-Feature /FeatureName:"NetFx3" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" | Out-File $App.LogPath -Encoding UTF8 -Append
+}
+
 function VideoExtensions {
     param (
         $AppIds = @('9N4D0MSMP0PT', '9N4WGH0Z6VHQ', '9PMMSR1CGPWG', '9PG2DK419DRG', '9MVZQVXJBQ9V')

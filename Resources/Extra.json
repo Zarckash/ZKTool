@@ -13,18 +13,23 @@
         "Preset": "True"
     },
     "Extra3": {
-        "Name": "Extensiones de vídeo",
-        "FunctionName": "VideoExtensions",
+        "Name": "NET Framework 3.5",
+        "FunctionName": "NETFramework",
         "Preset": "True"
     },
     "Extra4": {
-        "Name": "Optimización Ethernet",
-        "FunctionName": "EthernetOptimization"
+        "Name": "Extensiones de vídeo",
+        "FunctionName": "VideoExtensions",
+        "Preset": "True"
     },
     "Extra5": {
         "Name": "Actualizar drivers GPU",
         "FunctionName": "UpdateGPUDrivers",
         "Preset": "True"
+    },
+    "Extra7": {
+        "Name": "Optimización Ethernet",
+        "FunctionName": "EthernetOptimization"
     },
     "Extra8": {
         "Name": "Paquete de undervolt AMD",
