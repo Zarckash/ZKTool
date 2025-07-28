@@ -1,6 +1,23 @@
 ﻿$Uri =  "https://api.github.com/repos/Zarckash/ZKTool/git/trees/main"
 $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
 $LatestSha = $WebRequest.sha
+
+if (!(Test-Path ($Hash.ZKToolPath + "Sha.json"))) {
+        $JsonHashTable = @{
+        "GlobalSha" = "$LatestSha"
+        "Functions" = @{"Sha" = ""}
+        "Resources" = @{
+            "Sha" = ""
+            "Images" = @{
+                "Sha" = ""
+            }
+        }
+    }
+
+    $JsonHashTable | ConvertTo-Json | Out-File ($Hash.ZKToolPath + "Sha.json") -Encoding UTF8
+    attrib +h ($Hash.ZKToolPath + "Sha.json")
+}
+
 $ShaJson = Get-Content ($Hash.ZKToolPath + "Sha.json") -Raw | ConvertFrom-Json
 
 function Test-FunctionsSha {
