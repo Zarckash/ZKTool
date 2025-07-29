@@ -21,6 +21,8 @@ Expand-Archive -Path "$env:temp\ZKTool\Files\ZKTool.zip" -DestinationPath "$env:
 Rename-Item "$env:temp\ZKTool\Files\Temp\Setup.exe" -NewName "SetupTemp.exe"
 Start-Process "$env:temp\ZKTool\Files\Temp\SetupTemp.exe" -ArgumentList "-Install"
 
-Start-Sleep 1
+while (((Get-Process -Name "SetupTemp").ProcessName | Sort-Object -Unique) -notlike "SetupTemp") {
+    Start-Sleep .2    
+}
 
 exit
