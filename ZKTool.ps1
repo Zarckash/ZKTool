@@ -167,6 +167,16 @@ $PwShellGUI.AddScript({
         $App.Window.DragMove()
     })
 
+    Update-Splash "Cargando aplicación..."
+    $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons','Write-UserOutput')
+    $Functions | ForEach-Object {
+        . ($App.FunctionsPath + "$_.ps1")
+        & $_
+    }
+
+    Update-GUI AppVersion Text ("Versión " + $App.Version)
+    Update-GUI OutputBox Text "| Ready"
+
     $App.ZKToolLogoButton.Add_Click({
         Write-UserOutput "Forzando actualización"
         Remove-Item ($App.ZKToolPath + "Sha.json") -Force | Out-File $App.LogPath -Encoding UTF8 -Append
@@ -216,15 +226,6 @@ $PwShellGUI.AddScript({
         $App.Window.Close()
     }
     })
-
-    Update-Splash "Cargando aplicación..."
-    $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
-    $Functions | ForEach-Object {
-        . ($App.FunctionsPath + "$_.ps1")
-        & $_
-    }
-
-    Update-GUI AppVersion Text ("Versión " + $App.Version)
 
     $App.StartScript.Add_Click({
         if ($this.Content -eq "EJECUTANDO") {
