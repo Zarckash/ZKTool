@@ -97,17 +97,23 @@
                         BorderBrush="{DynamicResource AppAccentColor}"
                         BorderThickness="1.5"
                         CornerRadius="21" />
-
-                    <Image
-                        x:Name="ZKToolLogo"
+                    <Button 
+                        x:Name="ZKToolLogoButton"
+                        HorizontalAlignment="Left"
                         Width="40"
                         Height="40"
                         Margin="12,0"
-                        HorizontalAlignment="Left"
-                        Opacity="1"
-                        Source="C:\Program Files\ZKTool\WPF\Images\ZKTool.png"
-                        Style="{DynamicResource ImageQuality}"
-                        UseLayoutRounding="True" />
+                        Style="{DynamicResource DisableButtonHover}">
+                        <Image
+                            x:Name="ZKToolLogo"
+                            Width="40"
+                            Height="40"
+                            Margin=".5,.5,0,0"
+                            Opacity="1"
+                            Source="C:\Program Files\ZKTool\WPF\Images\ZKTool.png"
+                            Style="{DynamicResource ImageQuality}"
+                            UseLayoutRounding="True" />
+                    </Button>
 
                     <TextBlock
                         HorizontalAlignment="Center"

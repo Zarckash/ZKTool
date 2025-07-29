@@ -12,7 +12,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.5.4"
+$App.Version = "4.5.5"
 
 if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
     Start-Process Powershell -WindowStyle Hidden {
@@ -166,7 +166,7 @@ $PwShellGUI.AddScript({
         $App.Window.DragMove()
     })
 
-    $App.ZKToolLogo.Add_Click({
+    $App.ZKToolLogoButton.Add_Click({
         Write-UserOutput "Forzando actualización"
         Remove-Item ($App.ZKToolPath + "Sha.json") -Force | Out-File $App.LogPath -Encoding UTF8 -Append
         $JsonHashTable = @{
