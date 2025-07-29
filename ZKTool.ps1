@@ -173,6 +173,8 @@ $PwShellGUI.AddScript({
         & $_
     }
 
+    Update-GUI AppVersion Text ("Versión " + $App.Version)
+
     $App.Close.Add_Click({
         # Checking Restart
         if ($App.RequireRestart) {
@@ -215,15 +217,13 @@ $PwShellGUI.AddScript({
         $JsonHashTable | ConvertTo-Json | Out-File ($App.ZKToolPath + "Sha.json") -Encoding UTF8
         attrib +h ($App.ZKToolPath + "Sha.json")
 
-        Start-Sleep 1
+        Start-Sleep 2
         Start-Process Powershell -WindowStyle Hidden {
             Start-Sleep 3
             Start-Process "$env:ProgramFiles\ZKTool\ZKTool.exe"
         }
         $App.Window.Close()
     })
-
-    Update-GUI AppVersion Text ("Versión " + $App.Version)
 
     $App.StartScript.Add_Click({
         if ($this.Content -eq "EJECUTANDO") {
