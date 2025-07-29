@@ -166,6 +166,56 @@ $PwShellGUI.AddScript({
         $App.Window.DragMove()
     })
 
+    $App.ZKToolLogo.Add_Click({
+        Write-UserOutput "Forzando actualización"
+        Remove-Item ($App.ZKToolPath + "Sha.json") -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+        $JsonHashTable = @{
+            "GlobalSha" = "$LatestSha"
+            "Functions" = @{"Sha" = "" }
+            "Resources" = @{
+                "Sha"    = ""
+                "Images" = @{
+                    "Sha" = ""
+                }
+            }
+        }
+
+        $JsonHashTable | ConvertTo-Json | Out-File ($App.ZKToolPath + "Sha.json") -Encoding UTF8
+        attrib +h ($App.ZKToolPath + "Sha.json")
+
+        Start-Sleep 1
+        Start-Process Powershell -WindowStyle Hidden {
+            Start-Sleep 3
+            Start-Process "$env:ProgramFiles\ZKTool\ZKTool.exe"
+        }
+        $App.Window.Close()
+    })
+
+    $App.Close.Add_Click({
+    # Checking Restart
+    if ($App.RequireRestart) {
+        Write-UserOutput "Reinicio necesario"
+        $MessageBox = [System.Windows.Forms.MessageBox]::Show("El equipo requiere reiniciarse para aplicar los cambios`r`nReiniciar equipo ahora?", "Reiniciar equipo", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Information)
+        if ($MessageBox -ne [System.Windows.Forms.DialogResult]::No) {
+            Write-UserOutput "Reiniciando pc en 5 segundos"
+            Start-Sleep 1
+            4..1 | ForEach-Object {
+                Update-GUI OutputBox Text "Reiniciando pc en $_ segundos..."
+                Start-Sleep 1
+            }
+            $App.Window.Close()
+            Start-Process Powershell -WindowStyle Hidden {
+                Restart-Computer
+            }
+        }
+        else {
+            $App.Window.Close()
+        }
+    } else {
+        $App.Window.Close()
+    }
+    })
+
     Update-Splash "Cargando aplicación..."
     $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
     $Functions | ForEach-Object {
@@ -304,7 +354,7 @@ $PwShellGUI.AddScript({
         Start-Process Powershell -WindowStyle Hidden {
             Start-Sleep .5
             Get-Process "ZKTool" | Stop-Process
-            Start-Sleep 15
+            Start-Sleep 10
             Remove-Item -Path "$env:temp\ZKTool\Files" -Recurse -Force
         }
     })
