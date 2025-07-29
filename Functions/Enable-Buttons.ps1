@@ -49,6 +49,45 @@ $App.Maximize.Add_Click({
     Update-GUI WallpaperBox2 Height ($App.WallpaperBox2.ActualWidth / 1.77)
 })
 
+$App.Close.Add_Click({
+    if ($App.RequireRestart) {
+        $NewRunspace = [RunspaceFactory]::CreateRunspace()
+        $NewRunspace.ApartmentState = "STA"
+        $NewRunspace.ThreadOptions = "ReuseThread"          
+        $NewRunspace.Open()
+        $NewRunspace.SessionStateProxy.SetVariable("App", $App)
+        $Logic = [PowerShell]::Create().AddScript({
+            . ($App.FunctionsPath + "Update-GUI.ps1")
+            . ($App.FunctionsPath + "Write-UserOutput.ps1")
+
+            Write-UserOutput "Reinicio necesario"
+            $MessageBox = [System.Windows.Forms.MessageBox]::Show("El equipo requiere reiniciarse para aplicar los cambios`r`nReiniciar equipo ahora?", "Reiniciar equipo", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Information)
+            if ($MessageBox -ne [System.Windows.Forms.DialogResult]::No) {
+                Write-UserOutput "Reiniciando pc en 5 segundos"
+                Start-Sleep 1
+                4..1 | ForEach-Object {
+                    Update-GUI OutputBox Text "Reiniciando pc en $_ segundos..."
+                    Start-Sleep 1
+                }
+                $App.Window.Dispatcher.Invoke("Normal",[action]{$App.Window.Close()})
+
+                Start-Process Powershell -WindowStyle Hidden {
+                    Start-Sleep 1
+                    Restart-Computer
+                }
+            }
+            else {
+                $App.Window.Dispatcher.Invoke("Normal",[action]{$App.Window.Close()})
+
+            }
+        })
+        $Logic.Runspace = $NewRunspace
+        $Logic.BeginInvoke() | Out-Null
+    } else {
+        $App.Window.Close()
+    }
+})
+
 
 $App.SelectedButtons = New-Object System.Collections.Generic.List[System.Object]
 

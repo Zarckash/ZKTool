@@ -177,26 +177,42 @@ $PwShellGUI.AddScript({
     Update-GUI AppVersion Text ("Versión " + $App.Version)
 
     $App.ZKToolLogoButton.Add_Click({
-        Remove-Item ($App.ZKToolPath + "Sha.json") -Force | Out-File $App.LogPath -Encoding UTF8 -Append
-        $JsonHashTable = @{
-            "GlobalSha" = "$LatestSha"
-            "Functions" = @{"Sha" = "" }
-            "Resources" = @{
-                "Sha"    = ""
-                "Images" = @{
-                    "Sha" = ""
+        $NewRunspace = [RunspaceFactory]::CreateRunspace()
+        $NewRunspace.ApartmentState = "STA"
+        $NewRunspace.ThreadOptions = "ReuseThread"          
+        $NewRunspace.Open()
+        $NewRunspace.SessionStateProxy.SetVariable("App", $App)
+        $Logic = [PowerShell]::Create().AddScript({
+            . ($App.FunctionsPath + "Update-GUI.ps1")
+            . ($App.FunctionsPath + "Write-UserOutput.ps1")
+
+            Write-UserOutput "Forzando actualización"
+
+            Remove-Item ($App.ZKToolPath + "Sha.json") -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+            $JsonHashTable = @{
+                "GlobalSha" = "$LatestSha"
+                "Functions" = @{"Sha" = "" }
+                "Resources" = @{
+                    "Sha"    = ""
+                    "Images" = @{
+                     "Sha" = ""
+                 }
                 }
             }
-        }
 
-        $JsonHashTable | ConvertTo-Json | Out-File ($App.ZKToolPath + "Sha.json") -Encoding UTF8
-        attrib +h ($App.ZKToolPath + "Sha.json")
+            $JsonHashTable | ConvertTo-Json | Out-File ($App.ZKToolPath + "Sha.json") -Encoding UTF8
+            attrib +h ($App.ZKToolPath + "Sha.json")
 
-        Start-Process Powershell -WindowStyle Hidden {
             Start-Sleep 2
-            Start-Process "$env:ProgramFiles\ZKTool\ZKTool.exe"
-        }
-        $App.Window.Close()
+            Start-Process Powershell -WindowStyle Hidden {
+                Start-Sleep 2
+                Start-Process "$env:ProgramFiles\ZKTool\ZKTool.exe"
+            }
+            $App.Window.Dispatcher.Invoke("Normal",[action]{$App.Window.Close()})
+
+        })
+        $Logic.Runspace = $NewRunspace
+        $Logic.BeginInvoke() | Out-Null
     })
 
     $App.StartScript.Add_Click({
