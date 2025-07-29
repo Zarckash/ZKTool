@@ -175,7 +175,7 @@ $PwShellGUI.AddScript({
     }
 
     Update-GUI AppVersion Text ("Versión " + $App.Version)
-    Update-GUI OutputBox Text "| Ready"
+    Update-GUI OutputBox Text "Ready"
 
     $App.ZKToolLogoButton.Add_Click({
         Write-UserOutput "Forzando actualización"
