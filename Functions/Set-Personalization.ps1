@@ -204,7 +204,7 @@ function Script:Set-SelectedWallpaper {
         
         Start-Process Powershell -WindowStyle Minimized {
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper1.png')
-            (Get-Monitor)[0] | Set-Wallpaper -Path $Wallpaper
+            (Get-Monitor)[0] | Set-Wallpaper -Path $Wallpaper -Force
         }
         
 
@@ -225,7 +225,7 @@ function Script:Set-SelectedWallpaper {
 
         Start-Process Powershell -WindowStyle Minimized {
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper2.png')
-            (Get-Monitor)[1] | Set-Wallpaper -Path $Wallpaper
+            (Get-Monitor)[1] | Set-Wallpaper -Path $Wallpaper -Force
         }
     }
 }
