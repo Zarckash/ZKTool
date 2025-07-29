@@ -619,6 +619,7 @@ function NvidiaSettings {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\NVIDIA Corporation\Global\NGXCore" -Name "ShowDlssIndicator" -Type DWord -Value 1
 
     & GPUInputLag
+    & BlockNvidiaAppUpdates
 }
 
 function UninstallXboxGameBar {
@@ -829,6 +830,65 @@ function RealtekCleaner {
     sc.exe start Audiosrv | Out-File $App.LogPath -Encoding UTF8 -Append
 }
 
+function HideSystemComponents {
+    Write-UserOutput "Limpiando lista de aplicaciones"
+    $Components64 = @(
+        "{959CB28B-C5F3-4B66-9F8C-EC1F02E15115}"
+        "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.PhysX"
+        "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_FrameViewSdk"
+        "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_HDAudio.Driver"
+        "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_USBC"
+        "{D2152F77-52A6-4EA7-AC89-8143E189D730}"
+        "{C6FD611E-7EFE-488C-A0E0-974C09EF6473}"
+        "mstsc-4b0a31aa-df6a-4307-9b47-d5cc50009643"
+    )
+
+    $Components32 = @(
+        "{35905844-0610-427D-86A0-2103FABE3D4D}"
+        "{97CD7AFC-0ED3-41B8-9CCD-22717E8631D0}_is1"
+        "Microsoft Edge"
+        "Microsoft Edge Update"
+        "Microsoft EdgeWebView"
+        "UXPW_1_1_0"
+    )
+
+    Write-UserOutput "Ocultando Visual C++"
+
+    $VisualCApps64 = Get-ChildItem -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
+
+    Split-Path $VisualCApps64.Name -Leaf | Where-Object {
+        (Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName) -Like "Microsoft Visual C++*"
+    } | ForEach-Object {
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
+    }
+
+    $VisualCApps32 = Get-ChildItem -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
+
+    Split-Path $VisualCApps32.Name -Leaf | Where-Object {
+        (Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName) -Like "Microsoft Visual C++*"
+    } | ForEach-Object {
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
+    }
+
+    $Components64 | ForEach-Object {
+        $AppName = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName
+        $AppIsHidden = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name SystemComponent
+        if (($AppName.Length -gt 0) -and ($AppIsHidden -ne 1)) {
+            Write-UserOutput "Ocultando $AppName"
+        }
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
+    }
+
+    $Components32 | ForEach-Object {
+        $AppName = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName
+        $AppIsHidden = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name SystemComponent
+        if (($AppName.Length -gt 0) -and ($AppIsHidden -ne 1)) {
+            Write-UserOutput "Ocultando $AppName"
+        }
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
+    }
+}
+
 function ReduceIconsSpacing {
     Write-UserOutput "Reduciendo espacio entre iconos en el Escritorio"
     Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "IconSpacing" -Value -900
@@ -942,7 +1002,7 @@ function UpdateGPUDrivers {
     $Uri = "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=120&pfid=929&osID=57&languageCode=1033&isWHQL=1&dch=1&sort1=0&numberOfResults=1"
     $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
     $LatestVersion = $WebRequest.IDS.downloadInfo.Version
-    $LatestStable = "561.09"
+    $LatestStable = $LatestVersion
     
     if ($LatestVersion -eq $CurrentVersion) {
         Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
@@ -952,13 +1012,6 @@ function UpdateGPUDrivers {
     }
     else {
         Write-UserOutput "Nueva versión $LatestVersion encontrada"
-    }
-
-    # Check if GeForce Experience installed
-    $GeForceCheck = Winget List 'Nvidia.GeForceExperience' | Select-String -Pattern 'Nvidia.GeForceExperience' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
-    $NvidiaAppCheck = Winget List '{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | Select-String -Pattern '{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp' | ForEach-Object {$_.matches} | Select-Object -ExpandProperty Value
-    if (($GeForceCheck -eq 'Nvidia.GeForceExperience') -or ($NvidiaAppCheck -eq '{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.NvApp')) {
-        $FullInstall = $true
     }
 
     # Downloading latest Nvidia drivers
@@ -1013,20 +1066,9 @@ function UpdateGPUDrivers {
         Stop-Process -Name "MSIAfterburner"
     }
 
-    # Strip driver if GeForce Experience or Nvidia App is not installed
-    if ($FullInstall) {
-        Write-UserOutput "Instalando drivers $LatestVersion"
-        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
-        Remove-Item $DesktopShortcut
-    }
-    else {
-        Write-UserOutput "Limpiando archivos de driver"
-        Get-ChildItem $FilesPath -Exclude $ExcludeList | ForEach-Object {
-            Remove-Item $_ -Recurse -Force
-        }
-        Write-UserOutput "Instalando drivers $LatestVersion"
-        Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-clean -s" -Wait
-    }
+    Write-UserOutput "Instalando drivers $LatestVersion"
+    Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
+    Remove-Item $DesktopShortcut
 
     if ($MSIABRunning) {
         Start-Process "${env:ProgramFiles(x86)}\MSI Afterburner\MSIAfterburner.exe"
@@ -1043,66 +1085,6 @@ function UpdateGPUDrivers {
     Start-Sleep 3
 
     & NvidiaSettings
-    & GPUInputLag
-}
-
-function HideSystemComponents {
-    Write-UserOutput "Limpiando lista de aplicaciones"
-    $Components64 = @(
-        "{959CB28B-C5F3-4B66-9F8C-EC1F02E15115}"
-        "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_Display.PhysX"
-        "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_FrameViewSdk"
-        "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_HDAudio.Driver"
-        "{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}_USBC"
-        "{D2152F77-52A6-4EA7-AC89-8143E189D730}"
-        "{C6FD611E-7EFE-488C-A0E0-974C09EF6473}"
-        "mstsc-4b0a31aa-df6a-4307-9b47-d5cc50009643"
-    )
-
-    $Components32 = @(
-        "{35905844-0610-427D-86A0-2103FABE3D4D}"
-        "{97CD7AFC-0ED3-41B8-9CCD-22717E8631D0}_is1"
-        "Microsoft Edge"
-        "Microsoft Edge Update"
-        "Microsoft EdgeWebView"
-        "UXPW_1_1_0"
-    )
-
-    Write-UserOutput "Ocultando Visual C++"
-
-    $VisualCApps64 = Get-ChildItem -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
-
-    Split-Path $VisualCApps64.Name -Leaf | Where-Object {
-        (Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName) -Like "Microsoft Visual C++*"
-    } | ForEach-Object {
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
-    }
-
-    $VisualCApps32 = Get-ChildItem -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
-
-    Split-Path $VisualCApps32.Name -Leaf | Where-Object {
-        (Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName) -Like "Microsoft Visual C++*"
-    } | ForEach-Object {
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
-    }
-
-    $Components64 | ForEach-Object {
-        $AppName = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName
-        $AppIsHidden = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name SystemComponent
-        if (($AppName.Length -gt 0) -and ($AppIsHidden -ne 1)) {
-            Write-UserOutput "Ocultando $AppName"
-        }
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
-    }
-
-    $Components32 | ForEach-Object {
-        $AppName = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name DisplayName
-        $AppIsHidden = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name SystemComponent
-        if (($AppName.Length -gt 0) -and ($AppIsHidden -ne 1)) {
-            Write-UserOutput "Ocultando $AppName"
-        }
-        Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
-    }
 }
 
 function NETFramework {
@@ -1324,9 +1306,9 @@ function InstallFFMPEG {
     }
 }
 
-function HostsFile {
+function BlockNvidiaAppUpdates {
     $HostFile = "$env:SystemRoot\System32\Drivers\etc\hosts"
-    "`n127.0.0.1 zktool.ddns.net`n127.0.0.1 ota-downloads.nvidia.com`n127.0.0.1 ota.nvidia.com" | Add-Content -Path $HostFile
+    "`n127.0.0.1 ota-downloads.nvidia.com`n127.0.0.1 ota.nvidia.com" | Add-Content -Path $HostFile
 }
 
 function RAMTest {
