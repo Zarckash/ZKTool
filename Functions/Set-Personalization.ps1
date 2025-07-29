@@ -202,7 +202,7 @@ function Script:Set-SelectedWallpaper {
         
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
         
-        Start-Process Powershell -WindowStyle Minimized {
+        Start-Process Powershell {
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper1.png')
             (Get-Monitor)[0] | Set-Wallpaper -Path $Wallpaper -Force
         }
@@ -223,7 +223,7 @@ function Script:Set-SelectedWallpaper {
 
         Update-GUI WallpaperBox2Image Source $App.Wallpaper2
 
-        Start-Process Powershell -WindowStyle Minimized {
+        Start-Process Powershell {
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper2.png')
             (Get-Monitor)[1] | Set-Wallpaper -Path $Wallpaper -Force
         }
