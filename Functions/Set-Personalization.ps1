@@ -109,7 +109,6 @@ function Script:Get-AccentColor {
     return $AccentColor
 }
 
-$App.i = 0
 function Script:Get-CurrentPreset {
     Update-GUI ColorBox1 Background (Get-AccentColor -Color 2)
     Update-GUI ColorBox2 Background (Get-AccentColor -Color 1)
@@ -132,9 +131,8 @@ function Script:Get-CurrentPreset {
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
 
-    Copy-Item -Path (((Get-Monitor)[0] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\TempWallpaper" + $App.i + ".png") -Force
-    $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\TempWallpaper" + $App.i + ".png")
-    $App.i++
+    Copy-Item -Path (((Get-Monitor)[0] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\CurrentWallpaper1.jpg") -Force
+    $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\CurrentWallpaper1.jpg")
 
     if (Test-Path $App.Wallpaper1) {
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
@@ -143,9 +141,8 @@ function Script:Get-CurrentPreset {
         Update-GUI WallpaperBox1Image Visibility Visible
     }
 
-    Copy-Item -Path (((Get-Monitor)[1] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\TempWallpaper" + $App.i + ".png") -Force
-    $App.Wallpaper2 = ($App.FilesPath + "Wallpapers\TempWallpaper" + $App.i + ".png")
-    $App.i++
+    Copy-Item -Path (((Get-Monitor)[1] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\CurrentWallpaper2.jpg") -Force
+    $App.Wallpaper2 = ($App.FilesPath + "Wallpapers\CurrentWallpaper2.jpg")
 
     if (Test-Path $App.Wallpaper2) {
         Update-GUI WallpaperBox2Image Source $App.Wallpaper2
@@ -195,21 +192,13 @@ function Script:Set-AccentColor {
 function Script:Set-SelectedWallpaper {
     if (Test-Path $App.Wallpaper1) {
         Copy-Item -Path $App.Wallpaper1 -Destination ($App.ZKToolPath + "Media\Wallpaper1.png") -Force
-        Copy-Item -Path $App.Wallpaper1 -Destination ($App.FilesPath + "Wallpapers\SelectedWallpaper" + $App.i + ".png") -Force
-
-        $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\SelectedWallpaper" + $App.i + ".png")
-        $App.i++
         
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
         
         Start-Process Powershell {
-            [System.Console]::WindowWidth=1
-            [System.Console]::WindowHeight=1
-            [System.Console]::BufferWidth=1
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper1.png')
             (Get-Monitor)[0] | Set-Wallpaper -Path $Wallpaper -Force
         }
-        
 
         New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "PersonalizationCSP" | Out-File $App.LogPath -Encoding UTF8 -Append
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP" -Name "LockScreenImageStatus" -Type DWord -Value 1
@@ -219,17 +208,10 @@ function Script:Set-SelectedWallpaper {
 
     if ((Test-Path $App.Wallpaper2) -and ($App.WallpaperBox2.Visibility -eq "Visible")) {
         Copy-Item -Path $App.Wallpaper2 -Destination ($App.ZKToolPath + "Media\Wallpaper2.png") -Force
-        Copy-Item -Path $App.Wallpaper2 -Destination ($App.FilesPath + "Wallpapers\SelectedWallpaper" + $App.i + ".png") -Force
-
-        $App.Wallpaper2 = ($App.FilesPath + "Wallpapers\SelectedWallpaper" + $App.i + ".png")
-        $App.i++
 
         Update-GUI WallpaperBox2Image Source $App.Wallpaper2
 
         Start-Process Powershell {
-            [System.Console]::WindowWidth=1
-            [System.Console]::WindowHeight=1
-            [System.Console]::BufferWidth=1
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper2.png')
             (Get-Monitor)[1] | Set-Wallpaper -Path $Wallpaper -Force
         }
