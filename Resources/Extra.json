@@ -63,7 +63,7 @@
         "FunctionName": "InstallFFMPEG"
     },
     "Extra22": {
-        "Name": "Hosts File",
-        "FunctionName": "HostsFile"
+        "Name": "BlockNvidiaAppUpdates",
+        "FunctionName": "Bloquear NVIDIA App"
     }
 }
