@@ -203,6 +203,9 @@ function Script:Set-SelectedWallpaper {
         Update-GUI WallpaperBox1Image Source $App.Wallpaper1
         
         Start-Process Powershell {
+            [System.Console]::WindowWidth=1
+            [System.Console]::WindowHeight=1
+            [System.Console]::BufferWidth=1
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper1.png')
             (Get-Monitor)[0] | Set-Wallpaper -Path $Wallpaper -Force
         }
@@ -224,6 +227,9 @@ function Script:Set-SelectedWallpaper {
         Update-GUI WallpaperBox2Image Source $App.Wallpaper2
 
         Start-Process Powershell {
+            [System.Console]::WindowWidth=1
+            [System.Console]::WindowHeight=1
+            [System.Console]::BufferWidth=1
             $Wallpaper = ($env:ProgramFiles + '\ZKTool\Media\Wallpaper2.png')
             (Get-Monitor)[1] | Set-Wallpaper -Path $Wallpaper -Force
         }
@@ -234,7 +240,7 @@ $App.ApplyTheme.Add_Click({
     Set-AccentColor
     Set-SelectedWallpaper
 
-    RUNDLL32.EXE USER32.DLL,UpdatePerUserSystemParameters 1, True
+    Get-Process -Name "Explorer" | Stop-Process
 })
 
 Get-CurrentPreset
