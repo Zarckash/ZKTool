@@ -167,7 +167,7 @@ $PwShellGUI.AddScript({
     })
 
     Update-Splash "Cargando aplicación..."
-    $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons','Write-UserOutput')
+    $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
     $Functions | ForEach-Object {
         . ($App.FunctionsPath + "$_.ps1")
         & $_
@@ -210,7 +210,7 @@ $PwShellGUI.AddScript({
                     $App.Window.Close()
                 }
             }
-                        else {
+            else {
                 $App.Window.Close()
             }
         })
