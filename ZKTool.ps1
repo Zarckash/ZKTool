@@ -1,4 +1,3 @@
-﻿
 ﻿if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
     Start-Process Powershell -Verb RunAs {
         Start-Process "$env:ProgramFiles\ZKTool\Setup.exe" -ArgumentList "-Open"
@@ -232,80 +231,112 @@ $PwShellGUI.AddScript({
             $ConfirmPreference = 'None'
 
             . ($App.FunctionsPath + "Update-GUI.ps1")
+            . ($App.FunctionsPath + "Write-UserOutput.ps1")
 
             Update-GUI StartScript Background $App.AccentColor
             Update-GUI StartScript Content EJECUTANDO
 
-            . ($App.FunctionsPath + "Write-UserOutput.ps1")
+            . ($App.FunctionsPath + "Install-App.ps1")
+            . ($App.FunctionsPath + "Invoke-Function.ps1")
+            . ($App.FunctionsPath + "Functions.ps1")
+            . ($App.FunctionsPath + "Import-Configs.ps1")
+            . ($App.FunctionsPath + "Export-Import.ps1")
 
-            $App.AppsToInstall = New-Object System.Collections.Generic.List[System.Object]
-            $App.FunctionsToRun = New-Object System.Collections.Generic.List[System.Object]
-            $App.ConfigsToApply = New-Object System.Collections.Generic.List[System.Object]
-            $App.FoldersToMove = New-Object System.Collections.Generic.List[System.Object]
-            $App.SelectedButtons | ForEach-Object {
-                if ($_ -like "App*") {
-                    $SourceList = "AppsList"
-                }
-                elseif ($_ -like "Extra*") {
-                    $SourceList = "ExtraList"
+            $App.WingetApps = New-Object System.Collections.Generic.List[System.Object]
+            
+            $App.SelectedButtons = $App.SelectedButtons | Sort-Object {[regex]::Replace($_, '\d+',{$args[0].Value.Padleft(20)})}
+            $App.SelectedButtonsSorted = New-Object System.Collections.Generic.List[System.Object]
+            $App.SelectedButtons | ForEach-Object {$App.SelectedButtonsSorted.Add($_)}
+
+            # Apps
+            $App.SelectedButtons | Select-String "App*" | ForEach-Object {
+                Update-GUI Apps IsChecked $true
+                if ($App.AppsList.$_.Source -in @('Winget','.exe','.appx')) {
+                    Install-App -Item $_ -List 'AppsList'
                 }
                 else {
-                    $SourceList = "UtilitiesList"
+                    Invoke-Function -Item $_ -List 'AppsList'
                 }
+            }
 
-                if (($App.$SourceList.$_.Source -eq "Winget") -or ($App.$SourceList.$_.Source -eq ".exe") -or ($App.$SourceList.$_.Source -eq ".appx")) {
-                    $App.AppsToInstall.Add($_)
-                }
-                elseif ($_ -like "Tweak*") {
-                    $App.FunctionsToRun.Add($_)
-                }
-                elseif (($App.$SourceList.$_.FunctionName).Length -gt 0) {
-                    $App.FunctionsToRun.Add($_)
-                }
-                elseif ($_ -like "Config*") {
-                    $App.FunctionsToRun.Add($_)
-                }
-                elseif (($_ -eq "Export") -or ($_ -eq "Import")) {
-                    $App.Download.DownloadFile(($App.GitHubPath + "Functions/Export-Import.ps1"), ($App.FunctionsPath + "Export-Import.ps1"))
-                    . ($App.FunctionsPath + "Export-Import.ps1")
-                    if ($_ -eq "Export") {
-                        & Export-Import -Export
+            # Check Winget install after Apps tab is finish
+            if ($App.WingetApps.Count -gt 0) {
+                $getEncoding = [Console]::OutputEncoding
+                [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
+                $WingetList = winget list -s winget | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
+                $WingetList += winget list -s msstore | Select-Object -Skip 4 | ConvertFrom-String -PropertyNames "Name", "Id", "Version", "Available" -Delimiter '\s{2,}'
+
+                [Console]::OutputEncoding = $getEncoding
+
+                $i = 1
+                $App.WingetApps | ForEach-Object {
+                    if ($App.WingetApps.Count -eq 1) {
+                        Write-UserOutput -Message ("Comprobando instalación de " + $App.AppsList.$_.Name)
                     }
                     else {
-                        & Export-Import -Import
+                        Write-UserOutput -Message ("Comprobando instalación de " + $App.AppsList.$_.Name) -Progress ("$i de " + $App.WingetApps.Count)
                     }
+    
+                    if (!($WingetList.Id -contains $App.AppsList.$_.Installer)) {
+                        Update-GUI $_ Foreground Red
+                    }
+                    $i++          
                 }
-                elseif ($_ -like "*Folder") {
-                    $App.FoldersToMove.Add($_)
-                }
-                elseif ($_ -like "Disk*") {
-                    $App.SelectedDisk = $_
-                }
-                elseif ($_ -like "IP*") {
-                    $App.SelectedIP = $_
-                }
-                elseif ($_ -like "DNS*") {
-                    $App.SelectedDNS = $_
-                }
-            }
-            
-            # Calling app installer
-            if ($App.AppsToInstall.Count -gt 0) {
-                . ($App.FunctionsPath + "Install-App.ps1")
-                Install-App
             }
 
-            # Calling function invoker
-            if ($App.FunctionsToRun.Count -gt 0) {
-                . ($App.FunctionsPath + "Invoke-Function.ps1")
-                Invoke-Function
+            # Tweaks
+            $App.SelectedButtons | Select-String "Tweak*" | ForEach-Object {
+                Update-GUI Tweaks IsChecked $true
+                Invoke-Function -Item $_ -List 'TweaksList'
             }
 
-            # Moving selected folders
+            # Extra
+            $App.SelectedButtons | Select-String "Extra*" | ForEach-Object {
+                Update-GUI Extra IsChecked $true
+                if ($App.ExtraList.$_.Source -in @('.Winget','.exe','.appx')) {
+                    Install-App -Item $_ -List 'ExtraList'
+                }
+                else {
+                    Invoke-Function -Item $_ -List 'ExtraList'
+                }
+            }
+
+            # Utilities
+            $App.SelectedButtons | Select-String "Utility*" | ForEach-Object {
+                Update-GUI Utilities IsChecked $true
+                if ($App.UtilitiesList.$_.Source -in @('.Winget','.exe','.appx')) {
+                    Install-App -Item $_ -List 'UtilitiesList'
+                }
+                else {
+                    Invoke-Function -Item $_ -List 'UtilitiesList'
+                }
+            }
+
+            # Configs
+            $App.SelectedButtons | Select-String "Config*" | ForEach-Object {
+                Update-GUI Configs IsChecked $true
+                Invoke-Function -Item $_ -List 'ConfigsList'
+            }
+
+            # Export or Import buttons
+            switch ($App.SelectedButtons | Select-String ".*port") {
+                'Export' {Update-GUI Configs IsChecked $true ; Export-Import -Export}
+                'Import' {Update-GUI Configs IsChecked $true ; Export-Import -Import}
+            }
+
+            # User folders
+            $App.FoldersToMove = New-Object System.Collections.Generic.List[System.Object]
+            $App.FoldersToMove.Add(($App.SelectedButtons | Select-String ".*Folder"))
+            $App.SelectedDisk = ($App.SelectedButtons | Select-String "Disk*")
             if (($App.FoldersToMove.Count -gt 0) -and ($App.SelectedDisk.Count -gt 0)) {
                 . ($App.FunctionsPath + "Move-UserFolders.ps1")
                 Move-UserFolders
             }
+
+            # Net config
+            $App.SelectedIP = ($App.SelectedButtons | Select-String "IP*")
+            $App.SelectedDNS = ($App.SelectedButtons | Select-String "DNS*")
 
             if (($App.SelectedIP.Count -gt 0) -or ($App.SelectedDNS.Count -gt 0) -or ($App.CustomIP -gt 0) -or ($App.CustomDNS1 -gt 0)) {
                 . ($App.FunctionsPath + "Set-NetConfig.ps1")
@@ -314,17 +345,19 @@ $PwShellGUI.AddScript({
 
             # Resetting buttons
             function Reset-Buttons {
-                $App.SelectedButtons | ForEach-Object {
+                $App.SelectedButtonsSorted | ForEach-Object {
                     Update-GUI $_ IsChecked $false
                 }
-                if ($App.SelectedButtons.Length -gt 0) {
-                    & Reset-Buttons
-                }
             }
-            & Reset-Buttons
+
+            while ($App.SelectedButtonsSorted.Length -gt 0) {
+                Reset-Buttons
+            }
+     
+            $App.SelectedButtons = New-Object System.Collections.Generic.List[System.Object]
 
             Update-GUI StartScript Content "INICIAR SCRIPT"
-            Update-GUI StartScript Background $App.HoverColor
+            Update-GUI StartScript Background "Transparent"
             Update-GUI OutputBox Text "Script finalizado"
             "Script finalizado" | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
             Focus-Window "ZKTool"
@@ -344,7 +377,7 @@ $PwShellGUI.AddScript({
         Start-Process Powershell -WindowStyle Hidden {
             Start-Sleep .5
             Get-Process "ZKTool" | Stop-Process
-            Start-Sleep 10
+            Start-Sleep 2
             Remove-Item -Path "$env:temp\ZKTool\Files" -Recurse -Force
         }
     })
