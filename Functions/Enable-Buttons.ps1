@@ -131,6 +131,7 @@ $App.ListItemsNames | ForEach-Object {
     })
     $App.$_.Add_Unchecked({
         $App.SelectedButtons.Remove($this.Name)
+        $App.SelectedButtonsSorted.Remove($this.Name)
     })
 }
 
@@ -146,6 +147,7 @@ $App.ListItemsNames | ForEach-Object {
     })
     $App.$_.Add_Unchecked({
         $App.SelectedButtons.Remove($this.Name)
+        $App.SelectedButtonsSorted.Remove($this.Name)
     })
 }
 
@@ -183,6 +185,7 @@ $App.DisksList | ForEach-Object {
     })
     $App.$_.Add_Unchecked({
         $App.SelectedButtons.Remove($this.Name)
+        $App.SelectedButtonsSorted.Remove($this.Name)
     })
 }
 
@@ -236,6 +239,7 @@ $App.IPList | ForEach-Object {
     })
     $App.$_.Add_Unchecked({
         $App.SelectedButtons.Remove($this.Name)
+        $App.SelectedButtonsSorted.Remove($this.Name)
     })
 }
 
@@ -252,6 +256,7 @@ $DNSList | ForEach-Object {
     })
     $App.$_.Add_Unchecked({
         $App.SelectedButtons.Remove($this.Name)
+        $App.SelectedButtonsSorted.Remove($this.Name)
     })
 }
 
