@@ -222,7 +222,7 @@ $App.ApplyTheme.Add_Click({
     Set-AccentColor
     Set-SelectedWallpaper
 
-    RUNDLL32.EXE USER32.DLL,UpdatePerUserSystemParameters 1, True
+    Get-Process "Explorer" | Stop-Process
 })
 
 Get-CurrentPreset
