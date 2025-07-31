@@ -17,6 +17,16 @@
         'Videos'    = '18989B1D-99B5-455B-841C-AB7C74E4DDFC';
         'Music'     = '4BD8D571-6D19-48D3-BE97-422220080E43';
     }
+
+    # Get current known folder paths
+    $KnownFoldersPaths = @{
+        'Desktop'   = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Desktop"
+        'Downloads' = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "{374DE290-123F-4565-9164-39C4925E467B}"
+        'Documents' = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
+        'Pictures'  = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "My Pictures"
+        'Videos'    = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "My Video"
+        'Music'     = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "My Music"
+    }    
     
     # Define SHSetKnownFolderPath if it hasn't been defined already
     $Type1 = ([System.Management.Automation.PSTypeName]'KnownFolders').Type
@@ -48,15 +58,14 @@
     attrib +r $Path
     $Type2::SHChangeNotify(0x8000000, 0x1000, 0, 0)
 
-    $Leaf = Split-Path -Path "$Path" -Leaf
-    Move-Item "$HOME\$Leaf\desktop.ini" $Path -Force
-    Move-Item "$HOME\$Leaf\*" $Path -Force
-    Remove-Item $HOME\$Leaf -Recurse -Force
+    Move-Item -Path ($KnownFoldersPaths[$KnownFolder] + "\desktop.ini") -Destination $Path -Force
+    Move-Item -Path ($KnownFoldersPaths[$KnownFolder] + "\*") -Destination $Path -Force
+    Remove-Item -Path $KnownFoldersPaths[$KnownFolder] -Recurse -Force
 }
 
 
 
-$SelectedDisk = $App.($App.SelectedDisk + "Label")
+$SelectedDisk = $App.([String]$App.SelectedDisk + "Label")
 
 $App.FoldersToMove | ForEach-Object {
     Write-UserOutput ("Moviendo carpeta " + ($_ -replace ('Folder','')) + " a (" + $SelectedDisk + ":)")
