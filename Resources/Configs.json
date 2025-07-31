@@ -10,6 +10,11 @@
         "Image": "ApexLegends.ico"
     },
     "Config3": {
+        "Name": "PUBG",
+        "FunctionName": "PUBG",
+        "Image": "PUBG.png"
+    },
+    "Config4": {
         "Name": "Black Ops 6",
         "FunctionName": "BlackOps6",
         "Image": "BO6.png"
@@ -23,6 +28,11 @@
         "Name": "Marvel Rivals",
         "FunctionName": "MarvelRivals",
         "Image": "MarvelRivals.png"
+    },
+    "Config7": {
+        "Name": "Counter Strike 2",
+        "FunctionName": "CS2",
+        "Image": "CS2.png"
     },
     "Config9": {
         "Name": "Plutonium",

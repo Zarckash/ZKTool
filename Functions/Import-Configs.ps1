@@ -20,10 +20,16 @@ function ApexLegends {
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config2.Name + " aplicada")
 }
 
+function PUBG {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PUBG.zip"), ($App.FilesPath + "PUBG.zip"))
+    Expand-Archive -Path ($App.FilesPath + "PUBG.zip") -DestinationPath "$env:localappdata\TslGame\Saved\Config\WindowsNoEditor" -Force
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
+}
+
 function BlackOps6 {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BO6.zip"), ($App.FilesPath + "BO6.zip"))
     Expand-Archive -Path (($App.FilesPath + "BO6.zip")) -DestinationPath "$DocumentsPath\Call of Duty\players\" -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config4.Name + " aplicada")
 }
 
 function DeltaForce {
@@ -44,6 +50,15 @@ function MarvelRivals {
     Expand-Archive -Path ($App.FilesPath + "MarvelRivals.zip") -DestinationPath "$env:localappdata\Marvel\Saved\Config\Windows" -Force
 
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config6.Name + " aplicada")
+}
+
+function CS2 {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/CS2.zip"), ($App.FilesPath + "CS2.zip"))
+    $UserIds = Get-ChildItem "C:\Program Files (x86)\Steam\userdata" -Directory
+    $UserIds.Name | ForEach-Object {
+        Expand-Archive -Path ($App.FilesPath + "CS2.zip") -DestinationPath "C:\Program Files (x86)\Steam\userdata\$_\730\local" -Recurse -Force
+    }
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config7.Name + " aplicada")
 }
 
 function Plutonium {
