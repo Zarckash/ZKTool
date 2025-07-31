@@ -151,7 +151,7 @@ $App.ListItemsNames | ForEach-Object {
     })
 }
 
-$ToExportText = @("Documentos","Partidas guardadas","OBS","PUBG","Ready Or Not","Spotify","CSGO","Valorant","League of Legends","MSI Afterburner","RivaTuner")
+$ToExportText = @("Documentos","Partidas guardadas","OBS","PUBG","Ready Or Not","Spotify","CS2","Valorant","League of Legends","MSI Afterburner","RivaTuner")
 for ($i = 0; $i -lt $ToExport.Count; $i++) {
     Update-GUI $ToExport[$i] Text $ToExportText[$i]
 }
