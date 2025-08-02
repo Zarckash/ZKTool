@@ -18,11 +18,17 @@
         "Preset": "True"
     },
     "Extra4": {
+        "Name": "NET Runtime",
+        "Installer": "Microsoft.DotNet.DesktopRuntime.7",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
+    "Extra5": {
         "Name": "Extensiones de vídeo",
         "FunctionName": "VideoExtensions",
         "Preset": "True"
     },
-    "Extra5": {
+    "Extra6": {
         "Name": "Actualizar drivers GPU",
         "FunctionName": "UpdateGPUDrivers",
         "Preset": "True"
