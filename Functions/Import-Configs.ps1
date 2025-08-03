@@ -8,7 +8,7 @@ function Find-GamePath {
     $GetDisk = Get-Volume | Where-Object {(($_.DriveType -eq "Fixed") -and ($_.DriveLetter -like "?") -and ($_.FileSystemLabel -notlike ""))} | Sort-Object -Property DriveLetter | Select-Object -ExpandProperty DriveLetter
 
     $GetDisk | ForEach-Object {
-        $GameInstallPath += Get-ChildItem ("$_" + ":") -Recurse -Directory | Where-Object {($_.Name -Like $Name) -and ($_.FullName -notmatch "Documents|Videos")}
+        $GameInstallPath += Get-ChildItem ("$_" + ":") -Recurse -Directory | Where-Object {($_.Name -eq $Name) -and ($_.FullName -notmatch "Documents|Videos")}
     }
 
     return $GameInstallPath.FullName
