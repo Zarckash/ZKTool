@@ -1,16 +1,27 @@
 ﻿$DocumentsPath = Get-ItemPropertyValue -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Personal"
-$SteamPath = (Get-Content "${env:ProgramFiles(x86)}\Steam\config\libraryfolders.vdf" | Select-String "Path") -replace '"Path"','' -replace "`t","" -replace '"','' -replace '\\\\','\' | ForEach-Object {"$_\steamapps\common\"}
-$GetDisk = Get-Volume | Where-Object {(($_.DriveType -eq "Fixed") -and ($_.DriveLetter -like "?") -and ($_.FileSystemLabel -notlike ""))} | Sort-Object -Property DriveLetter | Select-Object -ExpandProperty DriveLetter
+
+function Find-GamePath {
+    param (
+        $Name
+    )
+    
+    $GetDisk = Get-Volume | Where-Object {(($_.DriveType -eq "Fixed") -and ($_.DriveLetter -like "?") -and ($_.FileSystemLabel -notlike ""))} | Sort-Object -Property DriveLetter | Select-Object -ExpandProperty DriveLetter
+
+    $GetDisk | ForEach-Object {
+        $GameInstallPath += Get-ChildItem ("$_" + ":") -Recurse -Directory | Where-Object {($_.Name -Like $Name) -and ($_.FullName -notmatch "Documents|Videos")}
+    }
+
+    return $GameInstallPath.FullName
+}
 
 function BattlefieldLabs {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BattlefieldLabs.zip"), ($App.FilesPath + "BattlefieldLabs.zip"))
     Expand-Archive -Path (($App.FilesPath + "BattlefieldLabs.zip")) -DestinationPath "$DocumentsPath\Battlefield Labs\settings\" -Force
 
-    $GetDisk | ForEach-Object {
-        $GameInstallPath += Get-ChildItem ("$_" + ":") -Recurse -Directory | Where-Object {($_.Name -Like "Battlefield Labs") -and ($_.FullName -notmatch "Documents|Videos")}
+    Find-GamePath -Name "Battlefield Labs" | ForEach-Object {
+        Copy-Item -Path "$DocumentsPath\Battlefield Labs\settings\user.cfg" -Destination $_
     }
 
-    Copy-Item -Path "$DocumentsPath\Battlefield Labs\settings\user.cfg" -Destination ($GameInstallPath.FullName + "\user.cfg")
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
 }
 
@@ -35,11 +46,8 @@ function BlackOps6 {
 function DeltaForce {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/DeltaForce.zip"), ($App.FilesPath + "DeltaForce.zip"))
 
-    $SteamPath | ForEach-Object {
-        if (Test-Path ($_ + "Delta Force")) {
-            $DeltaForcePath = ($_ + "Delta Force\Game\DeltaForce\Saved\Config\WindowsClient")
-            Expand-Archive -Path ($App.FilesPath + "DeltaForce.zip") -DestinationPath $DeltaForcePath -Force
-        }
+    Find-GamePath -Name "Delta Force" | ForEach-Object {
+        Expand-Archive -Path ($App.FilesPath + "DeltaForce.zip") -DestinationPath ($_ + "\Game\DeltaForce\Saved\Config\WindowsClient")
     }
 
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config5.Name + " aplicada")
