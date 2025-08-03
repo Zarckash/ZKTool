@@ -154,7 +154,7 @@ function RegistryTweaks {
     powercfg -delete 77777777-7777-7777-7777-777777777777 # Remove Bitsum Profile
     powercfg -h off
     powercfg -change monitor-timeout-ac 15
-    powercfg -change standby-timeout-ac 0
+    powercfg -change standby-timeout-ac 30
 
     # Windows Defender Exclusions
     Write-UserOutput "Añadiendo exclusiones a Windows Defender"
