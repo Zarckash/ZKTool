@@ -14,6 +14,17 @@ function Find-GamePath {
     return $GameInstallPath.FullName
 }
 
+function Battlefield6Beta {
+    $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Battlefield6Beta.zip"), ($App.FilesPath + "Battlefield6Beta.zip"))
+    Expand-Archive -Path (($App.FilesPath + "Battlefield6Beta.zip")) -DestinationPath "$DocumentsPath\Battlefield 6 Open Beta\settings\" -Force
+
+    Find-GamePath -Name "Glacier Events" | ForEach-Object {
+        Copy-Item -Path "$DocumentsPath\Battlefield 6 Open Beta\settings\user.cfg" -Destination $_
+    }
+
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
+}
+
 function BattlefieldLabs {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BattlefieldLabs.zip"), ($App.FilesPath + "BattlefieldLabs.zip"))
     Expand-Archive -Path (($App.FilesPath + "BattlefieldLabs.zip")) -DestinationPath "$DocumentsPath\Battlefield Labs\settings\" -Force
@@ -22,25 +33,25 @@ function BattlefieldLabs {
         Copy-Item -Path "$DocumentsPath\Battlefield Labs\settings\user.cfg" -Destination $_
     }
 
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config1.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config2.Name + " aplicada")
 }
 
 function ApexLegends {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/Apex.zip"), ($App.FilesPath + "Apex.zip"))
     Expand-Archive -Path ($App.FilesPath + "Apex.zip") -DestinationPath "$env:userprofile\Saved Games\Respawn\Apex" -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config2.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
 }
 
 function PUBG {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/PUBG.zip"), ($App.FilesPath + "PUBG.zip"))
     Expand-Archive -Path ($App.FilesPath + "PUBG.zip") -DestinationPath "$env:localappdata\TslGame\Saved\Config\WindowsNoEditor" -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config3.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config4.Name + " aplicada")
 }
 
 function BlackOps6 {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/BO6.zip"), ($App.FilesPath + "BO6.zip"))
     Expand-Archive -Path (($App.FilesPath + "BO6.zip")) -DestinationPath "$DocumentsPath\Call of Duty\players\" -Force
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config4.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config5.Name + " aplicada")
 }
 
 function DeltaForce {
@@ -50,14 +61,14 @@ function DeltaForce {
         Expand-Archive -Path ($App.FilesPath + "DeltaForce.zip") -DestinationPath ($_ + "\Game\DeltaForce\Saved\Config\WindowsClient")
     }
 
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config5.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config6.Name + " aplicada")
 }
 
 function MarvelRivals {
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/MarvelRivals.zip"), ($App.FilesPath + "MarvelRivals.zip"))
     Expand-Archive -Path ($App.FilesPath + "MarvelRivals.zip") -DestinationPath "$env:localappdata\Marvel\Saved\Config\Windows" -Force
 
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config6.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config7.Name + " aplicada")
 }
 
 function CS2 {
@@ -66,7 +77,7 @@ function CS2 {
     $UserIds.Name | ForEach-Object {
         Expand-Archive -Path ($App.FilesPath + "CS2.zip") -DestinationPath "C:\Program Files (x86)\Steam\userdata\$_\730\local" -Recurse -Force
     }
-    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config7.Name + " aplicada")
+    Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config8.Name + " aplicada")
 }
 
 function Plutonium {

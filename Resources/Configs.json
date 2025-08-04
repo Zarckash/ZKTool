@@ -1,35 +1,40 @@
 ﻿{
     "Config1": {
+        "Name": "Battlefield 6 Beta",
+        "FunctionName": "Battlefield6Beta",
+        "Image": "BF6.png"
+    },
+    "Config2": {
         "Name": "Battlefield Labs",
         "FunctionName": "BattlefieldLabs",
         "Image": "BFLabs.png"
     },
-    "Config2": {
+    "Config3": {
         "Name": "Apex Legends",
         "FunctionName": "ApexLegends",
         "Image": "ApexLegends.ico"
     },
-    "Config3": {
+    "Config4": {
         "Name": "PUBG",
         "FunctionName": "PUBG",
         "Image": "PUBG.png"
     },
-    "Config4": {
+    "Config5": {
         "Name": "Black Ops 6",
         "FunctionName": "BlackOps6",
         "Image": "BO6.png"
     },
-    "Config5": {
+    "Config6": {
         "Name": "Delta Force",
         "FunctionName": "DeltaForce",
         "Image": "DeltaForce.png"
     },
-    "Config6": {
+    "Config7": {
         "Name": "Marvel Rivals",
         "FunctionName": "MarvelRivals",
         "Image": "MarvelRivals.png"
     },
-    "Config7": {
+    "Config8": {
         "Name": "Counter Strike 2",
         "FunctionName": "CS2",
         "Image": "CS2.png"
