@@ -618,6 +618,16 @@ function NvidiaSettings {
 
     Set-ItemProperty -Path "HKLM:\SOFTWARE\NVIDIA Corporation\Global\NGXCore" -Name "ShowDlssIndicator" -Type DWord -Value 1
 
+    Write-UserOutput "Desactivando HDCP"
+    $ClassGuid = (Get-PnpDevice -Class Display).ClassGuid
+    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
+    if (Test-Path "$RegPath\0000") {
+        Set-ItemProperty -Path "$RegPath\0000" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
+    }
+    elseif (Test-Path "$RegPath\0002") {
+        Set-ItemProperty -Path "$RegPath\0002" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
+    }
+
     & GPUInputLag
     & BlockNvidiaAppUpdates
 }
@@ -1030,14 +1040,10 @@ function UpdateGPUDrivers {
 
     if ($LatestVersion -ge '566.36') {
         $FilesToExtract = "Display.Driver NvApp NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe"
-        $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt','CEF', 'Unified_EULA', 'EULA')
-        $FilesPath = $App.FilesPath + "NVCleanstall\NvApp"
         $DesktopShortcut = ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\NVIDIA App.lnk")
     }
     else {
         $FilesToExtract = "Display.Driver GFExperience NVI2 EULA.txt ListDevices.txt setup.cfg setup.exe"
-        $ExcludeList = @('PrivacyPolicy','locales','EULA.html','EULA.txt')
-        $FilesPath = $App.FilesPath + "NVCleanstall\GFExperience"
         $DesktopShortcut = ([Environment]::GetFolderPath("CommonDesktopDirectory") + "\GeForce Experience.lnk")
     }
     
@@ -1050,16 +1056,6 @@ function UpdateGPUDrivers {
     Write-UserOutput "Desinstalando 7-Zip"
     Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S -Wait
 
-    Write-UserOutput "Desactivando HDCP"
-    $ClassGuid = (Get-PnpDevice -Class Display).ClassGuid
-    $RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\$ClassGuid"
-    if (Test-Path "$RegPath\0000") {
-        Set-ItemProperty -Path "$RegPath\0000" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
-    }
-    elseif (Test-Path "$RegPath\0002") {
-        Set-ItemProperty -Path "$RegPath\0002" -Name "RMHdcpKeyglobZero" -Type DWord -Value 1
-    }
-
     # Check if MSI Afterburner is running
     if ($null -ne (Get-Process "MSIAfterburner")) {
         $MSIABRunning = $true
@@ -1067,7 +1063,7 @@ function UpdateGPUDrivers {
     }
 
     Write-UserOutput "Instalando drivers $LatestVersion"
-    Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
+    Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s -noreboot" -Wait
     Remove-Item $DesktopShortcut
 
     if ($MSIABRunning) {
@@ -1076,7 +1072,6 @@ function UpdateGPUDrivers {
 
     $NewCurrentVersion = (nvidia-smi --query-gpu=driver_version --format=csv)[1]
     "NewCurrentVersion = " + $NewCurrentVersion | Out-File $App.LogPath -Encoding UTF8 -Append
-
 
     if ($NewCurrentVersion -eq $LatestVersion) {
         Write-UserOutput "Drivers $LatestVersion instalados correctamente"
