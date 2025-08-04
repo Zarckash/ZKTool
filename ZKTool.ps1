@@ -249,7 +249,7 @@ $PwShellGUI.AddScript({
             $App.SelectedButtons | ForEach-Object {$App.SelectedButtonsSorted.Add($_)}
 
             # Apps
-            $App.SelectedButtons | Select-String "App*" | ForEach-Object {
+            $App.SelectedButtons | Select-String "App[1-9]" | ForEach-Object {
                 Update-GUI Apps IsChecked $true
                 if ($App.AppsList.$_.Source -in @('Winget','.exe','.appx')) {
                     Install-App -Item $_ -List 'AppsList'
@@ -286,13 +286,13 @@ $PwShellGUI.AddScript({
             }
 
             # Tweaks
-            $App.SelectedButtons | Select-String "Tweak*" | ForEach-Object {
+            $App.SelectedButtons | Select-String "Tweak[1-9]" | ForEach-Object {
                 Update-GUI Tweaks IsChecked $true
                 Invoke-Function -Item $_ -List 'TweaksList'
             }
 
             # Extra
-            $App.SelectedButtons | Select-String "Extra*" | ForEach-Object {
+            $App.SelectedButtons | Select-String "Extra[1-9]" | ForEach-Object {
                 Update-GUI Extra IsChecked $true
                 if ($App.ExtraList.$_.Source -in @('.Winget','.exe','.appx')) {
                     Install-App -Item $_ -List 'ExtraList'
@@ -303,7 +303,7 @@ $PwShellGUI.AddScript({
             }
 
             # Utilities
-            $App.SelectedButtons | Select-String "Utility*" | ForEach-Object {
+            $App.SelectedButtons | Select-String "Utility[1-9]" | ForEach-Object {
                 Update-GUI Utilities IsChecked $true
                 if ($App.UtilitiesList.$_.Source -in @('.Winget','.exe','.appx')) {
                     Install-App -Item $_ -List 'UtilitiesList'
@@ -314,7 +314,7 @@ $PwShellGUI.AddScript({
             }
 
             # Configs
-            $App.SelectedButtons | Select-String "Config*" | ForEach-Object {
+            $App.SelectedButtons | Select-String "Config[1-9]" | ForEach-Object {
                 Update-GUI Configs IsChecked $true
                 Invoke-Function -Item $_ -List 'ConfigsList'
             }
@@ -328,15 +328,15 @@ $PwShellGUI.AddScript({
             # User folders
             $App.FoldersToMove = New-Object System.Collections.Generic.List[System.Object]
             $App.FoldersToMove.Add(($App.SelectedButtons | Select-String ".*Folder"))
-            $App.SelectedDisk = ($App.SelectedButtons | Select-String "Disk*")
+            $App.SelectedDisk = ($App.SelectedButtons | Select-String "Disk[1-6]")
             if (($App.FoldersToMove.Count -gt 0) -and ($App.SelectedDisk.Count -gt 0)) {
                 . ($App.FunctionsPath + "Move-UserFolders.ps1")
                 Move-UserFolders
             }
 
             # Net config
-            $App.SelectedIP = ($App.SelectedButtons | Select-String "IP*")
-            $App.SelectedDNS = ($App.SelectedButtons | Select-String "DNS*")
+            $App.SelectedIP = ($App.SelectedButtons | Select-String "IP[1-6]")
+            $App.SelectedDNS = ($App.SelectedButtons | Select-String "DNS[1-3]")
 
             if (($App.SelectedIP.Count -gt 0) -or ($App.SelectedDNS.Count -gt 0) -or ($App.CustomIP -gt 0) -or ($App.CustomDNS1 -gt 0)) {
                 . ($App.FunctionsPath + "Set-NetConfig.ps1")
