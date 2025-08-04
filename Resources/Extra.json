@@ -12,17 +12,6 @@
         "Arguments": "/aiV /gm2",
         "Preset": "True"
     },
-    "Extra3": {
-        "Name": "NET Framework 3.5",
-        "FunctionName": "NETFramework",
-        "Preset": "True"
-    },
-    "Extra4": {
-        "Name": "NET Runtime",
-        "Installer": "Microsoft.DotNet.DesktopRuntime.7",
-        "Output": "Instalando ",
-        "Source": "Winget"
-    },
     "Extra5": {
         "Name": "Extensiones de vídeo",
         "FunctionName": "VideoExtensions",
@@ -48,6 +37,17 @@
         "Source": ".exe",
         "Arguments": "/N"
     },
+    "Extra11": {
+        "Name": "NET Framework 3.5",
+        "FunctionName": "NETFramework",
+        "Preset": "True"
+    },
+    "Extra12": {
+        "Name": "NET Runtime",
+        "Installer": "Microsoft.DotNet.DesktopRuntime.7",
+        "Output": "Instalando ",
+        "Source": "Winget"
+    },
     "Extra17": {
         "Name": "Drivers de Red I219-V",
         "FunctionName": "LanDriversI219V"
@@ -67,9 +67,5 @@
     "Extra21": {
         "Name": "Instalar FFMPEG",
         "FunctionName": "InstallFFMPEG"
-    },
-    "Extra22": {
-        "Name": "BlockNvidiaAppUpdates",
-        "FunctionName": "Bloquear NVIDIA App"
     }
 }
