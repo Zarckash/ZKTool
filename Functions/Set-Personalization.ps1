@@ -19,6 +19,7 @@ function Script:Set-Color {
         $ControlName
     )
 
+    $ColorDialog.Color = (Get-Variable "$($ControlName)Background").Value
     $Dialog = $ColorDialog.ShowDialog()
 
     if ($Dialog -eq 'Cancel') {
@@ -47,6 +48,7 @@ function Script:Set-Color {
     }
 
     Update-GUI $ControlName Background $SelectedColor
+    (Get-Variable "$($ControlName)Background").Value = $SelectedColor
 }
 
 $Script:Colors = @('ColorBox1','ColorBox2','ColorBox3','ColorBox4','ColorBox5')
@@ -111,9 +113,13 @@ function Script:Get-AccentColor {
 
 function Script:Get-CurrentPreset {
     Update-GUI ColorBox1 Background (Get-AccentColor -Color 2)
+    $Script:ColorBox1Background = (Get-AccentColor -Color 2)
     Update-GUI ColorBox2 Background (Get-AccentColor -Color 1)
+    $Script:ColorBox2Background = (Get-AccentColor -Color 1)
     Update-GUI ColorBox3 Background (Get-AccentColor -Color 6)
+    $Script:ColorBox3Background = (Get-AccentColor -Color 6)
     Update-GUI ColorBox4 Background (Get-AccentColor -Color 5)
+    $Script:ColorBox4Background = (Get-AccentColor -Color 5)
 
     $RGB = ((Get-ItemPropertyValue -Path "HKCU:\Control Panel\Colors" -Name "HotTrackingColor") -replace ' ',',') -split ','
     $Red = [convert]::Tostring($RGB[0], 16)
@@ -130,6 +136,7 @@ function Script:Get-CurrentPreset {
     }
     $RGBColorToHex = "#" + $Red + $Green + $Blue
     Update-GUI ColorBox5 Background $RGBColorToHex.ToUpper()
+    $Script:ColorBox5Background = $RGBColorToHex.ToUpper()
 
     Copy-Item -Path (((Get-Monitor)[0] | Get-Wallpaper).Path) -Destination ($App.FilesPath + "Wallpapers\CurrentWallpaper1.jpg") -Force
     $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\CurrentWallpaper1.jpg")
@@ -237,6 +244,7 @@ $App.PresetsList.psobject.properties.name | ForEach-Object {
     $App.$_.Add_Click({
         $Colors | ForEach-Object {
             Update-GUI $_ Background $App.PresetsList.($this.Name).$_
+            (Get-Variable "$($_)Background").Value = $App.PresetsList.($this.Name).$_
         }
 
         $App.Wallpaper1 = ($App.FilesPath + "Wallpapers\" + $App.PresetsList.($this.Name).Wallpaper)
