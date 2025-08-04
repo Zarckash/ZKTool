@@ -95,7 +95,7 @@
                         VerticalAlignment="Center"
                         Panel.ZIndex="10"
                         BorderBrush="{DynamicResource AppAccentColor}"
-                        BorderThickness="1.5"
+                        BorderThickness="2"
                         CornerRadius="21" />
                     <Button 
                         x:Name="ZKToolLogoButton"
