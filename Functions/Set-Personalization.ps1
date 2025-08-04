@@ -29,7 +29,7 @@ function Script:Set-Color {
     $SelectedColor = $ColorDialog.Color.Name
 
     switch ($SelectedColor) {
-        Black       { $SelectedColor = "#FF0000" }
+        Black       { $SelectedColor = "#000000" }
         DarkBlue    { $SelectedColor = "#00008B" }
         DarkGreen   { $SelectedColor = "#006400" }
         DarkCyan    { $SelectedColor = "#008B8B" }
