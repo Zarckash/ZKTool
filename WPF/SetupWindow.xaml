@@ -72,12 +72,12 @@
         <Border
             Width="48"
             Height="48"
-            Margin="11"
+            Margin="11,11,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Panel.ZIndex="10"
             BorderBrush="{DynamicResource AppAccentColor}"
-            BorderThickness="2"
+            BorderThickness="2.8"
             CornerRadius="24" />
 
         <Image

@@ -90,12 +90,12 @@
                     <Border
                         Width="42"
                         Height="42"
-                        Margin="11,0"
+                        Margin="11,-1,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Panel.ZIndex="10"
                         BorderBrush="{DynamicResource AppAccentColor}"
-                        BorderThickness="2"
+                        BorderThickness="2.8"
                         CornerRadius="21" />
                     <Button 
                         x:Name="ZKToolLogoButton"
@@ -108,7 +108,6 @@
                             x:Name="ZKToolLogo"
                             Width="40"
                             Height="40"
-                            Margin=".5,.5,0,0"
                             Opacity="1"
                             Source="C:\Program Files\ZKTool\WPF\Images\ZKTool.png"
                             Style="{DynamicResource ImageQuality}"

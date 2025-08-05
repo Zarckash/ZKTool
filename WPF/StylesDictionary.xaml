@@ -4,7 +4,7 @@
     <SolidColorBrush x:Key="AppItemsColor" Color="#00FF0000" />
     <SolidColorBrush x:Key="AppTextColor" Color="#FFFFFF" />
     <SolidColorBrush x:Key="AppSubTextColor" Color="#C8C8C8" />
-    <SolidColorBrush x:Key="AppAccentColor" Color="#5B5BFF" />
+    <SolidColorBrush x:Key="AppAccentColor" Color="#33CCCC" />
     <SolidColorBrush x:Key="AppHoverColor" Color="#26FFFFFF" />
     <SolidColorBrush x:Key="AppHoverButtonColor" Color="#33FFFFFF" />
     <SolidColorBrush x:Key="AppPressedButtonColor" Color="#1AFFFFFF" />
