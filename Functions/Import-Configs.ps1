@@ -4,6 +4,8 @@ function Find-GamePath {
     param (
         $Name
     )
+
+    Write-UserOutput "Buscando ruta de $Name"
     
     $GetDisk = Get-Volume | Where-Object {(($_.DriveType -eq "Fixed") -and ($_.DriveLetter -like "?") -and ($_.FileSystemLabel -notlike ""))} | Sort-Object -Property DriveLetter | Select-Object -ExpandProperty DriveLetter
 
