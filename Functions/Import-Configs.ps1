@@ -13,7 +13,13 @@ function Find-GamePath {
         $GameInstallPath += Get-ChildItem ("$_" + ":") -Recurse -Directory | Where-Object {($_.Name -eq $Name) -and ($_.FullName -notmatch "Documents|Videos")}
     }
 
-    return $GameInstallPath.FullName
+    if (-not (Test-Path $GameInstallPath.FullName)) {
+        Write-UserOutput "Ruta de $Name no encontrada"
+        exit
+    }
+    else {
+        return $GameInstallPath.FullName
+    }
 }
 
 function Battlefield6Beta {
