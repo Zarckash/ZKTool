@@ -90,7 +90,7 @@
         }
         if (Test-Path $Path.RivaTuner) {
             Write-UserOutput "Exportando RivaTuner"
-            Compress-Archive -Path ($Path.RivaTuner + "\Profiles"),($Path.RivaTuner + "\ProfileTemplates\Config") -DestinationPath ($Path.Compressed + "\RivaTuner.zip")
+            Compress-Archive -Path ($Path.RivaTuner + "\Profiles"),($Path.RivaTuner + "\ProfileTemplates\Config"),($Path.RivaTuner + "\Plugins\Client\Overlays") -DestinationPath ($Path.Compressed + "\RivaTuner.zip")
         }
         if (Test-Path $Path.Peace) {
             Write-UserOutput "Exportando perfil activo de Peace"
@@ -173,6 +173,12 @@
         Write-UserOutput "Descomprimiendo Archivo"
         Expand-Archive -Path ($Path.Temp + "\$env:username" + "Backup.zip") -DestinationPath $Path.Backup -Force
 
+        # Check if MSI Afterburner is running
+        if ($null -ne (Get-Process "MSIAfterburner")) {
+            $MSIABRunning = $true
+            Stop-Process -Name "MSIAfterburner"
+        }
+
         Get-ChildItem -Path $Path.Backup | ForEach-Object {
             Write-UserOutput ("Importando " + $_.BaseName.Replace("Documents","Documentos").Replace("SavedGames","Juegos Guardados").Replace("RoN","Ready Or Not") + "")
             Expand-Archive -Path $_.FullName -DestinationPath $Path.($_.BaseName) -Force
@@ -180,6 +186,12 @@
 
         if (Test-Path ($Path.Backup + "\RivaTuner.zip")) {
             Move-Item -Path ($Path.RivaTuner + "\Config") -Destination ($Path.RivaTuner + "\ProfileTemplates") -Force
+            Move-Item -Path ($Path.RivaTuner + "\Overlays") -Destination ($Path.RivaTuner + "\Plugins\Client\Overlays") -Force
         }
+
+        if ($MSIABRunning) {
+            Start-Process "${env:ProgramFiles(x86)}\MSI Afterburner\MSIAfterburner.exe"
+        }
+
     }
 }
