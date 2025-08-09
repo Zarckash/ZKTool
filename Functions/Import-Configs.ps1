@@ -127,7 +127,7 @@ function RivaTuner {
 
     Move-Item -Path ($App.FilesPath + "RivaTuner\Profiles\*") -Destination $Path -Force
     Move-Item -Path ($App.FilesPath + "RivaTuner\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates' -Force
-    Move-Item -Path ($App.FilesPath + "RivaTuner\default.ovl") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Plugins\Clients\Overlays' -Force
+    Move-Item -Path ($App.FilesPath + "RivaTuner\Overlays\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Plugins\Clients\Overlays' -Force
     Get-ChildItem $Path | ForEach-Object {
         (Get-Content $_.FullName) -replace ('PositionX=.*','PositionX=6') -replace ('PositionY=.*','PositionY=1') -replace ('SyncLimiter=.*','SyncLimiter=3') -replace ('PassiveWait=.*','PassiveWait=0') -replace ('Face=.*','Face=GeForce') -replace ('Weight=.*','Weight=700') | Set-Content $_.FullName
     }
