@@ -102,10 +102,15 @@ function MSIAfterburner {
 }
 
 function RivaTuner {
+    $Path = 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles'
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/RivaTuner.zip"), ($App.FilesPath + "RivaTuner.zip"))
     Expand-Archive -Path ($App.FilesPath + "RivaTuner.zip") -DestinationPath ($App.FilesPath + "RivaTuner") -Force
-    New-Item -Path 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -ItemType Directory | Out-Null
-    Move-Item -Path ($App.FilesPath + "RivaTuner\Profiles\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Profiles' -Force
+    New-Item -Path $Path -ItemType Directory | Out-Null
+    Move-Item -Path ($App.FilesPath + "RivaTuner\Profiles\*") -Destination $Path -Force
     Move-Item -Path ($App.FilesPath + "RivaTuner\Config") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\ProfileTemplates' -Force
+    Move-Item -Path ($App.FilesPath + "RivaTuner\default.ovl") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Plugins\Clients\Overlays' -Force
+    Get-ChildItem $Path | ForEach-Object {
+        (Get-Content $_.FullName) -replace ('PositionX=.*','PositionX=6') -replace ('PositionY=.*','PositionY=1') -replace ('SyncLimiter=.*','SyncLimiter=3') -replace ('PassiveWait=.*','PassiveWait=0') -replace ('Face=.*','Face=GeForce') -replace ('Weight=.*','Weight=700') | Set-Content $_.FullName
+    }
     Write-UserOutput ("Configuracion de " + $App.ConfigsList.Config16.Name + " aplicada")
 }
