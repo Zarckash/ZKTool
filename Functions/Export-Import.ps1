@@ -90,7 +90,7 @@
         }
         if (Test-Path $Path.RivaTuner) {
             Write-UserOutput "Exportando RivaTuner"
-            Compress-Archive -Path ($Path.RivaTuner + "\Profiles"),($Path.RivaTuner + "\ProfileTemplates\Config"),($Path.RivaTuner + "\Plugins\Client\Overlays"),($Path.RivaTuner + "\Plugins\Client\HotkeyHandler.cfg") -DestinationPath ($Path.Compressed + "\RivaTuner.zip")
+            Compress-Archive -Path ($Path.RivaTuner + "\Profiles"),($Path.RivaTuner + "\ProfileTemplates\Config"),($Path.RivaTuner + "\Plugins\Client\Overlays"),($Path.RivaTuner + "\Plugins\Client\HotkeyHandler.cfg"),($Path.RivaTuner + "\Plugins\Client\OverlayEditor.cfg") -DestinationPath ($Path.Compressed + "\RivaTuner.zip")
         }
         if (Test-Path $Path.Peace) {
             Write-UserOutput "Exportando perfil activo de Peace"
@@ -187,6 +187,7 @@
         if (Test-Path ($Path.Backup + "\RivaTuner.zip")) {
             Move-Item -Path ($Path.RivaTuner + "\Config") -Destination ($Path.RivaTuner + "\ProfileTemplates") -Force
             Move-Item -Path ($Path.RivaTuner + "\HotkeyHandler.cfg") -Destination ($Path.RivaTuner + "\Plugins\Client") -Force
+            Move-Item -Path ($Path.RivaTuner + "\OverlayEditor.cfg") -Destination ($Path.RivaTuner + "\Plugins\Client") -Force
             Move-Item -Path ($Path.RivaTuner + "\Overlays") -Destination ($Path.RivaTuner + "\Plugins\Client\Overlays") -Force
         }
 
