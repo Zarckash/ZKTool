@@ -1320,6 +1320,25 @@ function HWiNFO {
     Start-Process ($App.FilesPath + "HWiNFO\HWiNFO64.exe")
 }
 
+function StabilityTest {
+    Write-UserOutput "Abriendo Aida64"
+    $App.Download.DownloadFile("https://de1-dl.techpowerup.com/files/UB7gNkYk-kFAEByhi0bMRw/1755152952/aida64extreme770.zip"), ($App.FilesPath + "Aida64.zip")
+    Expand-Archive -Path ($App.FilesPath + "Aida64.zip") -DestinationPath ($App.FilesPath + "Aida64") -Force
+
+    Start-Process ($App.FilesPath + "Aida64\aida64.exe")
+}
+
+function CPUBenchmark {
+    Write-UserOutput "Descargando Cinebench R24"
+    $App.Download.DownloadFile("https://mx-app-blob-prod.maxon.net/mx-package-production/website/windows/maxon/cinebench/Cinebench2024_win_x86_64.zip", ($App.FilesPath + "CinebenchR24.zip"))
+    
+    Write-UserOutput "Extrayendo Cinebench R24"
+    Expand-Archive -Path ($App.FilesPath + "CinebenchR24.zip") -DestinationPath ($App.FilesPath + "CinebenchR24") -Force
+
+    Write-UserOutput "Abriendo Cinebench R24"
+    Start-Process ($App.FilesPath + "CinebenchR24\Cinebench.exe")
+}
+
 function TreeSize {
     Write-UserOutput "Abriendo TreeSize"
     $App.Download.DownloadFile("https://downloads.jam-software.de/treesize_free/TreeSizeFree-Portable.zip", ($App.FilesPath + "TreeSize.zip"))
@@ -1329,46 +1348,6 @@ function TreeSize {
 
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-File $App.LogPath -Encoding UTF8 -Append 
     Remove-Item -Path "HKCR:\Directory\Background\shell\TreeSize Free" -Recurse -Force
-}
-
-function ForceDLAA {
-    & NvidiaSettings
-
-    $NvidiaProfiles = Get-Content -Path ($App.FilesPath + "NvidiaProfiles.nip")
-    $ForceDLAA = @"
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>283385331</SettingID>
-        <SettingValue>3</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>283385332</SettingID>
-        <SettingValue>1</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-      <ProfileSetting>
-        <SettingNameInfo />
-        <SettingID>283385333</SettingID>
-        <SettingValue>1065353216</SettingValue>
-        <ValueType>Dword</ValueType>
-      </ProfileSetting>
-    </Settings>
-  </Profile>
-</ArrayOfProfile>
-"@
-
-    Write-UserOutput "Forzando DLAA globalmente"
-
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\NVIDIA Corporation\Global\NGXCore" -Name "ShowDlssIndicator" -Type DWord -Value 1
-
-    Set-Content -Path ($App.FilesPath + "NvidiaProfiles.nip") -Value (($NvidiaProfiles | Select-Object -SkipLast 3) + $ForceDLAA)
-    & ($App.FilesPath + "ProfileInspector.exe") -SilentImport ($App.FilesPath + "NvidiaProfiles.nip")
-
-    $App.Download.DownloadFile(($App.GitHubFilesPath + "nvngx_dlss.dll"), ($App.FilesPath + "nvngx_dlss.dll"))
-    $DlssDllPath = $App.FilesPath + "nvngx_dlss.dll"
-    Start-Process Explorer -ArgumentList "/select, ""$DlssDllPath"""
 }
 
 function Autounattend {

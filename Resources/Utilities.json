@@ -44,8 +44,12 @@
         "FunctionName": "HWiNFO"
     },
     "Utility14": {
-        "Name": "TreeSize",
-        "FunctionName": "TreeSize"
+        "Name": "Stability Test",
+        "FunctionName": "StabilityTest"
+    },
+    "Utility15": {
+        "Name": "CPU Benchmark",
+        "FunctionName": "CPUBenchmark"
     },
     "Utility17": {
         "Name": "Autoruns",
@@ -69,9 +73,9 @@
         "Output": "Abriendo ",
         "Source": ".exe"
     },
-    "Utility23": {
-        "Name": "Forzar DLAA global",
-        "FunctionName": "ForceDLAA"
+    "Utility21": {
+        "Name": "TreeSize",
+        "FunctionName": "TreeSize"
     },
     "Utility24": {
         "Name": "Autounattend",
