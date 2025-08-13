@@ -1339,6 +1339,14 @@ function CPUBenchmark {
     Start-Process ($App.FilesPath + "CinebenchR24\Cinebench.exe")
 }
 
+function GPUBenchmark {
+    Write-UserOutput "Abriendo FurMark"
+    $App.Download.DownloadFile("https://geeks3d.com/dl/get/815", ($App.FilesPath + "FurMark.zip"))
+    Expand-Archive -Path ($App.FilesPath + "FurMark.zip") -DestinationPath ($App.FilesPath + "FurMark") -Force
+
+    Start-Process ($App.FilesPath + "FurMark\FurMark_win64\FurMark_GUI.exe")    
+}
+
 function TreeSize {
     Write-UserOutput "Abriendo TreeSize"
     $App.Download.DownloadFile("https://downloads.jam-software.de/treesize_free/TreeSizeFree-Portable.zip", ($App.FilesPath + "TreeSize.zip"))

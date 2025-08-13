@@ -51,6 +51,10 @@
         "Name": "CPU Benchmark",
         "FunctionName": "CPUBenchmark"
     },
+    "Utility16": {
+        "Name": "GPU Benchmark",
+        "FunctionName": "GPUBenchmark"
+    },
     "Utility17": {
         "Name": "Autoruns",
         "Installer": "Autoruns.exe",
