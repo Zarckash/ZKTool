@@ -1330,7 +1330,7 @@ function StabilityTest {
 
 function CPUBenchmark {
     Write-UserOutput "Descargando Cinebench R24"
-    $App.Download.DownloadFile("https://files04.tchspt.com/down/Cinebench2024_win_x86_64.zip", ($App.FilesPath + "CinebenchR24.zip"))
+    $App.Download.DownloadFile("http://zktool.ddns.net/files/CinebenchR24", ($App.FilesPath + "CinebenchR24.zip"))
     
     Write-UserOutput "Extrayendo Cinebench R24"
     Expand-Archive -Path ($App.FilesPath + "CinebenchR24.zip") -DestinationPath ($App.FilesPath + "CinebenchR24") -Force
