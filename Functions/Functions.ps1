@@ -1322,7 +1322,7 @@ function HWiNFO {
 
 function StabilityTest {
     Write-UserOutput "Abriendo Aida64"
-    $App.Download.DownloadFile("https://de1-dl.techpowerup.com/files/UB7gNkYk-kFAEByhi0bMRw/1755152952/aida64extreme770.zip"), ($App.FilesPath + "Aida64.zip")
+    $App.Download.DownloadFile("https://de1-dl.techpowerup.com/files/UB7gNkYk-kFAEByhi0bMRw/1755152952/aida64extreme770.zip", ($App.FilesPath + "Aida64.zip"))
     Expand-Archive -Path ($App.FilesPath + "Aida64.zip") -DestinationPath ($App.FilesPath + "Aida64") -Force
 
     Start-Process ($App.FilesPath + "Aida64\aida64.exe")
