@@ -1063,7 +1063,7 @@ function UpdateGPUDrivers {
     }
 
     Write-UserOutput "Instalando drivers $LatestVersion"
-    Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s -noreboot" -Wait
+    Start-Process ($App.FilesPath + "NVCleanstall\setup.exe") -WorkingDirectory ($App.FilesPath + "NVCleanstall") -ArgumentList "-s" -Wait
     Remove-Item $DesktopShortcut
 
     if ($MSIABRunning) {
