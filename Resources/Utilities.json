@@ -53,7 +53,10 @@
     },
     "Utility16": {
         "Name": "GPU Benchmark",
-        "FunctionName": "GPUBenchmark"
+        "Installer": "HeavenBenchmark.exe",
+        "Output": "Abriendo ",
+        "Source": ".exe",
+        "Url": "https://es.download.nvidia.com/nvapp/client/11.0.4.526/NVIDIA_app_v11.0.4.526.exe"
     },
     "Utility17": {
         "Name": "Autoruns",
