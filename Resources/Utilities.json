@@ -56,7 +56,7 @@
         "Installer": "HeavenBenchmark.exe",
         "Output": "Abriendo ",
         "Source": ".exe",
-        "Url": "https://es.download.nvidia.com/nvapp/client/11.0.4.526/NVIDIA_app_v11.0.4.526.exe"
+        "Url": "https://assets.unigine.com/d/Unigine_Heaven-4.0.exe"
     },
     "Utility17": {
         "Name": "Autoruns",
