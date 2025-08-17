@@ -1340,8 +1340,8 @@ function CPUBenchmark {
 }
 
 function GPUBenchmark {
-    Write-UserOutput "Abriendo FurMark"
-    $App.Download.DownloadFile("https://geeks3d.com/dl/get/815", ($App.FilesPath + "FurMark.zip"))
+    Write-UserOutput "Abriendo Unigine Heaven"
+    $App.Download.DownloadFile("https://assets.unigine.com/d/Unigine_Heaven-4.0.exe", ($App.FilesPath + "FurMark.zip"))
     Expand-Archive -Path ($App.FilesPath + "FurMark.zip") -DestinationPath ($App.FilesPath + "FurMark") -Force
 
     Start-Process ($App.FilesPath + "FurMark\FurMark_win64\FurMark_GUI.exe")    
