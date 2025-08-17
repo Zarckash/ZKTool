@@ -447,13 +447,15 @@
                         <ToggleButton x:Name="App23" Style="{DynamicResource AppButtonStyle}" />
                         <ToggleButton x:Name="App24" Style="{DynamicResource AppButtonStyle}" />
                         <ToggleButton x:Name="App25" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App26" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App27" Style="{DynamicResource AppButtonStyle}" />
                         <Label
                             Margin="8,14,8,4"
                             Content="Desarrollo"
                             Style="{DynamicResource CategoryLabelStyle}" />
-                        <ToggleButton x:Name="App26" Style="{DynamicResource AppButtonStyle}" />
-                        <ToggleButton x:Name="App27" Style="{DynamicResource AppButtonStyle}" />
                         <ToggleButton x:Name="App28" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App29" Style="{DynamicResource AppButtonStyle}" />
+                        <ToggleButton x:Name="App30" Style="{DynamicResource AppButtonStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Column="3">
                         <Label Content="Otros" Style="{DynamicResource CategoryLabelStyle}" />
