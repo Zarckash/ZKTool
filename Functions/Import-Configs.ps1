@@ -123,6 +123,7 @@ function RivaTuner {
     if ($null -ne (Get-Process "MSIAfterburner")) {
         $MSIABRunning = $true
         Stop-Process -Name "MSIAfterburner"
+        Start-Sleep 2
     }
 
     Move-Item -Path ($App.FilesPath + "RivaTuner\Profiles\*") -Destination $Path -Force

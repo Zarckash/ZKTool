@@ -177,6 +177,7 @@
         if ($null -ne (Get-Process "MSIAfterburner")) {
             $MSIABRunning = $true
             Stop-Process -Name "MSIAfterburner"
+            Start-Sleep 2
         }
 
         Get-ChildItem -Path $Path.Backup | ForEach-Object {
@@ -188,7 +189,7 @@
             Move-Item -Path ($Path.RivaTuner + "\Config") -Destination ($Path.RivaTuner + "\ProfileTemplates") -Force
             Move-Item -Path ($Path.RivaTuner + "\HotkeyHandler.cfg") -Destination ($Path.RivaTuner + "\Plugins\Client") -Force
             Move-Item -Path ($Path.RivaTuner + "\OverlayEditor.cfg") -Destination ($Path.RivaTuner + "\Plugins\Client") -Force
-            Move-Item -Path ($Path.RivaTuner + "\Overlays") -Destination ($Path.RivaTuner + "\Plugins\Client\Overlays") -Force
+            Move-Item -Path ($Path.RivaTuner + "\Overlays\*") -Destination ($Path.RivaTuner + "\Plugins\Client\Overlays") -Force
         }
 
         if ($MSIABRunning) {
