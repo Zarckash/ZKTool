@@ -42,6 +42,11 @@
         "FunctionName": "HideSystemComponents",
         "Preset": "True"
     },
+    "Tweak14": {
+        "Name": "Ocultar barra de idioma",
+        "FunctionName": "HideKeyboardLanguage",
+        "Preset": "True"
+    },
     "Tweak17": {
         "Name": "Reducir espacio entre iconos",
         "FunctionName": "ReduceIconsSpacing",

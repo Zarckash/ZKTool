@@ -192,6 +192,11 @@ function RegistryTweaks {
     .\SetUserFTA.exe .wav $DefaultBrowser
     .\SetUserFTA.exe .aac $DefaultBrowser
     .\SetUserFTA.exe .flac $DefaultBrowser
+    .\SetUserFTA.exe .zip AppXt05jep6ka4990jb6kx29f9akvjve8xat
+    .\SetUserFTA.exe .rar AppXt05jep6ka4990jb6kx29f9akvjve8xat
+    .\SetUserFTA.exe .7z AppXt05jep6ka4990jb6kx29f9akvjve8xat
+    .\SetUserFTA.exe .tar AppXt05jep6ka4990jb6kx29f9akvjve8xat
+    .\SetUserFTA.exe .tgz AppXt05jep6ka4990jb6kx29f9akvjve8xat
     Pop-Location
     
     # Open File Explorer In This PC Page
@@ -224,18 +229,6 @@ function RegistryTweaks {
     $WinAPIArray::SystemParametersInfo(0x0004, 0, @(0,0,0), 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
     $WinAPI::SystemParametersInfo(0x0071, 0, 10, 2) | Out-File $App.LogPath -Encoding UTF8 -Append 
     Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSensitivity" -Value 10
-
-    # Disable Keyboard Layout Shortcut
-    Write-UserOutput "Desactivando cambio de idioma del teclado"
-    Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Hotkey" -Value 3
-    Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Language Hotkey" -Value 3
-    Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Layout Hotkey" -Value 3
-
-    # Hide Keyboard Layout Icon
-    Write-UserOutput "Ocultando el botón de idioma del teclado"
-    Set-WinLanguageBarOption -UseLegacyLanguageBar
-    New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-File $App.LogPath -Encoding UTF8 -Append
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ShowStatus" -Type DWord -Value 3
     
     # Disable Error Reporting
     Write-UserOutput "Desactivando informar de errores"
@@ -897,6 +890,20 @@ function HideSystemComponents {
         }
         Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$_" -Name "SystemComponent" -Type DWord -Value 1
     }
+}
+
+function HideKeyboardLanguage {
+    # Disable Keyboard Layout Shortcut
+    Write-UserOutput "Desactivando cambio de idioma del teclado"
+    Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Hotkey" -Value 3
+    Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Language Hotkey" -Value 3
+    Set-ItemProperty -Path "HKCU:\Keyboard Layout\Toggle" -Name "Layout Hotkey" -Value 3
+
+    # Hide Keyboard Layout Icon
+    Write-UserOutput "Ocultando el botón de idioma del teclado"
+    Set-WinLanguageBarOption -UseLegacyLanguageBar
+    New-Item -Path "HKCU:\Software\Microsoft\CTF\" -Name "LangBar" | Out-File $App.LogPath -Encoding UTF8 -Append
+    Set-ItemProperty -Path "HKCU:\Software\Microsoft\CTF\LangBar" -Name "ShowStatus" -Type DWord -Value 3
 }
 
 function ReduceIconsSpacing {
