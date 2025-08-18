@@ -12,7 +12,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.5.8"
+$App.Version = "4.5.9"
 
 if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
     Start-Process Powershell -WindowStyle Hidden {
@@ -378,7 +378,7 @@ $PwShellGUI.AddScript({
             Start-Sleep .5
             Get-Process "ZKTool" | Stop-Process
             Start-Sleep 2
-            Remove-Item -Path "$env:temp\ZKTool\Files" -Recurse -Force
+            Remove-Item -Path "$env:temp\ZKTool\Files\*" -Recurse -Force
         }
     })
 
