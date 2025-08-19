@@ -1021,14 +1021,17 @@ function UpdateGPUDrivers {
     $LatestVersion = $WebRequest.IDS.downloadInfo.Version
     $LatestStable = "580.88"
     
+    # FORCING LATEST STABLE
+    $CurrentVersion = $LatestVersion
+    #######
+
     if ($LatestVersion -eq $CurrentVersion) {
-        Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
-        Start-Sleep 1
-        Write-UserOutput "Instalando la ultima versión estable $LatestStable"
+        Write-UserOutput "La versión instalada $CurrentVersion ya es la última" -Delay 1
+        Write-UserOutput "Instalando la ultima versión estable $LatestStable" -Delay 1
         $LatestVersion = $LatestStable
     }
     else {
-        Write-UserOutput "Nueva versión $LatestVersion encontrada"
+        Write-UserOutput "Nueva versión $LatestVersion encontrada" -Delay 1
     }
 
     # Downloading latest Nvidia drivers
@@ -1061,7 +1064,7 @@ function UpdateGPUDrivers {
 
     # Uninstalling 7-Zip
     Write-UserOutput "Desinstalando 7-Zip"
-    Start-Process "C:\Program Files\7-Zip\Uninstall.exe" /S -Wait
+    Start-Process "C:\Program Files\7-Zip\Uninstall.exe" -ArgumentList "/S" -Wait
 
     # Check if MSI Afterburner is running
     if ($null -ne (Get-Process "MSIAfterburner")) {
@@ -1083,10 +1086,8 @@ function UpdateGPUDrivers {
     "NewCurrentVersion = " + $NewCurrentVersion | Out-File $App.LogPath -Encoding UTF8 -Append
 
     if ($NewCurrentVersion -eq $LatestVersion) {
-        Write-UserOutput "Drivers $LatestVersion instalados correctamente"
+        Write-UserOutput "Drivers $LatestVersion instalados correctamente" -Delay 3
     }
-    
-    Start-Sleep 3
 
     & NvidiaSettings
 }
