@@ -1,7 +1,8 @@
 ﻿function Write-UserOutput {
     param (
         [string]$Message,
-        [string]$Progress
+        [string]$Progress,
+        [int]$Delay
     )
 
     $Message += "..."
@@ -12,14 +13,14 @@
         $AddSpaces += " "
     }
 
-    if ($Progress.Length -eq 0) {
-        Update-GUI OutputBox Text $Message
-        $Message | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
-        
+    if ($Progress.Length -gt 0) {
+        $Message += $AddSpaces + $Progress
     }
-    else {
-        Update-GUI OutputBox Text ($Message + $AddSpaces + $Progress)
-        ($Message + $AddSpaces + $Progress) | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
-    }
+    
+    Update-GUI OutputBox Text $Message
+    $Message | Out-File ($App.LogFolder +  "UserOutput.log") -Encoding UTF8 -Append
 
+    if ($Delay -gt 0) {
+        Start-Sleep $Delay
+    }
 }
