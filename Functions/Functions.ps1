@@ -1019,7 +1019,7 @@ function UpdateGPUDrivers {
     $Uri = "https://gfwsl.geforce.com/services_toolkit/services/com/nvidia/services/AjaxDriverService.php?func=DriverManualLookup&psid=120&pfid=929&osID=57&languageCode=1033&isWHQL=1&dch=1&sort1=0&numberOfResults=1"
     $WebRequest = (Invoke-WebRequest -Uri $Uri -Method GET -UseBasicParsing).Content | ConvertFrom-Json
     $LatestVersion = $WebRequest.IDS.downloadInfo.Version
-    $LatestStable = $LatestVersion
+    $LatestStable = "580.88"
     
     if ($LatestVersion -eq $CurrentVersion) {
         Write-UserOutput "La versión instalada $CurrentVersion ya es la última"
