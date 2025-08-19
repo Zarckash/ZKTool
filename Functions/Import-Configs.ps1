@@ -123,6 +123,7 @@ function RivaTuner {
     if ($null -ne (Get-Process "MSIAfterburner")) {
         $MSIABRunning = $true
         Stop-Process -Name "MSIAfterburner"
+        Stop-Process -Name "RTSS"
         Start-Sleep 2
     }
 

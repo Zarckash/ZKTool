@@ -1067,6 +1067,8 @@ function UpdateGPUDrivers {
     if ($null -ne (Get-Process "MSIAfterburner")) {
         $MSIABRunning = $true
         Stop-Process -Name "MSIAfterburner"
+        Stop-Process -Name "RTSS"
+        Start-Sleep 2
     }
 
     Write-UserOutput "Instalando drivers $LatestVersion"
