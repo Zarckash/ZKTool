@@ -53,10 +53,10 @@
     },
     "Utility16": {
         "Name": "GPU Benchmark",
-        "Installer": "HeavenBenchmark.exe",
+        "Installer": "Superposition.exe",
         "Output": "Abriendo ",
         "Source": ".exe",
-        "Url": "https://assets.unigine.com/d/Unigine_Heaven-4.0.exe"
+        "Url": "https://assets.unigine.com/d/Unigine_Superposition-1.1.exe"
     },
     "Utility17": {
         "Name": "Autoruns",
