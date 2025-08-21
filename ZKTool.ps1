@@ -327,7 +327,7 @@ $PwShellGUI.AddScript({
 
             # User folders
             $App.FoldersToMove = New-Object System.Collections.Generic.List[System.Object]
-            $App.FoldersToMove.Add(($App.SelectedButtons | Select-String ".*Folder"))
+            $App.SelectedButtons | Select-String ".*Folder" | ForEach-Object {$App.FoldersToMove.Add($_)}
             $App.SelectedDisk = ($App.SelectedButtons | Select-String "Disk[1-6]")
             if (($App.FoldersToMove.Count -gt 0) -and ($App.SelectedDisk.Count -gt 0)) {
                 . ($App.FunctionsPath + "Move-UserFolders.ps1")
