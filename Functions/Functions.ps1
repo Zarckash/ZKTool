@@ -565,6 +565,8 @@ function RegistryTweaks {
         "vmicshutdown"
         "vmictimesync"
         "vmicvmsession"
+        "GigabyteUpdateService"
+        "AMD External Events Utility"
     )
 
     $Services | ForEach-Object {
@@ -636,6 +638,7 @@ function UninstallXboxGameBar {
         "Microsoft.GamingApp"
         "Microsoft.XboxApp"
         "Microsoft.GamingServices"
+        "Microsoft.Edge.GameAssist"
     )
 
     $XboxApps | ForEach-Object {
@@ -746,6 +749,7 @@ function UninstallBloat {
         "MSTeams"
         "Microsoft.BingSearch"
         "Microsoft.ZuneVideo"
+        "Microsoft.Edge.GameAssist"
     )
 
     $Bloatware | ForEach-Object {
