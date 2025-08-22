@@ -1120,7 +1120,7 @@ function EthernetOptimization {
     Enable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_msclient"
     Enable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_tcpip"
 
-    $NetAdapterName = (Get-NetAdapter).InterfaceDescription | Select-String "Intel*","Realtek*"
+    $NetAdapterName = (Get-NetAdapter).InterfaceDescription | Select-String "Intel*","Realtek*" | Select-String ".*Wi-Fi*" -NotMatch
     $NetAdapterGUIDPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\" + (Get-NetAdapter).InterfaceGuid
     $NetworkPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\000"    
     
