@@ -1026,7 +1026,7 @@ function UpdateGPUDrivers {
     $LatestStable = "580.88"
     
     # FORCING LATEST STABLE
-    $CurrentVersion = $LatestVersion
+    #$CurrentVersion = $LatestVersion
     #######
 
     if ($LatestVersion -eq $CurrentVersion) {
