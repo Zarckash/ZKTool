@@ -1114,6 +1114,21 @@ function VideoExtensions {
     }
 }
 
+function AudioExtensions {
+    param (
+        $AppIds = @('9NVJQJBDKN97', '9N0866FS04W8')
+    )
+    
+    Write-UserOutput "Instalando extensiones de audio"
+
+    $AppIds | ForEach-Object {
+        winget install -h --force --accept-package-agreements --accept-source-agreements -e --id $_ | Out-File ($App.LogFolder + "AppVideoExtensionId_$_" + ".log") -Encoding UTF8 -Append
+    }
+
+    $App.Download.DownloadFile($App.GitHubFilesPath + ".appx\AC4.appx", ($App.FilesPath + "AC4.appx"))
+    Add-AppxPackage ($App.FilesPath + "AC4.appx")
+}
+
 function EthernetOptimization {
     Write-UserOutput "Optimizando ajustes de red"
 

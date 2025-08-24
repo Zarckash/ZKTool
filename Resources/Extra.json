@@ -12,9 +12,14 @@
         "Arguments": "/aiV /gm2",
         "Preset": "True"
     },
-    "Extra5": {
+    "Extra4": {
         "Name": "Extensiones de vídeo",
         "FunctionName": "VideoExtensions",
+        "Preset": "True"
+    },
+    "Extra5": {
+        "Name": "Extensiones de audio",
+        "FunctionName": "AudioExtensions",
         "Preset": "True"
     },
     "Extra6": {
