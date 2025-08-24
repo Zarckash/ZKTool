@@ -133,7 +133,7 @@ function RivaTuner {
     Move-Item -Path ($App.FilesPath + "RivaTuner\OverlayEditor.cfg") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client' -Force
     Move-Item -Path ($App.FilesPath + "RivaTuner\Overlays\*") -Destination 'C:\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client\Overlays' -Force
     Get-ChildItem $Path | ForEach-Object {
-        (Get-Content $_.FullName) -replace ('PositionX=.*','PositionX=1') -replace ('PositionY=.*','PositionY=1') -replace ('SyncLimiter=.*','SyncLimiter=3') -replace ('PassiveWait=.*','PassiveWait=0') -replace ('Face=.*','Face=GeForce') -replace ('Weight=.*','Weight=700') -replace ('ZoomRatio=.*','ZoomRatio=1') | Set-Content $_.FullName
+        (Get-Content $_.FullName) -replace ('PositionX=.*','PositionX=4') -replace ('PositionY=.*','PositionY=4') -replace ('Height=.*','Height=-24') -replace ('SyncLimiter=.*','SyncLimiter=3') -replace ('PassiveWait=.*','PassiveWait=0') -replace ('Face=.*','Face=Adderley Bold') -replace ('Weight=.*','Weight=700') -replace ('ZoomRatio=.*','ZoomRatio=1') | Set-Content $_.FullName
     }
 
     if ($MSIABRunning) {
