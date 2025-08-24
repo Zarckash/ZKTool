@@ -12,7 +12,7 @@ $ProgressPreference = 'SilentlyContinue'
 $WarningPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 
-$App.Version = "4.6.1"
+$App.Version = "4.6.2"
 
 if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -eq $App.Version)) {
     Start-Process Powershell -WindowStyle Hidden {
@@ -133,6 +133,8 @@ $PwShellGUI.AddScript({
     New-Item $App.FilesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
+
+    New-Item ($App.FilesPath + "AppRunning.txt") -ItemType File -Force | Out-Null
 
     function Update-Splash {
         Param (
