@@ -53,6 +53,10 @@
         "Output": "Instalando ",
         "Source": "Winget"
     },
+    "Extra13": {
+        "Name": "SSH & WMIC",
+        "FunctionName":"TerminalCapabilities"
+    },
     "Extra17": {
         "Name": "Drivers de Red I219-V",
         "FunctionName": "LanDriversI219V"

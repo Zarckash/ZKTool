@@ -971,7 +971,6 @@ function WindowsTerminalAppearance {
     if (!($PWSH -eq (Winget list $PWSH | Select-String -Pattern $PWSH | ForEach-Object {$_.Matches} | Select-Object -ExpandProperty Value))) {
         winget install -h --force --accept-package-agreements --accept-source-agreements -e --id Microsoft.PowerShell  | Out-File ($App.LogFolder + "PowerShell7.log") -Encoding UTF8 -Append
     }
-    DISM /Online /Add-Capability /CapabilityName:WMIC~~~~ /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append
     $App.Download.DownloadFile(($App.GitHubFilesPath + ".zip/WindowsTerminalSettings.zip"), ($App.FilesPath + "WindowsTerminalSettings.zip"))
     Remove-Item -Path $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
     Expand-Archive -Path ($App.FilesPath + "WindowsTerminalSettings.zip") -DestinationPath $env:localappdata\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
@@ -1100,6 +1099,12 @@ function NETFramework {
     Write-UserOutput "Instalando NET Framework 3.5"
     Dism /online /Enable-Feature /FeatureName:"NetFx3" | Out-File $App.LogPath -Encoding UTF8 -Append
     Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" | Out-File $App.LogPath -Encoding UTF8 -Append
+}
+
+function TerminalCapabilities {
+    Write-UserOutput "Instalando SSH y WMIC"
+    Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0 | Out-File $App.LogPath -Encoding UTF8 -Append
+    DISM /Online /Add-Capability /CapabilityName:WMIC~~~~ /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append
 }
 
 function VideoExtensions {
