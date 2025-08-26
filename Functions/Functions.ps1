@@ -1104,7 +1104,7 @@ function NETFramework {
 function TerminalCapabilities {
     Write-UserOutput "Instalando SSH y WMIC"
     Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0 | Out-File $App.LogPath -Encoding UTF8 -Append
-    DISM /Online /Add-Capability /CapabilityName:WMIC~~~~ /NoRestart | Out-File $App.LogPath -Encoding UTF8 -Append
+    Add-WindowsCapability -Online -Name WMIC~~~~ | Out-File $App.LogPath -Encoding UTF8 -Append
 }
 
 function VideoExtensions {
@@ -1140,18 +1140,18 @@ function EthernetOptimization {
     (Get-NetAdapter).Name | ForEach-Object {Disable-NetAdapter $_ -Confirm:$false}
 
     # Disable bindings
-    Disable-NetAdapterBinding -Name "Ethernet*" -ComponentID "*"
-    Enable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_msclient"
-    Enable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_tcpip"
+    Disable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_lldp"
+    Disable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_tcpip6"
+    Disable-NetAdapterBinding -Name "Ethernet*" -ComponentID "ms_pacer"
 
-    $NetAdapterName = (Get-NetAdapter).InterfaceDescription | Select-String "Intel*","Realtek*" | Select-String ".*Wi-Fi*" -NotMatch
+    $NetAdapterName = ((Get-NetAdapter).InterfaceDescription | Select-String "Intel*","Realtek*" | Select-String ".*Wi-Fi*" -NotMatch).ToString()
     $NetAdapterGUIDPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\" + (Get-NetAdapter).InterfaceGuid
-    $NetworkPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\000"    
+    $NetworkPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\"
     
     $i = 0
     while ($FoundName -ne $NetAdapterName) {
-        $FoundName = Get-ItemPropertyValue -Path ($NetworkPath + $i) -Name "DriverDesc"
-        $NetAdapterPath = ($NetworkPath + $i)
+        $FoundName = Get-ItemPropertyValue -Path ($NetworkPath + ('{0:d4}' -f $i)) -Name "DriverDesc"
+        $NetAdapterPath = ($NetworkPath + ('{0:d4}' -f $i))
         $i++
     }
 
