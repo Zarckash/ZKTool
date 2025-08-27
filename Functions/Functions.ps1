@@ -1101,10 +1101,14 @@ function NETFramework {
     Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" | Out-File $App.LogPath -Encoding UTF8 -Append
 }
 
-function TerminalCapabilities {
-    Write-UserOutput "Instalando SSH y WMIC"
+function WindowsCapabilities {
+    Write-UserOutput "Activando características de Windows"
     Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0 | Out-File $App.LogPath -Encoding UTF8 -Append
     Add-WindowsCapability -Online -Name WMIC~~~~ | Out-File $App.LogPath -Encoding UTF8 -Append
+    
+    Set-SmbClientConfiguration -EnableInsecureGuestLogons $true -Force
+    Set-SmbClientConfiguration -RequireSecuritySignature $false -Force
+    Set-SmbServerConfiguration -RequireSecuritySignature $false -Force
 }
 
 function VideoExtensions {

@@ -54,8 +54,8 @@
         "Source": "Winget"
     },
     "Extra13": {
-        "Name": "SSH & WMIC",
-        "FunctionName":"TerminalCapabilities"
+        "Name": "Windows Capabilities",
+        "FunctionName":"WindowsCapabilities"
     },
     "Extra17": {
         "Name": "Drivers de Red I219-V",
