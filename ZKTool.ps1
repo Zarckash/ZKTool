@@ -126,7 +126,7 @@ $PwShellGUI.AddScript({
     $App.HoverButtonColor = "#33FFFFFF"
 
     # Resetting log file
-    Get-ChildItem $App.LogFolder -Exclude 'SetupOutput.log' | Remove-Item -Recurse -Force | Out-Null
+    Get-ChildItem $App.LogFolder -Exclude ('SetupOutput.log','SetupErrorOutput.log') | Remove-Item -Recurse -Force | Out-Null
 
     # Creating folders
     New-Item $App.LogFolder -ItemType Directory -Force | Out-Null
@@ -374,6 +374,7 @@ $PwShellGUI.AddScript({
     })
 
     $App.Window.Add_Closing({
+        $error | Out-File ($App.LogFolder + "ZKToolError.log") -Encoding UTF8 -Append
         Start-Process Powershell -WindowStyle Hidden {
             Start-Sleep .5
             Get-Process "ZKTool" | Stop-Process
