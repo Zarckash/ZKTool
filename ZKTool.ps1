@@ -377,6 +377,8 @@ $PwShellGUI.AddScript({
         Start-Process Powershell -WindowStyle Hidden {
             Start-Sleep .5
             Get-Process "ZKTool" | Stop-Process
+            Get-Process "Setup" | Stop-Process
+            Get-Process "SetupTemp" | Stop-Process
             Start-Sleep 2
             Remove-Item -Path "$env:temp\ZKTool\Files\*" -Recurse -Force
         }
