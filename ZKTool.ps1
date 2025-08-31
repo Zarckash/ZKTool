@@ -134,8 +134,6 @@ $PwShellGUI.AddScript({
     New-Item $App.FunctionsPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
     New-Item $App.ResourcesPath -ItemType Directory -Force | Out-File $App.LogPath -Encoding UTF8 -Append
 
-    New-Item ($App.FilesPath + "AppRunning.txt") -ItemType File -Force | Out-Null
-
     function Update-Splash {
         Param (
             $Value
