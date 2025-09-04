@@ -1369,7 +1369,7 @@ function StabilityTest {
 
 function CPUBenchmark {
     Write-UserOutput "Descargando Cinebench R23"
-    $App.Download.DownloadFile("https://ftp.nluug.nl/pub/games/PC/guru3d/benchmark/CB23-Guru3D.com.zip", ($App.FilesPath + "CinebenchR23.zip"))
+    $App.Download.DownloadFile("https://files03.tchspt.com/down/CinebenchR23.2.zip", ($App.FilesPath + "CinebenchR23.zip"))
     
     Write-UserOutput "Extrayendo Cinebench R23"
     Expand-Archive -Path ($App.FilesPath + "CinebenchR23.zip") -DestinationPath ($App.FilesPath + "CinebenchR23") -Force
