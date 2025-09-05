@@ -1369,7 +1369,7 @@ function StabilityTest {
 
 function CPUBenchmark {
     Write-UserOutput "Descargando Cinebench R23"
-    $App.Download.DownloadFile("https://files03.tchspt.com/down/CinebenchR23.2.zip", ($App.FilesPath + "CinebenchR23.zip"))
+    try {Get-WebFile -WebUrl "https://files03.tchspt.com/down/CinebenchR23.2.zip" -Path ($App.FilesPath + "CinebenchR23.zip")} catch {return}
     
     Write-UserOutput "Extrayendo Cinebench R23"
     Expand-Archive -Path ($App.FilesPath + "CinebenchR23.zip") -DestinationPath ($App.FilesPath + "CinebenchR23") -Force
