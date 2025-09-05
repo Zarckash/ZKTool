@@ -1380,7 +1380,9 @@ function CPUBenchmark {
 
 function TreeSize {
     Write-UserOutput "Abriendo TreeSize"
-    $App.Download.DownloadFile("https://downloads.jam-software.de/treesize_free/TreeSizeFree-Portable.zip", ($App.FilesPath + "TreeSize.zip"))
+    
+    try {Get-WebFile -WebUrl "https://downloads.jam-software.de/treesize_free/TreeSizeFree-Portable.zip" -Path ($App.FilesPath + "TreeSize.zip")} catch {return}
+    
     Expand-Archive -Path ($App.FilesPath + "TreeSize.zip") -DestinationPath ($App.FilesPath + "TreeSize") -Force
 
     Start-Process ($App.FilesPath + "TreeSize\TreeSizeFree.exe")
