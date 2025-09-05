@@ -184,7 +184,6 @@ $PwShellGUI.AddScript({
         $Logic = [PowerShell]::Create().AddScript({
             . ($App.FunctionsPath + "Update-GUI.ps1")
             . ($App.FunctionsPath + "Write-UserOutput.ps1")
-            . ($App.FunctionsPath + "Get-WebFile.ps1")
 
             Write-UserOutput "Forzando actualización"
 
@@ -233,6 +232,7 @@ $PwShellGUI.AddScript({
 
             . ($App.FunctionsPath + "Update-GUI.ps1")
             . ($App.FunctionsPath + "Write-UserOutput.ps1")
+            . ($App.FunctionsPath + "Get-WebFile.ps1")
 
             Update-GUI StartScript Background $App.AccentColor
             Update-GUI StartScript Content EJECUTANDO
