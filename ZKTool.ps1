@@ -167,7 +167,7 @@ $PwShellGUI.AddScript({
     })
 
     Update-Splash "Cargando aplicación..."
-    $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons','Get-WebFile')
+    $Functions = @('Update-GUI','Switch-Tab','Enable-Buttons')
     $Functions | ForEach-Object {
         . ($App.FunctionsPath + "$_.ps1")
         & $_
@@ -184,6 +184,7 @@ $PwShellGUI.AddScript({
         $Logic = [PowerShell]::Create().AddScript({
             . ($App.FunctionsPath + "Update-GUI.ps1")
             . ($App.FunctionsPath + "Write-UserOutput.ps1")
+            . ($App.FunctionsPath + "Get-WebFile.ps1")
 
             Write-UserOutput "Forzando actualización"
 
