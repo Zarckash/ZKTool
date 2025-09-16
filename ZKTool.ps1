@@ -21,6 +21,13 @@ if (!((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVers
     exit
 }
 
+if ((Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ZKTool" -Name "DisplayVersion") -ne '4.8') {
+        Start-Process Powershell -WindowStyle Hidden {
+        Start-Process "$env:ProgramFiles\ZKTool\Setup.exe" -ArgumentList "-Uninstall"
+    }
+    exit
+}
+
 $Global:Hash = [Hashtable]::Synchronized(@{})
 $Hash.ZKToolPath = "$env:ProgramFiles\ZKTool\"
 $Hash.GitHubPath = "https://github.com/Zarckash/ZKTool/raw/main/"
