@@ -6,7 +6,7 @@ Start Date: July 7 2021
 ## Usage
 
 ```powershell
-Iwr -useb "https://tinyurl.com/ZKToolInstaller" | Iex
+$ErrorActionPreference  = 'SilentlyContinue' ; Iwr -useb "https://tinyurl.com/InstallZKTool" | Iex
 ```
 
 ## Screenshots
